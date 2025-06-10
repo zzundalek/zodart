@@ -4,7 +4,7 @@ version: 0.1.0
 repository: https://github.com/zzundalek/zodart
 
 environment:
-  sdk: ^3.3.3
+  sdk: ">=3.3.3 <4.0.0"
 
 dependencies:
   fpdart: ^1.1.1
