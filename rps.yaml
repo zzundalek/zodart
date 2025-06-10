@@ -1,0 +1,19 @@
+scripts:
+  analyze:
+    $script: dart analyze
+    $description: Analyze the project's Dart code using the linter
+  test:
+    $script: |
+      dart pub global run coverage:test_with_coverage
+      genhtml coverage/lcov.info -o coverage/html
+    $description: Test the project and output test coverage to /coverage folder.
+  doc:
+    $script: dart doc .
+    $description: Generate HTML documentation using dart doc to /doc/api folder.
+  build:
+    once:
+      $script: dart run build_runner build --delete-conflicting-outputs
+      $description: Runs build_runner once
+    watch:
+      $script: dart run build_runner watch --delete-conflicting-outputs
+      $description: Runs build_runner in watch mode

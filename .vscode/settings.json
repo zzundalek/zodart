@@ -1,0 +1,28 @@
+{
+    "dart.flutterSdkPath": ".fvm/versions/3.27.4",
+    "editor.formatOnSave": true,
+    "files.insertFinalNewline": true,
+    "editor.codeActionsOnSave": {
+      "quickfix.insertSemicolon": "explicit"
+    },
+    "dart.lineLength": 120,
+    "[dart]": {
+      "editor.rulers": [120],
+    },
+    "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "search.exclude": {
+    "doc/": true,
+    "coverage/": true
+    }
+  }
