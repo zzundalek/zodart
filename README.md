@@ -17,10 +17,6 @@ Inspired by [Zod](https://zod.dev/), ZodArt provides a powerful, expressive API 
 
 ## Usage
 
-Try ZodArt **right now** in [DartPad (TODO)](https://dartpad.dev)!
-
-<!-- TODO add the link to the dartpad -->
-
 ### Simple example without freezed
 
 ```dart
