@@ -3,8 +3,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zodart/zodart.dart';
 
-part 'zodart_simple_example.freezed.dart';
-part 'zodart_simple_example.g.dart';
+part 'zodart_example.freezed.dart';
+part 'zodart_example.g.dart';
 
 // Class generated with Freezed to represent the parsed result.
 // Includes a fromJson method for integration with ZodArt.
