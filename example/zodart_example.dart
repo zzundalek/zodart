@@ -1,4 +1,5 @@
-// ignore_for_file: avoid_print
+// Example file
+// ignore_for_file: avoid_print, specify_nonobvious_property_types
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:zodart/zodart.dart';

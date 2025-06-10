@@ -13,7 +13,7 @@ const emptyObject = Object();
 
 /// Object used for testing with overidden identity, hash and toString functions.
 @freezed
-class TestObject with _$TestObject {
+abstract class TestObject with _$TestObject {
   const factory TestObject({
     required String reqStr,
     required int reqInt,

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,87 +10,63 @@ part of 'z_base_config.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ZBaseConfig {
-  List<TransformAny<dynamic, dynamic>> get fns =>
-      throw _privateConstructorUsedError;
-  bool get nullable => throw _privateConstructorUsedError;
-  bool get optional => throw _privateConstructorUsedError;
+  List<TransformAny<dynamic, dynamic>> get fns;
+  bool get nullable;
+  bool get optional;
 
-  @JsonKey(ignore: true)
-  $ZBaseConfigCopyWith<ZBaseConfig> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ZBaseConfigCopyWith<$Res> {
-  factory $ZBaseConfigCopyWith(
-          ZBaseConfig value, $Res Function(ZBaseConfig) then) =
-      _$ZBaseConfigCopyWithImpl<$Res, ZBaseConfig>;
-  @useResult
-  $Res call(
-      {List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional});
-}
-
-/// @nodoc
-class _$ZBaseConfigCopyWithImpl<$Res, $Val extends ZBaseConfig>
-    implements $ZBaseConfigCopyWith<$Res> {
-  _$ZBaseConfigCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of ZBaseConfig
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $ZBaseConfigCopyWith<ZBaseConfig> get copyWith =>
+      _$ZBaseConfigCopyWithImpl<ZBaseConfig>(this as ZBaseConfig, _$identity);
+
   @override
-  $Res call({
-    Object? fns = null,
-    Object? nullable = null,
-    Object? optional = null,
-  }) {
-    return _then(_value.copyWith(
-      fns: null == fns
-          ? _value.fns
-          : fns // ignore: cast_nullable_to_non_nullable
-              as List<TransformAny<dynamic, dynamic>>,
-      nullable: null == nullable
-          ? _value.nullable
-          : nullable // ignore: cast_nullable_to_non_nullable
-              as bool,
-      optional: null == optional
-          ? _value.optional
-          : optional // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ZBaseConfig &&
+            const DeepCollectionEquality().equals(other.fns, fns) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
+            (identical(other.optional, optional) ||
+                other.optional == optional));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(fns), nullable, optional);
+
+  @override
+  String toString() {
+    return 'ZBaseConfig(fns: $fns, nullable: $nullable, optional: $optional)';
   }
 }
 
 /// @nodoc
-abstract class _$$ZBaseConfigImplCopyWith<$Res>
-    implements $ZBaseConfigCopyWith<$Res> {
-  factory _$$ZBaseConfigImplCopyWith(
-          _$ZBaseConfigImpl value, $Res Function(_$ZBaseConfigImpl) then) =
-      __$$ZBaseConfigImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ZBaseConfigCopyWith<$Res> {
+  factory $ZBaseConfigCopyWith(
+          ZBaseConfig value, $Res Function(ZBaseConfig) _then) =
+      _$ZBaseConfigCopyWithImpl;
   @useResult
   $Res call(
       {List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional});
 }
 
 /// @nodoc
-class __$$ZBaseConfigImplCopyWithImpl<$Res>
-    extends _$ZBaseConfigCopyWithImpl<$Res, _$ZBaseConfigImpl>
-    implements _$$ZBaseConfigImplCopyWith<$Res> {
-  __$$ZBaseConfigImplCopyWithImpl(
-      _$ZBaseConfigImpl _value, $Res Function(_$ZBaseConfigImpl) _then)
-      : super(_value, _then);
+class _$ZBaseConfigCopyWithImpl<$Res> implements $ZBaseConfigCopyWith<$Res> {
+  _$ZBaseConfigCopyWithImpl(this._self, this._then);
 
+  final ZBaseConfig _self;
+  final $Res Function(ZBaseConfig) _then;
+
+  /// Create a copy of ZBaseConfig
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -97,17 +74,17 @@ class __$$ZBaseConfigImplCopyWithImpl<$Res>
     Object? nullable = null,
     Object? optional = null,
   }) {
-    return _then(_$ZBaseConfigImpl(
+    return _then(_self.copyWith(
       fns: null == fns
-          ? _value._fns
+          ? _self.fns
           : fns // ignore: cast_nullable_to_non_nullable
               as List<TransformAny<dynamic, dynamic>>,
       nullable: null == nullable
-          ? _value.nullable
+          ? _self.nullable
           : nullable // ignore: cast_nullable_to_non_nullable
               as bool,
       optional: null == optional
-          ? _value.optional
+          ? _self.optional
           : optional // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
@@ -116,8 +93,8 @@ class __$$ZBaseConfigImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ZBaseConfigImpl extends _ZBaseConfig {
-  const _$ZBaseConfigImpl(
+class _ZBaseConfig extends ZBaseConfig {
+  const _ZBaseConfig(
       {required final List<TransformAny<dynamic, dynamic>> fns,
       this.nullable = false,
       this.optional = false})
@@ -139,16 +116,19 @@ class _$ZBaseConfigImpl extends _ZBaseConfig {
   @JsonKey()
   final bool optional;
 
+  /// Create a copy of ZBaseConfig
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ZBaseConfig(fns: $fns, nullable: $nullable, optional: $optional)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ZBaseConfigCopyWith<_ZBaseConfig> get copyWith =>
+      __$ZBaseConfigCopyWithImpl<_ZBaseConfig>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ZBaseConfigImpl &&
+            other is _ZBaseConfig &&
             const DeepCollectionEquality().equals(other._fns, _fns) &&
             (identical(other.nullable, nullable) ||
                 other.nullable == nullable) &&
@@ -160,28 +140,55 @@ class _$ZBaseConfigImpl extends _ZBaseConfig {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_fns), nullable, optional);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'ZBaseConfig(fns: $fns, nullable: $nullable, optional: $optional)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ZBaseConfigCopyWith<$Res>
+    implements $ZBaseConfigCopyWith<$Res> {
+  factory _$ZBaseConfigCopyWith(
+          _ZBaseConfig value, $Res Function(_ZBaseConfig) _then) =
+      __$ZBaseConfigCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional});
+}
+
+/// @nodoc
+class __$ZBaseConfigCopyWithImpl<$Res> implements _$ZBaseConfigCopyWith<$Res> {
+  __$ZBaseConfigCopyWithImpl(this._self, this._then);
+
+  final _ZBaseConfig _self;
+  final $Res Function(_ZBaseConfig) _then;
+
+  /// Create a copy of ZBaseConfig
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$ZBaseConfigImplCopyWith<_$ZBaseConfigImpl> get copyWith =>
-      __$$ZBaseConfigImplCopyWithImpl<_$ZBaseConfigImpl>(this, _$identity);
+  $Res call({
+    Object? fns = null,
+    Object? nullable = null,
+    Object? optional = null,
+  }) {
+    return _then(_ZBaseConfig(
+      fns: null == fns
+          ? _self._fns
+          : fns // ignore: cast_nullable_to_non_nullable
+              as List<TransformAny<dynamic, dynamic>>,
+      nullable: null == nullable
+          ? _self.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      optional: null == optional
+          ? _self.optional
+          : optional // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
-abstract class _ZBaseConfig extends ZBaseConfig {
-  const factory _ZBaseConfig(
-      {required final List<TransformAny<dynamic, dynamic>> fns,
-      final bool nullable,
-      final bool optional}) = _$ZBaseConfigImpl;
-  const _ZBaseConfig._() : super._();
-
-  @override
-  List<TransformAny<dynamic, dynamic>> get fns;
-  @override
-  bool get nullable;
-  @override
-  bool get optional;
-  @override
-  @JsonKey(ignore: true)
-  _$$ZBaseConfigImplCopyWith<_$ZBaseConfigImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

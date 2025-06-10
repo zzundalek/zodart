@@ -1,4 +1,5 @@
-// ignore_for_file: avoid_print, sort_constructors_first
+// Example file
+// ignore_for_file: avoid_print, sort_constructors_first, specify_nonobvious_property_types
 
 import 'package:zodart/zodart.dart';
 

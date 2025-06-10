@@ -6,15 +6,14 @@ part of 'zodart_example.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PersonImpl _$$PersonImplFromJson(Map<String, dynamic> json) => _$PersonImpl(
+_Person _$PersonFromJson(Map<String, dynamic> json) => _Person(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       age: (json['age'] as num?)?.toInt(),
       disabled: json['disabled'] as bool?,
     );
 
-Map<String, dynamic> _$$PersonImplToJson(_$PersonImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PersonToJson(_Person instance) => <String, dynamic>{
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'age': instance.age,

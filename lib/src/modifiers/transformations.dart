@@ -11,7 +11,7 @@ import '../base/base.dart';
 ZRes<int> stringToInt(String val) {
   try {
     return ZRes.success(int.parse(val));
-  } catch (e) {
+  } on Exception catch (e) {
     return ZRes.errorSingleIssue(
       ZIssueParseFail(
         from: String,
@@ -34,7 +34,7 @@ ZRes<int> stringToInt(String val) {
 ZRes<double> stringToDouble(String val) {
   try {
     return ZRes.success(double.parse(val));
-  } catch (e) {
+  } on Exception catch (e) {
     return ZRes.errorSingleIssue(
       ZIssueParseFail(
         from: String,

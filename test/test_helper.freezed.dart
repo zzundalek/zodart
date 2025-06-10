@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,96 +10,57 @@ part of 'test_helper.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$TestObject {
-  String get reqStr => throw _privateConstructorUsedError;
-  int get reqInt => throw _privateConstructorUsedError;
-  String? get nullableStr => throw _privateConstructorUsedError;
-  int? get nullableInt => throw _privateConstructorUsedError;
-  String? get optionalStr => throw _privateConstructorUsedError;
-  int? get optionalInt => throw _privateConstructorUsedError;
+  String get reqStr;
+  int get reqInt;
+  String? get nullableStr;
+  int? get nullableInt;
+  String? get optionalStr;
+  int? get optionalInt;
 
-  @JsonKey(ignore: true)
-  $TestObjectCopyWith<TestObject> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $TestObjectCopyWith<$Res> {
-  factory $TestObjectCopyWith(
-          TestObject value, $Res Function(TestObject) then) =
-      _$TestObjectCopyWithImpl<$Res, TestObject>;
-  @useResult
-  $Res call(
-      {String reqStr,
-      int reqInt,
-      String? nullableStr,
-      int? nullableInt,
-      String? optionalStr,
-      int? optionalInt});
-}
-
-/// @nodoc
-class _$TestObjectCopyWithImpl<$Res, $Val extends TestObject>
-    implements $TestObjectCopyWith<$Res> {
-  _$TestObjectCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of TestObject
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $TestObjectCopyWith<TestObject> get copyWith =>
+      _$TestObjectCopyWithImpl<TestObject>(this as TestObject, _$identity);
+
   @override
-  $Res call({
-    Object? reqStr = null,
-    Object? reqInt = null,
-    Object? nullableStr = freezed,
-    Object? nullableInt = freezed,
-    Object? optionalStr = freezed,
-    Object? optionalInt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      reqStr: null == reqStr
-          ? _value.reqStr
-          : reqStr // ignore: cast_nullable_to_non_nullable
-              as String,
-      reqInt: null == reqInt
-          ? _value.reqInt
-          : reqInt // ignore: cast_nullable_to_non_nullable
-              as int,
-      nullableStr: freezed == nullableStr
-          ? _value.nullableStr
-          : nullableStr // ignore: cast_nullable_to_non_nullable
-              as String?,
-      nullableInt: freezed == nullableInt
-          ? _value.nullableInt
-          : nullableInt // ignore: cast_nullable_to_non_nullable
-              as int?,
-      optionalStr: freezed == optionalStr
-          ? _value.optionalStr
-          : optionalStr // ignore: cast_nullable_to_non_nullable
-              as String?,
-      optionalInt: freezed == optionalInt
-          ? _value.optionalInt
-          : optionalInt // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is TestObject &&
+            (identical(other.reqStr, reqStr) || other.reqStr == reqStr) &&
+            (identical(other.reqInt, reqInt) || other.reqInt == reqInt) &&
+            (identical(other.nullableStr, nullableStr) ||
+                other.nullableStr == nullableStr) &&
+            (identical(other.nullableInt, nullableInt) ||
+                other.nullableInt == nullableInt) &&
+            (identical(other.optionalStr, optionalStr) ||
+                other.optionalStr == optionalStr) &&
+            (identical(other.optionalInt, optionalInt) ||
+                other.optionalInt == optionalInt));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reqStr, reqInt, nullableStr,
+      nullableInt, optionalStr, optionalInt);
+
+  @override
+  String toString() {
+    return 'TestObject(reqStr: $reqStr, reqInt: $reqInt, nullableStr: $nullableStr, nullableInt: $nullableInt, optionalStr: $optionalStr, optionalInt: $optionalInt)';
   }
 }
 
 /// @nodoc
-abstract class _$$TestObjectImplCopyWith<$Res>
-    implements $TestObjectCopyWith<$Res> {
-  factory _$$TestObjectImplCopyWith(
-          _$TestObjectImpl value, $Res Function(_$TestObjectImpl) then) =
-      __$$TestObjectImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $TestObjectCopyWith<$Res> {
+  factory $TestObjectCopyWith(
+          TestObject value, $Res Function(TestObject) _then) =
+      _$TestObjectCopyWithImpl;
   @useResult
   $Res call(
       {String reqStr,
@@ -110,13 +72,14 @@ abstract class _$$TestObjectImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TestObjectImplCopyWithImpl<$Res>
-    extends _$TestObjectCopyWithImpl<$Res, _$TestObjectImpl>
-    implements _$$TestObjectImplCopyWith<$Res> {
-  __$$TestObjectImplCopyWithImpl(
-      _$TestObjectImpl _value, $Res Function(_$TestObjectImpl) _then)
-      : super(_value, _then);
+class _$TestObjectCopyWithImpl<$Res> implements $TestObjectCopyWith<$Res> {
+  _$TestObjectCopyWithImpl(this._self, this._then);
 
+  final TestObject _self;
+  final $Res Function(TestObject) _then;
+
+  /// Create a copy of TestObject
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -127,29 +90,29 @@ class __$$TestObjectImplCopyWithImpl<$Res>
     Object? optionalStr = freezed,
     Object? optionalInt = freezed,
   }) {
-    return _then(_$TestObjectImpl(
+    return _then(_self.copyWith(
       reqStr: null == reqStr
-          ? _value.reqStr
+          ? _self.reqStr
           : reqStr // ignore: cast_nullable_to_non_nullable
               as String,
       reqInt: null == reqInt
-          ? _value.reqInt
+          ? _self.reqInt
           : reqInt // ignore: cast_nullable_to_non_nullable
               as int,
       nullableStr: freezed == nullableStr
-          ? _value.nullableStr
+          ? _self.nullableStr
           : nullableStr // ignore: cast_nullable_to_non_nullable
               as String?,
       nullableInt: freezed == nullableInt
-          ? _value.nullableInt
+          ? _self.nullableInt
           : nullableInt // ignore: cast_nullable_to_non_nullable
               as int?,
       optionalStr: freezed == optionalStr
-          ? _value.optionalStr
+          ? _self.optionalStr
           : optionalStr // ignore: cast_nullable_to_non_nullable
               as String?,
       optionalInt: freezed == optionalInt
-          ? _value.optionalInt
+          ? _self.optionalInt
           : optionalInt // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -158,8 +121,8 @@ class __$$TestObjectImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TestObjectImpl implements _TestObject {
-  const _$TestObjectImpl(
+class _TestObject implements TestObject {
+  const _TestObject(
       {required this.reqStr,
       required this.reqInt,
       this.nullableStr,
@@ -180,16 +143,19 @@ class _$TestObjectImpl implements _TestObject {
   @override
   final int? optionalInt;
 
+  /// Create a copy of TestObject
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'TestObject(reqStr: $reqStr, reqInt: $reqInt, nullableStr: $nullableStr, nullableInt: $nullableInt, optionalStr: $optionalStr, optionalInt: $optionalInt)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$TestObjectCopyWith<_TestObject> get copyWith =>
+      __$TestObjectCopyWithImpl<_TestObject>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TestObjectImpl &&
+            other is _TestObject &&
             (identical(other.reqStr, reqStr) || other.reqStr == reqStr) &&
             (identical(other.reqInt, reqInt) || other.reqInt == reqInt) &&
             (identical(other.nullableStr, nullableStr) ||
@@ -206,36 +172,75 @@ class _$TestObjectImpl implements _TestObject {
   int get hashCode => Object.hash(runtimeType, reqStr, reqInt, nullableStr,
       nullableInt, optionalStr, optionalInt);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'TestObject(reqStr: $reqStr, reqInt: $reqInt, nullableStr: $nullableStr, nullableInt: $nullableInt, optionalStr: $optionalStr, optionalInt: $optionalInt)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$TestObjectCopyWith<$Res>
+    implements $TestObjectCopyWith<$Res> {
+  factory _$TestObjectCopyWith(
+          _TestObject value, $Res Function(_TestObject) _then) =
+      __$TestObjectCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String reqStr,
+      int reqInt,
+      String? nullableStr,
+      int? nullableInt,
+      String? optionalStr,
+      int? optionalInt});
+}
+
+/// @nodoc
+class __$TestObjectCopyWithImpl<$Res> implements _$TestObjectCopyWith<$Res> {
+  __$TestObjectCopyWithImpl(this._self, this._then);
+
+  final _TestObject _self;
+  final $Res Function(_TestObject) _then;
+
+  /// Create a copy of TestObject
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$TestObjectImplCopyWith<_$TestObjectImpl> get copyWith =>
-      __$$TestObjectImplCopyWithImpl<_$TestObjectImpl>(this, _$identity);
+  $Res call({
+    Object? reqStr = null,
+    Object? reqInt = null,
+    Object? nullableStr = freezed,
+    Object? nullableInt = freezed,
+    Object? optionalStr = freezed,
+    Object? optionalInt = freezed,
+  }) {
+    return _then(_TestObject(
+      reqStr: null == reqStr
+          ? _self.reqStr
+          : reqStr // ignore: cast_nullable_to_non_nullable
+              as String,
+      reqInt: null == reqInt
+          ? _self.reqInt
+          : reqInt // ignore: cast_nullable_to_non_nullable
+              as int,
+      nullableStr: freezed == nullableStr
+          ? _self.nullableStr
+          : nullableStr // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nullableInt: freezed == nullableInt
+          ? _self.nullableInt
+          : nullableInt // ignore: cast_nullable_to_non_nullable
+              as int?,
+      optionalStr: freezed == optionalStr
+          ? _self.optionalStr
+          : optionalStr // ignore: cast_nullable_to_non_nullable
+              as String?,
+      optionalInt: freezed == optionalInt
+          ? _self.optionalInt
+          : optionalInt // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
-abstract class _TestObject implements TestObject {
-  const factory _TestObject(
-      {required final String reqStr,
-      required final int reqInt,
-      final String? nullableStr,
-      final int? nullableInt,
-      final String? optionalStr,
-      final int? optionalInt}) = _$TestObjectImpl;
-
-  @override
-  String get reqStr;
-  @override
-  int get reqInt;
-  @override
-  String? get nullableStr;
-  @override
-  int? get nullableInt;
-  @override
-  String? get optionalStr;
-  @override
-  int? get optionalInt;
-  @override
-  @JsonKey(ignore: true)
-  _$$TestObjectImplCopyWith<_$TestObjectImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

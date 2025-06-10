@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,95 +10,88 @@ part of 'z_res.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ZResult<T> {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(T val) value,
-    required TResult Function(List<ZIssue> rawIssues) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T val)? value,
-    TResult? Function(List<ZIssue> rawIssues)? error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T val)? value,
-    TResult Function(List<ZIssue> rawIssues)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ZValue<T> value) value,
-    required TResult Function(ZError<T> value) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ZValue<T> value)? value,
-    TResult? Function(ZError<T> value)? error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ZValue<T> value)? value,
-    TResult Function(ZError<T> value)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ZResult<T>);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'ZResult<$T>()';
+  }
 }
 
 /// @nodoc
-abstract class $ZResultCopyWith<T, $Res> {
-  factory $ZResultCopyWith(ZResult<T> value, $Res Function(ZResult<T>) then) =
-      _$ZResultCopyWithImpl<T, $Res, ZResult<T>>;
+class $ZResultCopyWith<T, $Res> {
+  $ZResultCopyWith(ZResult<T> _, $Res Function(ZResult<T>) __);
 }
 
 /// @nodoc
-class _$ZResultCopyWithImpl<T, $Res, $Val extends ZResult<T>>
+
+class ZValue<T> extends ZResult<T> {
+  const ZValue(this.val) : super._();
+
+  final T val;
+
+  /// Create a copy of ZResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ZValueCopyWith<T, ZValue<T>> get copyWith =>
+      _$ZValueCopyWithImpl<T, ZValue<T>>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ZValue<T> &&
+            const DeepCollectionEquality().equals(other.val, val));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(val));
+
+  @override
+  String toString() {
+    return 'ZResult<$T>.value(val: $val)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ZValueCopyWith<T, $Res>
     implements $ZResultCopyWith<T, $Res> {
-  _$ZResultCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$ZValueImplCopyWith<T, $Res> {
-  factory _$$ZValueImplCopyWith(
-          _$ZValueImpl<T> value, $Res Function(_$ZValueImpl<T>) then) =
-      __$$ZValueImplCopyWithImpl<T, $Res>;
+  factory $ZValueCopyWith(ZValue<T> value, $Res Function(ZValue<T>) _then) =
+      _$ZValueCopyWithImpl;
   @useResult
   $Res call({T val});
 }
 
 /// @nodoc
-class __$$ZValueImplCopyWithImpl<T, $Res>
-    extends _$ZResultCopyWithImpl<T, $Res, _$ZValueImpl<T>>
-    implements _$$ZValueImplCopyWith<T, $Res> {
-  __$$ZValueImplCopyWithImpl(
-      _$ZValueImpl<T> _value, $Res Function(_$ZValueImpl<T>) _then)
-      : super(_value, _then);
+class _$ZValueCopyWithImpl<T, $Res> implements $ZValueCopyWith<T, $Res> {
+  _$ZValueCopyWithImpl(this._self, this._then);
 
+  final ZValue<T> _self;
+  final $Res Function(ZValue<T>) _then;
+
+  /// Create a copy of ZResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  @override
   $Res call({
     Object? val = freezed,
   }) {
-    return _then(_$ZValueImpl<T>(
+    return _then(ZValue<T>(
       freezed == val
-          ? _value.val
+          ? _self.val
           : val // ignore: cast_nullable_to_non_nullable
               as T,
     ));
@@ -106,164 +100,30 @@ class __$$ZValueImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$ZValueImpl<T> extends ZValue<T> {
-  const _$ZValueImpl(this.val) : super._();
-
-  @override
-  final T val;
-
-  @override
-  String toString() {
-    return 'ZResult<$T>.value(val: $val)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ZValueImpl<T> &&
-            const DeepCollectionEquality().equals(other.val, val));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(val));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ZValueImplCopyWith<T, _$ZValueImpl<T>> get copyWith =>
-      __$$ZValueImplCopyWithImpl<T, _$ZValueImpl<T>>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(T val) value,
-    required TResult Function(List<ZIssue> rawIssues) error,
-  }) {
-    return value(val);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T val)? value,
-    TResult? Function(List<ZIssue> rawIssues)? error,
-  }) {
-    return value?.call(val);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T val)? value,
-    TResult Function(List<ZIssue> rawIssues)? error,
-    required TResult orElse(),
-  }) {
-    if (value != null) {
-      return value(val);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ZValue<T> value) value,
-    required TResult Function(ZError<T> value) error,
-  }) {
-    return value(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ZValue<T> value)? value,
-    TResult? Function(ZError<T> value)? error,
-  }) {
-    return value?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ZValue<T> value)? value,
-    TResult Function(ZError<T> value)? error,
-    required TResult orElse(),
-  }) {
-    if (value != null) {
-      return value(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ZValue<T> extends ZResult<T> {
-  const factory ZValue(final T val) = _$ZValueImpl<T>;
-  const ZValue._() : super._();
-
-  T get val;
-  @JsonKey(ignore: true)
-  _$$ZValueImplCopyWith<T, _$ZValueImpl<T>> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ZErrorImplCopyWith<T, $Res> {
-  factory _$$ZErrorImplCopyWith(
-          _$ZErrorImpl<T> value, $Res Function(_$ZErrorImpl<T>) then) =
-      __$$ZErrorImplCopyWithImpl<T, $Res>;
-  @useResult
-  $Res call({List<ZIssue> rawIssues});
-}
-
-/// @nodoc
-class __$$ZErrorImplCopyWithImpl<T, $Res>
-    extends _$ZResultCopyWithImpl<T, $Res, _$ZErrorImpl<T>>
-    implements _$$ZErrorImplCopyWith<T, $Res> {
-  __$$ZErrorImplCopyWithImpl(
-      _$ZErrorImpl<T> _value, $Res Function(_$ZErrorImpl<T>) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? rawIssues = null,
-  }) {
-    return _then(_$ZErrorImpl<T>(
-      null == rawIssues
-          ? _value._rawIssues
-          : rawIssues // ignore: cast_nullable_to_non_nullable
-              as List<ZIssue>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ZErrorImpl<T> extends ZError<T> {
-  const _$ZErrorImpl(final List<ZIssue> rawIssues)
+class ZError<T> extends ZResult<T> {
+  const ZError(final ZIssues rawIssues)
       : _rawIssues = rawIssues,
         super._();
 
-  final List<ZIssue> _rawIssues;
-  @override
-  List<ZIssue> get rawIssues {
+  final ZIssues _rawIssues;
+  ZIssues get rawIssues {
     if (_rawIssues is EqualUnmodifiableListView) return _rawIssues;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_rawIssues);
   }
 
-  @override
-  String toString() {
-    return 'ZResult<$T>.error(rawIssues: $rawIssues)';
-  }
+  /// Create a copy of ZResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ZErrorCopyWith<T, ZError<T>> get copyWith =>
+      _$ZErrorCopyWithImpl<T, ZError<T>>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ZErrorImpl<T> &&
+            other is ZError<T> &&
             const DeepCollectionEquality()
                 .equals(other._rawIssues, _rawIssues));
   }
@@ -272,81 +132,41 @@ class _$ZErrorImpl<T> extends ZError<T> {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_rawIssues));
 
-  @JsonKey(ignore: true)
   @override
+  String toString() {
+    return 'ZResult<$T>.error(rawIssues: $rawIssues)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ZErrorCopyWith<T, $Res>
+    implements $ZResultCopyWith<T, $Res> {
+  factory $ZErrorCopyWith(ZError<T> value, $Res Function(ZError<T>) _then) =
+      _$ZErrorCopyWithImpl;
+  @useResult
+  $Res call({ZIssues rawIssues});
+}
+
+/// @nodoc
+class _$ZErrorCopyWithImpl<T, $Res> implements $ZErrorCopyWith<T, $Res> {
+  _$ZErrorCopyWithImpl(this._self, this._then);
+
+  final ZError<T> _self;
+  final $Res Function(ZError<T>) _then;
+
+  /// Create a copy of ZResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
-  _$$ZErrorImplCopyWith<T, _$ZErrorImpl<T>> get copyWith =>
-      __$$ZErrorImplCopyWithImpl<T, _$ZErrorImpl<T>>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(T val) value,
-    required TResult Function(List<ZIssue> rawIssues) error,
+  $Res call({
+    Object? rawIssues = null,
   }) {
-    return error(rawIssues);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T val)? value,
-    TResult? Function(List<ZIssue> rawIssues)? error,
-  }) {
-    return error?.call(rawIssues);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T val)? value,
-    TResult Function(List<ZIssue> rawIssues)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(rawIssues);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ZValue<T> value) value,
-    required TResult Function(ZError<T> value) error,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ZValue<T> value)? value,
-    TResult? Function(ZError<T> value)? error,
-  }) {
-    return error?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ZValue<T> value)? value,
-    TResult Function(ZError<T> value)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
+    return _then(ZError<T>(
+      null == rawIssues
+          ? _self._rawIssues
+          : rawIssues // ignore: cast_nullable_to_non_nullable
+              as ZIssues,
+    ));
   }
 }
 
-abstract class ZError<T> extends ZResult<T> {
-  const factory ZError(final List<ZIssue> rawIssues) = _$ZErrorImpl<T>;
-  const ZError._() : super._();
-
-  List<ZIssue> get rawIssues;
-  @JsonKey(ignore: true)
-  _$$ZErrorImplCopyWith<T, _$ZErrorImpl<T>> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

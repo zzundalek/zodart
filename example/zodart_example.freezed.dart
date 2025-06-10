@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,92 +10,68 @@ part of 'zodart_example.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Person _$PersonFromJson(Map<String, dynamic> json) {
-  return _Person.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Person {
-  String get firstName => throw _privateConstructorUsedError;
-  String get lastName => throw _privateConstructorUsedError;
-  int? get age => throw _privateConstructorUsedError;
-  bool? get disabled => throw _privateConstructorUsedError;
+  String get firstName;
+  String get lastName;
+  int? get age;
+  bool? get disabled;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PersonCopyWith<Person> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PersonCopyWith<$Res> {
-  factory $PersonCopyWith(Person value, $Res Function(Person) then) =
-      _$PersonCopyWithImpl<$Res, Person>;
-  @useResult
-  $Res call({String firstName, String lastName, int? age, bool? disabled});
-}
-
-/// @nodoc
-class _$PersonCopyWithImpl<$Res, $Val extends Person>
-    implements $PersonCopyWith<$Res> {
-  _$PersonCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of Person
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $PersonCopyWith<Person> get copyWith =>
+      _$PersonCopyWithImpl<Person>(this as Person, _$identity);
+
+  /// Serializes this Person to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? age = freezed,
-    Object? disabled = freezed,
-  }) {
-    return _then(_value.copyWith(
-      firstName: null == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      age: freezed == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
-              as int?,
-      disabled: freezed == disabled
-          ? _value.disabled
-          : disabled // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Person &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.age, age) || other.age == age) &&
+            (identical(other.disabled, disabled) ||
+                other.disabled == disabled));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, firstName, lastName, age, disabled);
+
+  @override
+  String toString() {
+    return 'Person(firstName: $firstName, lastName: $lastName, age: $age, disabled: $disabled)';
   }
 }
 
 /// @nodoc
-abstract class _$$PersonImplCopyWith<$Res> implements $PersonCopyWith<$Res> {
-  factory _$$PersonImplCopyWith(
-          _$PersonImpl value, $Res Function(_$PersonImpl) then) =
-      __$$PersonImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $PersonCopyWith<$Res> {
+  factory $PersonCopyWith(Person value, $Res Function(Person) _then) =
+      _$PersonCopyWithImpl;
   @useResult
   $Res call({String firstName, String lastName, int? age, bool? disabled});
 }
 
 /// @nodoc
-class __$$PersonImplCopyWithImpl<$Res>
-    extends _$PersonCopyWithImpl<$Res, _$PersonImpl>
-    implements _$$PersonImplCopyWith<$Res> {
-  __$$PersonImplCopyWithImpl(
-      _$PersonImpl _value, $Res Function(_$PersonImpl) _then)
-      : super(_value, _then);
+class _$PersonCopyWithImpl<$Res> implements $PersonCopyWith<$Res> {
+  _$PersonCopyWithImpl(this._self, this._then);
 
+  final Person _self;
+  final $Res Function(Person) _then;
+
+  /// Create a copy of Person
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -103,21 +80,21 @@ class __$$PersonImplCopyWithImpl<$Res>
     Object? age = freezed,
     Object? disabled = freezed,
   }) {
-    return _then(_$PersonImpl(
+    return _then(_self.copyWith(
       firstName: null == firstName
-          ? _value.firstName
+          ? _self.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
               as String,
       lastName: null == lastName
-          ? _value.lastName
+          ? _self.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
       age: freezed == age
-          ? _value.age
+          ? _self.age
           : age // ignore: cast_nullable_to_non_nullable
               as int?,
       disabled: freezed == disabled
-          ? _value.disabled
+          ? _self.disabled
           : disabled // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
@@ -126,16 +103,14 @@ class __$$PersonImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PersonImpl extends _Person {
-  const _$PersonImpl(
+class _Person extends Person {
+  const _Person(
       {required this.firstName,
       required this.lastName,
       required this.age,
       required this.disabled})
       : super._();
-
-  factory _$PersonImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PersonImplFromJson(json);
+  factory _Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 
   @override
   final String firstName;
@@ -146,16 +121,26 @@ class _$PersonImpl extends _Person {
   @override
   final bool? disabled;
 
+  /// Create a copy of Person
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Person(firstName: $firstName, lastName: $lastName, age: $age, disabled: $disabled)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PersonCopyWith<_Person> get copyWith =>
+      __$PersonCopyWithImpl<_Person>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PersonToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PersonImpl &&
+            other is _Person &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
@@ -165,45 +150,62 @@ class _$PersonImpl extends _Person {
                 other.disabled == disabled));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, firstName, lastName, age, disabled);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PersonImplCopyWith<_$PersonImpl> get copyWith =>
-      __$$PersonImplCopyWithImpl<_$PersonImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PersonImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Person(firstName: $firstName, lastName: $lastName, age: $age, disabled: $disabled)';
   }
 }
 
-abstract class _Person extends Person {
-  const factory _Person(
-      {required final String firstName,
-      required final String lastName,
-      required final int? age,
-      required final bool? disabled}) = _$PersonImpl;
-  const _Person._() : super._();
-
-  factory _Person.fromJson(Map<String, dynamic> json) = _$PersonImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$PersonCopyWith<$Res> implements $PersonCopyWith<$Res> {
+  factory _$PersonCopyWith(_Person value, $Res Function(_Person) _then) =
+      __$PersonCopyWithImpl;
   @override
-  String get firstName;
-  @override
-  String get lastName;
-  @override
-  int? get age;
-  @override
-  bool? get disabled;
-  @override
-  @JsonKey(ignore: true)
-  _$$PersonImplCopyWith<_$PersonImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call({String firstName, String lastName, int? age, bool? disabled});
 }
+
+/// @nodoc
+class __$PersonCopyWithImpl<$Res> implements _$PersonCopyWith<$Res> {
+  __$PersonCopyWithImpl(this._self, this._then);
+
+  final _Person _self;
+  final $Res Function(_Person) _then;
+
+  /// Create a copy of Person
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? age = freezed,
+    Object? disabled = freezed,
+  }) {
+    return _then(_Person(
+      firstName: null == firstName
+          ? _self.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: null == lastName
+          ? _self.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
+      age: freezed == age
+          ? _self.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as int?,
+      disabled: freezed == disabled
+          ? _self.disabled
+          : disabled // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+// dart format on
