@@ -12,18 +12,18 @@ sealed class TransformAny<From, To> {
 
   ConfiguredTransformer<From?, To?> _configureTransformer(Transformer<From, To> fn) =>
       (Config config) => (dynamic val) {
-            // NOTE: For null value the transformer execution is skipped,
-            // but the result must be converted to proper type.
-            if (val == null && (config.nullable || config.optional)) {
-              return ZRes.success(null);
-            } else if (val is From) {
-              return fn(val);
-            } else {
-              throw ZodArtInternalException(
-                'Unexpected transformation error occurred. Value "$val" of type "${val.runtimeType}" should have been converted from type "$From" to type "$To".',
-              );
-            }
-          };
+        // NOTE: For null value the transformer execution is skipped,
+        // but the result must be converted to proper type.
+        if (val == null && (config.nullable || config.optional)) {
+          return ZRes.success(null);
+        } else if (val is From) {
+          return fn(val);
+        } else {
+          throw ZodArtInternalException(
+            'Unexpected transformation error occurred. Value "$val" of type "${val.runtimeType}" should have been converted from type "$From" to type "$To".',
+          );
+        }
+      };
 
   /// Getter to obtain the transformation function [fn] with from nullable type [From] and to nullable type [To].
   /// Wraps the saved not nullable transformer with nullable handler.

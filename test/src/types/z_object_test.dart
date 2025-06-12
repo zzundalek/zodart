@@ -4,13 +4,13 @@ import 'package:zodart/zodart.dart';
 import '../../test_helper.dart';
 
 TestObject testObjectMapper(Map<String, dynamic> val) => TestObject(
-      reqStr: val['reqStr'] as String,
-      reqInt: val['reqInt'] as int,
-      nullableStr: val['nullableStr'] as String?,
-      nullableInt: val['nullableInt'] as int?,
-      optionalStr: val['optionalStr'] as String?,
-      optionalInt: val['optionalInt'] as int?,
-    );
+  reqStr: val['reqStr'] as String,
+  reqInt: val['reqInt'] as int,
+  nullableStr: val['nullableStr'] as String?,
+  nullableInt: val['nullableInt'] as int?,
+  optionalStr: val['optionalStr'] as String?,
+  optionalInt: val['optionalInt'] as int?,
+);
 
 ZSchema schema = {
   'reqStr': ZString(),
@@ -41,7 +41,7 @@ void main() {
             nullableInt: 0,
             optionalStr: 'optional Str value',
             optionalInt: 1,
-          )
+          ),
         ),
         (
           input: {
@@ -55,7 +55,7 @@ void main() {
           expected: const TestObject(
             reqStr: 'string',
             reqInt: -1,
-          )
+          ),
         ),
         (
           input: {
@@ -67,7 +67,7 @@ void main() {
           expected: const TestObject(
             reqStr: 'string',
             reqInt: -1,
-          )
+          ),
         ),
       ];
       final baseInvalidInputs = <InvalidInput>[

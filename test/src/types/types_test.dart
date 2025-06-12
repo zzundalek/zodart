@@ -20,8 +20,9 @@ void main() {
       );
     });
     test('throws ZodArtInternalException when parser throws an unexpected error', () {
-      final zStringWithParserThrowing =
-          createZStringWithConfigForTesting(ZBaseConfig(fns: [ParseString((_) => throw Error())]));
+      final zStringWithParserThrowing = createZStringWithConfigForTesting(
+        ZBaseConfig(fns: [ParseString((_) => throw Error())]),
+      );
       expect(
         () => zStringWithParserThrowing.parse('1'),
         throwsA(

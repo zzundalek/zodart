@@ -77,4 +77,5 @@ Rule<T> maxNumRule<T extends num>(T max) {
 }
 
 /// Returns a [Rule] of type `Rule<String>`, which trims and returns the String value.
-Rule<String> trimRule() => (String val) => ZRes.success(val.trim());
+Rule<String> trimRule() =>
+    (String val) => ZRes.success(val.trim());

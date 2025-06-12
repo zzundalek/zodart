@@ -27,156 +27,107 @@ import 'package:zodart/src/localization/z_issue_localization.dart' as _i2;
 /// See the documentation for Mockito's code generation for more information.
 class MockZIssueLocalization extends _i1.Mock implements _i2.ZIssueLocalization {
   @override
-  String lengthNotMet(_i3.ZIssueLengthNotMet? issue) => (super.noSuchMethod(
-        Invocation.method(
-          #lengthNotMet,
-          [issue],
-        ),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #lengthNotMet,
-            [issue],
-          ),
-        ),
-        returnValueForMissingStub: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #lengthNotMet,
-            [issue],
-          ),
-        ),
-      ) as String);
+  String lengthNotMet(_i3.ZIssueLengthNotMet? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#lengthNotMet, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#lengthNotMet, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#lengthNotMet, [issue]),
+            ),
+          )
+          as String);
 
   @override
-  String minLengthNotMet(_i3.ZIssueMinLengthNotMet? issue) => (super.noSuchMethod(
-        Invocation.method(
-          #minLengthNotMet,
-          [issue],
-        ),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #minLengthNotMet,
-            [issue],
-          ),
-        ),
-        returnValueForMissingStub: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #minLengthNotMet,
-            [issue],
-          ),
-        ),
-      ) as String);
+  String minLengthNotMet(_i3.ZIssueMinLengthNotMet? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#minLengthNotMet, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#minLengthNotMet, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#minLengthNotMet, [issue]),
+            ),
+          )
+          as String);
 
   @override
-  String maxLengthExceeded(_i3.ZIssueMaxLengthExceeded? issue) => (super.noSuchMethod(
-        Invocation.method(
-          #maxLengthExceeded,
-          [issue],
-        ),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #maxLengthExceeded,
-            [issue],
-          ),
-        ),
-        returnValueForMissingStub: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #maxLengthExceeded,
-            [issue],
-          ),
-        ),
-      ) as String);
+  String maxLengthExceeded(_i3.ZIssueMaxLengthExceeded? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#maxLengthExceeded, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#maxLengthExceeded, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#maxLengthExceeded, [issue]),
+            ),
+          )
+          as String);
 
   @override
-  String minNotMet(_i3.ZIssueMinNotMet? issue) => (super.noSuchMethod(
-        Invocation.method(
-          #minNotMet,
-          [issue],
-        ),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #minNotMet,
-            [issue],
-          ),
-        ),
-        returnValueForMissingStub: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #minNotMet,
-            [issue],
-          ),
-        ),
-      ) as String);
+  String minNotMet(_i3.ZIssueMinNotMet? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#minNotMet, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#minNotMet, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#minNotMet, [issue]),
+            ),
+          )
+          as String);
 
   @override
-  String maxExceeded(_i3.ZIssueMaxExceeded? issue) => (super.noSuchMethod(
-        Invocation.method(
-          #maxExceeded,
-          [issue],
-        ),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #maxExceeded,
-            [issue],
-          ),
-        ),
-        returnValueForMissingStub: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #maxExceeded,
-            [issue],
-          ),
-        ),
-      ) as String);
+  String maxExceeded(_i3.ZIssueMaxExceeded? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#maxExceeded, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#maxExceeded, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#maxExceeded, [issue]),
+            ),
+          )
+          as String);
 
   @override
-  String parseFail(_i3.ZIssueParseFail? issue) => (super.noSuchMethod(
-        Invocation.method(
-          #parseFail,
-          [issue],
-        ),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #parseFail,
-            [issue],
-          ),
-        ),
-        returnValueForMissingStub: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #parseFail,
-            [issue],
-          ),
-        ),
-      ) as String);
+  String parseFail(_i3.ZIssueParseFail? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#parseFail, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#parseFail, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#parseFail, [issue]),
+            ),
+          )
+          as String);
 
   @override
-  String missingValue(_i3.ZIssueMissingValue? issue) => (super.noSuchMethod(
-        Invocation.method(
-          #missingValue,
-          [issue],
-        ),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #missingValue,
-            [issue],
-          ),
-        ),
-        returnValueForMissingStub: _i4.dummyValue<String>(
-          this,
-          Invocation.method(
-            #missingValue,
-            [issue],
-          ),
-        ),
-      ) as String);
+  String missingValue(_i3.ZIssueMissingValue? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#missingValue, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#missingValue, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#missingValue, [issue]),
+            ),
+          )
+          as String);
 }

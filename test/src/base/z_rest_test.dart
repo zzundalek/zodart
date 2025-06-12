@@ -176,8 +176,9 @@ void main() {
       });
       test('Returns a list of the issues if the path does match', () {
         expect(
-          ZRes<String>.errorSingleIssue(ZIssueMissingValue(rawPath: ZPath.property('zodArt')))
-              .getRawIssuesFor('zodArt'),
+          ZRes<String>.errorSingleIssue(
+            ZIssueMissingValue(rawPath: ZPath.property('zodArt')),
+          ).getRawIssuesFor('zodArt'),
           isA<List<ZIssue>>(),
         );
       });
