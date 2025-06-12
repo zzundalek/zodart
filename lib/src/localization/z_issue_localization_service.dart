@@ -10,6 +10,7 @@ class ZIssueLocalizationService {
     final localization = switch (lang) {
       Language.en => const ZIssueLocalizationEn(),
       Language.cs => const ZIssueLocalizationCs(),
+      Language.ja => const ZIssueLocalizationJa(),
     };
     return ZIssueLocalizationService._(localization);
   }
