@@ -25,8 +25,7 @@ import 'package:zodart/src/localization/z_issue_localization.dart' as _i2;
 /// A class which mocks [ZIssueLocalization].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockZIssueLocalization extends _i1.Mock
-    implements _i2.ZIssueLocalization {
+class MockZIssueLocalization extends _i1.Mock implements _i2.ZIssueLocalization {
   @override
   String lengthNotMet(_i3.ZIssueLengthNotMet? issue) => (super.noSuchMethod(
         Invocation.method(
@@ -50,8 +49,7 @@ class MockZIssueLocalization extends _i1.Mock
       ) as String);
 
   @override
-  String minLengthNotMet(_i3.ZIssueMinLengthNotMet? issue) =>
-      (super.noSuchMethod(
+  String minLengthNotMet(_i3.ZIssueMinLengthNotMet? issue) => (super.noSuchMethod(
         Invocation.method(
           #minLengthNotMet,
           [issue],
@@ -73,8 +71,7 @@ class MockZIssueLocalization extends _i1.Mock
       ) as String);
 
   @override
-  String maxLengthExceeded(_i3.ZIssueMaxLengthExceeded? issue) =>
-      (super.noSuchMethod(
+  String maxLengthExceeded(_i3.ZIssueMaxLengthExceeded? issue) => (super.noSuchMethod(
         Invocation.method(
           #maxLengthExceeded,
           [issue],

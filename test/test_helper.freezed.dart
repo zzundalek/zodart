@@ -26,8 +26,7 @@ mixin _$TestObject {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $TestObjectCopyWith<TestObject> get copyWith =>
-      _$TestObjectCopyWithImpl<TestObject>(this as TestObject, _$identity);
+  $TestObjectCopyWith<TestObject> get copyWith => _$TestObjectCopyWithImpl<TestObject>(this as TestObject, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -36,19 +35,14 @@ mixin _$TestObject {
             other is TestObject &&
             (identical(other.reqStr, reqStr) || other.reqStr == reqStr) &&
             (identical(other.reqInt, reqInt) || other.reqInt == reqInt) &&
-            (identical(other.nullableStr, nullableStr) ||
-                other.nullableStr == nullableStr) &&
-            (identical(other.nullableInt, nullableInt) ||
-                other.nullableInt == nullableInt) &&
-            (identical(other.optionalStr, optionalStr) ||
-                other.optionalStr == optionalStr) &&
-            (identical(other.optionalInt, optionalInt) ||
-                other.optionalInt == optionalInt));
+            (identical(other.nullableStr, nullableStr) || other.nullableStr == nullableStr) &&
+            (identical(other.nullableInt, nullableInt) || other.nullableInt == nullableInt) &&
+            (identical(other.optionalStr, optionalStr) || other.optionalStr == optionalStr) &&
+            (identical(other.optionalInt, optionalInt) || other.optionalInt == optionalInt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, reqStr, reqInt, nullableStr,
-      nullableInt, optionalStr, optionalInt);
+  int get hashCode => Object.hash(runtimeType, reqStr, reqInt, nullableStr, nullableInt, optionalStr, optionalInt);
 
   @override
   String toString() {
@@ -58,17 +52,9 @@ mixin _$TestObject {
 
 /// @nodoc
 abstract mixin class $TestObjectCopyWith<$Res> {
-  factory $TestObjectCopyWith(
-          TestObject value, $Res Function(TestObject) _then) =
-      _$TestObjectCopyWithImpl;
+  factory $TestObjectCopyWith(TestObject value, $Res Function(TestObject) _then) = _$TestObjectCopyWithImpl;
   @useResult
-  $Res call(
-      {String reqStr,
-      int reqInt,
-      String? nullableStr,
-      int? nullableInt,
-      String? optionalStr,
-      int? optionalInt});
+  $Res call({String reqStr, int reqInt, String? nullableStr, int? nullableInt, String? optionalStr, int? optionalInt});
 }
 
 /// @nodoc
@@ -148,8 +134,7 @@ class _TestObject implements TestObject {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$TestObjectCopyWith<_TestObject> get copyWith =>
-      __$TestObjectCopyWithImpl<_TestObject>(this, _$identity);
+  _$TestObjectCopyWith<_TestObject> get copyWith => __$TestObjectCopyWithImpl<_TestObject>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -158,19 +143,14 @@ class _TestObject implements TestObject {
             other is _TestObject &&
             (identical(other.reqStr, reqStr) || other.reqStr == reqStr) &&
             (identical(other.reqInt, reqInt) || other.reqInt == reqInt) &&
-            (identical(other.nullableStr, nullableStr) ||
-                other.nullableStr == nullableStr) &&
-            (identical(other.nullableInt, nullableInt) ||
-                other.nullableInt == nullableInt) &&
-            (identical(other.optionalStr, optionalStr) ||
-                other.optionalStr == optionalStr) &&
-            (identical(other.optionalInt, optionalInt) ||
-                other.optionalInt == optionalInt));
+            (identical(other.nullableStr, nullableStr) || other.nullableStr == nullableStr) &&
+            (identical(other.nullableInt, nullableInt) || other.nullableInt == nullableInt) &&
+            (identical(other.optionalStr, optionalStr) || other.optionalStr == optionalStr) &&
+            (identical(other.optionalInt, optionalInt) || other.optionalInt == optionalInt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, reqStr, reqInt, nullableStr,
-      nullableInt, optionalStr, optionalInt);
+  int get hashCode => Object.hash(runtimeType, reqStr, reqInt, nullableStr, nullableInt, optionalStr, optionalInt);
 
   @override
   String toString() {
@@ -179,20 +159,11 @@ class _TestObject implements TestObject {
 }
 
 /// @nodoc
-abstract mixin class _$TestObjectCopyWith<$Res>
-    implements $TestObjectCopyWith<$Res> {
-  factory _$TestObjectCopyWith(
-          _TestObject value, $Res Function(_TestObject) _then) =
-      __$TestObjectCopyWithImpl;
+abstract mixin class _$TestObjectCopyWith<$Res> implements $TestObjectCopyWith<$Res> {
+  factory _$TestObjectCopyWith(_TestObject value, $Res Function(_TestObject) _then) = __$TestObjectCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {String reqStr,
-      int reqInt,
-      String? nullableStr,
-      int? nullableInt,
-      String? optionalStr,
-      int? optionalInt});
+  $Res call({String reqStr, int reqInt, String? nullableStr, int? nullableInt, String? optionalStr, int? optionalInt});
 }
 
 /// @nodoc

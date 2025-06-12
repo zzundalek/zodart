@@ -32,15 +32,12 @@ mixin _$ZBaseConfig {
         (other.runtimeType == runtimeType &&
             other is ZBaseConfig &&
             const DeepCollectionEquality().equals(other.fns, fns) &&
-            (identical(other.nullable, nullable) ||
-                other.nullable == nullable) &&
-            (identical(other.optional, optional) ||
-                other.optional == optional));
+            (identical(other.nullable, nullable) || other.nullable == nullable) &&
+            (identical(other.optional, optional) || other.optional == optional));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(fns), nullable, optional);
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(fns), nullable, optional);
 
   @override
   String toString() {
@@ -50,12 +47,9 @@ mixin _$ZBaseConfig {
 
 /// @nodoc
 abstract mixin class $ZBaseConfigCopyWith<$Res> {
-  factory $ZBaseConfigCopyWith(
-          ZBaseConfig value, $Res Function(ZBaseConfig) _then) =
-      _$ZBaseConfigCopyWithImpl;
+  factory $ZBaseConfigCopyWith(ZBaseConfig value, $Res Function(ZBaseConfig) _then) = _$ZBaseConfigCopyWithImpl;
   @useResult
-  $Res call(
-      {List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional});
+  $Res call({List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional});
 }
 
 /// @nodoc
@@ -95,9 +89,7 @@ class _$ZBaseConfigCopyWithImpl<$Res> implements $ZBaseConfigCopyWith<$Res> {
 
 class _ZBaseConfig extends ZBaseConfig {
   const _ZBaseConfig(
-      {required final List<TransformAny<dynamic, dynamic>> fns,
-      this.nullable = false,
-      this.optional = false})
+      {required final List<TransformAny<dynamic, dynamic>> fns, this.nullable = false, this.optional = false})
       : _fns = fns,
         super._();
 
@@ -121,8 +113,7 @@ class _ZBaseConfig extends ZBaseConfig {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$ZBaseConfigCopyWith<_ZBaseConfig> get copyWith =>
-      __$ZBaseConfigCopyWithImpl<_ZBaseConfig>(this, _$identity);
+  _$ZBaseConfigCopyWith<_ZBaseConfig> get copyWith => __$ZBaseConfigCopyWithImpl<_ZBaseConfig>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -130,15 +121,12 @@ class _ZBaseConfig extends ZBaseConfig {
         (other.runtimeType == runtimeType &&
             other is _ZBaseConfig &&
             const DeepCollectionEquality().equals(other._fns, _fns) &&
-            (identical(other.nullable, nullable) ||
-                other.nullable == nullable) &&
-            (identical(other.optional, optional) ||
-                other.optional == optional));
+            (identical(other.nullable, nullable) || other.nullable == nullable) &&
+            (identical(other.optional, optional) || other.optional == optional));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_fns), nullable, optional);
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_fns), nullable, optional);
 
   @override
   String toString() {
@@ -147,15 +135,11 @@ class _ZBaseConfig extends ZBaseConfig {
 }
 
 /// @nodoc
-abstract mixin class _$ZBaseConfigCopyWith<$Res>
-    implements $ZBaseConfigCopyWith<$Res> {
-  factory _$ZBaseConfigCopyWith(
-          _ZBaseConfig value, $Res Function(_ZBaseConfig) _then) =
-      __$ZBaseConfigCopyWithImpl;
+abstract mixin class _$ZBaseConfigCopyWith<$Res> implements $ZBaseConfigCopyWith<$Res> {
+  factory _$ZBaseConfigCopyWith(_ZBaseConfig value, $Res Function(_ZBaseConfig) _then) = __$ZBaseConfigCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional});
+  $Res call({List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional});
 }
 
 /// @nodoc

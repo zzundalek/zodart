@@ -21,8 +21,7 @@ mixin _$ZIssue {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $ZIssueCopyWith<ZIssue> get copyWith =>
-      _$ZIssueCopyWithImpl<ZIssue>(this as ZIssue, _$identity);
+  $ZIssueCopyWith<ZIssue> get copyWith => _$ZIssueCopyWithImpl<ZIssue>(this as ZIssue, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -43,8 +42,7 @@ mixin _$ZIssue {
 
 /// @nodoc
 abstract mixin class $ZIssueCopyWith<$Res> {
-  factory $ZIssueCopyWith(ZIssue value, $Res Function(ZIssue) _then) =
-      _$ZIssueCopyWithImpl;
+  factory $ZIssueCopyWith(ZIssue value, $Res Function(ZIssue) _then) = _$ZIssueCopyWithImpl;
   @useResult
   $Res call({ZPath rawPath});
 
@@ -87,10 +85,7 @@ class _$ZIssueCopyWithImpl<$Res> implements $ZIssueCopyWith<$Res> {
 /// @nodoc
 
 class ZIssueLengthNotMet extends ZIssue {
-  const ZIssueLengthNotMet(
-      {required this.expectedLength,
-      required this.actualLength,
-      this.rawPath = const ZPath([])})
+  const ZIssueLengthNotMet({required this.expectedLength, required this.actualLength, this.rawPath = const ZPath([])})
       : super._();
 
   final int expectedLength;
@@ -112,16 +107,13 @@ class ZIssueLengthNotMet extends ZIssue {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ZIssueLengthNotMet &&
-            (identical(other.expectedLength, expectedLength) ||
-                other.expectedLength == expectedLength) &&
-            (identical(other.actualLength, actualLength) ||
-                other.actualLength == actualLength) &&
+            (identical(other.expectedLength, expectedLength) || other.expectedLength == expectedLength) &&
+            (identical(other.actualLength, actualLength) || other.actualLength == actualLength) &&
             (identical(other.rawPath, rawPath) || other.rawPath == rawPath));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, expectedLength, actualLength, rawPath);
+  int get hashCode => Object.hash(runtimeType, expectedLength, actualLength, rawPath);
 
   @override
   String toString() {
@@ -130,10 +122,8 @@ class ZIssueLengthNotMet extends ZIssue {
 }
 
 /// @nodoc
-abstract mixin class $ZIssueLengthNotMetCopyWith<$Res>
-    implements $ZIssueCopyWith<$Res> {
-  factory $ZIssueLengthNotMetCopyWith(
-          ZIssueLengthNotMet value, $Res Function(ZIssueLengthNotMet) _then) =
+abstract mixin class $ZIssueLengthNotMetCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueLengthNotMetCopyWith(ZIssueLengthNotMet value, $Res Function(ZIssueLengthNotMet) _then) =
       _$ZIssueLengthNotMetCopyWithImpl;
   @override
   @useResult
@@ -144,8 +134,7 @@ abstract mixin class $ZIssueLengthNotMetCopyWith<$Res>
 }
 
 /// @nodoc
-class _$ZIssueLengthNotMetCopyWithImpl<$Res>
-    implements $ZIssueLengthNotMetCopyWith<$Res> {
+class _$ZIssueLengthNotMetCopyWithImpl<$Res> implements $ZIssueLengthNotMetCopyWith<$Res> {
   _$ZIssueLengthNotMetCopyWithImpl(this._self, this._then);
 
   final ZIssueLengthNotMet _self;
@@ -190,10 +179,7 @@ class _$ZIssueLengthNotMetCopyWithImpl<$Res>
 /// @nodoc
 
 class ZIssueMinLengthNotMet extends ZIssue {
-  const ZIssueMinLengthNotMet(
-      {required this.minLength,
-      required this.actualLength,
-      this.rawPath = const ZPath([])})
+  const ZIssueMinLengthNotMet({required this.minLength, required this.actualLength, this.rawPath = const ZPath([])})
       : super._();
 
   final int minLength;
@@ -208,24 +194,20 @@ class ZIssueMinLengthNotMet extends ZIssue {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   $ZIssueMinLengthNotMetCopyWith<ZIssueMinLengthNotMet> get copyWith =>
-      _$ZIssueMinLengthNotMetCopyWithImpl<ZIssueMinLengthNotMet>(
-          this, _$identity);
+      _$ZIssueMinLengthNotMetCopyWithImpl<ZIssueMinLengthNotMet>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ZIssueMinLengthNotMet &&
-            (identical(other.minLength, minLength) ||
-                other.minLength == minLength) &&
-            (identical(other.actualLength, actualLength) ||
-                other.actualLength == actualLength) &&
+            (identical(other.minLength, minLength) || other.minLength == minLength) &&
+            (identical(other.actualLength, actualLength) || other.actualLength == actualLength) &&
             (identical(other.rawPath, rawPath) || other.rawPath == rawPath));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, minLength, actualLength, rawPath);
+  int get hashCode => Object.hash(runtimeType, minLength, actualLength, rawPath);
 
   @override
   String toString() {
@@ -234,10 +216,8 @@ class ZIssueMinLengthNotMet extends ZIssue {
 }
 
 /// @nodoc
-abstract mixin class $ZIssueMinLengthNotMetCopyWith<$Res>
-    implements $ZIssueCopyWith<$Res> {
-  factory $ZIssueMinLengthNotMetCopyWith(ZIssueMinLengthNotMet value,
-          $Res Function(ZIssueMinLengthNotMet) _then) =
+abstract mixin class $ZIssueMinLengthNotMetCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueMinLengthNotMetCopyWith(ZIssueMinLengthNotMet value, $Res Function(ZIssueMinLengthNotMet) _then) =
       _$ZIssueMinLengthNotMetCopyWithImpl;
   @override
   @useResult
@@ -248,8 +228,7 @@ abstract mixin class $ZIssueMinLengthNotMetCopyWith<$Res>
 }
 
 /// @nodoc
-class _$ZIssueMinLengthNotMetCopyWithImpl<$Res>
-    implements $ZIssueMinLengthNotMetCopyWith<$Res> {
+class _$ZIssueMinLengthNotMetCopyWithImpl<$Res> implements $ZIssueMinLengthNotMetCopyWith<$Res> {
   _$ZIssueMinLengthNotMetCopyWithImpl(this._self, this._then);
 
   final ZIssueMinLengthNotMet _self;
@@ -294,10 +273,7 @@ class _$ZIssueMinLengthNotMetCopyWithImpl<$Res>
 /// @nodoc
 
 class ZIssueMaxLengthExceeded extends ZIssue {
-  const ZIssueMaxLengthExceeded(
-      {required this.maxLength,
-      required this.actualLength,
-      this.rawPath = const ZPath([])})
+  const ZIssueMaxLengthExceeded({required this.maxLength, required this.actualLength, this.rawPath = const ZPath([])})
       : super._();
 
   final int maxLength;
@@ -312,24 +288,20 @@ class ZIssueMaxLengthExceeded extends ZIssue {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   $ZIssueMaxLengthExceededCopyWith<ZIssueMaxLengthExceeded> get copyWith =>
-      _$ZIssueMaxLengthExceededCopyWithImpl<ZIssueMaxLengthExceeded>(
-          this, _$identity);
+      _$ZIssueMaxLengthExceededCopyWithImpl<ZIssueMaxLengthExceeded>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ZIssueMaxLengthExceeded &&
-            (identical(other.maxLength, maxLength) ||
-                other.maxLength == maxLength) &&
-            (identical(other.actualLength, actualLength) ||
-                other.actualLength == actualLength) &&
+            (identical(other.maxLength, maxLength) || other.maxLength == maxLength) &&
+            (identical(other.actualLength, actualLength) || other.actualLength == actualLength) &&
             (identical(other.rawPath, rawPath) || other.rawPath == rawPath));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, maxLength, actualLength, rawPath);
+  int get hashCode => Object.hash(runtimeType, maxLength, actualLength, rawPath);
 
   @override
   String toString() {
@@ -338,10 +310,9 @@ class ZIssueMaxLengthExceeded extends ZIssue {
 }
 
 /// @nodoc
-abstract mixin class $ZIssueMaxLengthExceededCopyWith<$Res>
-    implements $ZIssueCopyWith<$Res> {
-  factory $ZIssueMaxLengthExceededCopyWith(ZIssueMaxLengthExceeded value,
-          $Res Function(ZIssueMaxLengthExceeded) _then) =
+abstract mixin class $ZIssueMaxLengthExceededCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueMaxLengthExceededCopyWith(
+          ZIssueMaxLengthExceeded value, $Res Function(ZIssueMaxLengthExceeded) _then) =
       _$ZIssueMaxLengthExceededCopyWithImpl;
   @override
   @useResult
@@ -352,8 +323,7 @@ abstract mixin class $ZIssueMaxLengthExceededCopyWith<$Res>
 }
 
 /// @nodoc
-class _$ZIssueMaxLengthExceededCopyWithImpl<$Res>
-    implements $ZIssueMaxLengthExceededCopyWith<$Res> {
+class _$ZIssueMaxLengthExceededCopyWithImpl<$Res> implements $ZIssueMaxLengthExceededCopyWith<$Res> {
   _$ZIssueMaxLengthExceededCopyWithImpl(this._self, this._then);
 
   final ZIssueMaxLengthExceeded _self;
@@ -398,9 +368,7 @@ class _$ZIssueMaxLengthExceededCopyWithImpl<$Res>
 /// @nodoc
 
 class ZIssueMinNotMet extends ZIssue {
-  const ZIssueMinNotMet(
-      {required this.min, required this.val, this.rawPath = const ZPath([])})
-      : super._();
+  const ZIssueMinNotMet({required this.min, required this.val, this.rawPath = const ZPath([])}) : super._();
 
   final num min;
   final num val;
@@ -436,10 +404,8 @@ class ZIssueMinNotMet extends ZIssue {
 }
 
 /// @nodoc
-abstract mixin class $ZIssueMinNotMetCopyWith<$Res>
-    implements $ZIssueCopyWith<$Res> {
-  factory $ZIssueMinNotMetCopyWith(
-          ZIssueMinNotMet value, $Res Function(ZIssueMinNotMet) _then) =
+abstract mixin class $ZIssueMinNotMetCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueMinNotMetCopyWith(ZIssueMinNotMet value, $Res Function(ZIssueMinNotMet) _then) =
       _$ZIssueMinNotMetCopyWithImpl;
   @override
   @useResult
@@ -450,8 +416,7 @@ abstract mixin class $ZIssueMinNotMetCopyWith<$Res>
 }
 
 /// @nodoc
-class _$ZIssueMinNotMetCopyWithImpl<$Res>
-    implements $ZIssueMinNotMetCopyWith<$Res> {
+class _$ZIssueMinNotMetCopyWithImpl<$Res> implements $ZIssueMinNotMetCopyWith<$Res> {
   _$ZIssueMinNotMetCopyWithImpl(this._self, this._then);
 
   final ZIssueMinNotMet _self;
@@ -496,9 +461,7 @@ class _$ZIssueMinNotMetCopyWithImpl<$Res>
 /// @nodoc
 
 class ZIssueMaxExceeded extends ZIssue {
-  const ZIssueMaxExceeded(
-      {required this.max, required this.val, this.rawPath = const ZPath([])})
-      : super._();
+  const ZIssueMaxExceeded({required this.max, required this.val, this.rawPath = const ZPath([])}) : super._();
 
   final num max;
   final num val;
@@ -534,10 +497,8 @@ class ZIssueMaxExceeded extends ZIssue {
 }
 
 /// @nodoc
-abstract mixin class $ZIssueMaxExceededCopyWith<$Res>
-    implements $ZIssueCopyWith<$Res> {
-  factory $ZIssueMaxExceededCopyWith(
-          ZIssueMaxExceeded value, $Res Function(ZIssueMaxExceeded) _then) =
+abstract mixin class $ZIssueMaxExceededCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueMaxExceededCopyWith(ZIssueMaxExceeded value, $Res Function(ZIssueMaxExceeded) _then) =
       _$ZIssueMaxExceededCopyWithImpl;
   @override
   @useResult
@@ -548,8 +509,7 @@ abstract mixin class $ZIssueMaxExceededCopyWith<$Res>
 }
 
 /// @nodoc
-class _$ZIssueMaxExceededCopyWithImpl<$Res>
-    implements $ZIssueMaxExceededCopyWith<$Res> {
+class _$ZIssueMaxExceededCopyWithImpl<$Res> implements $ZIssueMaxExceededCopyWith<$Res> {
   _$ZIssueMaxExceededCopyWithImpl(this._self, this._then);
 
   final ZIssueMaxExceeded _self;
@@ -595,11 +555,7 @@ class _$ZIssueMaxExceededCopyWithImpl<$Res>
 
 class ZIssueParseFail extends ZIssue {
   const ZIssueParseFail(
-      {required this.from,
-      required this.to,
-      required this.val,
-      this.throwable,
-      this.rawPath = const ZPath([])})
+      {required this.from, required this.to, required this.val, this.throwable, this.rawPath = const ZPath([])})
       : super._();
 
   final Type from;
@@ -631,13 +587,8 @@ class ZIssueParseFail extends ZIssue {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      from,
-      to,
-      const DeepCollectionEquality().hash(val),
-      const DeepCollectionEquality().hash(throwable),
-      rawPath);
+  int get hashCode => Object.hash(runtimeType, from, to, const DeepCollectionEquality().hash(val),
+      const DeepCollectionEquality().hash(throwable), rawPath);
 
   @override
   String toString() {
@@ -646,23 +597,19 @@ class ZIssueParseFail extends ZIssue {
 }
 
 /// @nodoc
-abstract mixin class $ZIssueParseFailCopyWith<$Res>
-    implements $ZIssueCopyWith<$Res> {
-  factory $ZIssueParseFailCopyWith(
-          ZIssueParseFail value, $Res Function(ZIssueParseFail) _then) =
+abstract mixin class $ZIssueParseFailCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueParseFailCopyWith(ZIssueParseFail value, $Res Function(ZIssueParseFail) _then) =
       _$ZIssueParseFailCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {Type from, Type to, dynamic val, Object? throwable, ZPath rawPath});
+  $Res call({Type from, Type to, dynamic val, Object? throwable, ZPath rawPath});
 
   @override
   $ZPathCopyWith<$Res> get rawPath;
 }
 
 /// @nodoc
-class _$ZIssueParseFailCopyWithImpl<$Res>
-    implements $ZIssueParseFailCopyWith<$Res> {
+class _$ZIssueParseFailCopyWithImpl<$Res> implements $ZIssueParseFailCopyWith<$Res> {
   _$ZIssueParseFailCopyWithImpl(this._self, this._then);
 
   final ZIssueParseFail _self;
@@ -738,8 +685,7 @@ class ZIssueMissingValue extends ZIssue {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, rawPath, const DeepCollectionEquality().hash(throwable));
+  int get hashCode => Object.hash(runtimeType, rawPath, const DeepCollectionEquality().hash(throwable));
 
   @override
   String toString() {
@@ -748,10 +694,8 @@ class ZIssueMissingValue extends ZIssue {
 }
 
 /// @nodoc
-abstract mixin class $ZIssueMissingValueCopyWith<$Res>
-    implements $ZIssueCopyWith<$Res> {
-  factory $ZIssueMissingValueCopyWith(
-          ZIssueMissingValue value, $Res Function(ZIssueMissingValue) _then) =
+abstract mixin class $ZIssueMissingValueCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueMissingValueCopyWith(ZIssueMissingValue value, $Res Function(ZIssueMissingValue) _then) =
       _$ZIssueMissingValueCopyWithImpl;
   @override
   @useResult
@@ -762,8 +706,7 @@ abstract mixin class $ZIssueMissingValueCopyWith<$Res>
 }
 
 /// @nodoc
-class _$ZIssueMissingValueCopyWithImpl<$Res>
-    implements $ZIssueMissingValueCopyWith<$Res> {
+class _$ZIssueMissingValueCopyWithImpl<$Res> implements $ZIssueMissingValueCopyWith<$Res> {
   _$ZIssueMissingValueCopyWithImpl(this._self, this._then);
 
   final ZIssueMissingValue _self;

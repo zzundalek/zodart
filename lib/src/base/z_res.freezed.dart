@@ -17,8 +17,7 @@ T _$identity<T>(T value) => value;
 mixin _$ZResult<T> {
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ZResult<T>);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is ZResult<T>);
   }
 
   @override
@@ -46,8 +45,7 @@ class ZValue<T> extends ZResult<T> {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $ZValueCopyWith<T, ZValue<T>> get copyWith =>
-      _$ZValueCopyWithImpl<T, ZValue<T>>(this, _$identity);
+  $ZValueCopyWith<T, ZValue<T>> get copyWith => _$ZValueCopyWithImpl<T, ZValue<T>>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -58,8 +56,7 @@ class ZValue<T> extends ZResult<T> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(val));
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(val));
 
   @override
   String toString() {
@@ -68,10 +65,8 @@ class ZValue<T> extends ZResult<T> {
 }
 
 /// @nodoc
-abstract mixin class $ZValueCopyWith<T, $Res>
-    implements $ZResultCopyWith<T, $Res> {
-  factory $ZValueCopyWith(ZValue<T> value, $Res Function(ZValue<T>) _then) =
-      _$ZValueCopyWithImpl;
+abstract mixin class $ZValueCopyWith<T, $Res> implements $ZResultCopyWith<T, $Res> {
+  factory $ZValueCopyWith(ZValue<T> value, $Res Function(ZValue<T>) _then) = _$ZValueCopyWithImpl;
   @useResult
   $Res call({T val});
 }
@@ -116,21 +111,18 @@ class ZError<T> extends ZResult<T> {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $ZErrorCopyWith<T, ZError<T>> get copyWith =>
-      _$ZErrorCopyWithImpl<T, ZError<T>>(this, _$identity);
+  $ZErrorCopyWith<T, ZError<T>> get copyWith => _$ZErrorCopyWithImpl<T, ZError<T>>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ZError<T> &&
-            const DeepCollectionEquality()
-                .equals(other._rawIssues, _rawIssues));
+            const DeepCollectionEquality().equals(other._rawIssues, _rawIssues));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_rawIssues));
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_rawIssues));
 
   @override
   String toString() {
@@ -139,10 +131,8 @@ class ZError<T> extends ZResult<T> {
 }
 
 /// @nodoc
-abstract mixin class $ZErrorCopyWith<T, $Res>
-    implements $ZResultCopyWith<T, $Res> {
-  factory $ZErrorCopyWith(ZError<T> value, $Res Function(ZError<T>) _then) =
-      _$ZErrorCopyWithImpl;
+abstract mixin class $ZErrorCopyWith<T, $Res> implements $ZResultCopyWith<T, $Res> {
+  factory $ZErrorCopyWith(ZError<T> value, $Res Function(ZError<T>) _then) = _$ZErrorCopyWithImpl;
   @useResult
   $Res call({ZIssues rawIssues});
 }

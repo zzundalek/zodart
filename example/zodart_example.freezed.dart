@@ -24,8 +24,7 @@ mixin _$Person {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $PersonCopyWith<Person> get copyWith =>
-      _$PersonCopyWithImpl<Person>(this as Person, _$identity);
+  $PersonCopyWith<Person> get copyWith => _$PersonCopyWithImpl<Person>(this as Person, _$identity);
 
   /// Serializes this Person to a JSON map.
   Map<String, dynamic> toJson();
@@ -35,19 +34,15 @@ mixin _$Person {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Person &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
+            (identical(other.firstName, firstName) || other.firstName == firstName) &&
+            (identical(other.lastName, lastName) || other.lastName == lastName) &&
             (identical(other.age, age) || other.age == age) &&
-            (identical(other.disabled, disabled) ||
-                other.disabled == disabled));
+            (identical(other.disabled, disabled) || other.disabled == disabled));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, firstName, lastName, age, disabled);
+  int get hashCode => Object.hash(runtimeType, firstName, lastName, age, disabled);
 
   @override
   String toString() {
@@ -57,8 +52,7 @@ mixin _$Person {
 
 /// @nodoc
 abstract mixin class $PersonCopyWith<$Res> {
-  factory $PersonCopyWith(Person value, $Res Function(Person) _then) =
-      _$PersonCopyWithImpl;
+  factory $PersonCopyWith(Person value, $Res Function(Person) _then) = _$PersonCopyWithImpl;
   @useResult
   $Res call({String firstName, String lastName, int? age, bool? disabled});
 }
@@ -104,11 +98,7 @@ class _$PersonCopyWithImpl<$Res> implements $PersonCopyWith<$Res> {
 /// @nodoc
 @JsonSerializable()
 class _Person extends Person {
-  const _Person(
-      {required this.firstName,
-      required this.lastName,
-      required this.age,
-      required this.disabled})
+  const _Person({required this.firstName, required this.lastName, required this.age, required this.disabled})
       : super._();
   factory _Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 
@@ -126,8 +116,7 @@ class _Person extends Person {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$PersonCopyWith<_Person> get copyWith =>
-      __$PersonCopyWithImpl<_Person>(this, _$identity);
+  _$PersonCopyWith<_Person> get copyWith => __$PersonCopyWithImpl<_Person>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -141,19 +130,15 @@ class _Person extends Person {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Person &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
+            (identical(other.firstName, firstName) || other.firstName == firstName) &&
+            (identical(other.lastName, lastName) || other.lastName == lastName) &&
             (identical(other.age, age) || other.age == age) &&
-            (identical(other.disabled, disabled) ||
-                other.disabled == disabled));
+            (identical(other.disabled, disabled) || other.disabled == disabled));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, firstName, lastName, age, disabled);
+  int get hashCode => Object.hash(runtimeType, firstName, lastName, age, disabled);
 
   @override
   String toString() {
@@ -163,8 +148,7 @@ class _Person extends Person {
 
 /// @nodoc
 abstract mixin class _$PersonCopyWith<$Res> implements $PersonCopyWith<$Res> {
-  factory _$PersonCopyWith(_Person value, $Res Function(_Person) _then) =
-      __$PersonCopyWithImpl;
+  factory _$PersonCopyWith(_Person value, $Res Function(_Person) _then) = __$PersonCopyWithImpl;
   @override
   @useResult
   $Res call({String firstName, String lastName, int? age, bool? disabled});

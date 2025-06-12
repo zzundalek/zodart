@@ -21,20 +21,16 @@ mixin _$ZPath {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $ZPathCopyWith<ZPath> get copyWith =>
-      _$ZPathCopyWithImpl<ZPath>(this as ZPath, _$identity);
+  $ZPathCopyWith<ZPath> get copyWith => _$ZPathCopyWithImpl<ZPath>(this as ZPath, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ZPath &&
-            const DeepCollectionEquality().equals(other.path, path));
+        (other.runtimeType == runtimeType && other is ZPath && const DeepCollectionEquality().equals(other.path, path));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
 
   @override
   String toString() {
@@ -44,8 +40,7 @@ mixin _$ZPath {
 
 /// @nodoc
 abstract mixin class $ZPathCopyWith<$Res> {
-  factory $ZPathCopyWith(ZPath value, $Res Function(ZPath) _then) =
-      _$ZPathCopyWithImpl;
+  factory $ZPathCopyWith(ZPath value, $Res Function(ZPath) _then) = _$ZPathCopyWithImpl;
   @useResult
   $Res call({List<ZPathItem> path});
 }
@@ -93,8 +88,7 @@ class _Path extends ZPath {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$PathCopyWith<_Path> get copyWith =>
-      __$PathCopyWithImpl<_Path>(this, _$identity);
+  _$PathCopyWith<_Path> get copyWith => __$PathCopyWithImpl<_Path>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -105,8 +99,7 @@ class _Path extends ZPath {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_path));
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(_path));
 
   @override
   String toString() {
@@ -116,8 +109,7 @@ class _Path extends ZPath {
 
 /// @nodoc
 abstract mixin class _$PathCopyWith<$Res> implements $ZPathCopyWith<$Res> {
-  factory _$PathCopyWith(_Path value, $Res Function(_Path) _then) =
-      __$PathCopyWithImpl;
+  factory _$PathCopyWith(_Path value, $Res Function(_Path) _then) = __$PathCopyWithImpl;
   @override
   @useResult
   $Res call({List<ZPathItem> path});
@@ -150,8 +142,7 @@ class __$PathCopyWithImpl<$Res> implements _$PathCopyWith<$Res> {
 mixin _$ZPathItem {
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ZPathItem);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is ZPathItem);
   }
 
   @override
@@ -179,8 +170,7 @@ class ZIndex implements ZPathItem {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $ZIndexCopyWith<ZIndex> get copyWith =>
-      _$ZIndexCopyWithImpl<ZIndex>(this, _$identity);
+  $ZIndexCopyWith<ZIndex> get copyWith => _$ZIndexCopyWithImpl<ZIndex>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -201,8 +191,7 @@ class ZIndex implements ZPathItem {
 
 /// @nodoc
 abstract mixin class $ZIndexCopyWith<$Res> implements $ZPathItemCopyWith<$Res> {
-  factory $ZIndexCopyWith(ZIndex value, $Res Function(ZIndex) _then) =
-      _$ZIndexCopyWithImpl;
+  factory $ZIndexCopyWith(ZIndex value, $Res Function(ZIndex) _then) = _$ZIndexCopyWithImpl;
   @useResult
   $Res call({int index});
 }
@@ -240,16 +229,14 @@ class ZProperty implements ZPathItem {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $ZPropertyCopyWith<ZProperty> get copyWith =>
-      _$ZPropertyCopyWithImpl<ZProperty>(this, _$identity);
+  $ZPropertyCopyWith<ZProperty> get copyWith => _$ZPropertyCopyWithImpl<ZProperty>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ZProperty &&
-            (identical(other.property, property) ||
-                other.property == property));
+            (identical(other.property, property) || other.property == property));
   }
 
   @override
@@ -262,10 +249,8 @@ class ZProperty implements ZPathItem {
 }
 
 /// @nodoc
-abstract mixin class $ZPropertyCopyWith<$Res>
-    implements $ZPathItemCopyWith<$Res> {
-  factory $ZPropertyCopyWith(ZProperty value, $Res Function(ZProperty) _then) =
-      _$ZPropertyCopyWithImpl;
+abstract mixin class $ZPropertyCopyWith<$Res> implements $ZPathItemCopyWith<$Res> {
+  factory $ZPropertyCopyWith(ZProperty value, $Res Function(ZProperty) _then) = _$ZPropertyCopyWithImpl;
   @useResult
   $Res call({String property});
 }
