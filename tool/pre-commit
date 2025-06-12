@@ -10,7 +10,12 @@
 # Fail if any command fails
 set -e
 
-echo "Running dart format..."
-dart format .
-echo "✅ All files are formatted."
+echo "🔎 Checking Dart formatting..."
+dart format --output=none --set-exit-if-changed .
 
+echo "✅ Dart code is properly formatted."
+
+echo "🔍 Running Dart analyzer..."
+dart analyze --fatal-infos
+
+echo "✅ Dart analysis passed."
