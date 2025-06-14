@@ -11,16 +11,22 @@ classDiagram
     class ZArray~T~ {
         + nullable() ZNullableArray [done]
         + optional() ZNullableArray [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZObject~T~ {
         + nullable() ZNullableObject [done]
         + optional() ZNullableObject [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZBool {
         + nullable() ZNullableBool [done]
         + optional() ZNullableBool [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZInt {
@@ -29,6 +35,8 @@ classDiagram
 
         + min(min) [done]
         + max(max) [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZDouble {
@@ -38,6 +46,8 @@ classDiagram
 
         + min(min) [done]
         + max(max) [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZString {
@@ -51,25 +61,34 @@ classDiagram
         + max(max) [done]
 
         + trim() [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZNullableArray~T~ {
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZNullableObject~T~ {
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZNullableBool {
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZNullableInt {
         + min(min) [done]
         + max(max) [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZNullableDouble {
         + min(min) [done]
         + max(max) [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     class ZNullableString {
@@ -77,6 +96,8 @@ classDiagram
         + max(max) [done]
 
         + trim() [done]
+
+        + refine(refiner, message?, code?) [done]
     }
 
     ZArray --|> ZBase

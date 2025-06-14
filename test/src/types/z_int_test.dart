@@ -150,4 +150,59 @@ void main() {
       );
     });
   });
+
+  group('refine', () {
+    bool refinePositive(int val) => val > 0;
+
+    const baseValidInputs = <ValidInput>[
+      (input: 1, expected: 1),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: -1, expected: [ZIssue.custom()]),
+    ];
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZInt().refine(refinePositive),
+      );
+    });
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZInt().nullable().refine(refinePositive),
+      );
+    });
+    group('test the ZIssueCustom properties when the refiner does not pass ', () {
+      test('when nothing passed, returns plain ZIssueCustom', () {
+        expect(ZInt().refine(refinePositive).parse(-1).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('when a message is passed, returns ZIssueCustom with the message', () {
+        expect(
+          ZInt().refine(refinePositive, message: 'Value is negative').parse(-1).rawIssues,
+          equals(const [ZIssueCustom(message: 'Value is negative')]),
+        );
+      });
+      test('when a code is passed, returns ZIssueCustom with the code', () {
+        expect(
+          ZInt().refine(refinePositive, code: '001').parse(-1).rawIssues,
+          equals(const [ZIssueCustom(code: '001')]),
+        );
+      });
+      test('when a code and message is passed, returns ZIssueCustom with the code and the message', () {
+        expect(
+          ZInt().refine(refinePositive, message: 'Value is negative', code: '001').parse(-1).rawIssues,
+          equals(const [ZIssueCustom(message: 'Value is negative', code: '001')]),
+        );
+      });
+    });
+  });
 }

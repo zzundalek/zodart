@@ -49,3 +49,6 @@ typedef ObjectMapper<T> = T Function(ObjectJson);
 ///  };
 /// ```
 typedef ZSchema = Map<String, ZBase<dynamic>>;
+
+/// Function used to validate a value using a custom function.
+typedef Refiner<T> = bool Function(T val);

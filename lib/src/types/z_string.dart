@@ -9,7 +9,7 @@ part of 'types.dart';
 /// final stringVal = ZString();
 /// final result = stringVal.parse('ZodArt');
 /// ```
-class ZString extends ZBase<String> {
+class ZString extends ZBase<String> implements ZTransformations<String, String> {
   /// Factory constructor that creates a new instance using the default configuration.
   factory ZString() => ZString._new();
 
@@ -45,4 +45,8 @@ class ZString extends ZBase<String> {
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableString optional() => ZNullableString._withConfig(_config.makeOptional());
+
+  @override
+  ZString refine(Refiner<String> refiner, {String? message, String? code}) =>
+      _addRule(refineRule(refiner, message: message, code: code));
 }

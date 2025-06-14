@@ -63,6 +63,39 @@ class RuleDouble extends RuleAny<double> {
   RuleDouble(super._fn);
 }
 
+/// A type-safe wrapper for bool-specific validation or processing logic.
+///
+/// This class extends [RuleAny] for the [bool] type and applies runtime
+/// type guarding to ensure only bools are validated or parsed.
+class RuleBool extends RuleAny<bool> {
+  /// Creates a new [RuleBool] with the provided rule function [fn].
+  ///
+  /// The rule will be automatically wrapped with a runtime type check.
+  RuleBool(super._fn);
+}
+
+/// A type-safe wrapper for object-specific validation or processing logic.
+///
+/// This class extends [RuleAny] for the [Object] of type `T` and applies runtime
+/// type guarding to ensure only objects of type `T` are validated or parsed.
+class RuleObject<T> extends RuleAny<T> {
+  /// Creates a new [RuleObject] with the provided rule function [fn].
+  ///
+  /// The rule will be automatically wrapped with a runtime type check.
+  RuleObject(super._fn);
+}
+
+/// A type-safe wrapper for array-specific validation or processing logic.
+///
+/// This class extends [RuleAny] for the [List] of type `T` and applies runtime
+/// type guarding to ensure only Lists of type `T` are validated or parsed.
+class RuleArray<T> extends RuleAny<List<T>> {
+  /// Creates a new [RuleArray] with the provided rule function [fn].
+  ///
+  /// The rule will be automatically wrapped with a runtime type check.
+  RuleArray(super._fn);
+}
+
 /// A type-safe transformation from [String] to [int].
 ///
 /// Extends [TransformAny] and enforces runtime type checks for both input and output types.

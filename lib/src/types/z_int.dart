@@ -9,7 +9,7 @@ part of 'types.dart';
 /// final intVal = ZInt();
 /// final result = intVal.parse(1);
 /// ```
-class ZInt extends ZBase<int> {
+class ZInt extends ZBase<int> implements ZTransformations<int, int> {
   /// Factory constructor that creates a new instance using the default configuration.
   factory ZInt() => ZInt._new();
 
@@ -36,4 +36,8 @@ class ZInt extends ZBase<int> {
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableInt optional() => ZNullableInt._withConfig(_config.makeOptional());
+
+  @override
+  ZInt refine(Refiner<int> refiner, {String? message, String? code}) =>
+      _addRule(refineRule(refiner, message: message, code: code));
 }
