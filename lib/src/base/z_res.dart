@@ -46,7 +46,10 @@ class ZRes<T> {
   /// final error = ZRes<String>.error([ZIssue.lengthNotMet(expectedLength: 10, actualLength: 9)]);
   /// print(error.isError); // true
   /// ```
-  factory ZRes.error(ZIssues issues) => ZRes._(Either<ZIssues, T>.left(issues));
+  factory ZRes.error(ZIssues issues) {
+    if (issues.isEmpty) throw ArgumentError('The issues list must contain at least one issue!');
+    return ZRes._(Either<ZIssues, T>.left(issues));
+  }
 
   /// Creates an error [ZRes] wrapping a single [issue].
   ///
