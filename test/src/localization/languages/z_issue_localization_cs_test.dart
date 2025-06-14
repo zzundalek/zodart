@@ -52,5 +52,20 @@ void main() {
       final result = localization.missingValue(issue);
       expect(result, "Nepodařilo se převést hodnotu pro 'name'. Hodnota nebyla nalezena.");
     });
+
+    group('custom returns correct message', () {
+      test('custom returns the message if set in the issue', () {
+        expect(
+          localization.custom(const ZIssueCustom(message: 'Miluju ZodArt!')),
+          'Miluju ZodArt!',
+        );
+      });
+      test('custom returns default message if not set in the issue', () {
+        expect(
+          localization.custom(const ZIssueCustom()),
+          'Hodnota je neplatná.',
+        );
+      });
+    });
   });
 }

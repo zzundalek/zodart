@@ -52,5 +52,20 @@ void main() {
       final result = localization.missingValue(issue);
       expect(result, '「name」の値が見つかりませんでした。');
     });
+
+    group('custom returns correct message', () {
+      test('custom returns the message if set in the issue', () {
+        expect(
+          localization.custom(const ZIssueCustom(message: 'ZodArtが好きです!')),
+          'ZodArtが好きです!',
+        );
+      });
+      test('custom returns default message if not set in the issue', () {
+        expect(
+          localization.custom(const ZIssueCustom()),
+          '値が無効です。',
+        );
+      });
+    });
   });
 }

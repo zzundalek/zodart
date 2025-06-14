@@ -32,4 +32,7 @@ class ZIssueLocalizationCs implements ZIssueLocalization {
   @override
   String missingValue(ZIssueMissingValue issue) =>
       "Nepodařilo se převést hodnotu pro '${issue.rawPath.pathStr}'. Hodnota nebyla nalezena.";
+
+  @override
+  String custom(ZIssueCustom issue) => issue.message ?? 'Hodnota je neplatná.';
 }

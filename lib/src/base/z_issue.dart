@@ -61,6 +61,14 @@ sealed class ZIssue with _$ZIssue {
     Object? throwable,
   }) = ZIssueMissingValue;
 
+  /// Custom issue used for user defined refinements etc.
+  const factory ZIssue.custom({
+    String? code,
+    String? message,
+    Object? throwable,
+    @Default(ZPath([])) ZPath rawPath,
+  }) = ZIssueCustom;
+
   /// Returns path in String format. If the path is empty returns null.
   String? get path => rawPath.pathStr;
 }

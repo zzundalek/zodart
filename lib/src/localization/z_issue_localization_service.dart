@@ -33,6 +33,7 @@ class ZIssueLocalizationService {
       final ZIssueMaxExceeded issue => _zIssueLocalization.maxExceeded(issue),
       final ZIssueParseFail issue => _zIssueLocalization.parseFail(issue),
       final ZIssueMissingValue issue => _zIssueLocalization.missingValue(issue),
+      final ZIssueCustom issue => _zIssueLocalization.custom(issue),
     };
 
     /// Prepends the issue path (if available) to the message text.
