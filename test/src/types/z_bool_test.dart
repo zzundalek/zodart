@@ -50,4 +50,61 @@ void main() {
       });
     });
   });
+
+  group('refine', () {
+    // Easy format for test
+    // ignore: avoid_positional_boolean_parameters
+    bool refineTrue(bool val) => val;
+
+    const baseValidInputs = <ValidInput>[
+      (input: true, expected: true),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: false, expected: [ZIssue.custom()]),
+    ];
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZBool().refine(refineTrue),
+      );
+    });
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZBool().nullable().refine(refineTrue),
+      );
+    });
+    group('test the ZIssueCustom properties when the refiner does not pass ', () {
+      test('when nothing passed, returns plain ZIssueCustom', () {
+        expect(ZBool().refine(refineTrue).parse(false).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('when a message is passed, returns ZIssueCustom with the message', () {
+        expect(
+          ZBool().refine(refineTrue, message: 'Value is false').parse(false).rawIssues,
+          equals(const [ZIssueCustom(message: 'Value is false')]),
+        );
+      });
+      test('when a code is passed, returns ZIssueCustom with the code', () {
+        expect(
+          ZBool().refine(refineTrue, code: '001').parse(false).rawIssues,
+          equals(const [ZIssueCustom(code: '001')]),
+        );
+      });
+      test('when a code and message is passed, returns ZIssueCustom with the code and the message', () {
+        expect(
+          ZBool().refine(refineTrue, message: 'Value is false', code: '001').parse(false).rawIssues,
+          equals(const [ZIssueCustom(message: 'Value is false', code: '001')]),
+        );
+      });
+    });
+  });
 }

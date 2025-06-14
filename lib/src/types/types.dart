@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 
 import '../base/base.dart';
+import '../internal_operation_interfaces.dart';
 import '../modifiers/modifiers.dart';
 import '../z_base_config/z_base_config.dart';
 

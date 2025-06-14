@@ -9,7 +9,7 @@ part of 'types.dart';
 /// final doubleVal = ZDouble();
 /// final result = doubleVal.parse(1.0);
 /// ```
-class ZDouble extends ZBase<double> {
+class ZDouble extends ZBase<double> implements ZTransformations<double, double> {
   /// Factory constructor that creates a new instance using the default configuration.
   factory ZDouble() => ZDouble._new();
 
@@ -36,4 +36,8 @@ class ZDouble extends ZBase<double> {
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableDouble optional() => ZNullableDouble._withConfig(_config.makeOptional());
+
+  @override
+  ZDouble refine(Refiner<double> refiner, {String? message, String? code}) =>
+      _addRule(refineRule(refiner, message: message, code: code));
 }

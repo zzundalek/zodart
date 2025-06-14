@@ -9,7 +9,11 @@ part of 'types.dart';
 /// final nullableString = ZString().nullable();
 /// final result = nullableString.parse('ZodArt');
 /// ```
-class ZNullableString extends ZBase<String?> {
+class ZNullableString extends ZBase<String?> implements ZTransformations<String, String?> {
+  /// Internal constructor that accepts a custom configuration.
+  ///
+  /// Typically used for creating modified versions of this validator,
+  /// such as after applying transformation or additional rules.
   ZNullableString._withConfig(super.config) : super._withConfig();
 
   ZNullableString _addRule(Rule<String> r) => ZNullableString._withConfig(_config.addRule(RuleString(r)));
@@ -33,4 +37,8 @@ class ZNullableString extends ZBase<String?> {
   /// Adds a transformation of current nullable [String] value to nullable [double].
   ZNullableDouble toDouble() =>
       ZNullableDouble._withConfig(_config.addTransformation(TransformStringToDouble(stringToDouble)));
+
+  @override
+  ZNullableString refine(Refiner<String> refiner, {String? message, String? code}) =>
+      _addRule(refineRule(refiner, message: message, code: code));
 }

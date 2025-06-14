@@ -288,4 +288,59 @@ void main() {
       );
     });
   });
+
+  group('refine', () {
+    bool refineNotEmpty(String val) => val.isNotEmpty;
+
+    const baseValidInputs = <ValidInput>[
+      (input: 'I love ZodArt', expected: 'I love ZodArt'),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: '', expected: [ZIssue.custom()]),
+    ];
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZString().refine(refineNotEmpty),
+      );
+    });
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZString().nullable().refine(refineNotEmpty),
+      );
+    });
+    group('test the ZIssueCustom properties when the refiner does not pass ', () {
+      test('when nothing passed, returns plain ZIssueCustom', () {
+        expect(ZString().refine(refineNotEmpty).parse('').rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('when a message is passed, returns ZIssueCustom with the message', () {
+        expect(
+          ZString().refine(refineNotEmpty, message: 'String is empty').parse('').rawIssues,
+          equals(const [ZIssueCustom(message: 'String is empty')]),
+        );
+      });
+      test('when a code is passed, returns ZIssueCustom with the code', () {
+        expect(
+          ZString().refine(refineNotEmpty, code: '001').parse('').rawIssues,
+          equals(const [ZIssueCustom(code: '001')]),
+        );
+      });
+      test('when a code and message is passed, returns ZIssueCustom with the code and the message', () {
+        expect(
+          ZString().refine(refineNotEmpty, message: 'String is empty', code: '001').parse('').rawIssues,
+          equals(const [ZIssueCustom(message: 'String is empty', code: '001')]),
+        );
+      });
+    });
+  });
 }
