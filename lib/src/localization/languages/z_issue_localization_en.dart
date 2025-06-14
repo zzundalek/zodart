@@ -29,4 +29,7 @@ class ZIssueLocalizationEn implements ZIssueLocalization {
   @override
   String missingValue(ZIssueMissingValue issue) =>
       "Failed to parse value at '${issue.rawPath.pathStr}'. Value not found.";
+
+  @override
+  String custom(ZIssueCustom issue) => issue.message ?? 'The value is invalid.';
 }

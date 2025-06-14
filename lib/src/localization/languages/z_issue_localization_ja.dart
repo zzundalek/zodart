@@ -29,4 +29,7 @@ class ZIssueLocalizationJa implements ZIssueLocalization {
 
   @override
   String missingValue(ZIssueMissingValue issue) => '「${issue.rawPath.pathStr}」の値が見つかりませんでした。';
+
+  @override
+  String custom(ZIssueCustom issue) => issue.message ?? '値が無効です。';
 }

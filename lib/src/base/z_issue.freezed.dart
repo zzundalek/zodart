@@ -635,4 +635,84 @@ $ZPathCopyWith<$Res> get rawPath {
 }
 }
 
+/// @nodoc
+
+
+class ZIssueCustom extends ZIssue {
+  const ZIssueCustom({this.code, this.message, this.throwable, this.rawPath = const ZPath([])}): super._();
+  
+
+ final  String? code;
+ final  String? message;
+ final  Object? throwable;
+@override@JsonKey() final  ZPath rawPath;
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ZIssueCustomCopyWith<ZIssueCustom> get copyWith => _$ZIssueCustomCopyWithImpl<ZIssueCustom>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZIssueCustom&&(identical(other.code, code) || other.code == code)&&(identical(other.message, message) || other.message == message)&&const DeepCollectionEquality().equals(other.throwable, throwable)&&(identical(other.rawPath, rawPath) || other.rawPath == rawPath));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,code,message,const DeepCollectionEquality().hash(throwable),rawPath);
+
+@override
+String toString() {
+  return 'ZIssue.custom(code: $code, message: $message, throwable: $throwable, rawPath: $rawPath)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ZIssueCustomCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueCustomCopyWith(ZIssueCustom value, $Res Function(ZIssueCustom) _then) = _$ZIssueCustomCopyWithImpl;
+@override @useResult
+$Res call({
+ String? code, String? message, Object? throwable, ZPath rawPath
+});
+
+
+@override $ZPathCopyWith<$Res> get rawPath;
+
+}
+/// @nodoc
+class _$ZIssueCustomCopyWithImpl<$Res>
+    implements $ZIssueCustomCopyWith<$Res> {
+  _$ZIssueCustomCopyWithImpl(this._self, this._then);
+
+  final ZIssueCustom _self;
+  final $Res Function(ZIssueCustom) _then;
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? code = freezed,Object? message = freezed,Object? throwable = freezed,Object? rawPath = null,}) {
+  return _then(ZIssueCustom(
+code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,throwable: freezed == throwable ? _self.throwable : throwable ,rawPath: null == rawPath ? _self.rawPath : rawPath // ignore: cast_nullable_to_non_nullable
+as ZPath,
+  ));
+}
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ZPathCopyWith<$Res> get rawPath {
+  
+  return $ZPathCopyWith<$Res>(_self.rawPath, (value) {
+    return _then(_self.copyWith(rawPath: value));
+  });
+}
+}
+
 // dart format on
