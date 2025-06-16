@@ -17,3 +17,10 @@ scripts:
     watch:
       $script: dart run build_runner watch --delete-conflicting-outputs
       $description: Runs build_runner in watch mode
+  deploy:
+    dry:
+      $script: dart pub publish --dry-run
+      $description: Runs pub.dev publish command in dry run mode.
+    pub:
+      $script: dart pub publish
+      $description: Publishs the package to the pub.dev.

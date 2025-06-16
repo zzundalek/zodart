@@ -9,7 +9,7 @@ part of 'types.dart';
 /// final nullableInt = ZInt().nullable();
 /// final result = nullableInt.parse(1);
 /// ```
-class ZNullableInt extends ZBase<int?> {
+class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
   ZNullableInt._withConfig(super.config) : super._withConfig();
 
   ZNullableInt _addRule(Rule<int> r) => ZNullableInt._withConfig(_config.addRule(RuleInt(r)));
@@ -23,4 +23,8 @@ class ZNullableInt extends ZBase<int?> {
   ///
   /// Skips the validation if the value is `null`.
   ZNullableInt max(int max) => _addRule(maxNumRule(max));
+
+  @override
+  ZNullableInt refine(Refiner<int> refiner, {String? message, String? code}) =>
+      _addRule(refineRule(refiner, message: message, code: code));
 }

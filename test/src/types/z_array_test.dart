@@ -105,4 +105,59 @@ void main() {
       });
     });
   });
+
+  group('refine', () {
+    bool refineNotEmpty(List<dynamic> val) => val.isNotEmpty;
+
+    const baseValidInputs = <ValidInput>[
+      (input: ['I love ZodArt'], expected: ['I love ZodArt']),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: <String>[], expected: [ZIssue.custom()]),
+    ];
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZArray(ZString()).refine(refineNotEmpty),
+      );
+    });
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZArray(ZString()).nullable().refine(refineNotEmpty),
+      );
+    });
+    group('test the ZIssueCustom properties when the refiner does not pass ', () {
+      test('when nothing passed, returns plain ZIssueCustom', () {
+        expect(ZArray(ZString()).refine(refineNotEmpty).parse([]).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('when a message is passed, returns ZIssueCustom with the message', () {
+        expect(
+          ZArray(ZString()).refine(refineNotEmpty, message: 'The list is empty').parse([]).rawIssues,
+          equals(const [ZIssueCustom(message: 'The list is empty')]),
+        );
+      });
+      test('when a code is passed, returns ZIssueCustom with the code', () {
+        expect(
+          ZArray(ZString()).refine(refineNotEmpty, code: '001').parse([]).rawIssues,
+          equals(const [ZIssueCustom(code: '001')]),
+        );
+      });
+      test('when a code and message is passed, returns ZIssueCustom with the code and the message', () {
+        expect(
+          ZArray(ZString()).refine(refineNotEmpty, message: 'The list is empty', code: '001').parse([]).rawIssues,
+          equals(const [ZIssueCustom(message: 'The list is empty', code: '001')]),
+        );
+      });
+    });
+  });
 }

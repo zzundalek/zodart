@@ -75,7 +75,9 @@ void compareIssues(ZIssue e, ZIssue expectedIssue) {
 void testValidInputs(List<ValidInput> validInputs, ZBase<dynamic> schema) {
   for (final (:input, :expected) in validInputs) {
     test('Test a success. Input: "$input", expected: "$expected"', () {
-      schema.parse(input).match(
+      schema
+          .parse(input)
+          .match(
             (_) => throw TestFailure('Expected the result to be a success, but it was an error.'),
             (val) => testSuccess(val, expected),
           );
@@ -91,7 +93,9 @@ void testValidInputs(List<ValidInput> validInputs, ZBase<dynamic> schema) {
 void testInvalidInputs(List<InvalidInput> invalidInputs, ZBase<dynamic> schema) {
   for (final (:input, :expected) in invalidInputs) {
     test('Test an error. Input: "$input", expected: "$expected"', () {
-      schema.parse(input).match(
+      schema
+          .parse(input)
+          .match(
             (issues) => testErrorMultiple(issues, expected),
             (_) => throw TestFailure('Expected the result to be an error, but it was a success.'),
           );

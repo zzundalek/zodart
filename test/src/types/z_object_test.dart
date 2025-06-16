@@ -4,13 +4,13 @@ import 'package:zodart/zodart.dart';
 import '../../test_helper.dart';
 
 TestObject testObjectMapper(Map<String, dynamic> val) => TestObject(
-      reqStr: val['reqStr'] as String,
-      reqInt: val['reqInt'] as int,
-      nullableStr: val['nullableStr'] as String?,
-      nullableInt: val['nullableInt'] as int?,
-      optionalStr: val['optionalStr'] as String?,
-      optionalInt: val['optionalInt'] as int?,
-    );
+  reqStr: val['reqStr'] as String,
+  reqInt: val['reqInt'] as int,
+  nullableStr: val['nullableStr'] as String?,
+  nullableInt: val['nullableInt'] as int?,
+  optionalStr: val['optionalStr'] as String?,
+  optionalInt: val['optionalInt'] as int?,
+);
 
 ZSchema schema = {
   'reqStr': ZString(),
@@ -41,7 +41,7 @@ void main() {
             nullableInt: 0,
             optionalStr: 'optional Str value',
             optionalInt: 1,
-          )
+          ),
         ),
         (
           input: {
@@ -55,7 +55,7 @@ void main() {
           expected: const TestObject(
             reqStr: 'string',
             reqInt: -1,
-          )
+          ),
         ),
         (
           input: {
@@ -67,7 +67,7 @@ void main() {
           expected: const TestObject(
             reqStr: 'string',
             reqInt: -1,
-          )
+          ),
         ),
       ];
       final baseInvalidInputs = <InvalidInput>[
@@ -152,6 +152,74 @@ void main() {
             invalidInputs: baseInvalidInputs,
           ),
           ZObject<TestObject>.withMapper(schema, fromJson: testObjectMapper).optional(),
+        );
+      });
+    });
+  });
+
+  group('refine', () {
+    bool refineFromLowerThanTo((int, int) val) => val.$1 <= val.$2;
+    (int, int) fromJson(Map<String, dynamic> val) => (val['from'], val['to']);
+    final schema = {'from': ZInt(), 'to': ZInt()};
+
+    const invalidValue = {'from': 10, 'to': 1};
+
+    final zObj = ZObject<(int, int)>.withMapper(schema, fromJson: fromJson);
+
+    const baseValidInputs = <ValidInput>[
+      (input: {'from': 0, 'to': 1}, expected: (0, 1)),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: {'from': 90, 'to': 1}, expected: [ZIssue.custom()]),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        zObj.refine(refineFromLowerThanTo),
+      );
+    });
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        zObj.nullable().refine(refineFromLowerThanTo),
+      );
+    });
+    group('test the ZIssueCustom properties when the refiner does not pass ', () {
+      test('when nothing passed, returns plain ZIssueCustom', () {
+        expect(
+          zObj.refine(refineFromLowerThanTo).parse(invalidValue).rawIssues,
+          equals(const [ZIssueCustom()]),
+        );
+      });
+      test('when a message is passed, returns ZIssueCustom with the message', () {
+        expect(
+          zObj.refine(refineFromLowerThanTo, message: 'From is greater than To').parse(invalidValue).rawIssues,
+          equals(const [ZIssueCustom(message: 'From is greater than To')]),
+        );
+      });
+      test('when a code is passed, returns ZIssueCustom with the code', () {
+        expect(
+          zObj.refine(refineFromLowerThanTo, code: '001').parse(invalidValue).rawIssues,
+          equals(const [ZIssueCustom(code: '001')]),
+        );
+      });
+      test('when a code and message is passed, returns ZIssueCustom with the code and the message', () {
+        expect(
+          zObj
+              .refine(refineFromLowerThanTo, message: 'From is greater than To', code: '001')
+              .parse(invalidValue)
+              .rawIssues,
+          equals(const [ZIssueCustom(message: 'From is greater than To', code: '001')]),
         );
       });
     });

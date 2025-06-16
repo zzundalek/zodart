@@ -9,7 +9,7 @@ part of 'types.dart';
 /// final nullableDouble = ZDouble().nullable();
 /// final result = nullableDouble.parse(1.0);
 /// ```
-class ZNullableDouble extends ZBase<double?> {
+class ZNullableDouble extends ZBase<double?> implements ZTransformations<double, double?> {
   ZNullableDouble._withConfig(super.config) : super._withConfig();
 
   ZNullableDouble _addRule(Rule<double> r) => ZNullableDouble._withConfig(_config.addRule(RuleDouble(r)));
@@ -23,4 +23,8 @@ class ZNullableDouble extends ZBase<double?> {
   ///
   /// Skips the validation if the value is `null`.
   ZNullableDouble max(double max) => _addRule(maxNumRule(max));
+
+  @override
+  ZNullableDouble refine(Refiner<double> refiner, {String? message, String? code}) =>
+      _addRule(refineRule(refiner, message: message, code: code));
 }

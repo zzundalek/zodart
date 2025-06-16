@@ -25,6 +25,7 @@ void main() {
       when(mockIssueLocalization.maxExceeded(argThat(isA<ZIssueMaxExceeded>()))).thenReturn(stubbedMessage);
       when(mockIssueLocalization.parseFail(argThat(isA<ZIssueParseFail>()))).thenReturn(stubbedMessage);
       when(mockIssueLocalization.missingValue(argThat(isA<ZIssueMissingValue>()))).thenReturn(stubbedMessage);
+      when(mockIssueLocalization.custom(argThat(isA<ZIssueCustom>()))).thenReturn(stubbedMessage);
     });
 
     test('calls lengthNotMet for ZIssueLengthNotMet', () {
@@ -67,6 +68,12 @@ void main() {
       final issue = ZIssueMissingValue(rawPath: ZPath.property('name'));
       service.getIssueText(issue);
       verify(mockIssueLocalization.missingValue(issue)).called(1);
+      verifyNoMoreInteractions(mockIssueLocalization);
+    });
+    test('calls custom for ZIssuCustom', () {
+      const issue = ZIssueCustom();
+      service.getIssueText(issue);
+      verify(mockIssueLocalization.custom(issue)).called(1);
       verifyNoMoreInteractions(mockIssueLocalization);
     });
   });

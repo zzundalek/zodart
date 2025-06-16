@@ -5,5 +5,7 @@ enum Language {
 
   /// Czech (`cs`)
   cs,
-  ;
+
+  /// Japanese (`ja`)
+  ja,
 }

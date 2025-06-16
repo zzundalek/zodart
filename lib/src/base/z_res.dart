@@ -46,7 +46,10 @@ class ZRes<T> {
   /// final error = ZRes<String>.error([ZIssue.lengthNotMet(expectedLength: 10, actualLength: 9)]);
   /// print(error.isError); // true
   /// ```
-  factory ZRes.error(ZIssues issues) => ZRes._(Either<ZIssues, T>.left(issues));
+  factory ZRes.error(ZIssues issues) {
+    if (issues.isEmpty) throw ArgumentError('The issues list must contain at least one issue!');
+    return ZRes._(Either<ZIssues, T>.left(issues));
+  }
 
   /// Creates an error [ZRes] wrapping a single [issue].
   ///
@@ -133,15 +136,15 @@ class ZRes<T> {
 extension ZResExt<T> on ZRes<T> {
   /// Returns the list of localized issue messages if the result is an error, or `null` if the result is a success.
   List<String>? get issueMessages => match(
-        (rawIssues) => rawIssues.localizedMessages,
-        (_) => null,
-      );
+    (rawIssues) => rawIssues.localizedMessages,
+    (_) => null,
+  );
 
   /// Returns the list of localized issue messages joined by newline if the result is an error, or `null` if the result is a success.
   String? get issueSummary => match(
-        (rawIssues) => rawIssues.localizedSummary,
-        (_) => null,
-      );
+    (rawIssues) => rawIssues.localizedSummary,
+    (_) => null,
+  );
 
   /// Returns the list of localized issue messages for the given [path], or `null` if no matching issues are found.
   List<String>? getMessagesFor(String path) =>
@@ -155,9 +158,9 @@ extension ZResExt<T> on ZRes<T> {
   String? getSummaryFor(String path) => _findIssuesForPath(path).map((issues) => issues.localizedSummary).toNullable();
 
   Option<ZIssues> _findIssuesForPath(String path) => match(
-        (rawIssues) => findIssuesForPath(rawIssues, path),
-        (_) => const Option.none(),
-      );
+    (rawIssues) => findIssuesForPath(rawIssues, path),
+    (_) => const Option.none(),
+  );
 }
 
 /// Extension that provides utility methods on [ZError] to improve the end-user experience.

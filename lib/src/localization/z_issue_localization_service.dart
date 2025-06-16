@@ -10,6 +10,7 @@ class ZIssueLocalizationService {
     final localization = switch (lang) {
       Language.en => const ZIssueLocalizationEn(),
       Language.cs => const ZIssueLocalizationCs(),
+      Language.ja => const ZIssueLocalizationJa(),
     };
     return ZIssueLocalizationService._(localization);
   }
@@ -32,6 +33,7 @@ class ZIssueLocalizationService {
       final ZIssueMaxExceeded issue => _zIssueLocalization.maxExceeded(issue),
       final ZIssueParseFail issue => _zIssueLocalization.parseFail(issue),
       final ZIssueMissingValue issue => _zIssueLocalization.missingValue(issue),
+      final ZIssueCustom issue => _zIssueLocalization.custom(issue),
     };
 
     /// Prepends the issue path (if available) to the message text.

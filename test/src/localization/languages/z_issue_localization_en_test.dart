@@ -52,5 +52,20 @@ void main() {
       final result = localization.missingValue(issue);
       expect(result, "Failed to parse value at 'name'. Value not found.");
     });
+
+    group('custom returns correct message', () {
+      test('custom returns the message if set in the issue', () {
+        expect(
+          localization.custom(const ZIssueCustom(message: 'I love ZodArt!')),
+          'I love ZodArt!',
+        );
+      });
+      test('custom returns default message if not set in the issue', () {
+        expect(
+          localization.custom(const ZIssueCustom()),
+          'The value is invalid.',
+        );
+      });
+    });
   });
 }

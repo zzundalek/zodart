@@ -77,4 +77,17 @@ Rule<T> maxNumRule<T extends num>(T max) {
 }
 
 /// Returns a [Rule] of type `Rule<String>`, which trims and returns the String value.
-Rule<String> trimRule() => (String val) => ZRes.success(val.trim());
+Rule<String> trimRule() =>
+    (String val) => ZRes.success(val.trim());
+
+/// Returns a [Rule] of type `Rule<T>`, which wraps the passed refiner to return a [ZRes]
+/// depending on the refiner result.
+///
+/// - If the refiner returns `true`, returns [ZRes.success] passing the checked value.
+/// - If the refiner returns `false`, returns [ZRes.error] passing a [ZIssueCustom]
+///   with the passed [message] and [code].
+Rule<T> refineRule<T>(Refiner<T> refiner, {String? message, String? code}) {
+  return (T val) {
+    return refiner(val) ? ZRes.success(val) : ZRes.errorSingleIssue(ZIssueCustom(message: message, code: code));
+  };
+}

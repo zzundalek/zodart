@@ -30,10 +30,10 @@ abstract class ZPath with _$ZPath {
   /// - Subsequent properties are prefixed with a dot.
   /// - Indices are always formatted as `[index]`.
   String _formatPathSegment(ZPathItem item, bool isFirst) => switch (item) {
-        ZIndex(:final index) => '[$index]',
-        ZProperty(:final property) when isFirst => property,
-        ZProperty(:final property) => '.$property',
-      };
+    ZIndex(:final index) => '[$index]',
+    ZProperty(:final property) when isFirst => property,
+    ZProperty(:final property) => '.$property',
+  };
 
   /// Returns a string representation of the path,
   /// e.g. `user.name`, `users[10].name`, `[1].name`.

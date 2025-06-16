@@ -26,26 +26,26 @@ final objSchema = ZObject<(String, int)>.withMapper(
 
 void main() {
   // Returns: true (empty string after trim, violates min(1) rule)
-  print(minSchema.parse('     ').isError);
+  minSchema.parse('     ').isError;
 
   // Returns: 'ZodArt'
-  print(minSchema.parse(' ZodArt  ').value);
+  minSchema.parse(' ZodArt  ').value;
 
   // Returns: 'ZodArt'
-  print(minMaxSchema.parse(' ZodArt ').value);
+  minMaxSchema.parse(' ZodArt ').value;
 
   // Returns: true
-  print(minMaxNullableSchema.parse(null).isSuccess);
+  minMaxNullableSchema.parse(null).isSuccess;
 
   // Returns: 105
-  print(composedNullableIntSchema.parse(' 105  ').value);
+  composedNullableIntSchema.parse(' 105  ').value;
 
   // Returns: true
-  print(composedNullableIntSchema.parse(null).isSuccess);
+  composedNullableIntSchema.parse(null).isSuccess;
 
   // Returns error message: Failed to parse value 'ZodArt', from String to int.
-  print(composedNullableIntSchema.parse('ZodArt').issueSummary);
+  composedNullableIntSchema.parse('ZodArt').issueSummary;
 
   // Returns: ('ZodArt', 100)
-  print(objSchema.parse({'str': 'ZodArt', 'int': ' 100 '}).value);
+  objSchema.parse({'str': 'ZodArt', 'int': ' 100 '}).value;
 }

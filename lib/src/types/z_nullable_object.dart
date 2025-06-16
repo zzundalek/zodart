@@ -20,6 +20,12 @@ part of 'types.dart';
 ///
 /// final nullablePerson = personSchema.parse({'firstName': 'Zod', 'lastName': 'Art'});
 /// ```
-class ZNullableObject<T> extends ZBase<T?> {
+class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?> {
   ZNullableObject._withConfig(super.config) : super._withConfig();
+
+  ZNullableObject<T> _addRule(Rule<T> r) => ZNullableObject<T>._withConfig(_config.addRule(RuleObject(r)));
+
+  @override
+  ZNullableObject<T> refine(Refiner<T> refiner, {String? message, String? code}) =>
+      _addRule(refineRule(refiner, message: message, code: code));
 }

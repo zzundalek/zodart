@@ -51,11 +51,11 @@ ZRes<bool> parseBool(Object? val) => parseStrict(val);
 /// If successful, it delegates to [parseObjectFromMap].
 /// Otherwise, returns a single parse failure error.
 ZRes<T> Function(Object?) parseObject<T>(ObjectSchema schema, ObjectMapper<T> mapper) => (Object? val) {
-      return switch (val) {
-        final Map<String, dynamic> val => parseObjectFromMap(mapper: mapper, schema: schema, val: val),
-        _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
-      };
-    };
+  return switch (val) {
+    final Map<String, dynamic> val => parseObjectFromMap(mapper: mapper, schema: schema, val: val),
+    _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
+  };
+};
 
 /// Parses a [Map<String, dynamic>] [val] according to the given [schema]
 /// and maps the parsed values to type [T] using [mapper].
@@ -82,9 +82,12 @@ ZRes<T> parseObjectFromMap<T>({
     }
     final valueForKey = val[entry.key];
 
-    schemaForKey.parse(valueForKey).match(
-          (issues) => issuesForAllKeys
-              .addAll(issues.map((issue) => issue.copyWith(rawPath: issue.rawPath.prependProperty(key)))),
+    schemaForKey
+        .parse(valueForKey)
+        .match(
+          (issues) => issuesForAllKeys.addAll(
+            issues.map((issue) => issue.copyWith(rawPath: issue.rawPath.prependProperty(key))),
+          ),
           (val) => parsedValuesPerKey[key] = val,
         );
   }
@@ -97,11 +100,11 @@ ZRes<T> parseObjectFromMap<T>({
 /// If the input is a [List<dynamic>], it delegates to [parseArrayFromList].
 /// Otherwise, returns a single parse failure error.
 ZRes<List<T>> Function(Object?) parseArray<T>(ZBase<T> schema) => (Object? val) {
-      return switch (val) {
-        final List<dynamic> val => parseArrayFromList(values: val, schema: schema),
-        _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: List<T>, val: val)),
-      };
-    };
+  return switch (val) {
+    final List<dynamic> val => parseArrayFromList(values: val, schema: schema),
+    _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: List<T>, val: val)),
+  };
+};
 
 /// Parses a list of dynamic [values] according to the given [schema].
 ///
@@ -118,9 +121,12 @@ ZRes<List<T>> parseArrayFromList<T>({
   final issuesForAllValues = <ZIssue>[];
 
   for (final entry in values.asMap().entries) {
-    schema.parse(entry.value).match(
-          (issues) => issuesForAllValues
-              .addAll(issues.map((issue) => issue.copyWith(rawPath: issue.rawPath.prependIndex(entry.key)))),
+    schema
+        .parse(entry.value)
+        .match(
+          (issues) => issuesForAllValues.addAll(
+            issues.map((issue) => issue.copyWith(rawPath: issue.rawPath.prependIndex(entry.key))),
+          ),
           parsedValues.add,
         );
   }
