@@ -1,6 +1,6 @@
 name: zodart
 description: Type-safe schema validation with static type inference and a parse-first design.
-version: 0.2.0
+version: 0.3.0
 repository: https://github.com/zzundalek/zodart
 
 environment:
