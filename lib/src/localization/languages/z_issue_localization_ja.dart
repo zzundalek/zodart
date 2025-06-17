@@ -32,4 +32,16 @@ class ZIssueLocalizationJa implements ZIssueLocalization {
 
   @override
   String custom(ZIssueCustom issue) => issue.message ?? '値が無効です。';
+
+  @override
+  String maxDateTimeExceeded(ZIssueMaxDateTimeExceeded issue) {
+    // TODO(zzundalek): implement maxDateTimeExceeded
+    throw UnimplementedError();
+  }
+
+  @override
+  String minDateTimeNotMet(ZIssueMinDateTimeNotMet issue) {
+    // TODO(zzundalek): implement miDateTimeNotMet
+    throw UnimplementedError();
+  }
 }

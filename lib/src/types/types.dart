@@ -8,6 +8,7 @@ import '../z_base_config/z_base_config.dart';
 part 'z_array.dart';
 part 'z_base.dart';
 part 'z_bool.dart';
+part 'z_datetime.dart';
 part 'z_double.dart';
 part 'z_int.dart';
 part 'z_nullable_array.dart';

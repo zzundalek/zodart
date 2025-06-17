@@ -638,6 +638,164 @@ $ZPathCopyWith<$Res> get rawPath {
 /// @nodoc
 
 
+class ZIssueMinDateTimeNotMet extends ZIssue {
+  const ZIssueMinDateTimeNotMet({required this.min, required this.val, this.rawPath = const ZPath([])}): super._();
+  
+
+ final  DateTime min;
+ final  DateTime val;
+@override@JsonKey() final  ZPath rawPath;
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ZIssueMinDateTimeNotMetCopyWith<ZIssueMinDateTimeNotMet> get copyWith => _$ZIssueMinDateTimeNotMetCopyWithImpl<ZIssueMinDateTimeNotMet>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZIssueMinDateTimeNotMet&&(identical(other.min, min) || other.min == min)&&(identical(other.val, val) || other.val == val)&&(identical(other.rawPath, rawPath) || other.rawPath == rawPath));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,min,val,rawPath);
+
+@override
+String toString() {
+  return 'ZIssue.minDateNotMet(min: $min, val: $val, rawPath: $rawPath)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ZIssueMinDateTimeNotMetCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueMinDateTimeNotMetCopyWith(ZIssueMinDateTimeNotMet value, $Res Function(ZIssueMinDateTimeNotMet) _then) = _$ZIssueMinDateTimeNotMetCopyWithImpl;
+@override @useResult
+$Res call({
+ DateTime min, DateTime val, ZPath rawPath
+});
+
+
+@override $ZPathCopyWith<$Res> get rawPath;
+
+}
+/// @nodoc
+class _$ZIssueMinDateTimeNotMetCopyWithImpl<$Res>
+    implements $ZIssueMinDateTimeNotMetCopyWith<$Res> {
+  _$ZIssueMinDateTimeNotMetCopyWithImpl(this._self, this._then);
+
+  final ZIssueMinDateTimeNotMet _self;
+  final $Res Function(ZIssueMinDateTimeNotMet) _then;
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? min = null,Object? val = null,Object? rawPath = null,}) {
+  return _then(ZIssueMinDateTimeNotMet(
+min: null == min ? _self.min : min // ignore: cast_nullable_to_non_nullable
+as DateTime,val: null == val ? _self.val : val // ignore: cast_nullable_to_non_nullable
+as DateTime,rawPath: null == rawPath ? _self.rawPath : rawPath // ignore: cast_nullable_to_non_nullable
+as ZPath,
+  ));
+}
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ZPathCopyWith<$Res> get rawPath {
+  
+  return $ZPathCopyWith<$Res>(_self.rawPath, (value) {
+    return _then(_self.copyWith(rawPath: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class ZIssueMaxDateTimeExceeded extends ZIssue {
+  const ZIssueMaxDateTimeExceeded({required this.max, required this.val, this.rawPath = const ZPath([])}): super._();
+  
+
+ final  DateTime max;
+ final  DateTime val;
+@override@JsonKey() final  ZPath rawPath;
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ZIssueMaxDateTimeExceededCopyWith<ZIssueMaxDateTimeExceeded> get copyWith => _$ZIssueMaxDateTimeExceededCopyWithImpl<ZIssueMaxDateTimeExceeded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZIssueMaxDateTimeExceeded&&(identical(other.max, max) || other.max == max)&&(identical(other.val, val) || other.val == val)&&(identical(other.rawPath, rawPath) || other.rawPath == rawPath));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,max,val,rawPath);
+
+@override
+String toString() {
+  return 'ZIssue.maxDateExceeded(max: $max, val: $val, rawPath: $rawPath)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ZIssueMaxDateTimeExceededCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueMaxDateTimeExceededCopyWith(ZIssueMaxDateTimeExceeded value, $Res Function(ZIssueMaxDateTimeExceeded) _then) = _$ZIssueMaxDateTimeExceededCopyWithImpl;
+@override @useResult
+$Res call({
+ DateTime max, DateTime val, ZPath rawPath
+});
+
+
+@override $ZPathCopyWith<$Res> get rawPath;
+
+}
+/// @nodoc
+class _$ZIssueMaxDateTimeExceededCopyWithImpl<$Res>
+    implements $ZIssueMaxDateTimeExceededCopyWith<$Res> {
+  _$ZIssueMaxDateTimeExceededCopyWithImpl(this._self, this._then);
+
+  final ZIssueMaxDateTimeExceeded _self;
+  final $Res Function(ZIssueMaxDateTimeExceeded) _then;
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? max = null,Object? val = null,Object? rawPath = null,}) {
+  return _then(ZIssueMaxDateTimeExceeded(
+max: null == max ? _self.max : max // ignore: cast_nullable_to_non_nullable
+as DateTime,val: null == val ? _self.val : val // ignore: cast_nullable_to_non_nullable
+as DateTime,rawPath: null == rawPath ? _self.rawPath : rawPath // ignore: cast_nullable_to_non_nullable
+as ZPath,
+  ));
+}
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ZPathCopyWith<$Res> get rawPath {
+  
+  return $ZPathCopyWith<$Res>(_self.rawPath, (value) {
+    return _then(_self.copyWith(rawPath: value));
+  });
+}
+}
+
+/// @nodoc
+
+
 class ZIssueCustom extends ZIssue {
   const ZIssueCustom({this.code, this.message, this.throwable, this.rawPath = const ZPath([])}): super._();
   

@@ -32,4 +32,16 @@ class ZIssueLocalizationEn implements ZIssueLocalization {
 
   @override
   String custom(ZIssueCustom issue) => issue.message ?? 'The value is invalid.';
+
+  @override
+  String maxDateTimeExceeded(ZIssueMaxDateTimeExceeded issue) {
+    // TODO(zzundalek): implement maxDateTimeExceeded
+    throw UnimplementedError();
+  }
+
+  @override
+  String minDateTimeNotMet(ZIssueMinDateTimeNotMet issue) {
+    // TODO(zzundalek): implement miDateTimeNotMet
+    throw UnimplementedError();
+  }
 }

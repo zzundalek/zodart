@@ -41,6 +41,17 @@ class RuleString extends RuleAny<String> {
   RuleString(super._fn);
 }
 
+/// A type-safe wrapper for datetime-specific validation or processing logic.
+///
+/// This class extends [RuleAny] for the [DateTime] type and applies runtime
+/// type guarding to ensure only DateTime value are validated or parsed.
+class RuleDateTime extends RuleAny<DateTime> {
+  /// Creates a new [RuleDateTime] with the provided rule function [fn].
+  ///
+  /// The rule will be automatically wrapped with a runtime type check.
+  RuleDateTime(super._fn);
+}
+
 /// A type-safe wrapper for int-specific validation or processing logic.
 ///
 /// This class extends [RuleAny] for the [int] type and applies runtime
@@ -125,6 +136,17 @@ class ParseString extends ParseAny<String> {
   ///
   /// The function will be automatically wrapped with a runtime type check.
   ParseString(super._fn);
+}
+
+/// A type-safe wrapper for parsing [DateTime] from untyped value [Object?].
+///
+/// This class extends [ParseAny] for the [DateTime] type and applies runtime
+/// type guarding to ensure only not-null values are parsed.
+class ParseDateTime extends ParseAny<DateTime> {
+  /// Creates a new [ParseDateTime] with the provided parse function [fn].
+  ///
+  /// The function will be automatically wrapped with a runtime type check.
+  ParseDateTime(super._fn);
 }
 
 /// A type-safe wrapper for parsing [int] from untyped value [Object?].
