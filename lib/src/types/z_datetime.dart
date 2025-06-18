@@ -31,11 +31,11 @@ class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, Da
   /// Adds a rule to enforce that the DateTime must be before or equal to `max`.
   ZDateTime max(DateTime max) => _addRule(maxDateTimeRule(max));
 
-  // /// Enable `null` value. All rules will be skipped for null values.
-  // ZNullableString nullable() => ZNullableString._withConfig(_config.makeNullable());
+  /// Enable `null` value. All rules will be skipped for null values.
+  ZNullableDateTime nullable() => ZNullableDateTime._withConfig(_config.makeNullable());
 
-  // /// Enable omitting this value. All rules will be skipped if the value is missing.
-  // ZNullableString optional() => ZNullableString._withConfig(_config.makeOptional());
+  /// Enable omitting this value. All rules will be skipped if the value is missing.
+  ZNullableDateTime optional() => ZNullableDateTime._withConfig(_config.makeOptional());
 
   @override
   ZDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) =>

@@ -13,6 +13,7 @@ part 'z_double.dart';
 part 'z_int.dart';
 part 'z_nullable_array.dart';
 part 'z_nullable_double.dart';
+part 'z_nullable_date_time.dart';
 part 'z_nullable_int.dart';
 part 'z_nullable_object.dart';
 part 'z_nullable_string.dart';
