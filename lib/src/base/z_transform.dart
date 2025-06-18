@@ -127,6 +127,16 @@ class TransformStringToDouble extends TransformAny<String, double> {
   TransformStringToDouble(super._fn);
 }
 
+/// A type-safe transformation from [String] to [DateTime].
+///
+/// Extends [TransformAny] and enforces runtime type checks for both input and output types.
+class TransformStringToDateTime extends TransformAny<String, DateTime> {
+  /// Creates a new transformation from [String] to [DateTime] with the given function [fn].
+  ///
+  /// The function will be automatically wrapped with a runtime type check.
+  TransformStringToDateTime(super._fn);
+}
+
 /// A type-safe wrapper for parsing [String] from untyped value [Object?].
 ///
 /// This class extends [ParseAny] for the [String] type and applies runtime
