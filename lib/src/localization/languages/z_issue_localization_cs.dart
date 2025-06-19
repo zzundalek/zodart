@@ -34,17 +34,13 @@ class ZIssueLocalizationCs implements ZIssueLocalization {
       "Nepodařilo se převést hodnotu pro '${issue.rawPath.pathStr}'. Hodnota nebyla nalezena.";
 
   @override
+  String minDateTimeNotMet(ZIssueMinDateTimeNotMet issue) =>
+      "Datum musí být nejdřive '${issue.min.toLocal()}', ale je '${issue.val.toLocal()}'.";
+
+  @override
+  String maxDateTimeExceeded(ZIssueMaxDateTimeExceeded issue) =>
+      "Datum musí být nejpozději '${issue.max.toLocal()}', ale je '${issue.val.toLocal()}'.";
+
+  @override
   String custom(ZIssueCustom issue) => issue.message ?? 'Hodnota je neplatná.';
-
-  @override
-  String maxDateTimeExceeded(ZIssueMaxDateTimeExceeded issue) {
-    // TODO(zzundalek): implement maxDateTimeExceeded
-    throw UnimplementedError();
-  }
-
-  @override
-  String minDateTimeNotMet(ZIssueMinDateTimeNotMet issue) {
-    // TODO(zzundalek): implement miDateTimeNotMet
-    throw UnimplementedError();
-  }
 }

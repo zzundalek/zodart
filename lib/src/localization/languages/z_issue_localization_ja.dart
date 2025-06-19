@@ -31,17 +31,13 @@ class ZIssueLocalizationJa implements ZIssueLocalization {
   String missingValue(ZIssueMissingValue issue) => '「${issue.rawPath.pathStr}」の値が見つかりませんでした。';
 
   @override
+  String minDateTimeNotMet(ZIssueMinDateTimeNotMet issue) =>
+      '日付は「${issue.min.toLocal()}」以降である必要がありますが、「${issue.val.toLocal()}」が指定されました。';
+
+  @override
+  String maxDateTimeExceeded(ZIssueMaxDateTimeExceeded issue) =>
+      '日付は「${issue.max.toLocal()}」以前である必要がありますが、「${issue.val.toLocal()}」が指定されました。';
+
+  @override
   String custom(ZIssueCustom issue) => issue.message ?? '値が無効です。';
-
-  @override
-  String maxDateTimeExceeded(ZIssueMaxDateTimeExceeded issue) {
-    // TODO(zzundalek): implement maxDateTimeExceeded
-    throw UnimplementedError();
-  }
-
-  @override
-  String minDateTimeNotMet(ZIssueMinDateTimeNotMet issue) {
-    // TODO(zzundalek): implement miDateTimeNotMet
-    throw UnimplementedError();
-  }
 }
