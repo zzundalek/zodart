@@ -22,6 +22,7 @@
 /// # Available types:
 /// - `ZString`
 /// - `ZInt`
+/// - `ZDateTime`
 /// - `ZDouble`
 /// - `ZBool`
 /// - `ZArray`
