@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Allow using the `.optional()` modifier on `.nullable()` types
+- Add documentation for [nullable and optional modifier](doc/modifiers/nullability.md)
 - Add new type for DateTime
 
 ## 0.3.0 - 2025-06-16
