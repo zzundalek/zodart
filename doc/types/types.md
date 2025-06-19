@@ -29,6 +29,13 @@ classDiagram
         + refine(refiner, message?, code?) [done]
     }
 
+    class ZDateTime {
+        + nullable() ZNullableDateTime [done]
+        + optional() ZNullableDateTime [done]
+
+        + refine(refiner, message?, code?) [done]
+    }
+
     class ZInt {
         + nullable() ZNullableInt [done]
         + optional() ZNullableInt [done]
@@ -77,6 +84,13 @@ classDiagram
         + refine(refiner, message?, code?) [done]
     }
 
+    class ZNullableDateTime {
+        + min(min) [done]
+        + max(max) [done]
+
+        + refine(refiner, message?, code?) [done]
+    }
+
     class ZNullableInt {
         + min(min) [done]
         + max(max) [done]
@@ -103,22 +117,30 @@ classDiagram
     ZArray --|> ZBase
     ZObject --|> ZBase
     ZBool --|> ZBase
+    ZDateTime --|> ZBase
     ZInt --|> ZBase
     ZDouble --|> ZBase
     ZString --|> ZBase
     ZNullableArray --|> ZBase
     ZNullableObject --|> ZBase
     ZNullableBool --|> ZBase
+    ZNullableDateTime --|> ZBase
     ZNullableInt --|> ZBase
     ZNullableDouble --|> ZBase
     ZNullableString --|> ZBase
 
-    ZString ..> ZInt : toInt() [done]
     ZString ..> ZDouble : toDouble() [done]
+    ZString ..> ZDateTime : toDateTime() [done]
+    ZString ..> ZInt : toInt() [done]
+
+    ZNullableString ..> ZNullableDateTime : toDateTime() [done]
+    ZNullableString ..> ZNullableDouble : toDouble() [done]
+    ZNullableString ..> ZNullableInt : toInt() [done]
 
     ZArray ..> ZNullableArray : nullable() [done]
     ZObject ..> ZNullableObject : nullable() [done]
     ZBool ..> ZNullableBool : nullable() [done]
+    ZDateTime ..> ZNullableDateTime : nullable() [done]
     ZInt ..> ZNullableInt : nullable() [done]
     ZDouble ..> ZNullableDouble : nullable() [done]
     ZString ..> ZNullableString : nullable() [done]

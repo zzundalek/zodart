@@ -61,6 +61,20 @@ sealed class ZIssue with _$ZIssue {
     Object? throwable,
   }) = ZIssueMissingValue;
 
+  /// Issue indicating that a DateTime value is less than the minimum allowed.
+  const factory ZIssue.minDateNotMet({
+    required DateTime min,
+    required DateTime val,
+    @Default(ZPath([])) ZPath rawPath,
+  }) = ZIssueMinDateTimeNotMet;
+
+  /// Issue indicating that a DateTime value exceeds the maximum allowed.
+  const factory ZIssue.maxDateExceeded({
+    required DateTime max,
+    required DateTime val,
+    @Default(ZPath([])) ZPath rawPath,
+  }) = ZIssueMaxDateTimeExceeded;
+
   /// Custom issue used for user defined refinements etc.
   const factory ZIssue.custom({
     String? code,

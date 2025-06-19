@@ -40,6 +40,10 @@ class ZString extends ZBase<String> implements ZTransformations<String, String> 
   /// Adds a transformation of current [String] value to [double].
   ZDouble toDouble() => ZDouble._withConfig(_config.addTransformation(TransformStringToDouble(stringToDouble)));
 
+  /// Adds a transformation of current [String] value to [DateTime].
+  ZDateTime toDateTime() =>
+      ZDateTime._withConfig(_config.addTransformation(TransformStringToDateTime(stringToDateTime)));
+
   /// Enable `null` value. All rules will be skipped for null values.
   ZNullableString nullable() => ZNullableString._withConfig(_config.makeNullable());
 

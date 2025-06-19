@@ -45,3 +45,26 @@ ZRes<double> stringToDouble(String val) {
     );
   }
 }
+
+/// A [Transformer] from `String` to `DateTime`.
+///
+/// Takes a [String] [val], attempts to parse it to a `DateTime` using [DateTime.parse].
+///
+/// Returns a [ZRes<DateTime>] containing the parsed DateTime on success.
+///
+/// On error (if parsing throws), returns a [ZIssueParseFail] wrapped
+/// in a left [ZRes].
+ZRes<DateTime> stringToDateTime(String val) {
+  try {
+    return ZRes.success(DateTime.parse(val));
+  } on Exception catch (e) {
+    return ZRes.errorSingleIssue(
+      ZIssueParseFail(
+        from: String,
+        to: DateTime,
+        val: val,
+        throwable: e,
+      ),
+    );
+  }
+}

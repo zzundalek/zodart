@@ -26,6 +26,12 @@ abstract class ZIssueLocalization {
   /// Returns a localized message indicating that a value was missing during parsing.
   String missingValue(ZIssueMissingValue issue);
 
+  /// Returns a localized message indicating that the date time value is below the minimum threshold.
+  String minDateTimeNotMet(ZIssueMinDateTimeNotMet issue);
+
+  /// Returns a localized message indicating that the date time value exceeds the maximum threshold.
+  String maxDateTimeExceeded(ZIssueMaxDateTimeExceeded issue);
+
   /// Returns a localized message for a custom issue.
   String custom(ZIssueCustom issue);
 }

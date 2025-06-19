@@ -33,6 +33,8 @@ class ZIssueLocalizationService {
       final ZIssueMaxExceeded issue => _zIssueLocalization.maxExceeded(issue),
       final ZIssueParseFail issue => _zIssueLocalization.parseFail(issue),
       final ZIssueMissingValue issue => _zIssueLocalization.missingValue(issue),
+      final ZIssueMinDateTimeNotMet issue => _zIssueLocalization.minDateTimeNotMet(issue),
+      final ZIssueMaxDateTimeExceeded issue => _zIssueLocalization.maxDateTimeExceeded(issue),
       final ZIssueCustom issue => _zIssueLocalization.custom(issue),
     };
 
