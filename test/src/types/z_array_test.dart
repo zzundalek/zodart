@@ -103,6 +103,21 @@ void main() {
           ZArray(ZString()).optional(),
         );
       });
+      group('nullable -> optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (
+                input: null,
+                expected: null,
+              ),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZArray(ZString()).nullable().optional(),
+        );
+      });
     });
   });
 

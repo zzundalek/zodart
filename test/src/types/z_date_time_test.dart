@@ -53,6 +53,18 @@ void main() {
           ZDateTime().optional(),
         );
       });
+      group('nullable -> optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime().nullable().optional(),
+        );
+      });
     });
   });
   group('min', () {
