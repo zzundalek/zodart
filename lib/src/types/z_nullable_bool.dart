@@ -18,6 +18,9 @@ class ZNullableBool extends ZBase<bool?> implements ZTransformations<bool, bool?
 
   ZNullableBool _addRule(Rule<bool> r) => ZNullableBool._withConfig(_config.addRule(RuleBool(r)));
 
+  /// Enable omitting this value. All rules will be skipped if the value is missing.
+  ZNullableBool optional() => ZNullableBool._withConfig(_config.makeOptional());
+
   @override
   ZNullableBool refine(Refiner<bool> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));

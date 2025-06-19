@@ -15,6 +15,9 @@ class ZNullableArray<T> extends ZBase<List<T>?> implements ZTransformations<List
 
   ZNullableArray<T> _addRule(Rule<List<T>> r) => ZNullableArray._withConfig(_config.addRule(RuleArray(r)));
 
+  /// Enable omitting this value. All rules will be skipped if the value is missing.
+  ZNullableArray<T> optional() => ZNullableArray._withConfig(_config.makeOptional());
+
   @override
   ZNullableArray<T> refine(Refiner<List<T>> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));

@@ -28,6 +28,9 @@ class ZNullableDateTime extends ZBase<DateTime?> implements ZTransformations<Dat
   /// Skips the validation if the value is `null`.
   ZNullableDateTime max(DateTime max) => _addRule(maxDateTimeRule(max));
 
+  /// Enable omitting this value. All rules will be skipped if the value is missing.
+  ZNullableDateTime optional() => ZNullableDateTime._withConfig(_config.makeOptional());
+
   @override
   ZNullableDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
