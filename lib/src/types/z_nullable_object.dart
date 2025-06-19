@@ -25,6 +25,9 @@ class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?> {
 
   ZNullableObject<T> _addRule(Rule<T> r) => ZNullableObject<T>._withConfig(_config.addRule(RuleObject(r)));
 
+  /// Enable omitting this value. All rules will be skipped if the value is missing.
+  ZNullableObject<T> optional() => ZNullableObject._withConfig(_config.makeOptional());
+
   @override
   ZNullableObject<T> refine(Refiner<T> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));

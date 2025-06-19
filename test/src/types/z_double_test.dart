@@ -55,6 +55,18 @@ void main() {
           ZDouble().optional(),
         );
       });
+      group('nullable -> optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().nullable().optional(),
+        );
+      });
     });
   });
   group('min', () {
