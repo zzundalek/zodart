@@ -8,6 +8,13 @@
 - [ ] Refactor 2 (e.g., Simplified parser logic using fpdart)
 - [ ] Fix 3 (e.g., Fixed path processing)
 
+## 📝 Changelog
+
+Changelog updated:
+
+- [ ] Yes
+- [ ] No
+
 ## 🔍 Related Issues
 
 <!-- Link to related issues, e.g. -->
