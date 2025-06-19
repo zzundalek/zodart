@@ -289,6 +289,51 @@ void main() {
     });
   });
 
+  group('toDateTime', () {
+    final baseValidInputs = <ValidInput>[
+      (input: '2012-02-27', expected: DateTime(2012, 2, 27)),
+      (input: '2012-02-27 13:27:00', expected: DateTime(2012, 2, 27, 13, 27)),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: '', expected: [ZIssueParseFail(from: String, to: DateTime, val: '')]),
+      (input: 'abcd', expected: [ZIssueParseFail(from: String, to: DateTime, val: 'abcd')]),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZString().toDateTime(),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZString().nullable().toDateTime(),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZString().toDateTime().nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refineNotEmpty(String val) => val.isNotEmpty;
 
