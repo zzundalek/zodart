@@ -12,7 +12,7 @@ Parse unstructured data from APIs, Flutter forms, config files, and more — wit
 | Version | Status                                                                                                                                                                                                                                                                                       |
 | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | current | [![Pub Version](https://img.shields.io/pub/v/zodart.svg?)](https://pub.dev/packages/zodart) ![GitHub open bugs](https://img.shields.io/github/issues-search/zzundalek/zodart?query=is%3Aissue%20label%3Abug%20is%3Aopen%20&logo=openbugbounty&logoColor=orange&label=bugs&color=brightgreen) |
-| next    | ![GitHub next milestone details](https://img.shields.io/github/milestones/progress-percent/zzundalek/zodart/2?logo=rocket) ![GitHub last commit](https://img.shields.io/github/last-commit/zzundalek/zodart)                                                                                 |
+| next    | ![GitHub next milestone details](https://img.shields.io/github/milestones/progress-percent/zzundalek/zodart/3?logo=rocket) ![GitHub last commit](https://img.shields.io/github/last-commit/zzundalek/zodart)                                                                                 |
 
 ## Simple example
 
