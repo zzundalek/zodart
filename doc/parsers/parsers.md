@@ -1,19 +1,36 @@
-## Default behavior of parsing functions (=strict)
+## Default behavior of parsers (=strict)
 
-Default parsing behavior is strict and only allows parsing values of the same type as the desired output. All mismatched types result in a parse error.
+By default, ZodArt parsers operate in **strict mode**. This means they will only accept input values that **match the expected type exactly**. Any type mismatch will result in a **ParseError**.
+The only exception is **ZObject**, which strictly accepts only `Map<String, dynamic>` as input.
 
-| ↓ TO   | String      | int         | double      | others      |
-| ------ | ----------- | ----------- | ----------- | ----------- |
-| String | identity    | parse_error | parse_error | parse_error |
-| int    | parse_error | identity    | parse_error | parse_error |
-| double | parse_error | parse_error | identity    | parse_error |
+| →Parse From (input),<br> ↓Parse To | List | bool | DateTime | double | int | Map<String, dynamic> | String | others |
+| ---------------------------------- | ---- | ---- | -------- | ------ | --- | -------------------- | ------ | ------ |
+| ZArray                             | ✅   | ❌   | ❌       | ❌     | ❌  | ❌                   | ❌     | ❌     |
+| ZBool                              | ❌   | ✅   | ❌       | ❌     | ❌  | ❌                   | ❌     | ❌     |
+| ZDateTime                          | ❌   | ❌   | ✅       | ❌     | ❌  | ❌                   | ❌     | ❌     |
+| ZDouble                            | ❌   | ❌   | ❌       | ✅     | ❌  | ❌                   | ❌     | ❌     |
+| ZInt                               | ❌   | ❌   | ❌       | ❌     | ✅  | ❌                   | ❌     | ❌     |
+| ZObject                            | ❌   | ❌   | ❌       | ❌     | ❌  | ✅                   | ❌     | ❌     |
+| ZString                            | ❌   | ❌   | ❌       | ❌     | ❌  | ❌                   | ✅     | ❌     |
 
 ## Parsing with coertion parameter (coertion: true)
 
-Coercion uses the same logic as int.parse / double.parse, and will fail if the input is not a valid representation.
+> **Note:** Coercion support will be implemented in future versions. For now, when parsing data from forms or loosely typed sources, please use explicit transformation chains, e.g. `ZString().toInt()`.
 
-| ↓ TO   | String       | int      | double   | others      |
-| ------ | ------------ | -------- | -------- | ----------- |
-| String | identity     | toString | toString | parse_error |
-| int    | int.parse    | identity | toInt    | parse_error |
-| double | double.parse | toDouble | identity | parse_error |
+When the coercion option is enabled, ZodArt will attempt to convert compatible input values **automatically**, if there's **no risk of data loss**.
+
+- ✅ `int` → `double` is allowed (safe upcast)
+- ❌ `double` → `int` is not allowed (precision loss risk)
+- ⚠️ `Strings` will be parsed using Dart's native `.parse()` methods (e.g., `int.parse`, `DateTime.parse`)
+
+**This is especially useful for form data or serialized values.**
+
+| →Parse From (input),<br> ↓Parse To | List | bool | DateTime | double | int | Map<String, dynamic> | String                                 | others |
+| ---------------------------------- | ---- | ---- | -------- | ------ | --- | -------------------- | -------------------------------------- | ------ |
+| ZArray                             | ✅   | ❌   | ❌       | ❌     | ❌  | ❌                   | ❌                                     | ❌     |
+| ZBool                              | ❌   | ✅   | ❌       | ❌     | ❌  | ❌                   | ⚠️ `true` / `false` (case-insensitive) | ❌     |
+| ZDateTime                          | ❌   | ❌   | ✅       | ❌     | ❌  | ❌                   | ⚠️`DateTime.parse`                     | ❌     |
+| ZDouble                            | ❌   | ❌   | ❌       | ✅     | ✅  | ❌                   | ⚠️`double.parse`                       | ❌     |
+| ZInt                               | ❌   | ❌   | ❌       | ❌     | ✅  | ❌                   | ⚠️`int.parse`                          | ❌     |
+| ZObject                            | ❌   | ❌   | ❌       | ❌     | ❌  | ✅                   | ❌                                     | ❌     |
+| ZString                            | ❌   | ❌   | ❌       | ❌     | ❌  | ❌                   | ✅                                     | ❌     |
