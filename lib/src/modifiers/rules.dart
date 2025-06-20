@@ -91,3 +91,37 @@ Rule<T> refineRule<T>(Refiner<T> refiner, {String? message, String? code}) {
     return refiner(val) ? ZRes.success(val) : ZRes.errorSingleIssue(ZIssueCustom(message: message, code: code));
   };
 }
+
+/// Returns a [Rule] of type `Rule<DateTime>`, which checks minimum value.
+///
+/// The returned rule will succeed if the input datetime is later than or equal to [min],
+/// otherwise it will return a [ZIssueMinDateTimeNotMet].
+Rule<DateTime> minDateTimeRule(DateTime min) {
+  return (DateTime val) {
+    return val.isAfter(min) || val.isAtSameMomentAs(min)
+        ? ZRes.success(val)
+        : ZRes.errorSingleIssue(
+            ZIssueMinDateTimeNotMet(
+              val: val,
+              min: min,
+            ),
+          );
+  };
+}
+
+/// Returns a [Rule] of type `Rule<DateTime>`, which checks maximum value.
+///
+/// The returned rule will succeed if the input datetime is befor than or equal to [max],
+/// otherwise it will return a [ZIssueMaxDateTimeExceeded].
+Rule<DateTime> maxDateTimeRule(DateTime max) {
+  return (DateTime val) {
+    return val.isBefore(max) || val.isAtSameMomentAs(max)
+        ? ZRes.success(val)
+        : ZRes.errorSingleIssue(
+            ZIssueMaxDateTimeExceeded(
+              val: val,
+              max: max,
+            ),
+          );
+  };
+}

@@ -24,6 +24,9 @@ class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
   /// Skips the validation if the value is `null`.
   ZNullableInt max(int max) => _addRule(maxNumRule(max));
 
+  /// Enable omitting this value. All rules will be skipped if the value is missing.
+  ZNullableInt optional() => ZNullableInt._withConfig(_config.makeOptional());
+
   @override
   ZNullableInt refine(Refiner<int> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));

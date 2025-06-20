@@ -38,6 +38,13 @@ class ZNullableString extends ZBase<String?> implements ZTransformations<String,
   ZNullableDouble toDouble() =>
       ZNullableDouble._withConfig(_config.addTransformation(TransformStringToDouble(stringToDouble)));
 
+  /// Adds a transformation of current nullable [String] value to nullable [DateTime].
+  ZNullableDateTime toDateTime() =>
+      ZNullableDateTime._withConfig(_config.addTransformation(TransformStringToDateTime(stringToDateTime)));
+
+  /// Enable omitting this value. All rules will be skipped if the value is missing.
+  ZNullableString optional() => ZNullableString._withConfig(_config.makeOptional());
+
   @override
   ZNullableString refine(Refiner<String> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));

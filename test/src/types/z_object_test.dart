@@ -154,6 +154,21 @@ void main() {
           ZObject<TestObject>.withMapper(schema, fromJson: testObjectMapper).optional(),
         );
       });
+      group('nullable -> optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (
+                input: null,
+                expected: null,
+              ),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZObject<TestObject>.withMapper(schema, fromJson: testObjectMapper).nullable().optional(),
+        );
+      });
     });
   });
 

@@ -12,7 +12,7 @@ Parse unstructured data from APIs, Flutter forms, config files, and more — wit
 | Version | Status                                                                                                                                                                                                                                                                                       |
 | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | current | [![Pub Version](https://img.shields.io/pub/v/zodart.svg?)](https://pub.dev/packages/zodart) ![GitHub open bugs](https://img.shields.io/github/issues-search/zzundalek/zodart?query=is%3Aissue%20label%3Abug%20is%3Aopen%20&logo=openbugbounty&logoColor=orange&label=bugs&color=brightgreen) |
-| next    | ![GitHub next milestone details](https://img.shields.io/github/milestones/progress-percent/zzundalek/zodart/2?logo=rocket) ![GitHub last commit](https://img.shields.io/github/last-commit/zzundalek/zodart)                                                                                 |
+| next    | ![GitHub next milestone details](https://img.shields.io/github/milestones/progress-percent/zzundalek/zodart/3?logo=rocket) ![GitHub last commit](https://img.shields.io/github/last-commit/zzundalek/zodart)                                                                                 |
 
 ## Simple example
 
@@ -69,6 +69,8 @@ void main() {
 
 - [Features](#features)
 - [Basic Usage](#basic-usage)
+- [Parsing values](#parsing-values)
+- [Nullable & optional values](#nullable--optional-values)
 - [Validation & refine](#validation--refine)
 - [Localization & Custom Errors](#localization--custom-errors)
 - [Additional information](#additional-information)
@@ -205,6 +207,19 @@ void main() {
   objSchema.parse({'str': 'ZodArt', 'int': ' 100 '}).value
 }
 ```
+
+## Parsing values
+
+By default, ZodArt parsers operate in **strict mode**. This means they will only accept input values that **match the expected type exactly**. Any type mismatch will result in a **ParseError**.
+The only exception is **ZObject**, which strictly accepts only `Map<String, dynamic>` as input. See more [parsers here](doc/parsers/parsers.md).
+
+## Nullable & optional values
+
+In Dart, unlike JavaScript, there is no concept of `undefined` value. However, when parsing `ZObject` from `Map<String, dynamic>`, a missing key (`!map.containsKey('key')`) is the Dart equivalent of `undefined`. To explicitly allow missing keys, ZodArt provides the `.optional()` modifier.
+
+For all other schemas like `ZString`, `ZInt`, etc., there is no concept of a "missing" value outside a `ZObject`. In this context, the `.optional()` modifier has no semantic effect and is treated as **equivalent** to `.nullable()`.
+
+See more at [nullable modifier doc](doc/modifiers/nullability.md).
 
 ## Validation & refine
 

@@ -7,16 +7,14 @@ void main() {
   group('parse', () {
     group('strict', () {
       final baseValidInputs = <ValidInput>[
-        (input: -1.99, expected: -1.99),
-        (input: -1.0, expected: -1.0),
-        (input: 0.0, expected: 0.0),
-        (input: 0.1, expected: 0.1),
-        (input: 2.1, expected: 2.1),
+        (input: DateTime(2012, 2, 27), expected: DateTime(2012, 2, 27)),
+        (input: DateTime(2016, 2, 27, 10, 30), expected: DateTime(2016, 2, 27, 10, 30)),
       ];
       const baseInvalidInputs = <InvalidInput>[
-        (input: '0', expected: [ZIssueParseFail(from: String, to: double, val: '0')]),
-        (input: 1, expected: [ZIssueParseFail(from: int, to: double, val: 1)]),
-        (input: emptyObject, expected: [ZIssueParseFail(from: Object, to: double, val: emptyObject)]),
+        (input: 'ZodArt', expected: [ZIssueParseFail(from: String, to: DateTime, val: 'ZodArt')]),
+        (input: 1, expected: [ZIssueParseFail(from: int, to: DateTime, val: 1)]),
+        (input: 1.1, expected: [ZIssueParseFail(from: double, to: DateTime, val: 1.1)]),
+        (input: emptyObject, expected: [ZIssueParseFail(from: Object, to: DateTime, val: emptyObject)]),
       ];
 
       group('required', () {
@@ -25,10 +23,10 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: double, val: null)]),
+              (input: null, expected: const [ZIssueParseFail(from: Null, to: DateTime, val: null)]),
             ],
           ),
-          ZDouble(),
+          ZDateTime(),
         );
       });
       group('nullable', () {
@@ -40,7 +38,7 @@ void main() {
             ],
             invalidInputs: baseInvalidInputs,
           ),
-          ZDouble().nullable(),
+          ZDateTime().nullable(),
         );
       });
       group('optional', () {
@@ -52,7 +50,7 @@ void main() {
             ],
             invalidInputs: baseInvalidInputs,
           ),
-          ZDouble().optional(),
+          ZDateTime().optional(),
         );
       });
       group('nullable -> optional', () {
@@ -64,22 +62,27 @@ void main() {
             ],
             invalidInputs: baseInvalidInputs,
           ),
-          ZDouble().nullable().optional(),
+          ZDateTime().nullable().optional(),
         );
       });
     });
   });
   group('min', () {
-    const min = 10.0;
+    final min = DateTime(2024, 3, 25);
     final baseValidInputs = <ValidInput>[
-      (input: 10.0, expected: 10.0),
-      (input: 11.0, expected: 11.0),
-      (input: 999.0, expected: 999.0),
+      (input: min, expected: min),
+      (input: DateTime(2024, 3, 25, 0, 1), expected: DateTime(2024, 3, 25, 0, 1)),
+      (input: DateTime.parse('2026-01-01'), expected: DateTime.parse('2026-01-01')),
     ];
-    const baseInvalidInputs = <InvalidInput>[
-      (input: 9.9, expected: [ZIssueMinNotMet(min: min, val: 9.9)]),
-      (input: 0.9, expected: [ZIssueMinNotMet(min: min, val: 0.9)]),
-      (input: -10.0, expected: [ZIssueMinNotMet(min: min, val: -10.0)]),
+    final baseInvalidInputs = <InvalidInput>[
+      (
+        input: DateTime(2024, 3, 24),
+        expected: [ZIssueMinDateTimeNotMet(min: min, val: DateTime(2024, 3, 24))],
+      ),
+      (
+        input: DateTime(2024, 3, 24, 23, 59),
+        expected: [ZIssueMinDateTimeNotMet(min: min, val: DateTime(2024, 3, 24, 23, 59))],
+      ),
     ];
 
     group('required', () {
@@ -88,7 +91,7 @@ void main() {
           validInputs: baseValidInputs,
           invalidInputs: baseInvalidInputs,
         ),
-        ZDouble().min(min),
+        ZDateTime().min(min),
       );
     });
     group('nullable first', () {
@@ -100,7 +103,7 @@ void main() {
           ],
           invalidInputs: baseInvalidInputs,
         ),
-        ZDouble().nullable().min(min),
+        ZDateTime().nullable().min(min),
       );
     });
     group('nullable last', () {
@@ -112,21 +115,27 @@ void main() {
           ],
           invalidInputs: baseInvalidInputs,
         ),
-        ZDouble().min(min).nullable(),
+        ZDateTime().min(min).nullable(),
       );
     });
   });
+
   group('max', () {
-    const max = 10.0;
+    final max = DateTime(2024, 3, 25);
     final baseValidInputs = <ValidInput>[
-      (input: 9.0, expected: 9.0),
-      (input: 0.0, expected: 0.0),
-      (input: -1.0, expected: -1.0),
+      (input: max, expected: max),
+      (input: DateTime(2024, 3, 24, 23, 59), expected: DateTime(2024, 3, 24, 23, 59)),
+      (input: DateTime.parse('2022-01-01'), expected: DateTime.parse('2022-01-01')),
     ];
-    const baseInvalidInputs = <InvalidInput>[
-      (input: 11.0, expected: [ZIssueMaxExceeded(max: max, val: 11.0)]),
-      (input: 12.0, expected: [ZIssueMaxExceeded(max: max, val: 12.0)]),
-      (input: 999.0, expected: [ZIssueMaxExceeded(max: max, val: 999.0)]),
+    final baseInvalidInputs = <InvalidInput>[
+      (
+        input: DateTime(2024, 3, 26),
+        expected: [ZIssueMaxDateTimeExceeded(max: max, val: DateTime(2024, 3, 26))],
+      ),
+      (
+        input: DateTime(2024, 3, 25, 0, 1),
+        expected: [ZIssueMaxDateTimeExceeded(max: max, val: DateTime(2024, 3, 25, 0, 1))],
+      ),
     ];
 
     group('required', () {
@@ -135,7 +144,7 @@ void main() {
           validInputs: baseValidInputs,
           invalidInputs: baseInvalidInputs,
         ),
-        ZDouble().max(max),
+        ZDateTime().max(max),
       );
     });
     group('nullable first', () {
@@ -147,7 +156,7 @@ void main() {
           ],
           invalidInputs: baseInvalidInputs,
         ),
-        ZDouble().nullable().max(max),
+        ZDateTime().nullable().max(max),
       );
     });
     group('nullable last', () {
@@ -159,19 +168,20 @@ void main() {
           ],
           invalidInputs: baseInvalidInputs,
         ),
-        ZDouble().max(max).nullable(),
+        ZDateTime().max(max).nullable(),
       );
     });
   });
 
   group('refine', () {
-    bool refinePositive(double val) => val > 0;
+    bool refineYear1993(DateTime val) => val.year == 1993;
+    final year1984 = DateTime(1984);
 
-    const baseValidInputs = <ValidInput>[
-      (input: 1.0, expected: 1.0),
+    final baseValidInputs = <ValidInput>[
+      (input: DateTime.parse('1993-01-01'), expected: DateTime(1993)),
     ];
-    const baseInvalidInputs = <InvalidInput>[
-      (input: -1.0, expected: [ZIssue.custom()]),
+    final baseInvalidInputs = <InvalidInput>[
+      (input: DateTime.parse('1918-10-28'), expected: const [ZIssue.custom()]),
     ];
     group('required', () {
       testInputs(
@@ -179,7 +189,7 @@ void main() {
           validInputs: baseValidInputs,
           invalidInputs: baseInvalidInputs,
         ),
-        ZDouble().refine(refinePositive),
+        ZDateTime().refine(refineYear1993),
       );
     });
     group('nullable', () {
@@ -191,29 +201,29 @@ void main() {
           ],
           invalidInputs: baseInvalidInputs,
         ),
-        ZDouble().nullable().refine(refinePositive),
+        ZDateTime().nullable().refine(refineYear1993),
       );
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {
-        expect(ZDouble().refine(refinePositive).parse(-1.0).rawIssues, equals(const [ZIssueCustom()]));
+        expect(ZDateTime().refine(refineYear1993).parse(year1984).rawIssues, equals(const [ZIssueCustom()]));
       });
       test('when a message is passed, returns ZIssueCustom with the message', () {
         expect(
-          ZDouble().refine(refinePositive, message: 'Value is negative').parse(-1.0).rawIssues,
-          equals(const [ZIssueCustom(message: 'Value is negative')]),
+          ZDateTime().refine(refineYear1993, message: 'String is empty').parse(year1984).rawIssues,
+          equals(const [ZIssueCustom(message: 'String is empty')]),
         );
       });
       test('when a code is passed, returns ZIssueCustom with the code', () {
         expect(
-          ZDouble().refine(refinePositive, code: '001').parse(-1.0).rawIssues,
+          ZDateTime().refine(refineYear1993, code: '001').parse(year1984).rawIssues,
           equals(const [ZIssueCustom(code: '001')]),
         );
       });
       test('when a code and message is passed, returns ZIssueCustom with the code and the message', () {
         expect(
-          ZDouble().refine(refinePositive, message: 'Value is negative', code: '001').parse(-1.0).rawIssues,
-          equals(const [ZIssueCustom(message: 'Value is negative', code: '001')]),
+          ZDateTime().refine(refineYear1993, message: 'String is empty', code: '001').parse(year1984).rawIssues,
+          equals(const [ZIssueCustom(message: 'String is empty', code: '001')]),
         );
       });
     });

@@ -53,6 +53,24 @@ void main() {
       expect(result, "Nepodařilo se převést hodnotu pro 'name'. Hodnota nebyla nalezena.");
     });
 
+    test('minDateTimeNotMet returns correct message', () {
+      final issue = ZIssueMinDateTimeNotMet(
+        min: DateTime.utc(2000, 1, 1, 10, 09),
+        val: DateTime.utc(1999, 12, 31, 10, 1),
+      );
+      final result = localization.minDateTimeNotMet(issue);
+      expect(result, "Datum musí být nejdřive '${issue.min.toLocal()}', ale je '${issue.val.toLocal()}'.");
+    });
+
+    test('maxDateTimeExceeded returns correct message', () {
+      final issue = ZIssueMaxDateTimeExceeded(
+        max: DateTime.utc(1999, 12, 31, 10, 1),
+        val: DateTime.utc(2000, 1, 1, 10, 09),
+      );
+      final result = localization.maxDateTimeExceeded(issue);
+      expect(result, "Datum musí být nejpozději '${issue.max.toLocal()}', ale je '${issue.val.toLocal()}'.");
+    });
+
     group('custom returns correct message', () {
       test('custom returns the message if set in the issue', () {
         expect(

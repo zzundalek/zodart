@@ -23,6 +23,13 @@ ZRes<T> parseStrict<T>(Object? val) =>
 /// Returns success if [val] is a [String], otherwise an error.
 ZRes<String> parseString(Object? val) => parseStrict(val);
 
+/// Parses [val] strictly as a [DateTime].
+///
+/// Equivalent to `parseStrict<DateTime>(val)`.
+///
+/// Returns success if [val] is a [DateTime], otherwise an error.
+ZRes<DateTime> parseDateTime(Object? val) => parseStrict(val);
+
 /// Parses [val] strictly as an [int].
 ///
 /// Equivalent to `parseStrict<int>(val)`.

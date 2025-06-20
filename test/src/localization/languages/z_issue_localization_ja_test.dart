@@ -53,6 +53,24 @@ void main() {
       expect(result, '「name」の値が見つかりませんでした。');
     });
 
+    test('minDateTimeNotMet returns correct message', () {
+      final issue = ZIssueMinDateTimeNotMet(
+        min: DateTime.utc(2000, 1, 1, 10, 09),
+        val: DateTime.utc(1999, 12, 31, 10, 1),
+      );
+      final result = localization.minDateTimeNotMet(issue);
+      expect(result, '日付は「${issue.min.toLocal()}」以降である必要がありますが、「${issue.val.toLocal()}」が指定されました。');
+    });
+
+    test('maxDateTimeExceeded returns correct message', () {
+      final issue = ZIssueMaxDateTimeExceeded(
+        max: DateTime.utc(1999, 12, 31, 10, 1),
+        val: DateTime.utc(2000, 1, 1, 10, 09),
+      );
+      final result = localization.maxDateTimeExceeded(issue);
+      expect(result, '日付は「${issue.max.toLocal()}」以前である必要がありますが、「${issue.val.toLocal()}」が指定されました。');
+    });
+
     group('custom returns correct message', () {
       test('custom returns the message if set in the issue', () {
         expect(

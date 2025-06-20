@@ -24,6 +24,9 @@ class ZNullableDouble extends ZBase<double?> implements ZTransformations<double,
   /// Skips the validation if the value is `null`.
   ZNullableDouble max(double max) => _addRule(maxNumRule(max));
 
+  /// Enable omitting this value. All rules will be skipped if the value is missing.
+  ZNullableDouble optional() => ZNullableDouble._withConfig(_config.makeOptional());
+
   @override
   ZNullableDouble refine(Refiner<double> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));

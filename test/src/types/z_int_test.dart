@@ -53,6 +53,18 @@ void main() {
           ZInt().optional(),
         );
       });
+      group('nullable -> optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZInt().nullable().optional(),
+        );
+      });
     });
   });
 
