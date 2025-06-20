@@ -69,8 +69,9 @@ void main() {
 
 - [Features](#features)
 - [Basic Usage](#basic-usage)
-- [Validation & refine](#validation--refine)
+- [Parsing values](#parsing-values)
 - [Nullable & optional values](#nullable--optional-values)
+- [Validation & refine](#validation--refine)
 - [Localization & Custom Errors](#localization--custom-errors)
 - [Additional information](#additional-information)
 
@@ -207,6 +208,19 @@ void main() {
 }
 ```
 
+## Parsing values
+
+By default, ZodArt parsers operate in **strict mode**. This means they will only accept input values that **match the expected type exactly**. Any type mismatch will result in a **ParseError**.
+The only exception is **ZObject**, which strictly accepts only `Map<String, dynamic>` as input. See more [parsers here](doc/parsers/parsers.md).
+
+## Nullable & optional values
+
+In Dart, unlike JavaScript, there is no concept of `undefined` value. However, when parsing `ZObject` from `Map<String, dynamic>`, a missing key (`!map.containsKey('key')`) is the Dart equivalent of `undefined`. To explicitly allow missing keys, ZodArt provides the `.optional()` modifier.
+
+For all other schemas like `ZString`, `ZInt`, etc., there is no concept of a "missing" value outside a `ZObject`. In this context, the `.optional()` modifier has no semantic effect and is treated as **equivalent** to `.nullable()`.
+
+See more at [nullable modifier doc](doc/modifiers/nullability.md).
+
 ## Validation & refine
 
 > ⚠️ Important: Do not throw exceptions inside a `.refine()` function — ZodArt will not catch them.
@@ -268,14 +282,6 @@ void main() {
   print(result.issueSummary);
 }
 ```
-
-## Nullable & optional values
-
-In Dart, unlike JavaScript, there is no concept of `undefined` value. However, when parsing `ZObject` from `Map<String, dynamic>`, a missing key (`!map.containsKey('key')`) is the Dart equivalent of `undefined`. To explicitly allow missing keys, ZodArt provides the `.optional()` modifier.
-
-For all other schemas like `ZString`, `ZInt`, etc., there is no concept of a "missing" value outside a `ZObject`. In this context, the `.optional()` modifier has no semantic effect and is treated as **equivalent** to `.nullable()`.
-
-See more at [nullable modifier doc](doc/modifiers/nullability.md).
 
 ## Localization & Custom Errors
 
