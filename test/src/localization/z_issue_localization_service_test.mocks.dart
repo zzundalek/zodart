@@ -25,7 +25,8 @@ import 'package:zodart/src/localization/z_issue_localization.dart' as _i2;
 /// A class which mocks [ZIssueLocalization].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockZIssueLocalization extends _i1.Mock implements _i2.ZIssueLocalization {
+class MockZIssueLocalization extends _i1.Mock
+    implements _i2.ZIssueLocalization {
   @override
   String lengthNotMet(_i3.ZIssueLengthNotMet? issue) =>
       (super.noSuchMethod(
@@ -127,6 +128,36 @@ class MockZIssueLocalization extends _i1.Mock implements _i2.ZIssueLocalization 
             returnValueForMissingStub: _i4.dummyValue<String>(
               this,
               Invocation.method(#missingValue, [issue]),
+            ),
+          )
+          as String);
+
+  @override
+  String minDateTimeNotMet(_i3.ZIssueMinDateTimeNotMet? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#minDateTimeNotMet, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#minDateTimeNotMet, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#minDateTimeNotMet, [issue]),
+            ),
+          )
+          as String);
+
+  @override
+  String maxDateTimeExceeded(_i3.ZIssueMaxDateTimeExceeded? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#maxDateTimeExceeded, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#maxDateTimeExceeded, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#maxDateTimeExceeded, [issue]),
             ),
           )
           as String);

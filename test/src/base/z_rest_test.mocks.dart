@@ -25,7 +25,8 @@ import 'package:zodart/src/localization/localization.dart' as _i2;
 /// A class which mocks [ZIssueLocalizationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockZIssueLocalizationService extends _i1.Mock implements _i2.ZIssueLocalizationService {
+class MockZIssueLocalizationService extends _i1.Mock
+    implements _i2.ZIssueLocalizationService {
   @override
   String getIssueText(_i3.ZIssue? issue) =>
       (super.noSuchMethod(
