@@ -1,3 +1,7 @@
+## [Unreleased]
+
+- Fix formatting settings to ensure max points at pub.dev
+
 ## 0.4.0 - 2025-06-20
 
 - Allow using the `.optional()` modifier on `.nullable()` types
