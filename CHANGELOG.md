@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Add code generation to ensure type-safety
 - Fix formatting settings to ensure max points at pub.dev
 
 ## 0.4.0 - 2025-06-20
