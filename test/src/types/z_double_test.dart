@@ -173,26 +173,29 @@ void main() {
     const baseInvalidInputs = <InvalidInput>[
       (input: -1.0, expected: [ZIssue.custom()]),
     ];
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZDouble().refine(refinePositive),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZDouble().nullable().refine(refinePositive),
-      );
+
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().refine(refinePositive),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().nullable().refine(refinePositive),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {

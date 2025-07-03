@@ -346,7 +346,6 @@ void main() {
     });
   });
 
-  // TODO(zzundalek): required / nullable wrap with a group When refiner does pass... for all refine tests
   group('refine', () {
     bool refineNotEmpty(String val) => val.isNotEmpty;
 
@@ -356,26 +355,29 @@ void main() {
     const baseInvalidInputs = <InvalidInput>[
       (input: '', expected: [ZIssue.custom()]),
     ];
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZString().refine(refineNotEmpty),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZString().nullable().refine(refineNotEmpty),
-      );
+
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZString().refine(refineNotEmpty),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZString().nullable().refine(refineNotEmpty),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {

@@ -183,26 +183,29 @@ void main() {
     final baseInvalidInputs = <InvalidInput>[
       (input: DateTime.parse('1918-10-28'), expected: const [ZIssue.custom()]),
     ];
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZDateTime().refine(refineYear1993),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZDateTime().nullable().refine(refineYear1993),
-      );
+
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime().refine(refineYear1993),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime().nullable().refine(refineYear1993),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {
