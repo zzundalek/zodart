@@ -175,4 +175,56 @@ void main() {
       });
     });
   });
+
+  group('superRefine', () {
+    SuperRefinerErrorRes? refineNotEmpty(List<dynamic> val) => val.isEmpty ? (const ZIssueCustom(), others: []) : null;
+
+    const baseValidInputs = <ValidInput>[
+      (input: ['I love ZodArt'], expected: ['I love ZodArt']),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: <String>[], expected: [ZIssue.custom()]),
+    ];
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZArray(ZString()).superRefine(refineNotEmpty),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZArray(ZString()).nullable().superRefine(refineNotEmpty),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(ZArray(ZString()).superRefine(refineNotEmpty).parse([]).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        SuperRefinerErrorRes? refineNotEmptyMultiple(List<dynamic> val) => val.isEmpty
+            ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')])
+            : null;
+
+        expect(
+          ZArray(ZString()).superRefine(refineNotEmptyMultiple).parse([]).rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
+        );
+      });
+    });
+  });
 }

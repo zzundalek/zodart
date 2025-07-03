@@ -218,4 +218,55 @@ void main() {
       });
     });
   });
+
+  group('superRefine', () {
+    SuperRefinerErrorRes? refinePositive(double val) => val <= 0.0 ? (const ZIssueCustom(), others: []) : null;
+
+    const baseValidInputs = <ValidInput>[
+      (input: 1.0, expected: 1.0),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: -1.0, expected: [ZIssue.custom()]),
+    ];
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().superRefine(refinePositive),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().nullable().superRefine(refinePositive),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(ZDouble().superRefine(refinePositive).parse(-1.0).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        SuperRefinerErrorRes? refinePositiveMultiple(double val) =>
+            val <= 0.0 ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')]) : null;
+
+        expect(
+          ZDouble().superRefine(refinePositiveMultiple).parse(-1.0).rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
+        );
+      });
+    });
+  });
 }

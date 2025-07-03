@@ -346,6 +346,7 @@ void main() {
     });
   });
 
+  // TODO(zzundalek): required / nullable wrap with a group When refiner does pass... for all refine tests
   group('refine', () {
     bool refineNotEmpty(String val) => val.isNotEmpty;
 
@@ -396,6 +397,58 @@ void main() {
         expect(
           ZString().refine(refineNotEmpty, message: 'String is empty', code: '001').parse('').rawIssues,
           equals(const [ZIssueCustom(message: 'String is empty', code: '001')]),
+        );
+      });
+    });
+  });
+
+  group('superRefine', () {
+    SuperRefinerErrorRes? refineNotEmptySingle(String val) => val.isEmpty ? (const ZIssueCustom(), others: []) : null;
+
+    const baseValidInputs = <ValidInput>[
+      (input: 'I love ZodArt', expected: 'I love ZodArt'),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: '', expected: [ZIssue.custom()]),
+    ];
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZString().superRefine(refineNotEmptySingle),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZString().nullable().superRefine(refineNotEmptySingle),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(ZString().superRefine(refineNotEmptySingle).parse('').rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        SuperRefinerErrorRes? refineNotEmptyMultiple(String val) => val.isEmpty
+            ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')])
+            : null;
+
+        expect(
+          ZString().superRefine(refineNotEmptyMultiple).parse('').rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
         );
       });
     });
