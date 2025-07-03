@@ -52,3 +52,14 @@ typedef ZSchema = Map<String, ZBase<dynamic>>;
 
 /// Function used to validate a value using a custom function.
 typedef Refiner<T> = bool Function(T val);
+
+/// Return type for [SuperRefiner] when validation fails.
+///
+/// At least one [ZIssue] must be returned.
+/// Additional [ZIssues] can be provided using `others`.
+typedef SuperRefinerErrorRes = (ZIssue, {ZIssues others});
+
+/// Function used to validate a value using a custom function.
+///
+/// This is a more flexible and verbose alternative to [Refiner].
+typedef SuperRefiner<T> = SuperRefinerErrorRes? Function(T val);

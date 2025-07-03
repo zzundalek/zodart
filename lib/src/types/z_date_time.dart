@@ -40,4 +40,7 @@ class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, Da
   @override
   ZDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZDateTime superRefine(SuperRefiner<DateTime> refiner) => _addRule(superRefineRule(refiner));
 }

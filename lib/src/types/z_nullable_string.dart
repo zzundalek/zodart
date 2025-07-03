@@ -48,4 +48,7 @@ class ZNullableString extends ZBase<String?> implements ZTransformations<String,
   @override
   ZNullableString refine(Refiner<String> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZNullableString superRefine(SuperRefiner<String> refiner) => _addRule(superRefineRule(refiner));
 }

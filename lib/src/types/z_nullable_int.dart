@@ -30,4 +30,7 @@ class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
   @override
   ZNullableInt refine(Refiner<int> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZNullableInt superRefine(SuperRefiner<int> refiner) => _addRule(superRefineRule(refiner));
 }

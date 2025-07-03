@@ -30,4 +30,7 @@ class ZNullableDouble extends ZBase<double?> implements ZTransformations<double,
   @override
   ZNullableDouble refine(Refiner<double> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZNullableDouble superRefine(SuperRefiner<double> refiner) => _addRule(superRefineRule(refiner));
 }

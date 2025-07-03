@@ -34,4 +34,7 @@ class ZBool extends ZBase<bool> implements ZTransformations<bool, bool> {
   @override
   ZBool refine(Refiner<bool> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZBool superRefine(SuperRefiner<bool> refiner) => _addRule(superRefineRule(refiner));
 }
