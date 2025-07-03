@@ -34,4 +34,7 @@ class ZNullableDateTime extends ZBase<DateTime?> implements ZTransformations<Dat
   @override
   ZNullableDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZNullableDateTime superRefine(SuperRefiner<DateTime> refiner) => _addRule(superRefineRule(refiner));
 }

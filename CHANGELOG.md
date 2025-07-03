@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Add superRefine method for all types
 - Add code generation to ensure type-safety
 - Fix formatting settings to ensure max points at pub.dev
 

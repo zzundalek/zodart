@@ -74,26 +74,29 @@ void main() {
     const baseInvalidInputs = <InvalidInput>[
       (input: false, expected: [ZIssue.custom()]),
     ];
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZBool().refine(refineTrue),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZBool().nullable().refine(refineTrue),
-      );
+
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZBool().refine(refineTrue),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZBool().nullable().refine(refineTrue),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {
@@ -115,6 +118,61 @@ void main() {
         expect(
           ZBool().refine(refineTrue, message: 'Value is false', code: '001').parse(false).rawIssues,
           equals(const [ZIssueCustom(message: 'Value is false', code: '001')]),
+        );
+      });
+    });
+  });
+
+  group('superRefine', () {
+    // Easy format for test
+    // ignore: avoid_positional_boolean_parameters
+    SuperRefinerErrorRes? refineTrue(bool val) => !val ? (const ZIssueCustom(), others: []) : null;
+
+    const baseValidInputs = <ValidInput>[
+      (input: true, expected: true),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: false, expected: [ZIssue.custom()]),
+    ];
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZBool().superRefine(refineTrue),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZBool().nullable().superRefine(refineTrue),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(ZBool().superRefine(refineTrue).parse(false).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        // Easy format for test
+        // ignore: avoid_positional_boolean_parameters
+        SuperRefinerErrorRes? refineTrueMultiple(bool val) =>
+            !val ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')]) : null;
+
+        expect(
+          ZBool().superRefine(refineTrueMultiple).parse(false).rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
         );
       });
     });

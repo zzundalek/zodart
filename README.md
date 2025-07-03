@@ -286,6 +286,8 @@ You can optionally provide a `message` or `code` to include in the issue.
 
 See [full example](example/code_gen/refine_example/refine_example.dart).
 
+> ℹ️ To return multiple issues or apply advanced validations use the `.superRefine()` [method](/example/zodart_super_refine_example.dart).
+
 ```dart
 import 'package:zodart/zodart.dart';
 

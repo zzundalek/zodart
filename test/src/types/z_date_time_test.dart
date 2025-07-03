@@ -183,26 +183,29 @@ void main() {
     final baseInvalidInputs = <InvalidInput>[
       (input: DateTime.parse('1918-10-28'), expected: const [ZIssue.custom()]),
     ];
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZDateTime().refine(refineYear1993),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZDateTime().nullable().refine(refineYear1993),
-      );
+
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime().refine(refineYear1993),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime().nullable().refine(refineYear1993),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {
@@ -224,6 +227,61 @@ void main() {
         expect(
           ZDateTime().refine(refineYear1993, message: 'String is empty', code: '001').parse(year1984).rawIssues,
           equals(const [ZIssueCustom(message: 'String is empty', code: '001')]),
+        );
+      });
+    });
+  });
+
+  group('superRefine', () {
+    SuperRefinerErrorRes? refineYear1993(DateTime val) => val.year != 1993 ? (const ZIssueCustom(), others: []) : null;
+
+    final year1984 = DateTime(1984);
+
+    final baseValidInputs = <ValidInput>[
+      (input: DateTime.parse('1993-01-01'), expected: DateTime(1993)),
+    ];
+    final baseInvalidInputs = <InvalidInput>[
+      (input: DateTime.parse('1918-10-28'), expected: const [ZIssue.custom()]),
+    ];
+
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime().superRefine(refineYear1993),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime().nullable().superRefine(refineYear1993),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(ZDateTime().superRefine(refineYear1993).parse(year1984).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        SuperRefinerErrorRes? refineYear1993Multiple(DateTime val) => val.year != 1993
+            ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')])
+            : null;
+
+        expect(
+          ZDateTime().superRefine(refineYear1993Multiple).parse(year1984).rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
         );
       });
     });

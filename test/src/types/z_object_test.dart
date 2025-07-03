@@ -188,26 +188,28 @@ void main() {
       (input: {'from': 90, 'to': 1}, expected: [ZIssue.custom()]),
     ];
 
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        zObj.refine(refineFromLowerThanTo),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        zObj.nullable().refine(refineFromLowerThanTo),
-      );
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          zObj.refine(refineFromLowerThanTo),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          zObj.nullable().refine(refineFromLowerThanTo),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {
@@ -235,6 +237,67 @@ void main() {
               .parse(invalidValue)
               .rawIssues,
           equals(const [ZIssueCustom(message: 'From is greater than To', code: '001')]),
+        );
+      });
+    });
+  });
+
+  group('superRefine', () {
+    SuperRefinerErrorRes? refineFromLowerThanTo((int, int) val) =>
+        val.$1 > val.$2 ? (const ZIssueCustom(), others: []) : null;
+
+    (int, int) fromJson(Map<String, dynamic> val) => (val['from'], val['to']);
+    final schema = {'from': ZInt(), 'to': ZInt()};
+
+    const invalidValue = {'from': 10, 'to': 1};
+
+    final zObj = ZObject<(int, int)>.withMapper(schema, fromJson: fromJson);
+
+    const baseValidInputs = <ValidInput>[
+      (input: {'from': 0, 'to': 1}, expected: (0, 1)),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: {'from': 90, 'to': 1}, expected: [ZIssue.custom()]),
+    ];
+
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          zObj.superRefine(refineFromLowerThanTo),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          zObj.nullable().superRefine(refineFromLowerThanTo),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(zObj.superRefine(refineFromLowerThanTo).parse(invalidValue).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        SuperRefinerErrorRes? refineFromLowerThanToMultiple((int, int) val) => val.$1 > val.$2
+            ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')])
+            : null;
+
+        expect(
+          zObj.superRefine(refineFromLowerThanToMultiple).parse(invalidValue).rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
         );
       });
     });

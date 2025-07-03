@@ -40,4 +40,7 @@ class ZInt extends ZBase<int> implements ZTransformations<int, int> {
   @override
   ZInt refine(Refiner<int> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZInt superRefine(SuperRefiner<int> refiner) => _addRule(superRefineRule(refiner));
 }

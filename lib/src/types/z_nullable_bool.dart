@@ -24,4 +24,7 @@ class ZNullableBool extends ZBase<bool?> implements ZTransformations<bool, bool?
   @override
   ZNullableBool refine(Refiner<bool> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZNullableBool superRefine(SuperRefiner<bool> refiner) => _addRule(superRefineRule(refiner));
 }

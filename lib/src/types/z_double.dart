@@ -40,4 +40,7 @@ class ZDouble extends ZBase<double> implements ZTransformations<double, double> 
   @override
   ZDouble refine(Refiner<double> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZDouble superRefine(SuperRefiner<double> refiner) => _addRule(superRefineRule(refiner));
 }

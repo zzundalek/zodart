@@ -30,7 +30,8 @@ sealed class ZBase<T> {
           return ZRes.success(r);
         } else {
           throw ZodArtInternalException(
-            'Error occurred at fixing type after parsing. Value "$r" of type "${r.runtimeType}" Expected to have type "$T".',
+            'Error occurred at fixing type after parsing. '
+            'Value "$r" of type "${r.runtimeType}" Expected to have type "$T".',
           );
         }
       },
