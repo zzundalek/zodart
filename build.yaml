@@ -1,0 +1,15 @@
+builders:
+  zodart|zodArtBuilder:
+    import: "package:zodart/src/code_generation/internal/builder.dart"
+    builder_factories: ["zodArtBuilder"]
+    build_extensions:
+      ".dart": [".zodart.dart"]
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
+
+targets:
+  $default:
+    builders:
+      zodart|zodArtBuilder:
+        enabled: true

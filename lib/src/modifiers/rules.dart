@@ -92,6 +92,20 @@ Rule<T> refineRule<T>(Refiner<T> refiner, {String? message, String? code}) {
   };
 }
 
+/// Returns a [Rule] of type `Rule<T>`, which wraps the passed super refiner to return a [ZRes]
+/// depending on the super refiner result.
+///
+/// - If the refiner returns `null`, returns [ZRes.success] passing the checked value.
+/// - If the refiner returns [SuperRefinerErrorRes], returns [ZRes.error] passing all the [ZIssue]s
+Rule<T> superRefineRule<T>(SuperRefiner<T> refiner) {
+  return (T val) {
+    return switch (refiner(val)) {
+      (final firstIssue, :final others) => ZRes.error([firstIssue, ...others]),
+      null => ZRes.success(val),
+    };
+  };
+}
+
 /// Returns a [Rule] of type `Rule<DateTime>`, which checks minimum value.
 ///
 /// The returned rule will succeed if the input datetime is later than or equal to [min],

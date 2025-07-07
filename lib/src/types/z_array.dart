@@ -33,4 +33,10 @@ class ZArray<T> extends ZBase<List<T>> implements ZTransformations<List<T>, List
   @override
   ZArray<T> refine(Refiner<List<T>> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZArray<T> superRefine(SuperRefiner<List<T>> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZArray<T> process(Processor<List<T>> processor) => ZArray<T>._withConfig(_config.addProcessor(processor));
 }

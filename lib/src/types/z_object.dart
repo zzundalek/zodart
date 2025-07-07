@@ -43,4 +43,10 @@ class ZObject<T> extends ZBase<T> implements ZTransformations<T, T> {
   @override
   ZObject<T> refine(Refiner<T> refiner, {String? message, String? code}) =>
       _addRule(refineRule(refiner, message: message, code: code));
+
+  @override
+  ZObject<T> superRefine(SuperRefiner<T> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZObject<T> process(Processor<T> processor) => ZObject<T>._withConfig(_config.addProcessor(processor));
 }

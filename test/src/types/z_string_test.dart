@@ -355,26 +355,29 @@ void main() {
     const baseInvalidInputs = <InvalidInput>[
       (input: '', expected: [ZIssue.custom()]),
     ];
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZString().refine(refineNotEmpty),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZString().nullable().refine(refineNotEmpty),
-      );
+
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZString().refine(refineNotEmpty),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZString().nullable().refine(refineNotEmpty),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {
@@ -397,6 +400,92 @@ void main() {
           ZString().refine(refineNotEmpty, message: 'String is empty', code: '001').parse('').rawIssues,
           equals(const [ZIssueCustom(message: 'String is empty', code: '001')]),
         );
+      });
+    });
+  });
+
+  group('superRefine', () {
+    SuperRefinerErrorRes? refineNotEmptySingle(String val) => val.isEmpty ? (const ZIssueCustom(), others: []) : null;
+
+    const baseValidInputs = <ValidInput>[
+      (input: 'I love ZodArt', expected: 'I love ZodArt'),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: '', expected: [ZIssue.custom()]),
+    ];
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZString().superRefine(refineNotEmptySingle),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZString().nullable().superRefine(refineNotEmptySingle),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(ZString().superRefine(refineNotEmptySingle).parse('').rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        SuperRefinerErrorRes? refineNotEmptyMultiple(String val) => val.isEmpty
+            ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')])
+            : null;
+
+        expect(
+          ZString().superRefine(refineNotEmptyMultiple).parse('').rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
+        );
+      });
+    });
+  });
+
+  group('process', () {
+    String processor(String val) => '${val}Art';
+
+    test('required', () {
+      final res = ZString().process(processor).parse('Zod');
+
+      expect(res.value, 'ZodArt');
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = ZString().nullable().process(processor).parse('Zod');
+
+        expect(res.value, 'ZodArt');
+      });
+      test('value is null', () {
+        final res = ZString().nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = ZString().process(processor).nullable().parse('Zod');
+
+        expect(res.value, 'ZodArt');
+      });
+      test('value is null', () {
+        final res = ZString().process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
       });
     });
   });

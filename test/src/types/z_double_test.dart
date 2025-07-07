@@ -173,26 +173,29 @@ void main() {
     const baseInvalidInputs = <InvalidInput>[
       (input: -1.0, expected: [ZIssue.custom()]),
     ];
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZDouble().refine(refinePositive),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZDouble().nullable().refine(refinePositive),
-      );
+
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().refine(refinePositive),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().nullable().refine(refinePositive),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {
@@ -215,6 +218,91 @@ void main() {
           ZDouble().refine(refinePositive, message: 'Value is negative', code: '001').parse(-1.0).rawIssues,
           equals(const [ZIssueCustom(message: 'Value is negative', code: '001')]),
         );
+      });
+    });
+  });
+
+  group('superRefine', () {
+    SuperRefinerErrorRes? refinePositive(double val) => val <= 0.0 ? (const ZIssueCustom(), others: []) : null;
+
+    const baseValidInputs = <ValidInput>[
+      (input: 1.0, expected: 1.0),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: -1.0, expected: [ZIssue.custom()]),
+    ];
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().superRefine(refinePositive),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble().nullable().superRefine(refinePositive),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(ZDouble().superRefine(refinePositive).parse(-1.0).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        SuperRefinerErrorRes? refinePositiveMultiple(double val) =>
+            val <= 0.0 ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')]) : null;
+
+        expect(
+          ZDouble().superRefine(refinePositiveMultiple).parse(-1.0).rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
+        );
+      });
+    });
+  });
+
+  group('process', () {
+    double processor(double val) => val + 10.0;
+
+    test('required', () {
+      final res = ZDouble().process(processor).parse(1.0);
+
+      expect(res.value, 11.0);
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = ZDouble().nullable().process(processor).parse(1.0);
+
+        expect(res.value, 11.0);
+      });
+      test('value is null', () {
+        final res = ZDouble().nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = ZDouble().process(processor).nullable().parse(1.0);
+
+        expect(res.value, 11.0);
+      });
+      test('value is null', () {
+        final res = ZDouble().process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
       });
     });
   });

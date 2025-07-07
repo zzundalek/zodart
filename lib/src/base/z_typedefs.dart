@@ -9,10 +9,15 @@ typedef ZIssues = List<ZIssue>;
 /// This is the general form of a transformation.
 typedef Transformer<From, To> = ZRes<To> Function(From);
 
-/// Validates or processes a value of type [T].
-/// Returns a [ZRes<T>] that contains either a list of issues or the (possibly transformed) value.
+/// Validates a value of type [T].
+/// Returns a [ZRes<T>] that contains either a list of issues or the value.
 /// A rule is a special case of a transformer where input and output types are the same.
 typedef Rule<T> = ZRes<T> Function(T);
+
+/// Processes a value of type [T].
+/// Returns a [ZRes<T>] that contains either a list of issues or the processed value.
+/// A processor is a special case of a transformer where input and output types are the same.
+typedef Processor<T> = T Function(T val);
 
 /// Parses untyped input (usually dynamic or JSON-like data) into a typed value [T].
 /// Returns a [ZRes<T>] to capture parsing success or error.
@@ -52,3 +57,14 @@ typedef ZSchema = Map<String, ZBase<dynamic>>;
 
 /// Function used to validate a value using a custom function.
 typedef Refiner<T> = bool Function(T val);
+
+/// Return type for [SuperRefiner] when validation fails.
+///
+/// At least one [ZIssue] must be returned.
+/// Additional [ZIssues] can be provided using `others`.
+typedef SuperRefinerErrorRes = (ZIssue, {ZIssues others});
+
+/// Function used to validate a value using a custom function.
+///
+/// This is a more flexible and verbose alternative to [Refiner].
+typedef SuperRefiner<T> = SuperRefinerErrorRes? Function(T val);

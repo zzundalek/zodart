@@ -130,26 +130,29 @@ void main() {
     const baseInvalidInputs = <InvalidInput>[
       (input: <String>[], expected: [ZIssue.custom()]),
     ];
-    group('required', () {
-      testInputs(
-        (
-          validInputs: baseValidInputs,
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZArray(ZString()).refine(refineNotEmpty),
-      );
-    });
-    group('nullable', () {
-      testInputs(
-        (
-          validInputs: [
-            ...baseValidInputs,
-            (input: null, expected: null),
-          ],
-          invalidInputs: baseInvalidInputs,
-        ),
-        ZArray(ZString()).nullable().refine(refineNotEmpty),
-      );
+
+    group('refine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZArray(ZString()).refine(refineNotEmpty),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZArray(ZString()).nullable().refine(refineNotEmpty),
+        );
+      });
     });
     group('test the ZIssueCustom properties when the refiner does not pass ', () {
       test('when nothing passed, returns plain ZIssueCustom', () {
@@ -172,6 +175,99 @@ void main() {
           ZArray(ZString()).refine(refineNotEmpty, message: 'The list is empty', code: '001').parse([]).rawIssues,
           equals(const [ZIssueCustom(message: 'The list is empty', code: '001')]),
         );
+      });
+    });
+  });
+
+  group('superRefine', () {
+    SuperRefinerErrorRes? refineNotEmpty(List<dynamic> val) => val.isEmpty ? (const ZIssueCustom(), others: []) : null;
+
+    const baseValidInputs = <ValidInput>[
+      (input: ['I love ZodArt'], expected: ['I love ZodArt']),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: <String>[], expected: [ZIssue.custom()]),
+    ];
+    group('superRefine does pass', () {
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZArray(ZString()).superRefine(refineNotEmpty),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZArray(ZString()).nullable().superRefine(refineNotEmpty),
+        );
+      });
+    });
+    group('test result when the refiner does not pass ', () {
+      test('returns one issue passed from super refiner', () {
+        expect(ZArray(ZString()).superRefine(refineNotEmpty).parse([]).rawIssues, equals(const [ZIssueCustom()]));
+      });
+      test('returns multiple issues passed from super refiner', () {
+        SuperRefinerErrorRes? refineNotEmptyMultiple(List<dynamic> val) => val.isEmpty
+            ? (const ZIssueCustom(message: 'first'), others: const [ZIssueCustom(message: 'second')])
+            : null;
+
+        expect(
+          ZArray(ZString()).superRefine(refineNotEmptyMultiple).parse([]).rawIssues,
+          equals(const [
+            ZIssueCustom(message: 'first'),
+            ZIssueCustom(message: 'second'),
+          ]),
+        );
+      });
+    });
+  });
+
+  group('process', () {
+    List<String> processor(List<String> values) {
+      return [values.reversed.join()];
+    }
+
+    final zArray = ZArray(ZString());
+
+    const input = ['dan', 'da', 'Dan'];
+    const output = ['Dandadan'];
+
+    test('required', () {
+      final res = ZArray(ZString()).process(processor).parse(input);
+
+      expect(res.value, output);
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = zArray.nullable().process(processor).parse(input);
+
+        expect(res.value, output);
+      });
+      test('value is null', () {
+        final res = zArray.nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = zArray.process(processor).nullable().parse(input);
+
+        expect(res.value, output);
+      });
+      test('value is null', () {
+        final res = zArray.process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
       });
     });
   });

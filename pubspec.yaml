@@ -1,24 +1,30 @@
 name: zodart
 description: Type-safe schema validation with static type inference and a parse-first design.
-version: 0.4.0
+version: 1.0.0-beta
 repository: https://github.com/zzundalek/zodart
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
+  analyzer: ^7.4.5
+  build: ^2.5.4
+  code_builder: ^4.10.1
+  dart_style: ^3.1.0
   fpdart: ^1.1.1
-  freezed: ^3.0.6
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
   meta: ^1.16.0
+  source_gen: ^2.0.0
   very_good_analysis: ^9.0.0
 
 dev_dependencies:
   build_runner: ^2.4.9
+  freezed: ^3.0.6
   json_serializable: ^6.8.0
   lints: ^6.0.0
   mockito: ^5.4.4
+  source_gen_test: ^1.2.0
   test: ^1.24.0
 
 topics:
