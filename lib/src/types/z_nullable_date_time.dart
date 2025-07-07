@@ -37,4 +37,8 @@ class ZNullableDateTime extends ZBase<DateTime?> implements ZTransformations<Dat
 
   @override
   ZNullableDateTime superRefine(SuperRefiner<DateTime> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZNullableDateTime process(Processor<DateTime> processor) =>
+      ZNullableDateTime._withConfig(_config.addProcessor(processor));
 }

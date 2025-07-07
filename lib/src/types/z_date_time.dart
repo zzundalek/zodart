@@ -43,4 +43,7 @@ class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, Da
 
   @override
   ZDateTime superRefine(SuperRefiner<DateTime> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZDateTime process(Processor<DateTime> processor) => ZDateTime._withConfig(_config.addProcessor(processor));
 }

@@ -230,4 +230,45 @@ void main() {
       });
     });
   });
+
+  group('process', () {
+    List<String> processor(List<String> values) {
+      return [values.reversed.join()];
+    }
+
+    final zArray = ZArray(ZString());
+
+    const input = ['dan', 'da', 'Dan'];
+    const output = ['Dandadan'];
+
+    test('required', () {
+      final res = ZArray(ZString()).process(processor).parse(input);
+
+      expect(res.value, output);
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = zArray.nullable().process(processor).parse(input);
+
+        expect(res.value, output);
+      });
+      test('value is null', () {
+        final res = zArray.nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = zArray.process(processor).nullable().parse(input);
+
+        expect(res.value, output);
+      });
+      test('value is null', () {
+        final res = zArray.process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+  });
 }

@@ -73,6 +73,7 @@ void main() {
 - [Parsing values](#parsing-values)
 - [Nullable & optional values](#nullable--optional-values)
 - [Validation & refine](#validation--refine)
+- [Value processing](#value-processing)
 - [Localization & Custom Errors](#localization--custom-errors)
 - [Additional information](#additional-information)
 
@@ -279,6 +280,7 @@ See more at [nullable modifier doc](doc/modifiers/nullability.md).
 ## Validation & refine
 
 > ⚠️ Important: Do not throw exceptions inside a `.refine()` function — ZodArt will not catch them.
+> ℹ️ Validation is skipped automatically for null values.
 
 Use the `.refine()` method to add custom validation logic to any schema. This function should return `true` if the value is valid, or `false` otherwise.
 When `.refine()` returns `false`, ZodArt creates a `ZIssueCustom` issue.
@@ -336,6 +338,31 @@ void main() {
 
   // Prints the custom error message 'validFrom must be earlier than validTo.'
   print(result.issueSummary);
+}
+```
+
+## Value processing
+
+To transform a value, use the `.process()` method.
+It is available on all schema types, and can be chained freely.
+The returned value must **match the return type of the schema**.
+
+> ℹ️ Processing is skipped automatically for null values.
+
+```dart
+import 'package:zodart/zodart.dart';
+
+String toTrendyUpperCase(String val) => '🔥 ${val.trim().toUpperCase()}';
+String toFlashySuffix(String val) => '$val ✨';
+
+List<T> revertList<T>(List<T> val) => val.reversed.toList();
+
+final zString = ZArray(ZString().process(toTrendyUpperCase).process(toFlashySuffix)).process(revertList);
+
+void main() {
+  final res = zString.parse([' zodart ', 'world   ', '  hello']);
+
+  print(res.value); // [🔥 HELLO ✨, 🔥 WORLD ✨, 🔥 ZODART ✨]
 }
 ```
 

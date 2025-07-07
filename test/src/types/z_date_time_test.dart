@@ -286,4 +286,40 @@ void main() {
       });
     });
   });
+
+  group('process', () {
+    DateTime processor(DateTime val) => val.add(const Duration(days: 14));
+    final input = DateTime(1993);
+    final output = DateTime(1993, 1, 15);
+
+    test('required', () {
+      final res = ZDateTime().process(processor).parse(input);
+
+      expect(res.value, output);
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = ZDateTime().nullable().process(processor).parse(input);
+
+        expect(res.value, output);
+      });
+      test('value is null', () {
+        final res = ZDateTime().nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = ZDateTime().process(processor).nullable().parse(input);
+
+        expect(res.value, output);
+      });
+      test('value is null', () {
+        final res = ZDateTime().process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+  });
 }

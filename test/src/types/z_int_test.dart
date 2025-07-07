@@ -271,4 +271,38 @@ void main() {
       });
     });
   });
+
+  group('process', () {
+    int processor(int val) => val + 10;
+
+    test('required', () {
+      final res = ZInt().process(processor).parse(1);
+
+      expect(res.value, 11);
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = ZInt().nullable().process(processor).parse(1);
+
+        expect(res.value, 11);
+      });
+      test('value is null', () {
+        final res = ZInt().nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = ZInt().process(processor).nullable().parse(1);
+
+        expect(res.value, 11);
+      });
+      test('value is null', () {
+        final res = ZInt().process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+  });
 }

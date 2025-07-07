@@ -272,4 +272,38 @@ void main() {
       });
     });
   });
+
+  group('process', () {
+    double processor(double val) => val + 10.0;
+
+    test('required', () {
+      final res = ZDouble().process(processor).parse(1.0);
+
+      expect(res.value, 11.0);
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = ZDouble().nullable().process(processor).parse(1.0);
+
+        expect(res.value, 11.0);
+      });
+      test('value is null', () {
+        final res = ZDouble().nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = ZDouble().process(processor).nullable().parse(1.0);
+
+        expect(res.value, 11.0);
+      });
+      test('value is null', () {
+        final res = ZDouble().process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+  });
 }

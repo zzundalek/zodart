@@ -39,6 +39,9 @@ abstract class ZBaseConfig with _$ZBaseConfig implements Config {
   /// Returns a new [ZBaseConfig] with the given transformation [t] added to the list.
   ZBaseConfig addTransformation<From, To>(TransformAny<From, To> t) => copyWith(fns: [...fns, t]);
 
+  /// Returns a new [ZBaseConfig] with the given processor [p] added to the list.
+  ZBaseConfig addProcessor<T>(Processor<T> p) => addTransformation(Process<T>(p));
+
   /// Returns a new [ZBaseConfig] with the given validation [r] added as a transformation.
   ///
   /// Useful for appending rules without changing the type.

@@ -34,4 +34,7 @@ class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?> {
 
   @override
   ZNullableObject<T> superRefine(SuperRefiner<T> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZNullableObject<T> process(Processor<T> processor) => ZNullableObject<T>._withConfig(_config.addProcessor(processor));
 }

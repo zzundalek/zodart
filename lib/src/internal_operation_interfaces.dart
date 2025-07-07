@@ -2,9 +2,6 @@ import 'base/base.dart';
 import 'types/types.dart';
 
 /// Interface implemented by every subclass of [ZBase] defining custom checks, trasnformations etc.
-///
-/// More methods will be added.
-// ignore: one_member_abstracts
 abstract class ZTransformations<From, To> {
   /// Adds a custom refinement to ensure the value satisfies the given [refiner].
   ///
@@ -30,6 +27,8 @@ abstract class ZTransformations<From, To> {
   ///
   /// This is a more flexible and expressive alternative to the [refine] function.
   ///
+  /// Refining is skipped when the value is `null`.
+  ///
   /// Example:
   /// ```dart
   /// SuperRefinerErrorRes? superRefineEmptyString(String val) {
@@ -44,4 +43,15 @@ abstract class ZTransformations<From, To> {
   /// final schema = ZString().superRefine(superRefineEmptyString);
   /// ```
   ZBase<To> superRefine(SuperRefiner<From> refiner);
+
+  /// Adds a custom processing of a value using [processor].
+  ///
+  /// Processing is skipped when the value is `null`.
+  ///
+  /// Example:
+  /// ```dart
+  /// String processor(String val) => '$val - but most of all, ZodArt is my hero.';
+  /// final schema = ZString().process(processor).parse('Hello, world!');
+  /// ```
+  ZBase<To> process(Processor<From> processor);
 }

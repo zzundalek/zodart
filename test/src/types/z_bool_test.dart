@@ -177,4 +177,39 @@ void main() {
       });
     });
   });
+  group('process', () {
+    // Just test
+    // ignore: avoid_positional_boolean_parameters
+    bool processor(bool val) => !val;
+
+    test('required', () {
+      final res = ZBool().process(processor).parse(true);
+
+      expect(res.value, false);
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = ZBool().nullable().process(processor).parse(true);
+
+        expect(res.value, false);
+      });
+      test('value is null', () {
+        final res = ZBool().nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = ZBool().process(processor).nullable().parse(false);
+
+        expect(res.value, true);
+      });
+      test('value is null', () {
+        final res = ZBool().process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+  });
 }

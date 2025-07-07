@@ -43,4 +43,7 @@ class ZInt extends ZBase<int> implements ZTransformations<int, int> {
 
   @override
   ZInt superRefine(SuperRefiner<int> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZInt process(Processor<int> processor) => ZInt._withConfig(_config.addProcessor(processor));
 }
