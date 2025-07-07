@@ -21,6 +21,8 @@ ZSchema schema = {
   'optionalInt': ZInt().optional(),
 };
 
+typedef SimpleRec = ({String val});
+
 void main() {
   group('parse', () {
     group('strict', () {
@@ -299,6 +301,52 @@ void main() {
             ZIssueCustom(message: 'second'),
           ]),
         );
+      });
+    });
+  });
+
+  group('process', () {
+    SimpleRec processor(SimpleRec rec) => (val: '${rec.val}Art');
+    final zObj = ZObject<SimpleRec>.withMapper(
+      {'val': ZString()},
+      fromJson: (v) => (
+        val: v['val'],
+      ),
+    );
+
+    const input = {'val': 'Zod'};
+
+    const output = (
+      val: 'ZodArt',
+    );
+
+    test('required', () {
+      final res = zObj.process(processor).parse(input);
+
+      expect(res.value, output);
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = zObj.nullable().process(processor).parse(input);
+
+        expect(res.value, output);
+      });
+      test('value is null', () {
+        final res = zObj.nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = zObj.process(processor).nullable().parse(input);
+
+        expect(res.value, output);
+      });
+      test('value is null', () {
+        final res = zObj.process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
       });
     });
   });

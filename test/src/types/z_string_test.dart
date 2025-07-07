@@ -455,4 +455,38 @@ void main() {
       });
     });
   });
+
+  group('process', () {
+    String processor(String val) => '${val}Art';
+
+    test('required', () {
+      final res = ZString().process(processor).parse('Zod');
+
+      expect(res.value, 'ZodArt');
+    });
+    group('nullable before process', () {
+      test('with a not null value', () {
+        final res = ZString().nullable().process(processor).parse('Zod');
+
+        expect(res.value, 'ZodArt');
+      });
+      test('value is null', () {
+        final res = ZString().nullable().process(processor).parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+    group('nullable after process', () {
+      test('with a not null value', () {
+        final res = ZString().process(processor).nullable().parse('Zod');
+
+        expect(res.value, 'ZodArt');
+      });
+      test('value is null', () {
+        final res = ZString().process(processor).nullable().parse(null);
+
+        expect(res.value, isNull);
+      });
+    });
+  });
 }
