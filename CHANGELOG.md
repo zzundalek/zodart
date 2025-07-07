@@ -1,4 +1,4 @@
-## [Unreleased]
+## 1.0.0-beta - 2025-07-07
 
 - Add process method for all types
 - Add superRefine method for all types
