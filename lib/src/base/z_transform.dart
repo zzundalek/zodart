@@ -20,7 +20,8 @@ sealed class TransformAny<From, To> {
           return fn(val);
         } else {
           throw ZodArtInternalException(
-            'Unexpected transformation error occurred. Value "$val" of type "${val.runtimeType}" should have been converted from type "$From" to type "$To".',
+            'Unexpected transformation error occurred. Value "$val" of type "${val.runtimeType}" '
+            'should have been converted from type "$From" to type "$To".',
           );
         }
       };
@@ -212,4 +213,16 @@ class ParseArray<T> extends ParseAny<List<T>> {
   ///
   /// The function will be automatically wrapped with a runtime type check.
   ParseArray(super._fn);
+}
+
+/// A type-safe wrapper for processing a [T] value into a new [T] value.
+///
+/// This class extends [TransformAny] for the [T] type.
+class Process<T> extends TransformAny<T, T> {
+  /// Creates a new [Process] with the provided [Processor] function.
+  ///
+  /// This function is used to change the value without changing its type.
+  ///
+  /// The function will be automatically wrapped with a runtime type check.
+  Process(Processor<T> processor) : super((T val) => ZRes.success(processor(val)));
 }

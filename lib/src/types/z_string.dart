@@ -56,4 +56,7 @@ class ZString extends ZBase<String> implements ZTransformations<String, String> 
 
   @override
   ZString superRefine(SuperRefiner<String> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZString process(Processor<String> processor) => ZString._withConfig(_config.addProcessor(processor));
 }

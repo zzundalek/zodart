@@ -24,4 +24,8 @@ class ZNullableArray<T> extends ZBase<List<T>?> implements ZTransformations<List
 
   @override
   ZNullableArray<T> superRefine(SuperRefiner<List<T>> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZNullableArray<T> process(Processor<List<T>> processor) =>
+      ZNullableArray<T>._withConfig(_config.addProcessor(processor));
 }

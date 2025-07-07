@@ -33,4 +33,7 @@ class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
 
   @override
   ZNullableInt superRefine(SuperRefiner<int> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZNullableInt process(Processor<int> processor) => ZNullableInt._withConfig(_config.addProcessor(processor));
 }

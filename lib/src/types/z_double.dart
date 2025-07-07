@@ -43,4 +43,7 @@ class ZDouble extends ZBase<double> implements ZTransformations<double, double> 
 
   @override
   ZDouble superRefine(SuperRefiner<double> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZDouble process(Processor<double> processor) => ZDouble._withConfig(_config.addProcessor(processor));
 }

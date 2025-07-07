@@ -37,4 +37,7 @@ class ZBool extends ZBase<bool> implements ZTransformations<bool, bool> {
 
   @override
   ZBool superRefine(SuperRefiner<bool> refiner) => _addRule(superRefineRule(refiner));
+
+  @override
+  ZBool process(Processor<bool> processor) => ZBool._withConfig(_config.addProcessor(processor));
 }
