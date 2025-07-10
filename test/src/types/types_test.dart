@@ -7,7 +7,9 @@ import 'package:zodart/src/z_base_config/z_base_config.dart';
 void main() {
   group('ZBase internal exception test', () {
     test('throws ZodArtInternalException when parsed value type does not match the expected type', () {
-      final zStringWithParseIntTransformer = createZStringWithConfigForTesting(ZBaseConfig(fns: [ParseInt(parseInt)]));
+      final zStringWithParseIntTransformer = createZStringWithConfigForTesting(
+        ZBaseConfig(fns: [Parsing.buildIn(parseInt)]),
+      );
       expect(
         () => zStringWithParseIntTransformer.parse(1),
         throwsA(
@@ -21,7 +23,7 @@ void main() {
     });
     test('throws ZodArtInternalException when parser throws an unexpected error', () {
       final zStringWithParserThrowing = createZStringWithConfigForTesting(
-        ZBaseConfig(fns: [ParseString((_) => throw Error())]),
+        ZBaseConfig(fns: [Parsing.buildIn((_) => throw Error())]),
       );
       expect(
         () => zStringWithParserThrowing.parse('1'),

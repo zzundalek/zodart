@@ -12,7 +12,8 @@ part of 'types.dart';
 class ZNullableDouble extends ZBase<double?> implements ZTransformations<double, double?> {
   ZNullableDouble._withConfig(super.config) : super._withConfig();
 
-  ZNullableDouble _addRule(Rule<double> r) => ZNullableDouble._withConfig(_config.addRule(RuleDouble(r)));
+  ZNullableDouble _addRule(ResRule<double> validation) =>
+      _validateBuildIn(constructor: ZNullableDouble._withConfig, validation: validation);
 
   /// Adds a rule to enforce that the value must be greater than or equal to `min`.
   ///
@@ -25,15 +26,26 @@ class ZNullableDouble extends ZBase<double?> implements ZTransformations<double,
   ZNullableDouble max(double max) => _addRule(maxNumRule(max));
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableDouble optional() => ZNullableDouble._withConfig(_config.makeOptional());
+  ZNullableDouble optional() => _optional(constructor: ZNullableDouble._withConfig);
 
   @override
-  ZNullableDouble refine(Refiner<double> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZNullableDouble refine(Refiner<double> refiner, {String? message, String? code}) => _refine(
+    constructor: ZNullableDouble._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZNullableDouble superRefine(SuperRefiner<double> refiner) => _addRule(superRefineRule(refiner));
+  ZNullableDouble superRefine(SuperRefiner<double> refiner) => _superRefine(
+    constructor: ZNullableDouble._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZNullableDouble process(Processor<double> processor) => ZNullableDouble._withConfig(_config.addProcessor(processor));
+  ZNullableDouble process(Processor<double> processor) => _processPure(
+    constructor: ZNullableDouble._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }

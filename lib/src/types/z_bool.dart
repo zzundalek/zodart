@@ -14,7 +14,7 @@ class ZBool extends ZBase<bool> implements ZTransformations<bool, bool> {
   factory ZBool() => ZBool._new();
 
   /// Internal constructor that initializes with a default bool parser.
-  ZBool._new() : super._new(ParseBool(parseBool));
+  ZBool._new() : super._new(Parsing.buildIn(parseBool));
 
   /// Internal constructor that accepts a custom configuration.
   ///
@@ -22,22 +22,30 @@ class ZBool extends ZBase<bool> implements ZTransformations<bool, bool> {
   /// such as after applying transformation or additional rules.
   ZBool._withConfig(super.config) : super._withConfig();
 
-  /// Adds a custom rule for bool validation/processing and returns a new `ZBool` instance.
-  ZBool _addRule(Rule<bool> r) => ZBool._withConfig(_config.addRule(RuleBool(r)));
-
   /// Enable `null` value. All rules will be skipped for null values.
-  ZNullableBool nullable() => ZNullableBool._withConfig(_config.makeNullable());
+  ZNullableBool nullable() => _nullable(constructor: ZNullableBool._withConfig);
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableBool optional() => ZNullableBool._withConfig(_config.makeOptional());
+  ZNullableBool optional() => _optional(constructor: ZNullableBool._withConfig);
 
   @override
-  ZBool refine(Refiner<bool> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZBool refine(Refiner<bool> refiner, {String? message, String? code}) => _refine(
+    constructor: ZBool._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZBool superRefine(SuperRefiner<bool> refiner) => _addRule(superRefineRule(refiner));
+  ZBool superRefine(SuperRefiner<bool> refiner) => _superRefine(
+    constructor: ZBool._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZBool process(Processor<bool> processor) => ZBool._withConfig(_config.addProcessor(processor));
+  ZBool process(Processor<bool> processor) => _processPure(
+    constructor: ZBool._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }

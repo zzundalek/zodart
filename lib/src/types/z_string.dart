@@ -14,7 +14,7 @@ class ZString extends ZBase<String> implements ZTransformations<String, String> 
   factory ZString() => ZString._new();
 
   /// Internal constructor that initializes with a default String parser.
-  ZString._new() : super._new(ParseString(parseString));
+  ZString._new() : super._new(Parsing.buildIn(parseString));
 
   /// Internal constructor that accepts a custom configuration.
   ///
@@ -22,8 +22,9 @@ class ZString extends ZBase<String> implements ZTransformations<String, String> 
   /// such as after applying transformation or additional rules.
   ZString._withConfig(super.config) : super._withConfig();
 
-  /// Adds a custom rule for String validation/processing and returns a new `ZString` instance.
-  ZString _addRule(Rule<String> r) => ZString._withConfig(_config.addRule(RuleString(r)));
+  /// Adds a custom rule for String validation and returns a new `ZString` instance.
+  ZString _addRule(ResRule<String> validation) =>
+      _validateBuildIn(constructor: ZString._withConfig, validation: validation);
 
   /// Adds a rule to enforce that the string length must be greater than or equal to `min`.
   ZString min(int min) => _addRule(minStrLengthRule(min));
@@ -32,31 +33,51 @@ class ZString extends ZBase<String> implements ZTransformations<String, String> 
   ZString max(int max) => _addRule(maxStrLengthRule(max));
 
   /// Adds a rule which trims the String value.
-  ZString trim() => _addRule(trimRule());
+  ZString trim() => _processPure<ZString, String>(
+    constructor: ZString._withConfig,
+    processor: (val) => val.trim(),
+    isUserDefined: false,
+  );
 
   /// Adds a transformation of current [String] value to [int].
-  ZInt toInt() => ZInt._withConfig(_config.addTransformation(TransformStringToInt(stringToInt)));
+  ZInt toInt() => _transformBuildIn(constructor: ZInt._withConfig, transformer: stringToInt);
 
   /// Adds a transformation of current [String] value to [double].
-  ZDouble toDouble() => ZDouble._withConfig(_config.addTransformation(TransformStringToDouble(stringToDouble)));
+  ZDouble toDouble() => _transformBuildIn(
+    constructor: ZDouble._withConfig,
+    transformer: stringToDouble,
+  );
 
   /// Adds a transformation of current [String] value to [DateTime].
-  ZDateTime toDateTime() =>
-      ZDateTime._withConfig(_config.addTransformation(TransformStringToDateTime(stringToDateTime)));
+  ZDateTime toDateTime() => _transformBuildIn(
+    constructor: ZDateTime._withConfig,
+    transformer: stringToDateTime,
+  );
 
   /// Enable `null` value. All rules will be skipped for null values.
-  ZNullableString nullable() => ZNullableString._withConfig(_config.makeNullable());
+  ZNullableString nullable() => _nullable(constructor: ZNullableString._withConfig);
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableString optional() => ZNullableString._withConfig(_config.makeOptional());
+  ZNullableString optional() => _optional(constructor: ZNullableString._withConfig);
 
   @override
-  ZString refine(Refiner<String> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZString refine(Refiner<String> refiner, {String? message, String? code}) => _refine(
+    constructor: ZString._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZString superRefine(SuperRefiner<String> refiner) => _addRule(superRefineRule(refiner));
+  ZString superRefine(SuperRefiner<String> refiner) => _superRefine(
+    constructor: ZString._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZString process(Processor<String> processor) => ZString._withConfig(_config.addProcessor(processor));
+  ZString process(Processor<String> processor) => _processPure(
+    constructor: ZString._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }

@@ -4,32 +4,27 @@ import 'base.dart';
 /// A list of issues that occurred during parsing, validation, or transformation.
 typedef ZIssues = List<ZIssue>;
 
+/// Transformation functions which converts a value from [From] to [To].
+typedef Transformer<From, To> = To Function(From);
+
 /// Transforms a value of type [From] into type [To].
 /// Returns a [ZRes<To>] indicating success or error.
-/// This is the general form of a transformation.
-typedef Transformer<From, To> = ZRes<To> Function(From);
+typedef ResTransformer<From, To> = ZRes<To> Function(From);
 
 /// Validates a value of type [T].
 /// Returns a [ZRes<T>] that contains either a list of issues or the value.
-/// A rule is a special case of a transformer where input and output types are the same.
-typedef Rule<T> = ZRes<T> Function(T);
+typedef ResRule<T> = ZRes<T> Function(T);
+
+/// Processes a value and returns a new value of the same type [T].
+typedef Processor<T> = T Function(T val);
 
 /// Processes a value of type [T].
 /// Returns a [ZRes<T>] that contains either a list of issues or the processed value.
-/// A processor is a special case of a transformer where input and output types are the same.
-typedef Processor<T> = T Function(T val);
+typedef ResProcessor<T> = ZRes<T> Function(T val);
 
 /// Parses untyped input (usually dynamic or JSON-like data) into a typed value [T].
 /// Returns a [ZRes<T>] to capture parsing success or error.
 typedef Parser<T> = ZRes<T> Function(Object? input);
-
-/// A helper type for rules to ensure type safety.
-/// Equivalent to a [Transformer] with input and output both of type [T].
-typedef RuleAny<T> = TransformAny<T, T>;
-
-/// A helper type for parsing to ensure type safety.
-/// Equivalent to a [Transformer] from untyped input [Object?] to [T].
-typedef ParseAny<T> = TransformAny<Object?, T>;
 
 /// A schema defining the shape of a [ZObject], mapping keys to [ZBase] validators or transformers.
 typedef ObjectSchema = Map<String, ZBase<dynamic>>;

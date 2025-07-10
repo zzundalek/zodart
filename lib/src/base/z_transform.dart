@@ -1,16 +1,22 @@
+// Used intentionally to restrict the operation input to a subtype.
+// ignore_for_file: use_super_parameters
+
 import '../internal_typedefs.dart';
 import '../z_base_config/z_base_config.dart';
 import 'base.dart';
 
 /// A class used to encapsulate transformation, validation and processing functions.
 ///
-/// A sealed class that defines various kinds of transformation types to ensure type safety.
-/// Transforms a value of type [From] to a value of type [To].
-sealed class TransformAny<From, To> {
-  TransformAny(this._fn);
-  final Transformer<From, To> _fn;
+/// A sealed class that defines various kinds of operations when ensuring type safety.
+sealed class Operation<From, To> {
+  Operation(this._fn, {this.isUserDefined = false});
+  final ResTransformer<From, To> _fn;
 
-  ConfiguredTransformer<From?, To?> _configureTransformer(Transformer<From, To> fn) =>
+  /// Indicates whether this operation is user-defined,
+  /// as opposed to a built-in operations like `.min()` or `.trim()`.
+  final bool isUserDefined;
+
+  ConfiguredTransformer<From?, To?> _configureTransformer(ResTransformer<From, To> fn) =>
       (Config config) => (dynamic val) {
         // NOTE: For null value the transformer execution is skipped,
         // but the result must be converted to proper type.
@@ -31,198 +37,42 @@ sealed class TransformAny<From, To> {
   ConfiguredTransformer<From?, To?> get fn => _configureTransformer(_fn);
 }
 
-/// A type-safe wrapper for string-specific validation or processing logic.
+/// A type-safe transformation that parses an untyped [Object?] into a value of type [T].
 ///
-/// This class extends [RuleAny] for the [String] type and applies runtime
-/// type guarding to ensure only strings are validated or parsed.
-class RuleString extends RuleAny<String> {
-  /// Creates a new [RuleString] with the provided rule function [fn].
-  ///
-  /// The rule will be automatically wrapped with a runtime type check.
-  RuleString(super._fn);
+/// This operation is short-circuited if the input value is `null`.
+///
+/// Extends [Operation] and enforces runtime type checks for both input and output types.
+class Parsing<T> extends Operation<Object?, T> {
+  /// Create a new transformation from [Object?] to [T] with the given function [fn].
+  Parsing.buildIn(Parser<T> p) : super(p);
 }
 
-/// A type-safe wrapper for datetime-specific validation or processing logic.
+/// A type-safe wrapper for [T] validation logic.
 ///
-/// This class extends [RuleAny] for the [DateTime] type and applies runtime
-/// type guarding to ensure only DateTime value are validated or parsed.
-class RuleDateTime extends RuleAny<DateTime> {
-  /// Creates a new [RuleDateTime] with the provided rule function [fn].
-  ///
-  /// The rule will be automatically wrapped with a runtime type check.
-  RuleDateTime(super._fn);
-}
-
-/// A type-safe wrapper for int-specific validation or processing logic.
+/// This operation is short-circuited if the input value is `null`.
 ///
-/// This class extends [RuleAny] for the [int] type and applies runtime
-/// type guarding to ensure only ints are validated or parsed.
-class RuleInt extends RuleAny<int> {
-  /// Creates a new [RuleInt] with the provided rule function [fn].
-  ///
-  /// The rule will be automatically wrapped with a runtime type check.
-  RuleInt(super._fn);
-}
-
-/// A type-safe wrapper for double-specific validation or processing logic.
-///
-/// This class extends [RuleAny] for the [double] type and applies runtime
-/// type guarding to ensure only doubles are validated or parsed.
-class RuleDouble extends RuleAny<double> {
-  /// Creates a new [RuleDouble] with the provided rule function [fn].
-  ///
-  /// The rule will be automatically wrapped with a runtime type check.
-  RuleDouble(super._fn);
-}
-
-/// A type-safe wrapper for bool-specific validation or processing logic.
-///
-/// This class extends [RuleAny] for the [bool] type and applies runtime
-/// type guarding to ensure only bools are validated or parsed.
-class RuleBool extends RuleAny<bool> {
-  /// Creates a new [RuleBool] with the provided rule function [fn].
-  ///
-  /// The rule will be automatically wrapped with a runtime type check.
-  RuleBool(super._fn);
-}
-
-/// A type-safe wrapper for object-specific validation or processing logic.
-///
-/// This class extends [RuleAny] for the [Object] of type `T` and applies runtime
-/// type guarding to ensure only objects of type `T` are validated or parsed.
-class RuleObject<T> extends RuleAny<T> {
-  /// Creates a new [RuleObject] with the provided rule function [fn].
-  ///
-  /// The rule will be automatically wrapped with a runtime type check.
-  RuleObject(super._fn);
-}
-
-/// A type-safe wrapper for array-specific validation or processing logic.
-///
-/// This class extends [RuleAny] for the [List] of type `T` and applies runtime
-/// type guarding to ensure only Lists of type `T` are validated or parsed.
-class RuleArray<T> extends RuleAny<List<T>> {
-  /// Creates a new [RuleArray] with the provided rule function [fn].
-  ///
-  /// The rule will be automatically wrapped with a runtime type check.
-  RuleArray(super._fn);
-}
-
-/// A type-safe transformation from [String] to [int].
-///
-/// Extends [TransformAny] and enforces runtime type checks for both input and output types.
-class TransformStringToInt extends TransformAny<String, int> {
-  /// Creates a new transformation from [String] to [int] with the given function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  TransformStringToInt(super._fn);
-}
-
-/// A type-safe transformation from [String] to [double].
-///
-/// Extends [TransformAny] and enforces runtime type checks for both input and output types.
-class TransformStringToDouble extends TransformAny<String, double> {
-  /// Creates a new transformation from [String] to [double] with the given function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  TransformStringToDouble(super._fn);
-}
-
-/// A type-safe transformation from [String] to [DateTime].
-///
-/// Extends [TransformAny] and enforces runtime type checks for both input and output types.
-class TransformStringToDateTime extends TransformAny<String, DateTime> {
-  /// Creates a new transformation from [String] to [DateTime] with the given function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  TransformStringToDateTime(super._fn);
-}
-
-/// A type-safe wrapper for parsing [String] from untyped value [Object?].
-///
-/// This class extends [ParseAny] for the [String] type and applies runtime
-/// type guarding to ensure only not-null values are parsed.
-class ParseString extends ParseAny<String> {
-  /// Creates a new [ParseString] with the provided parse function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  ParseString(super._fn);
-}
-
-/// A type-safe wrapper for parsing [DateTime] from untyped value [Object?].
-///
-/// This class extends [ParseAny] for the [DateTime] type and applies runtime
-/// type guarding to ensure only not-null values are parsed.
-class ParseDateTime extends ParseAny<DateTime> {
-  /// Creates a new [ParseDateTime] with the provided parse function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  ParseDateTime(super._fn);
-}
-
-/// A type-safe wrapper for parsing [int] from untyped value [Object?].
-///
-/// This class extends [ParseAny] for the [int] type and applies runtime
-/// type guarding to ensure only not-null values are parsed.
-class ParseInt extends ParseAny<int> {
-  /// Creates a new [ParseInt] with the provided parse function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  ParseInt(super._fn);
-}
-
-/// A type-safe wrapper for parsing [double] from untyped value [Object?].
-///
-/// This class extends [ParseAny] for the [double] type and applies runtime
-/// type guarding to ensure only not-null values are parsed.
-class ParseDouble extends ParseAny<double> {
-  /// Creates a new [ParseDouble] with the provided parse function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  ParseDouble(super._fn);
-}
-
-/// A type-safe wrapper for parsing [bool] from untyped value [Object?].
-///
-/// This class extends [ParseAny] for the [bool] type and applies runtime
-/// type guarding to ensure only not-null values are parsed.
-class ParseBool extends ParseAny<bool> {
-  /// Creates a new [ParseBool] with the provided parse function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  ParseBool(super._fn);
-}
-
-/// A type-safe wrapper for parsing [T] from untyped value [Object?].
-///
-/// This class extends [ParseAny] for the [T] type and applies runtime
-/// type guarding to ensure only not-null values are parsed.
-class ParseObject<T> extends ParseAny<T> {
-  /// Creates a new [ParseObject] with the provided parse function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  ParseObject(super._fn);
-}
-
-/// A type-safe wrapper for parsing an array of [T] from untyped value [Object?].
-///
-/// This class extends [ParseAny] for the [List] of [T]s type and applies runtime
-/// type guarding to ensure only not-null values are parsed.
-class ParseArray<T> extends ParseAny<List<T>> {
-  /// Creates a new [ParseArray] with the provided parse function [fn].
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  ParseArray(super._fn);
+/// Extends [Operation] and enforces runtime type checks for both input and output types.
+class Validation<T> extends Operation<T, T> {
+  /// Creates a [Validation] using the provided [v] function.
+  Validation(ResRule<T> v, {required bool isUserDefined}) : super(v, isUserDefined: isUserDefined);
 }
 
 /// A type-safe wrapper for processing a [T] value into a new [T] value.
 ///
-/// This class extends [TransformAny] for the [T] type.
-class Process<T> extends TransformAny<T, T> {
-  /// Creates a new [Process] with the provided [Processor] function.
-  ///
-  /// This function is used to change the value without changing its type.
-  ///
-  /// The function will be automatically wrapped with a runtime type check.
-  Process(Processor<T> processor) : super((T val) => ZRes.success(processor(val)));
+/// This operation is short-circuited if the input value is `null`.
+///
+/// Extends [Operation] and enforces runtime type checks for both input and output types.
+class Processing<T> extends Operation<T, T> {
+  /// Creates a [Processing] using the provided [p] function.
+  Processing(ResProcessor<T> p, {required bool isUserDefined}) : super(p, isUserDefined: isUserDefined);
+}
+
+/// A type-safe transformation from [From] to [To].
+///
+/// This operation is short-circuited if the input value is `null`.
+///
+/// Extends [Operation] and enforces runtime type checks for both input and output types.
+class Transformation<From, To> extends Operation<From, To> {
+  /// Creates a [Transformation] using the provided [t] function.
+  Transformation(ResTransformer<From, To> t, {required bool isUserDefined}) : super(t, isUserDefined: isUserDefined);
 }

@@ -14,7 +14,7 @@ class ZInt extends ZBase<int> implements ZTransformations<int, int> {
   factory ZInt() => ZInt._new();
 
   /// Internal constructor that initializes with a default integer parser.
-  ZInt._new() : super._new(ParseInt(parseInt));
+  ZInt._new() : super._new(Parsing.buildIn(parseInt));
 
   /// Internal constructor that accepts a custom configuration.
   ///
@@ -23,7 +23,7 @@ class ZInt extends ZBase<int> implements ZTransformations<int, int> {
   ZInt._withConfig(super.config) : super._withConfig();
 
   /// Adds a custom rule for integer validation/processing and returns a new `ZInt` instance.
-  ZInt _addRule(Rule<int> r) => ZInt._withConfig(_config.addRule(RuleInt(r)));
+  ZInt _addRule(ResRule<int> validation) => _validateBuildIn(constructor: ZInt._withConfig, validation: validation);
 
   /// Adds a rule to enforce that the value must be greater than or equal to `min`.
   ZInt min(int min) => _addRule(minNumRule(min));
@@ -32,18 +32,29 @@ class ZInt extends ZBase<int> implements ZTransformations<int, int> {
   ZInt max(int max) => _addRule(maxNumRule(max));
 
   /// Enable `null` value. All rules will be skipped for null values.
-  ZNullableInt nullable() => ZNullableInt._withConfig(_config.makeNullable());
+  ZNullableInt nullable() => _nullable(constructor: ZNullableInt._withConfig);
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableInt optional() => ZNullableInt._withConfig(_config.makeOptional());
+  ZNullableInt optional() => _optional(constructor: ZNullableInt._withConfig);
 
   @override
-  ZInt refine(Refiner<int> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZInt refine(Refiner<int> refiner, {String? message, String? code}) => _refine(
+    constructor: ZInt._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZInt superRefine(SuperRefiner<int> refiner) => _addRule(superRefineRule(refiner));
+  ZInt superRefine(SuperRefiner<int> refiner) => _superRefine(
+    constructor: ZInt._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZInt process(Processor<int> processor) => ZInt._withConfig(_config.addProcessor(processor));
+  ZInt process(Processor<int> processor) => _processPure(
+    constructor: ZInt._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }

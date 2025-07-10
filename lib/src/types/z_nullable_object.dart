@@ -23,18 +23,27 @@ part of 'types.dart';
 class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?> {
   ZNullableObject._withConfig(super.config) : super._withConfig();
 
-  ZNullableObject<T> _addRule(Rule<T> r) => ZNullableObject<T>._withConfig(_config.addRule(RuleObject(r)));
-
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableObject<T> optional() => ZNullableObject._withConfig(_config.makeOptional());
+  ZNullableObject<T> optional() => _optional(constructor: ZNullableObject<T>._withConfig);
 
   @override
-  ZNullableObject<T> refine(Refiner<T> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZNullableObject<T> refine(Refiner<T> refiner, {String? message, String? code}) => _refine(
+    constructor: ZNullableObject<T>._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZNullableObject<T> superRefine(SuperRefiner<T> refiner) => _addRule(superRefineRule(refiner));
+  ZNullableObject<T> superRefine(SuperRefiner<T> refiner) => _superRefine(
+    constructor: ZNullableObject<T>._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZNullableObject<T> process(Processor<T> processor) => ZNullableObject<T>._withConfig(_config.addProcessor(processor));
+  ZNullableObject<T> process(Processor<T> processor) => _processPure(
+    constructor: ZNullableObject<T>._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }

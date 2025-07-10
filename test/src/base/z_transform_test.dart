@@ -6,7 +6,7 @@ void main() {
   group('TransformAny internal exception test', () {
     test('throws ZodArtInternalException when Transformer receives a value of incorrect type', () {
       const notNullableConfig = ZBaseConfig(fns: []);
-      final transformerStrToInt = TransformStringToInt((String val) => ZRes.success(1));
+      final transformerStrToInt = Transformation((String val) => ZRes.success(1), isUserDefined: false);
       final configuredTransformer = transformerStrToInt.fn(notNullableConfig);
 
       expect(

@@ -16,7 +16,8 @@ class ZNullableDateTime extends ZBase<DateTime?> implements ZTransformations<Dat
   /// such as after applying transformation or additional rules.
   ZNullableDateTime._withConfig(super.config) : super._withConfig();
 
-  ZNullableDateTime _addRule(Rule<DateTime> r) => ZNullableDateTime._withConfig(_config.addRule(RuleDateTime(r)));
+  ZNullableDateTime _addRule(ResRule<DateTime> validation) =>
+      _validateBuildIn(constructor: ZNullableDateTime._withConfig, validation: validation);
 
   /// Adds a rule to enforce that the DateTime must be after or equal to `min`.
   ///
@@ -29,16 +30,26 @@ class ZNullableDateTime extends ZBase<DateTime?> implements ZTransformations<Dat
   ZNullableDateTime max(DateTime max) => _addRule(maxDateTimeRule(max));
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableDateTime optional() => ZNullableDateTime._withConfig(_config.makeOptional());
+  ZNullableDateTime optional() => _optional(constructor: ZNullableDateTime._withConfig);
 
   @override
-  ZNullableDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZNullableDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) => _refine(
+    constructor: ZNullableDateTime._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZNullableDateTime superRefine(SuperRefiner<DateTime> refiner) => _addRule(superRefineRule(refiner));
+  ZNullableDateTime superRefine(SuperRefiner<DateTime> refiner) => _superRefine(
+    constructor: ZNullableDateTime._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZNullableDateTime process(Processor<DateTime> processor) =>
-      ZNullableDateTime._withConfig(_config.addProcessor(processor));
+  ZNullableDateTime process(Processor<DateTime> processor) => _processPure(
+    constructor: ZNullableDateTime._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }
