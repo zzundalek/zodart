@@ -60,6 +60,8 @@ classDiagram
         + min(min)
         + max(max)
 
+        + toDouble(t)
+
         + toStr(t)
 
         + refine(refiner, message?, code?)
@@ -139,6 +141,8 @@ classDiagram
         + min(min)
         + max(max)
 
+        + toDouble(t)
+
         + toStr(t)
 
         + refine(refiner, message?, code?)
@@ -203,13 +207,22 @@ classDiagram
     ZNullableArray ..> ZNullableArray : toArray<NewType>(t)
     %% \toArray %%
 
+    %% toDouble %%
+    ZInt ..> ZDouble : toDouble()
+    ZNullableInt ..> ZNullableDouble : toDouble()
     ZString ..> ZDouble : toDouble()
-    ZString ..> ZDateTime : toDateTime()
-    ZString ..> ZInt : toInt()
-
-    ZNullableString ..> ZNullableDateTime : toDateTime()
     ZNullableString ..> ZNullableDouble : toDouble()
+    %% \toDouble %%
+
+    %% toInt %%
+    ZString ..> ZInt : toInt()
     ZNullableString ..> ZNullableInt : toInt()
+    %% \toInt %%
+
+    %% toDateTime %%
+    ZString ..> ZDateTime : toDateTime()
+    ZNullableString ..> ZNullableDateTime : toDateTime()
+    %% \toDateTime %%
 
     ZArray ..> ZNullableArray : nullable()
     ZObject ..> ZNullableObject : nullable()
