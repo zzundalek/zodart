@@ -164,6 +164,49 @@ void main() {
     });
   });
 
+  group('toInt', () {
+    int toInt(double val) => val.toInt();
+    final baseValidInputs = <ValidInput>[
+      (input: -1.9, expected: -1),
+      (input: 0.0, expected: 0),
+      (input: 9.1, expected: 9),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZDouble().toInt(toInt),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDouble().nullable().toInt(toInt),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDouble().toInt(toInt).nullable(),
+      );
+    });
+  });
+
   group('toStr', () {
     String toUSD(double val) => '\$${val.toStringAsFixed(1)}';
     final baseValidInputs = <ValidInput>[
