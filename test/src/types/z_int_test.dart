@@ -163,6 +163,48 @@ void main() {
     });
   });
 
+  group('toDouble', () {
+    final baseValidInputs = <ValidInput>[
+      (input: -1, expected: -1.0),
+      (input: 0, expected: 0.0),
+      (input: 9, expected: 9.0),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZInt().toDouble(),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZInt().nullable().toDouble(),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZInt().toDouble().nullable(),
+      );
+    });
+  });
+
   group('toStr', () {
     String toUSD(int val) => '\$$val';
     final baseValidInputs = <ValidInput>[
