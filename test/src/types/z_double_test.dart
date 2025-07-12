@@ -164,6 +164,47 @@ void main() {
     });
   });
 
+  group('toStr', () {
+    String toUSD(double val) => '\$${val.toStringAsFixed(1)}';
+    final baseValidInputs = <ValidInput>[
+      (input: 9.0, expected: r'$9.0'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZDouble().toStr(toUSD),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDouble().nullable().toStr(toUSD),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDouble().toStr(toUSD).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refinePositive(double val) => val > 0;
 

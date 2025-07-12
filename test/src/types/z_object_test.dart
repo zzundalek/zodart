@@ -174,6 +174,56 @@ void main() {
     });
   });
 
+  group('toStr', () {
+    String toStr(SimpleRec val) => 'Hello ${val.val}!';
+    final zObj = ZObject<SimpleRec>.withMapper(
+      {'val': ZString()},
+      fromJson: (v) => (
+        val: v['val'],
+      ),
+    );
+    final baseValidInputs = <ValidInput>[
+      (
+        input: {'val': 'ZodArt'},
+        expected: 'Hello ZodArt!',
+      ),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        zObj.toStr(toStr),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        zObj.nullable().toStr(toStr),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        zObj.toStr(toStr).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refineFromLowerThanTo((int, int) val) => val.$1 <= val.$2;
     (int, int) fromJson(Map<String, dynamic> val) => (val['from'], val['to']);

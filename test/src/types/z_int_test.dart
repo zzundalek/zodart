@@ -163,6 +163,47 @@ void main() {
     });
   });
 
+  group('toStr', () {
+    String toUSD(int val) => '\$$val';
+    final baseValidInputs = <ValidInput>[
+      (input: 9, expected: r'$9'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZInt().toStr(toUSD),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZInt().nullable().toStr(toUSD),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZInt().toStr(toUSD).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refinePositive(int val) => val > 0;
 

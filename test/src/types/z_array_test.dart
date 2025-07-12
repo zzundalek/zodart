@@ -121,6 +121,51 @@ void main() {
     });
   });
 
+  group('toStr', () {
+    String toSumUSD(List<double> val) {
+      final sum = val.fold<double>(0, (sum, curr) => sum + curr);
+      return '\$${sum.toStringAsFixed(1)}';
+    }
+
+    final baseValidInputs = <ValidInput>[
+      (input: [1.0, 20.1, 6.1, 0.0], expected: r'$27.2'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).toStr(toSumUSD),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).nullable().toStr(toSumUSD),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).toStr(toSumUSD).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refineNotEmpty(List<dynamic> val) => val.isNotEmpty;
 
