@@ -38,6 +38,10 @@ sealed class ZBase<T> {
     );
   }
 
+  /// Converts [Transformer] to [ResTransformer] by wrapping it by function returning [ZRes].
+  ZRes<To> Function(From) _toResTransformer<From, To>(Transformer<From, To> t) =>
+      (From val) => ZRes.success(t(val));
+
   /// Adds a transformation function to the pipeline.
   ///
   /// Used internally by built-in methods (e.g. `.toDouble()`).
@@ -50,6 +54,25 @@ sealed class ZBase<T> {
         Transformation(
           transformer,
           isUserDefined: false,
+        ),
+      ),
+    );
+  }
+
+  /// Adds a transformation function to the pipeline.
+  ///
+  /// Used to provide custom transformation at [transformer].
+  ///
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _transformCustom<ZType extends ZBase<dynamic>, From, To>({
+    required ZType Function(ZBaseConfig) constructor,
+    required Transformer<From, To> transformer,
+  }) {
+    return constructor(
+      _config.addTransformation(
+        Transformation<From, To>(
+          _toResTransformer(transformer),
+          isUserDefined: true,
         ),
       ),
     );

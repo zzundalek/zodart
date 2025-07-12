@@ -37,6 +37,12 @@ class ZInt extends ZBase<int> implements ZTransformations<int, int> {
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableInt optional() => _optional(constructor: ZNullableInt._withConfig);
 
+  /// Adds a transformation of current [int] value to [String] using custom transformer.
+  ZString toStr(Transformer<int, String> transformer) => _transformCustom(
+    constructor: ZString._withConfig,
+    transformer: transformer,
+  );
+
   @override
   ZInt refine(Refiner<int> refiner, {String? message, String? code}) => _refine(
     constructor: ZInt._withConfig,

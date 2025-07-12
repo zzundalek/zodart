@@ -38,6 +38,12 @@ class ZDouble extends ZBase<double> implements ZTransformations<double, double> 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableDouble optional() => _optional(constructor: ZNullableDouble._withConfig);
 
+  /// Adds a transformation of current [double] value to [String] using custom transformer.
+  ZString toStr(Transformer<double, String> transformer) => _transformCustom(
+    constructor: ZString._withConfig,
+    transformer: transformer,
+  );
+
   @override
   ZDouble refine(Refiner<double> refiner, {String? message, String? code}) => _refine(
     constructor: ZDouble._withConfig,

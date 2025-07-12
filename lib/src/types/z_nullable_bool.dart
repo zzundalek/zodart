@@ -19,6 +19,12 @@ class ZNullableBool extends ZBase<bool?> implements ZTransformations<bool, bool?
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableBool optional() => _optional(constructor: ZNullableBool._withConfig);
 
+  /// Adds a transformation of current [bool] value to [String] using custom transformer.
+  ZNullableString toStr(Transformer<bool, String> transformer) => _transformCustom(
+    constructor: ZNullableString._withConfig,
+    transformer: transformer,
+  );
+
   @override
   ZNullableBool refine(Refiner<bool> refiner, {String? message, String? code}) => _refine(
     constructor: ZNullableBool._withConfig,

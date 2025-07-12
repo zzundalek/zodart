@@ -28,6 +28,12 @@ class ZNullableDouble extends ZBase<double?> implements ZTransformations<double,
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableDouble optional() => _optional(constructor: ZNullableDouble._withConfig);
 
+  /// Adds a transformation of current [double] value to [String] using custom transformer.
+  ZNullableString toStr(Transformer<double, String> transformer) => _transformCustom(
+    constructor: ZNullableString._withConfig,
+    transformer: transformer,
+  );
+
   @override
   ZNullableDouble refine(Refiner<double> refiner, {String? message, String? code}) => _refine(
     constructor: ZNullableDouble._withConfig,

@@ -27,6 +27,12 @@ class ZArray<T> extends ZBase<List<T>> implements ZTransformations<List<T>, List
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableArray<T> optional() => _optional(constructor: ZNullableArray<T>._withConfig);
 
+  /// Adds a transformation of current array of type [T] value to [String] using custom transformer.
+  ZString toStr(Transformer<List<T>, String> transformer) => _transformCustom(
+    constructor: ZString._withConfig,
+    transformer: transformer,
+  );
+
   @override
   ZArray<T> refine(Refiner<List<T>> refiner, {String? message, String? code}) => _refine(
     constructor: ZArray<T>._withConfig,

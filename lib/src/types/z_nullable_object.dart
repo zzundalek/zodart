@@ -26,6 +26,12 @@ class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?> {
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableObject<T> optional() => _optional(constructor: ZNullableObject<T>._withConfig);
 
+  /// Adds a transformation of current [T] value to [String] using custom transformer.
+  ZNullableString toStr(Transformer<T, String> transformer) => _transformCustom(
+    constructor: ZNullableString._withConfig,
+    transformer: transformer,
+  );
+
   @override
   ZNullableObject<T> refine(Refiner<T> refiner, {String? message, String? code}) => _refine(
     constructor: ZNullableObject<T>._withConfig,

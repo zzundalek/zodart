@@ -32,6 +32,12 @@ class ZNullableDateTime extends ZBase<DateTime?> implements ZTransformations<Dat
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableDateTime optional() => _optional(constructor: ZNullableDateTime._withConfig);
 
+  /// Adds a transformation of current [DateTime] value to [String] using custom transformer.
+  ZNullableString toStr(Transformer<DateTime, String> transformer) => _transformCustom(
+    constructor: ZNullableString._withConfig,
+    transformer: transformer,
+  );
+
   @override
   ZNullableDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) => _refine(
     constructor: ZNullableDateTime._withConfig,
