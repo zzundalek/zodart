@@ -22,6 +22,12 @@ class ZNullableArray<T> extends ZBase<List<T>?> implements ZTransformations<List
     transformer: transformer,
   );
 
+  /// Adds a transformation of current array of type [T] to an array of type [To] using custom transformer.
+  ZNullableArray<To> toArray<To>(Transformer<List<T>, List<To>> transformer) => _transformCustom(
+    constructor: ZNullableArray<To>._withConfig,
+    transformer: transformer,
+  );
+
   @override
   ZNullableArray<T> refine(Refiner<List<T>> refiner, {String? message, String? code}) => _refine(
     constructor: ZNullableArray<T>._withConfig,
