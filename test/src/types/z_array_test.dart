@@ -121,6 +121,48 @@ void main() {
     });
   });
 
+  group('toArray', () {
+    List<String> toUSD(List<double> vals) => vals.map((val) => '\$${val.toStringAsFixed(1)}').toList();
+
+    final baseValidInputs = <ValidInput>[
+      (input: [1.0, 20.1, 6.1, 0.0], expected: [r'$1.0', r'$20.1', r'$6.1', r'$0.0']),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).toArray(toUSD),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).nullable().toArray(toUSD),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).toArray(toUSD).nullable(),
+      );
+    });
+  });
+
   group('toStr', () {
     String toSumUSD(List<double> val) {
       final sum = val.fold<double>(0, (sum, curr) => sum + curr);
