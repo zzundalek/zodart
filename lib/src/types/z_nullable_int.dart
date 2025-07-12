@@ -34,6 +34,12 @@ class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
     transformer: transformer,
   );
 
+  /// Adds a transformation of current [int] value to [double] using default transformer.
+  ZNullableDouble toDouble() => _transformBuildIn(
+    constructor: ZNullableDouble._withConfig,
+    transformer: intToDouble,
+  );
+
   @override
   ZNullableInt refine(Refiner<int> refiner, {String? message, String? code}) => _refine(
     constructor: ZNullableInt._withConfig,

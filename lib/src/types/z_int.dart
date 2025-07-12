@@ -43,6 +43,12 @@ class ZInt extends ZBase<int> implements ZTransformations<int, int> {
     transformer: transformer,
   );
 
+  /// Adds a transformation of current [int] value to [double] using default transformer.
+  ZDouble toDouble() => _transformBuildIn(
+    constructor: ZDouble._withConfig,
+    transformer: intToDouble,
+  );
+
   @override
   ZInt refine(Refiner<int> refiner, {String? message, String? code}) => _refine(
     constructor: ZInt._withConfig,

@@ -23,6 +23,11 @@ ZRes<int> stringToInt(String val) {
   }
 }
 
+/// A [ResTransformer] from `int` to `double`.
+///
+/// Returns a [ZRes<int>] containing the double value.
+ZRes<double> intToDouble(int val) => ZRes.success(val.toDouble());
+
 /// A [ResTransformer] from `String` to `double`.
 ///
 /// Takes a [String] [val], attempts to parse it to an `double` using [double.parse].
