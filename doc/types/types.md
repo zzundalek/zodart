@@ -60,7 +60,7 @@ classDiagram
         + min(min)
         + max(max)
 
-        + toDouble(t)
+        + toDouble()
 
         + toStr(t)
 
@@ -76,6 +76,8 @@ classDiagram
 
         + min(min)
         + max(max)
+
+        + toInt(t)
 
         + toStr(t)
 
@@ -141,7 +143,7 @@ classDiagram
         + min(min)
         + max(max)
 
-        + toDouble(t)
+        + toDouble()
 
         + toStr(t)
 
@@ -154,6 +156,7 @@ classDiagram
         + min(min)
         + max(max)
 
+        + toInt(t)
         + toStr(t)
 
         + refine(refiner, message?, code?)
@@ -215,6 +218,8 @@ classDiagram
     %% \toDouble %%
 
     %% toInt %%
+    ZDouble ..> ZInt : toInt(t)
+    ZNullableDouble ..> ZNullableInt : toInt(t)
     ZString ..> ZInt : toInt()
     ZNullableString ..> ZNullableInt : toInt()
     %% \toInt %%
