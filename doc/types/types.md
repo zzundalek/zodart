@@ -12,7 +12,8 @@ classDiagram
         + nullable() ZNullableArray
         + optional() ZNullableArray
 
-        + toStr(customTransformer)
+        + toStr(t)
+        + toArray<NewType>(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -23,7 +24,7 @@ classDiagram
         + nullable() ZNullableObject
         + optional() ZNullableObject
 
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -34,7 +35,7 @@ classDiagram
         + nullable() ZNullableBool
         + optional() ZNullableBool
 
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -45,7 +46,7 @@ classDiagram
         + nullable() ZNullableDateTime
         + optional() ZNullableDateTime
 
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -59,7 +60,7 @@ classDiagram
         + min(min)
         + max(max)
 
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -74,7 +75,7 @@ classDiagram
         + min(min)
         + max(max)
 
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -99,7 +100,8 @@ classDiagram
     }
 
     class ZNullableArray~T~ {
-        + toStr(customTransformer)
+        + toStr(t)
+        + toArray<NewType>(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -107,7 +109,7 @@ classDiagram
     }
 
     class ZNullableObject~T~ {
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -115,7 +117,7 @@ classDiagram
     }
 
     class ZNullableBool {
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -126,7 +128,7 @@ classDiagram
         + min(min)
         + max(max)
 
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -137,7 +139,7 @@ classDiagram
         + min(min)
         + max(max)
 
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -148,7 +150,7 @@ classDiagram
         + min(min)
         + max(max)
 
-        + toStr(customTransformer)
+        + toStr(t)
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -195,6 +197,11 @@ classDiagram
     ZNullableInt ..> ZNullableString : toStr(t)
     ZNullableDouble ..> ZNullableString : toStr(t)
     %% \toStr %%
+
+    %% toArray %%
+    ZArray ..> ZArray : toArray<NewType>(t)
+    ZNullableArray ..> ZNullableArray : toArray<NewType>(t)
+    %% \toArray %%
 
     ZString ..> ZDouble : toDouble()
     ZString ..> ZDateTime : toDateTime()
