@@ -5,163 +5,163 @@ title: ZodArt types
 classDiagram
     class ZBase~T~  {
         <<Abstract>>
-        + parse(val) [done]
+        + parse(val)
     }
 
     class ZArray~T~ {
-        + nullable() ZNullableArray [done]
-        + optional() ZNullableArray [done]
+        + nullable() ZNullableArray
+        + optional() ZNullableArray
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZObject~T~ {
-        + nullable() ZNullableObject [done]
-        + optional() ZNullableObject [done]
+        + nullable() ZNullableObject
+        + optional() ZNullableObject
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZBool {
-        + nullable() ZNullableBool [done]
-        + optional() ZNullableBool [done]
+        + nullable() ZNullableBool
+        + optional() ZNullableBool
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZDateTime {
-        + nullable() ZNullableDateTime [done]
-        + optional() ZNullableDateTime [done]
+        + nullable() ZNullableDateTime
+        + optional() ZNullableDateTime
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZInt {
-        + nullable() ZNullableInt [done]
-        + optional() ZNullableInt [done]
+        + nullable() ZNullableInt
+        + optional() ZNullableInt
 
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZDouble {
-        + nullable() ZNullableDouble [done]
-        + optional() ZNullableDouble [done]
+        + nullable() ZNullableDouble
+        + optional() ZNullableDouble
 
 
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZString {
-        + nullable() ZNullableString [done]
-        + optional() ZNullableString [done]
+        + nullable() ZNullableString
+        + optional() ZNullableString
 
-        + toInt() ZInt [done]
-        + toDouble() ZDouble [done]
+        + toInt() ZInt
+        + toDouble() ZDouble
 
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + trim() [done]
+        + trim()
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZNullableArray~T~ {
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZNullableObject~T~ {
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZNullableBool {
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZNullableDateTime {
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZNullableInt {
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZNullableDouble {
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + toStr(customTransformer) [done]
+        + toStr(customTransformer)
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
 
     class ZNullableString {
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + trim() [done]
+        + trim()
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
         + superRefine(refiner)
         + process(p)
     }
@@ -182,33 +182,33 @@ classDiagram
     ZNullableString --|> ZBase
 
     %% toStr %%
-    ZArray ..> ZString : toStr(t) [done]
-    ZObject ..> ZString : toStr(t) [done]
-    ZBool ..> ZString : toStr(t) [done]
-    ZDateTime ..> ZString : toStr(t) [done]
-    ZInt ..> ZString : toStr(t) [done]
-    ZDouble ..> ZString : toStr(t) [done]
-    ZNullableArray ..> ZNullableString : toStr(t) [done]
-    ZNullableObject ..> ZNullableString : toStr(t) [done]
-    ZNullableBool ..> ZNullableString : toStr(t) [done]
-    ZNullableDateTime ..> ZNullableString : toStr(t) [done]
-    ZNullableInt ..> ZNullableString : toStr(t) [done]
-    ZNullableDouble ..> ZNullableString : toStr(t) [done]
+    ZArray ..> ZString : toStr(t)
+    ZObject ..> ZString : toStr(t)
+    ZBool ..> ZString : toStr(t)
+    ZDateTime ..> ZString : toStr(t)
+    ZInt ..> ZString : toStr(t)
+    ZDouble ..> ZString : toStr(t)
+    ZNullableArray ..> ZNullableString : toStr(t)
+    ZNullableObject ..> ZNullableString : toStr(t)
+    ZNullableBool ..> ZNullableString : toStr(t)
+    ZNullableDateTime ..> ZNullableString : toStr(t)
+    ZNullableInt ..> ZNullableString : toStr(t)
+    ZNullableDouble ..> ZNullableString : toStr(t)
     %% \toStr %%
 
-    ZString ..> ZDouble : toDouble() [done]
-    ZString ..> ZDateTime : toDateTime() [done]
-    ZString ..> ZInt : toInt() [done]
+    ZString ..> ZDouble : toDouble()
+    ZString ..> ZDateTime : toDateTime()
+    ZString ..> ZInt : toInt()
 
-    ZNullableString ..> ZNullableDateTime : toDateTime() [done]
-    ZNullableString ..> ZNullableDouble : toDouble() [done]
-    ZNullableString ..> ZNullableInt : toInt() [done]
+    ZNullableString ..> ZNullableDateTime : toDateTime()
+    ZNullableString ..> ZNullableDouble : toDouble()
+    ZNullableString ..> ZNullableInt : toInt()
 
-    ZArray ..> ZNullableArray : nullable() [done]
-    ZObject ..> ZNullableObject : nullable() [done]
-    ZBool ..> ZNullableBool : nullable() [done]
-    ZDateTime ..> ZNullableDateTime : nullable() [done]
-    ZInt ..> ZNullableInt : nullable() [done]
-    ZDouble ..> ZNullableDouble : nullable() [done]
-    ZString ..> ZNullableString : nullable() [done]
+    ZArray ..> ZNullableArray : nullable()
+    ZObject ..> ZNullableObject : nullable()
+    ZBool ..> ZNullableBool : nullable()
+    ZDateTime ..> ZNullableDateTime : nullable()
+    ZInt ..> ZNullableInt : nullable()
+    ZDouble ..> ZNullableDouble : nullable()
+    ZString ..> ZNullableString : nullable()
 ```
