@@ -9,7 +9,8 @@ part of 'types.dart';
 /// final nullableBool = ZBool().nullable();
 /// final result = nullableBool.parse(true);
 /// ```
-class ZNullableBool extends ZBase<bool?> implements ZTransformations<bool, bool?> {
+class ZNullableBool extends ZBase<bool?>
+    implements ZTransformations<bool, bool?>, ZNullableTransformations<bool, bool?> {
   /// Internal constructor that accepts a custom configuration.
   ///
   /// Typically used for creating modified versions of this validator,
@@ -45,4 +46,8 @@ class ZNullableBool extends ZBase<bool?> implements ZTransformations<bool, bool?
     processor: processor,
     isUserDefined: true,
   );
+
+  @override
+  ZBool onNull(NullFallback<bool> nullFallback) =>
+      _defaultForNull(constructor: ZBool._withConfig, onNull: nullFallback);
 }

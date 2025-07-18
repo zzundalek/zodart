@@ -153,6 +153,24 @@ sealed class ZBase<T> {
     );
   }
 
+  /// Adds a fallback handler for `null` values using `.onNull()`.
+  ///
+  /// If input is `null`, the [onNull] function will be called to provide a replacement value.
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _defaultForNull<ZType extends ZBase<dynamic>, To>({
+    required ZType Function(ZBaseConfig) constructor,
+    required NullFallback<To> onNull,
+  }) {
+    return constructor(
+      _config.addNullFallback(
+        OnNullTransformation<To>(
+          () => ZRes.success(onNull()),
+          isUserDefined: true,
+        ),
+      ),
+    );
+  }
+
   /// Marks this schema as nullable.
   ///
   /// Returns a new instance of [ZBase] subclass using [constructor].

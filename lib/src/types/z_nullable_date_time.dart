@@ -9,7 +9,8 @@ part of 'types.dart';
 /// final nullableDateTimeVal = ZDateTime().nullable();
 /// final result = nullableDateTimeVal.parse(DateTime.now());
 /// ```
-class ZNullableDateTime extends ZBase<DateTime?> implements ZTransformations<DateTime, DateTime?> {
+class ZNullableDateTime extends ZBase<DateTime?>
+    implements ZTransformations<DateTime, DateTime?>, ZNullableTransformations<DateTime, DateTime?> {
   /// Internal constructor that accepts a custom configuration.
   ///
   /// Typically used for creating modified versions of this validator,
@@ -58,4 +59,8 @@ class ZNullableDateTime extends ZBase<DateTime?> implements ZTransformations<Dat
     processor: processor,
     isUserDefined: true,
   );
+
+  @override
+  ZDateTime onNull(NullFallback<DateTime> nullFallback) =>
+      _defaultForNull(constructor: ZDateTime._withConfig, onNull: nullFallback);
 }

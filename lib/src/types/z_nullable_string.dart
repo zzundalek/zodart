@@ -9,7 +9,8 @@ part of 'types.dart';
 /// final nullableString = ZString().nullable();
 /// final result = nullableString.parse('ZodArt');
 /// ```
-class ZNullableString extends ZBase<String?> implements ZTransformations<String, String?> {
+class ZNullableString extends ZBase<String?>
+    implements ZTransformations<String, String?>, ZNullableTransformations<String, String?> {
   /// Internal constructor that accepts a custom configuration.
   ///
   /// Typically used for creating modified versions of this validator,
@@ -70,4 +71,8 @@ class ZNullableString extends ZBase<String?> implements ZTransformations<String,
     processor: processor,
     isUserDefined: true,
   );
+
+  @override
+  ZString onNull(NullFallback<String> nullFallback) =>
+      _defaultForNull(constructor: ZString._withConfig, onNull: nullFallback);
 }

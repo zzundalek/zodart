@@ -20,7 +20,7 @@ part of 'types.dart';
 ///
 /// final nullablePerson = personSchema.parse({'firstName': 'Zod', 'lastName': 'Art'});
 /// ```
-class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?> {
+class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?>, ZNullableTransformations<T, T?> {
   ZNullableObject._withConfig(super.config) : super._withConfig();
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
@@ -58,4 +58,8 @@ class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?> {
     processor: processor,
     isUserDefined: true,
   );
+
+  @override
+  ZObject<T> onNull(NullFallback<T> nullFallback) =>
+      _defaultForNull(constructor: ZObject<T>._withConfig, onNull: nullFallback);
 }
