@@ -63,6 +63,49 @@ void main() {
     });
   });
 
+  group('toStr', () {
+    // Test
+    // ignore: avoid_positional_boolean_parameters
+    String toStrUpperCase(bool val) => val.toString().toUpperCase();
+    final baseValidInputs = <ValidInput>[
+      (input: true, expected: 'TRUE'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZBool().toStr(toStrUpperCase),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZBool().nullable().toStr(toStrUpperCase),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZBool().toStr(toStrUpperCase).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     // Easy format for test
     // ignore: avoid_positional_boolean_parameters

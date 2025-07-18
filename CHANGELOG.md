@@ -1,3 +1,8 @@
+## [UNRELEASED]
+
+- Add transformation methods
+- 💥 Breaking change: exported transformation types changed
+
 ## 1.0.0-beta - 2025-07-07
 
 - Add process method for all types

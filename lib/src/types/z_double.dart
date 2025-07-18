@@ -14,7 +14,7 @@ class ZDouble extends ZBase<double> implements ZTransformations<double, double> 
   factory ZDouble() => ZDouble._new();
 
   /// Internal constructor that initializes with a default double parser.
-  ZDouble._new() : super._new(ParseDouble(parseDouble));
+  ZDouble._new() : super._new(Parsing.buildIn(parseDouble));
 
   /// Internal constructor that accepts a custom configuration.
   ///
@@ -23,7 +23,8 @@ class ZDouble extends ZBase<double> implements ZTransformations<double, double> 
   ZDouble._withConfig(super.config) : super._withConfig();
 
   /// Adds a custom rule for double validation/processing and returns a new `ZDouble` instance.
-  ZDouble _addRule(Rule<double> r) => ZDouble._withConfig(_config.addRule(RuleDouble(r)));
+  ZDouble _addRule(ResRule<double> validation) =>
+      _validateBuildIn(constructor: ZDouble._withConfig, validation: validation);
 
   /// Adds a rule to enforce that the value must be greater than or equal to `min`.
   ZDouble min(double min) => _addRule(minNumRule(min));
@@ -32,18 +33,41 @@ class ZDouble extends ZBase<double> implements ZTransformations<double, double> 
   ZDouble max(double max) => _addRule(maxNumRule(max));
 
   /// Enable `null` value. All rules will be skipped for null values.
-  ZNullableDouble nullable() => ZNullableDouble._withConfig(_config.makeNullable());
+  ZNullableDouble nullable() => _nullable(constructor: ZNullableDouble._withConfig);
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableDouble optional() => ZNullableDouble._withConfig(_config.makeOptional());
+  ZNullableDouble optional() => _optional(constructor: ZNullableDouble._withConfig);
+
+  /// Adds a transformation of current [double] value to [int] using custom transformer.
+  ZInt toInt(Transformer<double, int> transformer) => _transformCustom(
+    constructor: ZInt._withConfig,
+    transformer: transformer,
+  );
+
+  /// Adds a transformation of current [double] value to [String] using custom transformer.
+  ZString toStr(Transformer<double, String> transformer) => _transformCustom(
+    constructor: ZString._withConfig,
+    transformer: transformer,
+  );
 
   @override
-  ZDouble refine(Refiner<double> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZDouble refine(Refiner<double> refiner, {String? message, String? code}) => _refine(
+    constructor: ZDouble._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZDouble superRefine(SuperRefiner<double> refiner) => _addRule(superRefineRule(refiner));
+  ZDouble superRefine(SuperRefiner<double> refiner) => _superRefine(
+    constructor: ZDouble._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZDouble process(Processor<double> processor) => ZDouble._withConfig(_config.addProcessor(processor));
+  ZDouble process(Processor<double> processor) => _processPure(
+    constructor: ZDouble._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }

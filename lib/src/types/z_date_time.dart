@@ -14,7 +14,7 @@ class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, Da
   factory ZDateTime() => ZDateTime._new();
 
   /// Internal constructor that initializes with a default DateTime parser.
-  ZDateTime._new() : super._new(ParseDateTime(parseDateTime));
+  ZDateTime._new() : super._new(Parsing.buildIn(parseDateTime));
 
   /// Internal constructor that accepts a custom configuration.
   ///
@@ -23,7 +23,8 @@ class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, Da
   ZDateTime._withConfig(super.config) : super._withConfig();
 
   /// Adds a custom rule for DateTime validation/processing and returns a new `ZDateTime` instance.
-  ZDateTime _addRule(Rule<DateTime> r) => ZDateTime._withConfig(_config.addRule(RuleDateTime(r)));
+  ZDateTime _addRule(ResRule<DateTime> validation) =>
+      _validateBuildIn(constructor: ZDateTime._withConfig, validation: validation);
 
   /// Adds a rule to enforce that the DateTime must be after or equal to `min`.
   ZDateTime min(DateTime min) => _addRule(minDateTimeRule(min));
@@ -32,18 +33,35 @@ class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, Da
   ZDateTime max(DateTime max) => _addRule(maxDateTimeRule(max));
 
   /// Enable `null` value. All rules will be skipped for null values.
-  ZNullableDateTime nullable() => ZNullableDateTime._withConfig(_config.makeNullable());
+  ZNullableDateTime nullable() => _nullable(constructor: ZNullableDateTime._withConfig);
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableDateTime optional() => ZNullableDateTime._withConfig(_config.makeOptional());
+  ZNullableDateTime optional() => _optional(constructor: ZNullableDateTime._withConfig);
+
+  /// Adds a transformation of current [DateTime] value to [String] using custom transformer.
+  ZString toStr(Transformer<DateTime, String> transformer) => _transformCustom(
+    constructor: ZString._withConfig,
+    transformer: transformer,
+  );
 
   @override
-  ZDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZDateTime refine(Refiner<DateTime> refiner, {String? message, String? code}) => _refine(
+    constructor: ZDateTime._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZDateTime superRefine(SuperRefiner<DateTime> refiner) => _addRule(superRefineRule(refiner));
+  ZDateTime superRefine(SuperRefiner<DateTime> refiner) => _superRefine(
+    constructor: ZDateTime._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZDateTime process(Processor<DateTime> processor) => ZDateTime._withConfig(_config.addProcessor(processor));
+  ZDateTime process(Processor<DateTime> processor) => _processPure(
+    constructor: ZDateTime._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }
