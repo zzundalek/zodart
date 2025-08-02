@@ -255,4 +255,31 @@ void main() {
       });
     });
   });
+
+  group('onNull', () {
+    bool onNullaFallback() => true;
+    final validInputs = [
+      (input: true, expected: true),
+      (input: false, expected: false),
+      (input: null, expected: true),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZBool().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZBool().optional().onNull(onNullaFallback),
+      );
+    });
+  });
 }

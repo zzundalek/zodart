@@ -363,4 +363,30 @@ void main() {
       });
     });
   });
+
+  group('onNull', () {
+    DateTime onNullaFallback() => DateTime(1993);
+    final validInputs = [
+      (input: DateTime(1999), expected: DateTime(1999)),
+      (input: null, expected: DateTime(1993)),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZDateTime().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZDateTime().optional().onNull(onNullaFallback),
+      );
+    });
+  });
 }

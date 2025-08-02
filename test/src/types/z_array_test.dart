@@ -358,4 +358,30 @@ void main() {
       });
     });
   });
+
+  group('onNull', () {
+    List<String> onNullaFallback() => const ['default value'];
+    final validInputs = [
+      (input: const ['hello'], expected: const ['hello']),
+      (input: null, expected: const ['default value']),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZArray(ZString()).nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZArray(ZString()).optional().onNull(onNullaFallback),
+      );
+    });
+  });
 }
