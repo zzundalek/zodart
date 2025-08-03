@@ -27,7 +27,7 @@ jobs:
         run: dart pub get
 
       - name: Run analyzer
-        run: dart analyze
+        run: dart analyze --fatal-infos
 
       - name: Activate test coverage package
         run: dart pub global activate coverage
