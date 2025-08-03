@@ -62,6 +62,7 @@ class ZNullableDouble extends ZBase<double?>
     isUserDefined: true,
   );
 
+  @override
   ZDouble onNull(NullFallback<double> nullFallback) =>
       _defaultForNull(constructor: ZDouble._withConfig, onNull: nullFallback);
 }
