@@ -1,5 +1,6 @@
 ## [UNRELEASED]
 
+- Add onNull method for nullable types
 - Add transformation methods
 - 💥 Breaking change: exported transformation types changed
 
