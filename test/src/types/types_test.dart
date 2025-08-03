@@ -36,17 +36,18 @@ void main() {
         ),
       );
     });
-    test('get isNullable', () {
-      final schema = ZString();
-      expect(schema.isNullable, isFalse);
-      final newSchema = schema.nullable();
-      expect(newSchema.isNullable, isTrue);
-    });
-    test('get isOptional', () {
-      final schema = ZString();
-      expect(schema.isOptional, isFalse);
-      final newSchema = schema.optional();
-      expect(newSchema.isOptional, isTrue);
-    });
+  });
+
+  test('get isNullable', () {
+    final schema = ZString();
+    expect(schema.isNullable, isFalse);
+    final newSchema = schema.nullable();
+    expect(newSchema.isNullable, isTrue);
+  });
+  test('get isOptional', () {
+    final schema = ZString();
+    expect(schema.isOptional, isFalse);
+    final newSchema = schema.optional();
+    expect(newSchema.isOptional, isTrue);
   });
 }
