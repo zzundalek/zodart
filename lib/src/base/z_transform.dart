@@ -85,8 +85,7 @@ class Transformation<From, To> extends Operation<From, To> {
 class OnNullTransformation<To> extends Operation<Null, To> {
   /// Creates an [OnNullTransformation] using the provided [onNull] fallback function.
   ///
-  /// Set [isUserDefined] to `true` if this operation is custom,
-  /// defined by the user (e.g. via `.withDefault()`).
+  /// Set [isUserDefined] to `true` if this operation is custom, defined by the user.
   OnNullTransformation(ResNullFallback<To> onNull, {required bool isUserDefined})
     : super((_) => onNull(), isUserDefined: isUserDefined);
 
@@ -99,8 +98,8 @@ class OnNullTransformation<To> extends Operation<Null, To> {
           return ZRes.success(val);
         } else {
           throw ZodArtInternalException(
-            'Unexpected transformation error occurred. Value "$val" of type "${val.runtimeType}" '
-            'should have been conditionally converted from null to type "$To".',
+            "Unexpected transformation error occurred. Value '$val' of type '${val.runtimeType}' "
+            "should have been conditionally converted from null to type '$To'.",
           );
         }
       };
