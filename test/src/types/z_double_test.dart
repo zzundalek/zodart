@@ -390,4 +390,32 @@ void main() {
       });
     });
   });
+
+  group('onNull', () {
+    double onNullaFallback() => 9;
+    final validInputs = [
+      (input: -1.0, expected: -1.0),
+      (input: 0.0, expected: 0.0),
+      (input: 10.0, expected: 10.0),
+      (input: null, expected: 9.0),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZDouble().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZDouble().optional().onNull(onNullaFallback),
+      );
+    });
+  });
 }

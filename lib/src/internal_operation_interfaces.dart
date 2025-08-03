@@ -1,7 +1,7 @@
 import 'base/base.dart';
 import 'types/types.dart';
 
-/// Interface implemented by every subclass of [ZBase] defining custom checks, trasnformations etc.
+/// Interface implemented by every subclass of [ZBase] defining custom checks, transformations etc.
 abstract class ZTransformations<From, To> {
   /// Adds a custom refinement to ensure the value satisfies the given [refiner].
   ///
@@ -54,4 +54,20 @@ abstract class ZTransformations<From, To> {
   /// final schema = ZString().process(processor).parse('Hello, world!');
   /// ```
   ZBase<To> process(Processor<From> processor);
+}
+
+/// Interface implemented by every nullable subclass of [ZBase] defining custom checks, transformations etc.
+// Will add more in the future
+// ignore: one_member_abstracts
+abstract class ZNullableTransformations<From, To> {
+  /// Specifies a fallback transformation to apply when the value is `null`.
+  ///
+  /// Useful for transforming a `null` value into a valid non-null result.
+  ///
+  /// Example:
+  /// ```dart
+  /// String onNull() => 'default value';
+  /// ZString().nullable().onNull(onNull).parse(null); // Returns 'default value'
+  /// ```
+  ZBase<To> onNull(NullFallback<From> nullFallback);
 }

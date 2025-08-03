@@ -49,6 +49,9 @@ abstract class ZBaseConfig with _$ZBaseConfig implements Config {
   /// Returns a new [ZBaseConfig] with the given validation [v] added to the list.
   ZBaseConfig addValidation<T>(Validation<T> v) => _addOperation(v);
 
+  /// Returns a new [ZBaseConfig] with the given null fallback [onNull] added to the list.
+  ZBaseConfig addNullFallback<T>(OnNullTransformation<T> onNull) => _addOperation(onNull);
+
   /// Returns a new [ZBaseConfig] with [nullable] set to `true`.
   ZBaseConfig makeNullable() => copyWith(nullable: true);
 

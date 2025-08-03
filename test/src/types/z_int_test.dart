@@ -388,4 +388,32 @@ void main() {
       });
     });
   });
+
+  group('onNull', () {
+    int onNullaFallback() => 9;
+    final validInputs = [
+      (input: -1, expected: -1),
+      (input: 0, expected: 0),
+      (input: 10, expected: 10),
+      (input: null, expected: 9),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZInt().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZInt().optional().onNull(onNullaFallback),
+      );
+    });
+  });
 }

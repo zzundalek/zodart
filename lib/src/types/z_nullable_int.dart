@@ -9,7 +9,7 @@ part of 'types.dart';
 /// final nullableInt = ZInt().nullable();
 /// final result = nullableInt.parse(1);
 /// ```
-class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
+class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?>, ZNullableTransformations<int, int?> {
   ZNullableInt._withConfig(super.config) : super._withConfig();
 
   ZNullableInt _addRule(ResRule<int> validation) =>
@@ -60,4 +60,7 @@ class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
     processor: processor,
     isUserDefined: true,
   );
+
+  @override
+  ZInt onNull(NullFallback<int> nullFallback) => _defaultForNull(constructor: ZInt._withConfig, onNull: nullFallback);
 }

@@ -26,6 +26,16 @@ typedef ResProcessor<T> = ZRes<T> Function(T val);
 /// Returns a [ZRes<T>] to capture parsing success or error.
 typedef Parser<T> = ZRes<T> Function(Object? input);
 
+/// A fallback function that returns a value of type [To] when the input is `null`.
+///
+/// Used in the pipelines to provide a non-null default.
+typedef NullFallback<To> = To Function();
+
+/// A fallback function that returns a [ZRes] containing a value of type [To] when the input is `null`.
+///
+/// Allows handling of fallbacks with result-wrapped values in the pipelines.
+typedef ResNullFallback<To> = ZRes<To> Function();
+
 /// A schema defining the shape of a [ZObject], mapping keys to [ZBase] validators or transformers.
 typedef ObjectSchema = Map<String, ZBase<dynamic>>;
 

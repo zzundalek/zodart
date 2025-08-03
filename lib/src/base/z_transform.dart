@@ -76,3 +76,31 @@ class Transformation<From, To> extends Operation<From, To> {
   /// Creates a [Transformation] using the provided [t] function.
   Transformation(ResTransformer<From, To> t, {required bool isUserDefined}) : super(t, isUserDefined: isUserDefined);
 }
+
+/// A type-safe transformation that replaces `null` with a fallback value of type [To].
+///
+/// If the input is `null`, the provided fallback function is invoked and its result returned.
+/// If the input is already a [To], it is returned unchanged.
+/// Throws a [ZodArtInternalException] if the input is not `null` and not of type [To].
+class OnNullTransformation<To> extends Operation<Null, To> {
+  /// Creates an [OnNullTransformation] using the provided [onNull] fallback function.
+  ///
+  /// Set [isUserDefined] to `true` if this operation is custom, defined by the user.
+  OnNullTransformation(ResNullFallback<To> onNull, {required bool isUserDefined})
+    : super((_) => onNull(), isUserDefined: isUserDefined);
+
+  @override
+  ConfiguredTransformer<Null, To?> get fn =>
+      (_) => (dynamic val) {
+        if (val == null) {
+          return _fn(null);
+        } else if (val is To) {
+          return ZRes.success(val);
+        } else {
+          throw ZodArtInternalException(
+            "Unexpected transformation error occurred. Value '$val' of type '${val.runtimeType}' "
+            "should have been conditionally converted from null to type '$To'.",
+          );
+        }
+      };
+}

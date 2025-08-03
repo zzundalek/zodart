@@ -445,4 +445,38 @@ void main() {
       });
     });
   });
+
+  group('onNull', () {
+    SimpleRec onNullaFallback() => (val: 'default value');
+    final validInputs = [
+      (input: {'val': 'some value'}, expected: (val: 'some value')),
+      (input: null, expected: (val: 'default value')),
+    ];
+
+    final zObj = ZObject<SimpleRec>.withMapper(
+      {
+        'val': ZString(),
+      },
+      fromJson: (json) => (val: json['val']),
+    );
+
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        zObj.nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        zObj.optional().onNull(onNullaFallback),
+      );
+    });
+  });
 }

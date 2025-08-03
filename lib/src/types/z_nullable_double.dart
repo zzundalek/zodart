@@ -9,7 +9,8 @@ part of 'types.dart';
 /// final nullableDouble = ZDouble().nullable();
 /// final result = nullableDouble.parse(1.0);
 /// ```
-class ZNullableDouble extends ZBase<double?> implements ZTransformations<double, double?> {
+class ZNullableDouble extends ZBase<double?>
+    implements ZTransformations<double, double?>, ZNullableTransformations<double, double?> {
   ZNullableDouble._withConfig(super.config) : super._withConfig();
 
   ZNullableDouble _addRule(ResRule<double> validation) =>
@@ -60,4 +61,7 @@ class ZNullableDouble extends ZBase<double?> implements ZTransformations<double,
     processor: processor,
     isUserDefined: true,
   );
+
+  ZDouble onNull(NullFallback<double> nullFallback) =>
+      _defaultForNull(constructor: ZDouble._withConfig, onNull: nullFallback);
 }

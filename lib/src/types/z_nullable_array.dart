@@ -10,7 +10,8 @@ part of 'types.dart';
 /// final nullableIntArray = ZArray(ZInt()).nullable();
 /// final result = nullableIntArray.parse([1, 2, 3]);
 /// ```
-class ZNullableArray<T> extends ZBase<List<T>?> implements ZTransformations<List<T>, List<T>?> {
+class ZNullableArray<T> extends ZBase<List<T>?>
+    implements ZTransformations<List<T>, List<T>?>, ZNullableTransformations<List<T>, List<T>?> {
   ZNullableArray._withConfig(super.config) : super._withConfig();
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
@@ -48,4 +49,8 @@ class ZNullableArray<T> extends ZBase<List<T>?> implements ZTransformations<List
     processor: processor,
     isUserDefined: true,
   );
+
+  @override
+  ZArray<T> onNull(NullFallback<List<T>> nullFallback) =>
+      _defaultForNull(constructor: ZArray<T>._withConfig, onNull: nullFallback);
 }
