@@ -9,9 +9,6 @@ class AnnotationKinds {
   static const useExistingClass = 'useExistingClass';
 }
 
-/// {@macro zodart_annotation.annotation}
-const zodart = ZodArt();
-
 /// {@template zodart_annotation.annotation}
 /// Flags a class as schema definition for `ZObject`.
 ///
@@ -20,9 +17,37 @@ const zodart = ZodArt();
 /// - Strongly-typed helper classes and type definitions that ensure consistency between the schema and its mapper.
 /// - Utility helpers that add syntactic sugar for schema introspection and manipulation.
 /// {@endtemplate}
-///
-/// NOTE: this class should not be exported, as it does not contain any paremeters right now.
 class ZodArt {
-  /// The default constructor
-  const ZodArt();
+  /// {@macro zodart_annotation.annotation}
+  ///
+  /// Use [outputClassType] as the ZObject T type.
+  /// Automatically selects the best constructor to instantiate the object.
+  const ZodArt.withExistingClass({required Type outputClassType})
+    : this._(
+        annotationKind: AnnotationKinds.useExistingClass,
+        outputType: outputClassType,
+      );
+
+  /// {@macro zodart_annotation.annotation}
+  ///
+  /// Generates a new class code named [outputClassName] and use it as the ZObject T type.
+  const ZodArt.generateNewClass({required String outputClassName})
+    : this._(
+        annotationKind: AnnotationKinds.generateNewClass,
+        outputTypeStr: outputClassName,
+      );
+
+  const ZodArt._({required this.annotationKind, this.outputType, this.outputTypeStr});
+
+  /// Reuse existing / generate new class
+  ///
+  /// Note: to read fields from the annotation all fields must be in the parent class
+  /// so I can't use sealed class well here...
+  final String annotationKind;
+
+  /// Output type string - used when generating a new class
+  final String? outputTypeStr;
+
+  /// Output type - used when using an existing class
+  final Type? outputType;
 }

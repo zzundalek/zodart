@@ -7,8 +7,8 @@ class Refs {
   /// Construct all type names from annotated class name.
   factory Refs({
     required String annotatedClassName,
-    String outputTypeName = 'dummyName', // TODO(zzundalek): only dummy - must be fixed
-    String schemaFieldName = 'schema', // TODO(zzundalek): only dummy - must be fixed
+    required String outputTypeName,
+    required String schemaFieldName,
   }) {
     final constructName = _constructNameWithClassName(annotatedClassName);
 
