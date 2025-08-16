@@ -344,7 +344,7 @@ class ZodArtGenerator extends GeneratorForAnnotation<ZodArt> {
     final (:className, :namedFields) = parseAnnotatedClass(element);
 
     // Type names used across the code generation
-    final refs = Refs(className);
+    final refs = Refs(annotatedClassName: className);
 
     final namedFieldNames = getFieldNames(namedFields);
 

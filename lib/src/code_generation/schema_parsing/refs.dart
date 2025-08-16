@@ -1,30 +1,44 @@
 /// Utility for managing type names during code generation.
 ///
-/// Provides consistent and type-safe references to types used in generated code.
+/// Provides consistent and safe references to types used in generated code.
 ///
 /// Note: The `refer()` function accepts a string representing a type name.
 class Refs {
   /// Construct all type names from annotated class name.
-  factory Refs(String annotatedClassName) {
+  factory Refs({
+    required String annotatedClassName,
+    String outputTypeName = 'dummyName', // TODO(zzundalek): only dummy - must be fixed
+    String schemaFieldName = 'schema', // TODO(zzundalek): only dummy - must be fixed
+  }) {
     final constructName = _constructNameWithClassName(annotatedClassName);
 
-    final schemaDefType = constructName(schemaDefTypeSuffix);
-    final schemaResType = constructName(schemaResTypeSuffix);
-    final utilsClass = constructName(utilsClassSuffix);
-    final propsEnum = constructName(propsEnumSuffix, zodArtPrivate: false);
-    final propsEnumWrapper = constructName(propsEnumWrapperSuffix);
-    final utilsInterface = 'ZGenSchemaUtils<$propsEnumWrapper, $schemaResType>';
-    final shapeType = 'ZGenSchemaShape<$schemaResType>';
+    final schemaDefType = constructName(suffix: schemaDefTypeSuffix);
+    final outputType = outputTypeName;
+    final schemaResType = constructName(prefix: r'$', zodArtPrivate: false);
+    final utilsClass = constructName(suffix: utilsClassSuffix);
+    final propsEnum = constructName(suffix: propsEnumSuffix, zodArtPrivate: false);
+    final propsEnumWrapper = constructName(suffix: propsEnumWrapperSuffix);
+    final utilsInterface = 'ZGenSchemaUtils<$propsEnumWrapper, $outputType>';
+    final shapeType = 'ZGenSchemaShape<$outputType>';
+    final outputClassMixin = constructName(zodArtPrivate: true);
+    final outputClassImpl = constructName(zodArtPrivate: true, suffix: outputClassImplSuffix);
+    final instantiateSchemaFn = constructName(zodArtPrivate: true, prefix: instantiateSchemaFnPrefix);
+    final schemaFieldPath = '$annotatedClassName.$schemaFieldName';
 
     return Refs._(
       annotatedClass: annotatedClassName,
       schemaDefType: schemaDefType,
       schemaResType: schemaResType,
+      outputType: outputType,
       utilsClass: utilsClass,
       propsEnum: propsEnum,
       propsEnumWrapper: propsEnumWrapper,
       utilsInterface: utilsInterface,
       shapeType: shapeType,
+      outputClassMixin: outputClassMixin,
+      outputClassImpl: outputClassImpl,
+      instantiateSchemaFn: instantiateSchemaFn,
+      schemaFieldPath: schemaFieldPath,
     );
   }
 
@@ -33,10 +47,15 @@ class Refs {
     required this.utilsClass,
     required this.schemaDefType,
     required this.schemaResType,
+    required this.outputType,
     required this.propsEnum,
     required this.propsEnumWrapper,
     required this.utilsInterface,
     required this.shapeType,
+    required this.outputClassMixin,
+    required this.outputClassImpl,
+    required this.instantiateSchemaFn,
+    required this.schemaFieldPath,
   });
 
   /// Annotated class name.
@@ -48,11 +67,17 @@ class Refs {
   /// Schema definition type name.
   final String schemaDefType;
 
-  /// Schema parse result (value) type name.
+  /// Raw schema parse result (value) type name.
   final String schemaResType;
+
+  /// Parse result (value) type name.
+  final String outputType;
 
   /// Props enum name.
   final String propsEnum;
+
+  /// Path to schema field (annotatedClassName.schemaFieldName)
+  final String schemaFieldPath;
 
   /// Props wrapper class name.
   final String propsEnumWrapper;
@@ -66,6 +91,19 @@ class Refs {
   ///
   /// This type is used as the type of the `shape` property in [utilsClass].
   final String shapeType;
+
+  /// The name of mixin used to 'inject' logic into the output class.
+  ///
+  /// Used only when generating a new class.
+  final String outputClassMixin;
+
+  /// The name of implementation class used to 'inject' logic into the output class.
+  ///
+  /// Used only when generating a new class.
+  final String outputClassImpl;
+
+  /// The name of a top-level function used to instantiate a schema.
+  final String instantiateSchemaFn;
 
   /// Utils class name suffix.
   static const utilsClassSuffix = 'Utils';
@@ -82,13 +120,20 @@ class Refs {
   /// Props wrapper class name suffix.
   static const propsEnumWrapperSuffix = 'PropsWrapper';
 
+  /// Output implementation class name suffix.
+  static const outputClassImplSuffix = 'Impl';
+
+  /// Schema instantiate function prefix.
+  static const instantiateSchemaFnPrefix = 'instantiate';
+
   /// Returns a helper function for constructing generated entity names,
-  /// based on the given `className`, a `suffix`, and the `zodArtPrivate` flag.
+  /// based on the given `className`, a `suffix`, `prefix` and the `zodArtPrivate` flag.
   ///
   /// If `zodArtPrivate` is true (default), the name is prefixed with `_\$Z`.
-  static String Function(String, {bool zodArtPrivate}) _constructNameWithClassName(String className) =>
-      (String suffix, {bool zodArtPrivate = true}) {
-        final res = '$className$suffix';
-        return zodArtPrivate ? '_\$Z$res' : res;
-      };
+  static String Function({String prefix, String suffix, bool zodArtPrivate}) _constructNameWithClassName(
+    String className,
+  ) => ({String prefix = '', String suffix = '', bool zodArtPrivate = true}) {
+    final res = '$prefix$className$suffix';
+    return zodArtPrivate ? '_$res' : res;
+  };
 }

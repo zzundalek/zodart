@@ -1,5 +1,7 @@
 import 'package:analyzer/dart/element/type.dart';
 import 'package:code_builder/code_builder.dart' show Reference, refer;
+import 'package:collection/collection.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:source_gen/source_gen.dart';
 
 import '../../types/types.dart';
@@ -56,6 +58,7 @@ class ZTypeConverter {
   /// `ZString().parse(...)` is a `String`, assuming the parse succeeds.
   ///
   /// Throws an [InvalidGenerationSource] if the type is not a supported ZodArt type.
+  // TODO(zzundalek): need to be removed
   static Reference getTypeReference(DartType dartType) {
     final match = converters.firstWhere(
       (entry) => _isExactType(entry.zType, dartType),
@@ -65,5 +68,25 @@ Make sure it is a valid ZodArt type and can be inferred correctly at build time.
     );
 
     return refer(match.converter(dartType));
+  }
+
+  /// Returns a [String] representing the type of the value produced by calling
+  /// `.parse()` on the given [dartType], assuming the parse is successful.
+  ///
+  /// For example, for `ZString`, this method returns 'String' since the result of
+  /// `ZString().parse(...)` is a `String`, assuming the parse succeeds.
+  ///
+  /// On invalid type returns null.
+  String? getOutType(DartType dartType) {
+    return Option.fromNullable(
+          converters.firstWhereOrNull((entry) => _isExactType(entry.zType, dartType)),
+        )
+        .map(
+          (converterEntry) => converterEntry.converter,
+        )
+        .map(
+          (converter) => converter(dartType),
+        )
+        .toNullable();
   }
 }
