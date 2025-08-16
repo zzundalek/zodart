@@ -9,8 +9,8 @@ import 'package:dart_style/dart_style.dart';
 import 'package:source_gen/source_gen.dart';
 
 import '../annotations.dart';
-import 'refs.dart';
-import 'z_type_converter.dart';
+import '../schema_parsing/refs.dart';
+import '../schema_parsing/z_type_converter.dart';
 
 /// Static property name in the annotated class that holds the `ZObject` schema.
 const _schemaPropertyName = 'schema';
