@@ -1,3 +1,14 @@
+/// Annotation kind used to distinguish between reusing an existing class and generating a new one.
+///
+// NOTE: can't use enums easily in annotations.
+class AnnotationKinds {
+  /// Generates new class code
+  static const generateNewClass = 'generateNewClass';
+
+  /// Use an existing class
+  static const useExistingClass = 'useExistingClass';
+}
+
 /// {@macro zodart_annotation.annotation}
 const zodart = ZodArt();
 
