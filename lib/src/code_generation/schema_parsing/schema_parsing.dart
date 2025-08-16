@@ -1,6 +1,7 @@
 export 'refs.dart';
 export 'schema.dart';
 export 'schema_error_formatter.dart';
+export 'schema_parser.dart';
 export 'schema_parsing_error.dart';
 export 'spec_builder_input.dart';
 export 'spec_builder_input_visitor.dart';
