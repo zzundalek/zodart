@@ -111,72 +111,76 @@ OutputClass _instantiateE({
 
 /// Generated utility class for working with the schema defined in [E].
 ///
-/// Provides access to:
+/// Provides:
 /// - The `ZObject` instance for parsing/validating the schema.
-/// - A `shape` descriptor containing field mappings and runtime type info.
 /// - Enum-style access to the schema properties.
+/// - Strongly-typed field access
+/// - Runtime `Type` of the schema record
 final class _EUtils implements ZGenSchemaUtils<_EPropsWrapper, OutputClass> {
   const _EUtils();
 
-  @override
-  _EPropsWrapper get props => const _EPropsWrapper();
+  static const _props = _EPropsWrapper();
+
+  static const _keys = [
+    'zArrayOfStr',
+    'zBool',
+    'zDbl',
+    'zDt',
+    'zInt',
+    'zObj',
+    'zStr',
+    'znArrayOfStr',
+    'znBool',
+    'znDbl',
+    'znDt',
+    'znInt',
+    'znObj',
+    'znStr',
+  ];
+
+  static final Map<String, ZBase<dynamic>> _schemaMap = {
+    'zArrayOfStr': E.schema.zArrayOfStr,
+    'zBool': E.schema.zBool,
+    'zDbl': E.schema.zDbl,
+    'zDt': E.schema.zDt,
+    'zInt': E.schema.zInt,
+    'zObj': E.schema.zObj,
+    'zStr': E.schema.zStr,
+    'znArrayOfStr': E.schema.znArrayOfStr,
+    'znBool': E.schema.znBool,
+    'znDbl': E.schema.znDbl,
+    'znDt': E.schema.znDt,
+    'znInt': E.schema.znInt,
+    'znObj': E.schema.znObj,
+    'znStr': E.schema.znStr,
+  };
 
   @override
-  ZObject<OutputClass> get zObject {
-    return ZObject.withMapper(shape.toSchemaMap(), fromJson: shape.toResult);
-  }
+  _EPropsWrapper get props => _props;
 
   @override
-  ZGenSchemaShape<OutputClass> get shape => (
-    toSchemaMap: () => {
-      'zArrayOfStr': E.schema.zArrayOfStr,
-      'zBool': E.schema.zBool,
-      'zDbl': E.schema.zDbl,
-      'zDt': E.schema.zDt,
-      'zInt': E.schema.zInt,
-      'zObj': E.schema.zObj,
-      'zStr': E.schema.zStr,
-      'znArrayOfStr': E.schema.znArrayOfStr,
-      'znBool': E.schema.znBool,
-      'znDbl': E.schema.znDbl,
-      'znDt': E.schema.znDt,
-      'znInt': E.schema.znInt,
-      'znObj': E.schema.znObj,
-      'znStr': E.schema.znStr,
-    },
-    toResult: (Map<String, dynamic> val) => _instantiateE(
-      zArrayOfStr: val['zArrayOfStr'] as List<String>,
-      zBool: val['zBool'] as bool,
-      zDbl: val['zDbl'] as double,
-      zDt: val['zDt'] as DateTime,
-      zInt: val['zInt'] as int,
-      zObj: val['zObj'] as ({String id}),
-      zStr: val['zStr'] as String,
-      znArrayOfStr: val['znArrayOfStr'] as List<String?>?,
-      znBool: val['znBool'] as bool?,
-      znDbl: val['znDbl'] as double?,
-      znDt: val['znDt'] as DateTime?,
-      znInt: val['znInt'] as int?,
-      znObj: val['znObj'] as ({String id})?,
-      znStr: val['znStr'] as String?,
-    ),
-    result: OutputClass,
-    schema: _EDef,
-    keys: const [
-      'zArrayOfStr',
-      'zBool',
-      'zDbl',
-      'zDt',
-      'zInt',
-      'zObj',
-      'zStr',
-      'znArrayOfStr',
-      'znBool',
-      'znDbl',
-      'znDt',
-      'znInt',
-      'znObj',
-      'znStr',
-    ],
+  List<String> get keys => _keys;
+
+  @override
+  ZObject<OutputClass> get zObject => ZObject.withMapper(_schemaMap, fromJson: _toResult);
+
+  @override
+  Type get schema => _EDef;
+
+  OutputClass _toResult(Map<String, dynamic> val) => _instantiateE(
+    zArrayOfStr: val['zArrayOfStr'] as List<String>,
+    zBool: val['zBool'] as bool,
+    zDbl: val['zDbl'] as double,
+    zDt: val['zDt'] as DateTime,
+    zInt: val['zInt'] as int,
+    zObj: val['zObj'] as ({String id}),
+    zStr: val['zStr'] as String,
+    znArrayOfStr: val['znArrayOfStr'] as List<String?>?,
+    znBool: val['znBool'] as bool?,
+    znDbl: val['znDbl'] as double?,
+    znDt: val['znDt'] as DateTime?,
+    znInt: val['znInt'] as int?,
+    znObj: val['znObj'] as ({String id})?,
+    znStr: val['znStr'] as String?,
   );
 }

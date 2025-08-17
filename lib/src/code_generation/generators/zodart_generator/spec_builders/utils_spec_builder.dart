@@ -8,10 +8,36 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
   /// Create a new [UtilsSpecBuilder].
   const UtilsSpecBuilder();
 
-  /// Returns the shape record.
+  /// Returns the _toResult Method.
   ///
-  /// The shape is used in utils class generated at [buildUtils].
-  Expression buildShape(Map<String, Reference> parsedValueFields, {required Refs refs}) {
+  /// The method is used in utils class generated at [buildUtils].
+  Method buildToResult(Map<String, Reference> parsedValueFields, {required Refs refs}) {
+    final toResultResMap = parsedValueFields.map(
+      (name, reference) => MapEntry(name, CodeExpression(Code("val['$name'] as ${reference.symbol}"))),
+    );
+
+    final toResultRes = refer(refs.instantiateSchemaFn).call([], toResultResMap);
+
+    return Method(
+      (m) => m
+        ..name = '_toResult'
+        ..returns = refer(refs.outputType)
+        ..lambda = true
+        ..requiredParameters.add(
+          Parameter(
+            (p) => p
+              ..name = 'val'
+              ..type = refer('Map<String, dynamic>'),
+          ),
+        )
+        ..body = toResultRes.code,
+    );
+  }
+
+  /// Returns the _schemaMap field.
+  ///
+  /// The schema map is used in utils class generated at [buildUtils].
+  Field buildSchemaMap(Map<String, Reference> parsedValueFields, {required Refs refs}) {
     final schemaPath = refs.schemaFieldPath;
 
     final toMapRes = literalMap(
@@ -25,44 +51,23 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
       ),
     );
 
-    final toResultResMap = parsedValueFields.map(
-      (name, reference) => MapEntry(name, CodeExpression(Code("val['$name'] as ${reference.symbol}"))),
+    return Field(
+      (f) => f
+        ..name = '_schemaMap'
+        ..static = true
+        ..modifier = FieldModifier.final$
+        ..type = refer('Map<String, ZBase<dynamic>>')
+        ..assignment = toMapRes.code,
     );
-
-    final toResultRes = refer(refs.instantiateSchemaFn).call([], toResultResMap);
-
-    final toSchemaMap = Method(
-      (m) => m
-        ..lambda = true
-        ..body = toMapRes.code,
-    ).closure;
-
-    final toResult = Method(
-      (m) => m
-        ..lambda = true
-        ..requiredParameters.add(
-          Parameter(
-            (p) => p
-              ..name = 'val'
-              ..type = refer('Map<String, dynamic>'),
-          ),
-        )
-        ..body = toResultRes.code,
-    ).closure;
-
-    final shape = literalRecord([], {
-      'toSchemaMap': toSchemaMap,
-      'toResult': toResult,
-      'result': refer(refs.outputType),
-      'schema': refer(refs.schemaDefType),
-      'keys': literalConstList(parsedValueFields.keys.toList()),
-    });
-
-    return shape;
   }
 
   /// Returns the main utility class for working with the schema defined in the annotated class.
-  Class buildUtils(Set<String> fieldNames, {required Expression shape, required Refs refs}) {
+  Class buildUtils(
+    Set<String> fieldNames, {
+    required Refs refs,
+    List<Field> fields = const [],
+    List<Method> methods = const [],
+  }) {
     final res = Class(
       (c) => c
         ..name = refs.utilsClass
@@ -71,21 +76,48 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
         ..docs.addAll([
           '/// Generated utility class for working with the schema defined in [${refs.annotatedClass}].',
           '///',
-          '/// Provides access to:',
+          '/// Provides:',
           '/// - The `ZObject` instance for parsing/validating the schema.',
-          '/// - A `shape` descriptor containing field mappings and runtime type info.',
           '/// - Enum-style access to the schema properties.',
+          '/// - Strongly-typed field access',
+          '/// - Runtime `Type` of the schema record',
         ])
         ..constructors.add(
           Constructor((c) => c..constant = true),
         )
+        ..fields.addAll([
+          Field(
+            (f) => f
+              ..name = '_props'
+              ..static = true
+              ..modifier = FieldModifier.constant
+              ..assignment = Code('${refs.propsEnumWrapper}()'),
+          ),
+          Field(
+            (f) => f
+              ..name = '_keys'
+              ..static = true
+              ..modifier = FieldModifier.constant
+              ..assignment = literalConstList(fieldNames.toList()).code,
+          ),
+          ...fields,
+        ])
         ..methods.addAll([
           Method(
             (m) => m
               ..name = 'props'
               ..returns = refer(refs.propsEnumWrapper)
               ..type = MethodType.getter
-              ..body = Code('const ${refs.propsEnumWrapper}()')
+              ..body = const Code('_props')
+              ..annotations.add(refer('override'))
+              ..lambda = true,
+          ),
+          Method(
+            (m) => m
+              ..name = 'keys'
+              ..returns = refer('List<String>')
+              ..type = MethodType.getter
+              ..body = const Code('_keys')
               ..annotations.add(refer('override'))
               ..lambda = true,
           ),
@@ -94,18 +126,28 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
               ..name = 'zObject'
               ..returns = refer('ZObject<${refs.outputType}>')
               ..type = MethodType.getter
-              ..body = const Code('return ZObject.withMapper(shape.toSchemaMap(), fromJson: shape.toResult);')
+              ..lambda = true
+              ..body =
+                  refer(
+                        'ZObject.withMapper',
+                      )
+                      .call(
+                        const [CodeExpression(Code('_schemaMap'))],
+                        const {'fromJson': CodeExpression(Code('_toResult'))},
+                      )
+                      .code
               ..annotations.add(refer('override')),
           ),
           Method(
             (m) => m
-              ..name = 'shape'
-              ..returns = refer(refs.shapeType)
+              ..name = 'schema'
+              ..returns = refer('Type')
+              ..lambda = true
               ..type = MethodType.getter
-              ..body = shape.code
-              ..annotations.add(refer('override'))
-              ..lambda = true,
+              ..body = Code(refs.schemaDefType)
+              ..annotations.add(refer('override')),
           ),
+          ...methods,
         ]),
     );
     return res;
@@ -115,9 +157,18 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
   List<Spec> build(SpecBuilderInput specInput) {
     final schema = specInput.schema;
     final refs = specInput.refs;
+    final parsedValueFields = schema.outSchema.mapValue(refer);
 
-    final shapeRecodForUtils = buildShape(schema.outSchema.mapValue(refer), refs: refs);
-    final schemaUtils = buildUtils(schema.propertyNames, shape: shapeRecodForUtils, refs: refs);
+    final schemaUtils = buildUtils(
+      schema.propertyNames,
+      fields: [
+        buildSchemaMap(parsedValueFields, refs: refs),
+      ],
+      methods: [
+        buildToResult(parsedValueFields, refs: refs),
+      ],
+      refs: refs,
+    );
 
     return [schemaUtils];
   }
