@@ -3,6 +3,9 @@
 
 import 'package:zodart/zodart.dart';
 
+part 'simple_compose.zodart.dart';
+part 'simple_compose.zodart.type.dart';
+
 /// The String cannot be empty and is trimmed after the parse
 final minSchema = ZString().trim().min(1);
 
@@ -15,14 +18,17 @@ final minMaxNullableSchema = minMaxSchema.nullable();
 /// Extends the [minMaxNullableSchema] and conversion from String to Int in the end
 final composedNullableIntSchema = minMaxNullableSchema.toInt();
 
-/// Object schema composed from previously defined schemas, returns a Dart Record (String, int)
-final objSchema = ZObject<(String, int)>.withMapper(
-  {
-    'str': minSchema,
-    'int': composedNullableIntSchema,
-  },
-  fromJson: (map) => (map['str'], map['int']),
-);
+/// Object schema composed from previously defined schemas
+@ZodArt.generateNewClass(outputClassName: 'Obj')
+abstract class ObjSchema {
+  static final schema = (
+    strVal: minSchema,
+    intVal: composedNullableIntSchema,
+  );
+
+  static const z = _ObjSchemaUtils();
+  static final ZObject<Obj> zObject = z.zObject;
+}
 
 void main() {
   // Returns: true (empty string after trim, violates min(1) rule)
@@ -46,6 +52,6 @@ void main() {
   // Returns error message: Failed to parse value 'ZodArt', from String to int.
   composedNullableIntSchema.parse('ZodArt').issueSummary;
 
-  // Returns: ('ZodArt', 100)
-  objSchema.parse({'str': 'ZodArt', 'int': ' 100 '}).value;
+  // Returns: Obj(intVal: 100, strVal: ZodArt)
+  ObjSchema.zObject.parse({'strVal': 'ZodArt', 'intVal': ' 100 '}).value;
 }

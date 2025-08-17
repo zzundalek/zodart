@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'zodart_example.dart';
+part of 'no_code_generation.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

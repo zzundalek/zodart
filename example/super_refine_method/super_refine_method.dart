@@ -24,7 +24,7 @@ SuperRefinerErrorRes? superRefiner(DateTime val) {
 void main() {
   final zDateTime = ZDateTime().superRefine(superRefiner);
 
-  final res = zDateTime.parse(DateTime(-1));
+  final res = zDateTime.parse(DateTime(0).subtract(const Duration(days: 1)));
 
   // Prints:
   // DateTime should be in UTC
