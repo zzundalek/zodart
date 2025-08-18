@@ -16,7 +16,7 @@ Parse unstructured data from APIs, Flutter forms, config files, and more — wit
 
 ## Simple example
 
-Even though ZodArt works perfectly without code generation, using it is **highly recommended** — it brings rock-solid type safety 🧬 greatly improves developer experience and significantly reduces boilerplate 🚀. See [full example with code generation](example/main/main.dart) or an [example without code generation](example/no_code_generation/no_code_generation.dart).
+Even though ZodArt works perfectly without code generation, using it is **highly recommended** — it brings rock-solid type safety 🧬 greatly improves developer experience and significantly reduces boilerplate 🚀. See [full example with code generation](example/main.dart) or an [example without code generation](example/no_code_generation/no_code_generation.dart).
 
 To start using the code generation [set it up first](#setup-code-generation).
 
