@@ -1,4 +1,4 @@
-## [UNRELEASED]
+## 1.0.0 - 2025-08-19
 
 - Fix: allow only non-nullable types for ZObject
 - 💥 Breaking change: Updated @ZodArt annotation format
