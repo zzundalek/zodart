@@ -27,7 +27,7 @@ abstract class PersonSchema {
 }
 
 void main() {
-  // Refine the `personSchema` to ensure that `validFrom` ≤ `validTo`
+  // Refine the `personSchema` to ensure that `validFrom` < `validTo`
   final refinedPersonSchema = PersonSchema.zObject.refine(
     (person) {
       final validTo = person.validTo;
