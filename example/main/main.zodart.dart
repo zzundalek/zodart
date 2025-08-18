@@ -172,8 +172,9 @@ final class _ItemSchemaUtils
   List<String> get keys => _keys;
 
   @override
-  ZObject<Item> get zObject =>
-      ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  ZObject<Item> get zObject {
+    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  }
 
   @override
   Type get schema => _ItemSchemaDef;

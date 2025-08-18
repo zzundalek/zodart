@@ -142,8 +142,9 @@ final class _LanguageDetailSchemaUtils
   List<String> get keys => _keys;
 
   @override
-  ZObject<LanguageDetail> get zObject =>
-      ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  ZObject<LanguageDetail> get zObject {
+    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  }
 
   @override
   Type get schema => _LanguageDetailSchemaDef;

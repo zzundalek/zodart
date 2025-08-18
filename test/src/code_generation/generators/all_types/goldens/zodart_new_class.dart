@@ -296,7 +296,9 @@ final class _NUtils implements ZGenSchemaUtils<_NPropsWrapper, NewClass> {
   List<String> get keys => _keys;
 
   @override
-  ZObject<NewClass> get zObject => ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  ZObject<NewClass> get zObject {
+    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  }
 
   @override
   Type get schema => _NDef;

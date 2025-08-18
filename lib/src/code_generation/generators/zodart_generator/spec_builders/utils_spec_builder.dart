@@ -126,16 +126,19 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
               ..name = 'zObject'
               ..returns = refer('ZObject<${refs.outputType}>')
               ..type = MethodType.getter
-              ..lambda = true
-              ..body =
-                  refer(
-                        'ZObject.withMapper',
-                      )
-                      .call(
-                        const [CodeExpression(Code('_schemaMap'))],
-                        const {'fromJson': CodeExpression(Code('_toResult'))},
-                      )
-                      .code
+              ..lambda = false
+              ..body = Block.of([
+                const Code('return '),
+                refer(
+                      'ZObject.withMapper',
+                    )
+                    .call(
+                      const [CodeExpression(Code('_schemaMap'))],
+                      const {'fromJson': CodeExpression(Code('_toResult'))},
+                    )
+                    .code,
+                const Code(';'),
+              ])
               ..annotations.add(refer('override')),
           ),
           Method(

@@ -112,8 +112,9 @@ final class _CustomerSchemaUtils
   List<String> get keys => _keys;
 
   @override
-  ZObject<Customer> get zObject =>
-      ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  ZObject<Customer> get zObject {
+    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  }
 
   @override
   Type get schema => _CustomerSchemaDef;
@@ -228,8 +229,9 @@ final class _ItemSchemaUtils
   List<String> get keys => _keys;
 
   @override
-  ZObject<Item> get zObject =>
-      ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  ZObject<Item> get zObject {
+    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  }
 
   @override
   Type get schema => _ItemSchemaDef;
@@ -304,8 +306,9 @@ final class _OrderSchemaUtils
   List<String> get keys => _keys;
 
   @override
-  ZObject<Order> get zObject =>
-      ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  ZObject<Order> get zObject {
+    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  }
 
   @override
   Type get schema => _OrderSchemaDef;

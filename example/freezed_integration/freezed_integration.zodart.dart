@@ -80,8 +80,9 @@ final class _PersonSchemaUtils
   List<String> get keys => _keys;
 
   @override
-  ZObject<Person> get zObject =>
-      ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  ZObject<Person> get zObject {
+    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+  }
 
   @override
   Type get schema => _PersonSchemaDef;
