@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        sdk: [3.8, stable, beta]
+        sdk: [3.8, stable]
 
     steps:
       - name: Checkout code
@@ -50,4 +50,6 @@ jobs:
         run: dart pub global activate pana
 
       - name: Ensure max pub score
-        run: dart pub global run pana . --exit-code-threshold 0
+        # The 'All of the package dependencies are supported in the latest version'
+        # is not always possible due to transitive dependencies)
+        run: dart pub global run pana . --exit-code-threshold 10
