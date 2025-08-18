@@ -174,6 +174,101 @@ void main() {
     });
   });
 
+  group('toObj', () {
+    SimpleRec toNewObj(({double val}) val) => (val: val.val.toStringAsFixed(2));
+
+    ({double val}) fromJson(Map<String, Object?> json) => (val: json['val']! as double);
+    final schema = {'val': ZDouble()};
+
+    final baseValidInputs = <ValidInput>[
+      (input: {'val': 1.0}, expected: (val: '1.00')),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZObject<({double val})>.withMapper(schema, fromJson: fromJson).toObj(toNewObj),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZObject<({double val})>.withMapper(schema, fromJson: fromJson).nullable().toObj(toNewObj),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZObject<({double val})>.withMapper(schema, fromJson: fromJson).toObj(toNewObj).nullable(),
+      );
+    });
+  });
+
+  group('toStr', () {
+    String toStr(SimpleRec val) => 'Hello ${val.val}!';
+    final zObj = ZObject<SimpleRec>.withMapper(
+      {'val': ZString()},
+      fromJson: (v) => (
+        val: v['val'],
+      ),
+    );
+    final baseValidInputs = <ValidInput>[
+      (
+        input: {'val': 'ZodArt'},
+        expected: 'Hello ZodArt!',
+      ),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        zObj.toStr(toStr),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        zObj.nullable().toStr(toStr),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        zObj.toStr(toStr).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refineFromLowerThanTo((int, int) val) => val.$1 <= val.$2;
     (int, int) fromJson(Map<String, dynamic> val) => (val['from'], val['to']);
@@ -348,6 +443,40 @@ void main() {
 
         expect(res.value, isNull);
       });
+    });
+  });
+
+  group('onNull', () {
+    SimpleRec onNullaFallback() => (val: 'default value');
+    final validInputs = [
+      (input: {'val': 'some value'}, expected: (val: 'some value')),
+      (input: null, expected: (val: 'default value')),
+    ];
+
+    final zObj = ZObject<SimpleRec>.withMapper(
+      {
+        'val': ZString(),
+      },
+      fromJson: (json) => (val: json['val']),
+    );
+
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        zObj.nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        zObj.optional().onNull(onNullaFallback),
+      );
     });
   });
 }

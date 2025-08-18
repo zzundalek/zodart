@@ -164,6 +164,90 @@ void main() {
     });
   });
 
+  group('toInt', () {
+    int toInt(double val) => val.toInt();
+    final baseValidInputs = <ValidInput>[
+      (input: -1.9, expected: -1),
+      (input: 0.0, expected: 0),
+      (input: 9.1, expected: 9),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZDouble().toInt(toInt),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDouble().nullable().toInt(toInt),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDouble().toInt(toInt).nullable(),
+      );
+    });
+  });
+
+  group('toStr', () {
+    String toUSD(double val) => '\$${val.toStringAsFixed(1)}';
+    final baseValidInputs = <ValidInput>[
+      (input: 9.0, expected: r'$9.0'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZDouble().toStr(toUSD),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDouble().nullable().toStr(toUSD),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDouble().toStr(toUSD).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refinePositive(double val) => val > 0;
 
@@ -304,6 +388,34 @@ void main() {
 
         expect(res.value, isNull);
       });
+    });
+  });
+
+  group('onNull', () {
+    double onNullaFallback() => 9;
+    final validInputs = [
+      (input: -1.0, expected: -1.0),
+      (input: 0.0, expected: 0.0),
+      (input: 10.0, expected: 10.0),
+      (input: null, expected: 9.0),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZDouble().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZDouble().optional().onNull(onNullaFallback),
+      );
     });
   });
 }

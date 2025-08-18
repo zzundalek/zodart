@@ -63,6 +63,49 @@ void main() {
     });
   });
 
+  group('toStr', () {
+    // Test
+    // ignore: avoid_positional_boolean_parameters
+    String toStrUpperCase(bool val) => val.toString().toUpperCase();
+    final baseValidInputs = <ValidInput>[
+      (input: true, expected: 'TRUE'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZBool().toStr(toStrUpperCase),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZBool().nullable().toStr(toStrUpperCase),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZBool().toStr(toStrUpperCase).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     // Easy format for test
     // ignore: avoid_positional_boolean_parameters
@@ -210,6 +253,33 @@ void main() {
 
         expect(res.value, isNull);
       });
+    });
+  });
+
+  group('onNull', () {
+    bool onNullaFallback() => true;
+    final validInputs = [
+      (input: true, expected: true),
+      (input: false, expected: false),
+      (input: null, expected: true),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZBool().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZBool().optional().onNull(onNullaFallback),
+      );
     });
   });
 }

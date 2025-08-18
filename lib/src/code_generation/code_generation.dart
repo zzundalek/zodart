@@ -1,3 +1,2 @@
-export 'annotations.dart'
-    show zodart; // NOTE: the annotation class is hidden, as it does not contain any paremeters right now.
+export 'annotations.dart' show ZodArt;
 export 'types.dart';

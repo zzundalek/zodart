@@ -20,21 +20,47 @@ part of 'types.dart';
 ///
 /// final nullablePerson = personSchema.parse({'firstName': 'Zod', 'lastName': 'Art'});
 /// ```
-class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?> {
+class ZNullableObject<T extends Object> extends ZBase<T?>
+    implements ZTransformations<T, T?>, ZNullableTransformations<T, T?> {
   ZNullableObject._withConfig(super.config) : super._withConfig();
 
-  ZNullableObject<T> _addRule(Rule<T> r) => ZNullableObject<T>._withConfig(_config.addRule(RuleObject(r)));
-
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableObject<T> optional() => ZNullableObject._withConfig(_config.makeOptional());
+  ZNullableObject<T> optional() => _optional(constructor: ZNullableObject<T>._withConfig);
+
+  /// Adds a transformation of current type [T] to an object of type [To] using custom transformer.
+  ZNullableObject<To> toObj<To extends Object>(Transformer<T, To> transformer) => _transformCustom(
+    constructor: ZNullableObject<To>._withConfig,
+    transformer: transformer,
+  );
+
+  /// Adds a transformation of current [T] value to [String] using custom transformer.
+  ZNullableString toStr(Transformer<T, String> transformer) => _transformCustom(
+    constructor: ZNullableString._withConfig,
+    transformer: transformer,
+  );
 
   @override
-  ZNullableObject<T> refine(Refiner<T> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZNullableObject<T> refine(Refiner<T> refiner, {String? message, String? code}) => _refine(
+    constructor: ZNullableObject<T>._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZNullableObject<T> superRefine(SuperRefiner<T> refiner) => _addRule(superRefineRule(refiner));
+  ZNullableObject<T> superRefine(SuperRefiner<T> refiner) => _superRefine(
+    constructor: ZNullableObject<T>._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZNullableObject<T> process(Processor<T> processor) => ZNullableObject<T>._withConfig(_config.addProcessor(processor));
+  ZNullableObject<T> process(Processor<T> processor) => _processPure(
+    constructor: ZNullableObject<T>._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
+
+  @override
+  ZObject<T> onNull(NullFallback<T> nullFallback) =>
+      _defaultForNull(constructor: ZObject<T>._withConfig, onNull: nullFallback);
 }

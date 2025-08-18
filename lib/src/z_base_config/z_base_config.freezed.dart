@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ZBaseConfig {
 
- List<TransformAny<dynamic, dynamic>> get fns; bool get nullable; bool get optional;
+ List<Operation<dynamic, dynamic>> get fns; bool get nullable; bool get optional;
 /// Create a copy of ZBaseConfig
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -46,7 +46,7 @@ abstract mixin class $ZBaseConfigCopyWith<$Res>  {
   factory $ZBaseConfigCopyWith(ZBaseConfig value, $Res Function(ZBaseConfig) _then) = _$ZBaseConfigCopyWithImpl;
 @useResult
 $Res call({
- List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional
+ List<Operation<dynamic, dynamic>> fns, bool nullable, bool optional
 });
 
 
@@ -66,7 +66,7 @@ class _$ZBaseConfigCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? fns = null,Object? nullable = null,Object? optional = null,}) {
   return _then(_self.copyWith(
 fns: null == fns ? _self.fns : fns // ignore: cast_nullable_to_non_nullable
-as List<TransformAny<dynamic, dynamic>>,nullable: null == nullable ? _self.nullable : nullable // ignore: cast_nullable_to_non_nullable
+as List<Operation<dynamic, dynamic>>,nullable: null == nullable ? _self.nullable : nullable // ignore: cast_nullable_to_non_nullable
 as bool,optional: null == optional ? _self.optional : optional // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -79,11 +79,11 @@ as bool,
 
 
 class _ZBaseConfig extends ZBaseConfig {
-  const _ZBaseConfig({required final  List<TransformAny<dynamic, dynamic>> fns, this.nullable = false, this.optional = false}): _fns = fns,super._();
+  const _ZBaseConfig({required final  List<Operation<dynamic, dynamic>> fns, this.nullable = false, this.optional = false}): _fns = fns,super._();
   
 
- final  List<TransformAny<dynamic, dynamic>> _fns;
-@override List<TransformAny<dynamic, dynamic>> get fns {
+ final  List<Operation<dynamic, dynamic>> _fns;
+@override List<Operation<dynamic, dynamic>> get fns {
   if (_fns is EqualUnmodifiableListView) return _fns;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_fns);
@@ -122,7 +122,7 @@ abstract mixin class _$ZBaseConfigCopyWith<$Res> implements $ZBaseConfigCopyWith
   factory _$ZBaseConfigCopyWith(_ZBaseConfig value, $Res Function(_ZBaseConfig) _then) = __$ZBaseConfigCopyWithImpl;
 @override @useResult
 $Res call({
- List<TransformAny<dynamic, dynamic>> fns, bool nullable, bool optional
+ List<Operation<dynamic, dynamic>> fns, bool nullable, bool optional
 });
 
 
@@ -142,7 +142,7 @@ class __$ZBaseConfigCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? fns = null,Object? nullable = null,Object? optional = null,}) {
   return _then(_ZBaseConfig(
 fns: null == fns ? _self._fns : fns // ignore: cast_nullable_to_non_nullable
-as List<TransformAny<dynamic, dynamic>>,nullable: null == nullable ? _self.nullable : nullable // ignore: cast_nullable_to_non_nullable
+as List<Operation<dynamic, dynamic>>,nullable: null == nullable ? _self.nullable : nullable // ignore: cast_nullable_to_non_nullable
 as bool,optional: null == optional ? _self.optional : optional // ignore: cast_nullable_to_non_nullable
 as bool,
   ));

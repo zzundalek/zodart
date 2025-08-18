@@ -173,6 +173,47 @@ void main() {
     });
   });
 
+  group('toStr', () {
+    String toStr(DateTime val) => '${val.day}.${val.month}.${val.year}';
+    final baseValidInputs = <ValidInput>[
+      (input: DateTime(1990), expected: '1.1.1990'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZDateTime().toStr(toStr),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDateTime().nullable().toStr(toStr),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZDateTime().toStr(toStr).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refineYear1993(DateTime val) => val.year == 1993;
     final year1984 = DateTime(1984);
@@ -320,6 +361,32 @@ void main() {
 
         expect(res.value, isNull);
       });
+    });
+  });
+
+  group('onNull', () {
+    DateTime onNullaFallback() => DateTime(1993);
+    final validInputs = [
+      (input: DateTime(1999), expected: DateTime(1999)),
+      (input: null, expected: DateTime(1993)),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZDateTime().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZDateTime().optional().onNull(onNullaFallback),
+      );
     });
   });
 }

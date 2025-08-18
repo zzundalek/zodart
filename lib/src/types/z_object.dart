@@ -18,12 +18,12 @@ part of 'types.dart';
 
 // final person = personSchema.parse({'firstName': 'Zod', 'lastName': 'Art'});
 /// ```
-class ZObject<T> extends ZBase<T> implements ZTransformations<T, T> {
+class ZObject<T extends Object> extends ZBase<T> implements ZTransformations<T, T> {
   /// Factory constructor that creates a new instance using the given [schema]
   /// for parsing and the [fromJson] function for mapping parsed data to type [T].
   factory ZObject.withMapper(ZSchema schema, {required ObjectMapper<T> fromJson}) => ZObject._new(schema, fromJson);
 
-  ZObject._new(ZSchema schema, ObjectMapper<T> mapper) : super._new(ParseObject(parseObject<T>(schema, mapper)));
+  ZObject._new(ZSchema schema, ObjectMapper<T> mapper) : super._new(Parsing.buildIn(parseObject<T>(schema, mapper)));
 
   /// Internal constructor that accepts a custom configuration.
   ///
@@ -31,22 +31,42 @@ class ZObject<T> extends ZBase<T> implements ZTransformations<T, T> {
   /// such as after applying transformation or additional rules.
   ZObject._withConfig(super.config) : super._withConfig();
 
-  /// Adds a custom rule for Object validation/processing and returns a new `ZObject` instance.
-  ZObject<T> _addRule(Rule<T> r) => ZObject._withConfig(_config.addRule(RuleObject(r)));
-
   /// Enable `null` value. All rules will be skipped for null values.
-  ZNullableObject<T> nullable() => ZNullableObject<T>._withConfig(_config.makeNullable());
+  ZNullableObject<T> nullable() => _nullable(constructor: ZNullableObject<T>._withConfig);
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableObject<T> optional() => ZNullableObject<T>._withConfig(_config.makeOptional());
+  ZNullableObject<T> optional() => _optional(constructor: ZNullableObject<T>._withConfig);
+
+  /// Adds a transformation of current type [T] to an object of type [To] using custom transformer.
+  ZObject<To> toObj<To extends Object>(Transformer<T, To> transformer) => _transformCustom(
+    constructor: ZObject<To>._withConfig,
+    transformer: transformer,
+  );
+
+  /// Adds a transformation of current [T] value to [String] using custom transformer.
+  ZString toStr(Transformer<T, String> transformer) => _transformCustom(
+    constructor: ZString._withConfig,
+    transformer: transformer,
+  );
 
   @override
-  ZObject<T> refine(Refiner<T> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZObject<T> refine(Refiner<T> refiner, {String? message, String? code}) => _refine(
+    constructor: ZObject<T>._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZObject<T> superRefine(SuperRefiner<T> refiner) => _addRule(superRefineRule(refiner));
+  ZObject<T> superRefine(SuperRefiner<T> refiner) => _superRefine(
+    constructor: ZObject<T>._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZObject<T> process(Processor<T> processor) => ZObject<T>._withConfig(_config.addProcessor(processor));
+  ZObject<T> process(Processor<T> processor) => _processPure(
+    constructor: ZObject<T>._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
 }

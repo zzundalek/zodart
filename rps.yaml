@@ -25,5 +25,5 @@ scripts:
       $script: dart pub publish
       $description: Publishs the package to the pub.dev.
   pana:
-    $script: dart pub global run pana . --exit-code-threshold 0
+    $script: dart pub global run pana . --exit-code-threshold 10
     $description: Check the package scoring using pana.

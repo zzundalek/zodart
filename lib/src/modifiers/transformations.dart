@@ -1,6 +1,6 @@
 import '../base/base.dart';
 
-/// A [Transformer] from `String` to `int`.
+/// A [ResTransformer] from `String` to `int`.
 ///
 /// Takes a [String] [val], attempts to parse it to an `int` using [int.parse].
 ///
@@ -23,7 +23,12 @@ ZRes<int> stringToInt(String val) {
   }
 }
 
-/// A [Transformer] from `String` to `double`.
+/// A [ResTransformer] from `int` to `double`.
+///
+/// Returns a [ZRes<int>] containing the double value.
+ZRes<double> intToDouble(int val) => ZRes.success(val.toDouble());
+
+/// A [ResTransformer] from `String` to `double`.
 ///
 /// Takes a [String] [val], attempts to parse it to an `double` using [double.parse].
 ///
@@ -46,7 +51,7 @@ ZRes<double> stringToDouble(String val) {
   }
 }
 
-/// A [Transformer] from `String` to `DateTime`.
+/// A [ResTransformer] from `String` to `DateTime`.
 ///
 /// Takes a [String] [val], attempts to parse it to a `DateTime` using [DateTime.parse].
 ///

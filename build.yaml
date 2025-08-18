@@ -1,6 +1,15 @@
 builders:
+  zodart|preTypeBuilder:
+    import: "package:zodart/src/code_generation/builders/pre_type_builder.dart"
+    builder_factories: ["preTypeBuilder"]
+    build_extensions:
+      ".dart": [".zodart.type.dart"]
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
+    runs_before: ["zodart|zodArtBuilder"]
   zodart|zodArtBuilder:
-    import: "package:zodart/src/code_generation/internal/builder.dart"
+    import: "package:zodart/src/code_generation/builders/zodart_builder.dart"
     builder_factories: ["zodArtBuilder"]
     build_extensions:
       ".dart": [".zodart.dart"]
@@ -12,4 +21,6 @@ targets:
   $default:
     builders:
       zodart|zodArtBuilder:
+        enabled: true
+      zodart|preTypeBuilder:
         enabled: true

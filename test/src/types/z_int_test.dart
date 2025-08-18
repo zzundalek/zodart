@@ -163,6 +163,89 @@ void main() {
     });
   });
 
+  group('toDouble', () {
+    final baseValidInputs = <ValidInput>[
+      (input: -1, expected: -1.0),
+      (input: 0, expected: 0.0),
+      (input: 9, expected: 9.0),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZInt().toDouble(),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZInt().nullable().toDouble(),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZInt().toDouble().nullable(),
+      );
+    });
+  });
+
+  group('toStr', () {
+    String toUSD(int val) => '\$$val';
+    final baseValidInputs = <ValidInput>[
+      (input: 9, expected: r'$9'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZInt().toStr(toUSD),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZInt().nullable().toStr(toUSD),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZInt().toStr(toUSD).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refinePositive(int val) => val > 0;
 
@@ -303,6 +386,34 @@ void main() {
 
         expect(res.value, isNull);
       });
+    });
+  });
+
+  group('onNull', () {
+    int onNullaFallback() => 9;
+    final validInputs = [
+      (input: -1, expected: -1),
+      (input: 0, expected: 0),
+      (input: 10, expected: 10),
+      (input: null, expected: 9),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZInt().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZInt().optional().onNull(onNullaFallback),
+      );
     });
   });
 }

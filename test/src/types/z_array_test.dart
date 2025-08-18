@@ -121,6 +121,93 @@ void main() {
     });
   });
 
+  group('toArray', () {
+    List<String> toUSD(List<double> vals) => vals.map((val) => '\$${val.toStringAsFixed(1)}').toList();
+
+    final baseValidInputs = <ValidInput>[
+      (input: [1.0, 20.1, 6.1, 0.0], expected: [r'$1.0', r'$20.1', r'$6.1', r'$0.0']),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).toArray(toUSD),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).nullable().toArray(toUSD),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).toArray(toUSD).nullable(),
+      );
+    });
+  });
+
+  group('toStr', () {
+    String toSumUSD(List<double> val) {
+      final sum = val.fold<double>(0, (sum, curr) => sum + curr);
+      return '\$${sum.toStringAsFixed(1)}';
+    }
+
+    final baseValidInputs = <ValidInput>[
+      (input: [1.0, 20.1, 6.1, 0.0], expected: r'$27.2'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).toStr(toSumUSD),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).nullable().toStr(toSumUSD),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZArray(ZDouble()).toStr(toSumUSD).nullable(),
+      );
+    });
+  });
+
   group('refine', () {
     bool refineNotEmpty(List<dynamic> val) => val.isNotEmpty;
 
@@ -269,6 +356,32 @@ void main() {
 
         expect(res.value, isNull);
       });
+    });
+  });
+
+  group('onNull', () {
+    List<String> onNullaFallback() => const ['default value'];
+    final validInputs = [
+      (input: const ['hello'], expected: const ['hello']),
+      (input: null, expected: const ['default value']),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZArray(ZString()).nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZArray(ZString()).optional().onNull(onNullaFallback),
+      );
     });
   });
 }

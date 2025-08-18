@@ -7,7 +7,9 @@ import 'package:zodart/src/z_base_config/z_base_config.dart';
 void main() {
   group('ZBase internal exception test', () {
     test('throws ZodArtInternalException when parsed value type does not match the expected type', () {
-      final zStringWithParseIntTransformer = createZStringWithConfigForTesting(ZBaseConfig(fns: [ParseInt(parseInt)]));
+      final zStringWithParseIntTransformer = createZStringWithConfigForTesting(
+        ZBaseConfig(fns: [Parsing.buildIn(parseInt)]),
+      );
       expect(
         () => zStringWithParseIntTransformer.parse(1),
         throwsA(
@@ -21,7 +23,7 @@ void main() {
     });
     test('throws ZodArtInternalException when parser throws an unexpected error', () {
       final zStringWithParserThrowing = createZStringWithConfigForTesting(
-        ZBaseConfig(fns: [ParseString((_) => throw Error())]),
+        ZBaseConfig(fns: [Parsing.buildIn((_) => throw Error())]),
       );
       expect(
         () => zStringWithParserThrowing.parse('1'),
@@ -34,17 +36,35 @@ void main() {
         ),
       );
     });
-    test('get isNullable', () {
-      final schema = ZString();
-      expect(schema.isNullable, isFalse);
-      final newSchema = schema.nullable();
-      expect(newSchema.isNullable, isTrue);
+    test('throws ZodArtInternalException when onNullTransformation encounters invalid type', () {
+      final zStringWithFakeIntValue = createZStringWithConfigForTesting(
+        ZBaseConfig(fns: [Parsing.buildIn((_) => ZRes.success(1))]),
+      );
+
+      expect(
+        () => zStringWithFakeIntValue.nullable().onNull(() => 'default value').parse('1'),
+        throwsA(
+          isA<ZodArtInternalException>().having(
+            (exception) => exception.message,
+            'message',
+            'Unexpected transformation error occurred. '
+                "Value '1' of type 'int' should have been conditionally converted from null to type 'String'.",
+          ),
+        ),
+      );
     });
-    test('get isOptional', () {
-      final schema = ZString();
-      expect(schema.isOptional, isFalse);
-      final newSchema = schema.optional();
-      expect(newSchema.isOptional, isTrue);
-    });
+  });
+
+  test('get isNullable', () {
+    final schema = ZString();
+    expect(schema.isNullable, isFalse);
+    final newSchema = schema.nullable();
+    expect(newSchema.isNullable, isTrue);
+  });
+  test('get isOptional', () {
+    final schema = ZString();
+    expect(schema.isOptional, isFalse);
+    final newSchema = schema.optional();
+    expect(newSchema.isOptional, isTrue);
   });
 }

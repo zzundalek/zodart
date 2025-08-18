@@ -9,10 +9,11 @@ part of 'types.dart';
 /// final nullableInt = ZInt().nullable();
 /// final result = nullableInt.parse(1);
 /// ```
-class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
+class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?>, ZNullableTransformations<int, int?> {
   ZNullableInt._withConfig(super.config) : super._withConfig();
 
-  ZNullableInt _addRule(Rule<int> r) => ZNullableInt._withConfig(_config.addRule(RuleInt(r)));
+  ZNullableInt _addRule(ResRule<int> validation) =>
+      _validateBuildIn(constructor: ZNullableInt._withConfig, validation: validation);
 
   /// Adds a rule to enforce that the value must be greater than or equal to `min`.
   ///
@@ -25,15 +26,41 @@ class ZNullableInt extends ZBase<int?> implements ZTransformations<int, int?> {
   ZNullableInt max(int max) => _addRule(maxNumRule(max));
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
-  ZNullableInt optional() => ZNullableInt._withConfig(_config.makeOptional());
+  ZNullableInt optional() => _optional(constructor: ZNullableInt._withConfig);
+
+  /// Adds a transformation of current [int] value to [String] using custom transformer.
+  ZNullableString toStr(Transformer<int, String> transformer) => _transformCustom(
+    constructor: ZNullableString._withConfig,
+    transformer: transformer,
+  );
+
+  /// Adds a transformation of current [int] value to [double] using default transformer.
+  ZNullableDouble toDouble() => _transformBuildIn(
+    constructor: ZNullableDouble._withConfig,
+    transformer: intToDouble,
+  );
 
   @override
-  ZNullableInt refine(Refiner<int> refiner, {String? message, String? code}) =>
-      _addRule(refineRule(refiner, message: message, code: code));
+  ZNullableInt refine(Refiner<int> refiner, {String? message, String? code}) => _refine(
+    constructor: ZNullableInt._withConfig,
+    refiner: refiner,
+    message: message,
+    code: code,
+  );
 
   @override
-  ZNullableInt superRefine(SuperRefiner<int> refiner) => _addRule(superRefineRule(refiner));
+  ZNullableInt superRefine(SuperRefiner<int> refiner) => _superRefine(
+    constructor: ZNullableInt._withConfig,
+    refiner: refiner,
+  );
 
   @override
-  ZNullableInt process(Processor<int> processor) => ZNullableInt._withConfig(_config.addProcessor(processor));
+  ZNullableInt process(Processor<int> processor) => _processPure(
+    constructor: ZNullableInt._withConfig,
+    processor: processor,
+    isUserDefined: true,
+  );
+
+  @override
+  ZInt onNull(NullFallback<int> nullFallback) => _defaultForNull(constructor: ZInt._withConfig, onNull: nullFallback);
 }

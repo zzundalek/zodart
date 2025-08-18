@@ -5,113 +5,174 @@ title: ZodArt types
 classDiagram
     class ZBase~T~  {
         <<Abstract>>
-        + parse(val) [done]
+        + parse(val)
     }
 
     class ZArray~T~ {
-        + nullable() ZNullableArray [done]
-        + optional() ZNullableArray [done]
+        + nullable() ZNullableArray
+        + optional() ZNullableArray
 
-        + refine(refiner, message?, code?) [done]
+        + toStr(t)
+        + toArray<NewType>(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZObject~T~ {
-        + nullable() ZNullableObject [done]
-        + optional() ZNullableObject [done]
+        + nullable() ZNullableObject
+        + optional() ZNullableObject
 
-        + refine(refiner, message?, code?) [done]
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZBool {
-        + nullable() ZNullableBool [done]
-        + optional() ZNullableBool [done]
+        + nullable() ZNullableBool
+        + optional() ZNullableBool
 
-        + refine(refiner, message?, code?) [done]
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZDateTime {
-        + nullable() ZNullableDateTime [done]
-        + optional() ZNullableDateTime [done]
+        + nullable() ZNullableDateTime
+        + optional() ZNullableDateTime
 
-        + refine(refiner, message?, code?) [done]
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZInt {
-        + nullable() ZNullableInt [done]
-        + optional() ZNullableInt [done]
+        + nullable() ZNullableInt
+        + optional() ZNullableInt
 
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + refine(refiner, message?, code?) [done]
+        + toDouble()
+
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZDouble {
-        + nullable() ZNullableDouble [done]
-        + optional() ZNullableDouble [done]
+        + nullable() ZNullableDouble
+        + optional() ZNullableDouble
 
 
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + refine(refiner, message?, code?) [done]
+        + toInt(t)
+
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZString {
-        + nullable() ZNullableString [done]
-        + optional() ZNullableString [done]
+        + nullable() ZNullableString
+        + optional() ZNullableString
 
-        + toInt() ZInt [done]
-        + toDouble() ZDouble [done]
+        + toInt() ZInt
+        + toDouble() ZDouble
 
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + trim() [done]
+        + trim()
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZNullableArray~T~ {
-        + refine(refiner, message?, code?) [done]
+        + toStr(t)
+        + toArray<NewType>(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZNullableObject~T~ {
-        + refine(refiner, message?, code?) [done]
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZNullableBool {
-        + refine(refiner, message?, code?) [done]
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZNullableDateTime {
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + refine(refiner, message?, code?) [done]
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZNullableInt {
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + refine(refiner, message?, code?) [done]
+        + toDouble()
+
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZNullableDouble {
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + refine(refiner, message?, code?) [done]
+        + toInt(t)
+        + toStr(t)
+
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     class ZNullableString {
-        + min(min) [done]
-        + max(max) [done]
+        + min(min)
+        + max(max)
 
-        + trim() [done]
+        + trim()
 
-        + refine(refiner, message?, code?) [done]
+        + refine(refiner, message?, code?)
+        + superRefine(refiner)
+        + process(p)
     }
 
     ZArray --|> ZBase
@@ -129,19 +190,69 @@ classDiagram
     ZNullableDouble --|> ZBase
     ZNullableString --|> ZBase
 
-    ZString ..> ZDouble : toDouble() [done]
-    ZString ..> ZDateTime : toDateTime() [done]
-    ZString ..> ZInt : toInt() [done]
+    %% toStr %%
+    ZArray ..> ZString : toStr(t)
+    ZObject ..> ZString : toStr(t)
+    ZBool ..> ZString : toStr(t)
+    ZDateTime ..> ZString : toStr(t)
+    ZInt ..> ZString : toStr(t)
+    ZDouble ..> ZString : toStr(t)
+    ZNullableArray ..> ZNullableString : toStr(t)
+    ZNullableObject ..> ZNullableString : toStr(t)
+    ZNullableBool ..> ZNullableString : toStr(t)
+    ZNullableDateTime ..> ZNullableString : toStr(t)
+    ZNullableInt ..> ZNullableString : toStr(t)
+    ZNullableDouble ..> ZNullableString : toStr(t)
+    %% \toStr %%
 
-    ZNullableString ..> ZNullableDateTime : toDateTime() [done]
-    ZNullableString ..> ZNullableDouble : toDouble() [done]
-    ZNullableString ..> ZNullableInt : toInt() [done]
+    %% toArray %%
+    ZArray ..> ZArray : toArray<NewType>(t)
+    ZNullableArray ..> ZNullableArray : toArray<NewType>(t)
+    %% \toArray %%
 
-    ZArray ..> ZNullableArray : nullable() [done]
-    ZObject ..> ZNullableObject : nullable() [done]
-    ZBool ..> ZNullableBool : nullable() [done]
-    ZDateTime ..> ZNullableDateTime : nullable() [done]
-    ZInt ..> ZNullableInt : nullable() [done]
-    ZDouble ..> ZNullableDouble : nullable() [done]
-    ZString ..> ZNullableString : nullable() [done]
+    %% toDouble %%
+    ZInt ..> ZDouble : toDouble()
+    ZNullableInt ..> ZNullableDouble : toDouble()
+    ZString ..> ZDouble : toDouble()
+    ZNullableString ..> ZNullableDouble : toDouble()
+    %% \toDouble %%
+
+    %% toInt %%
+    ZDouble ..> ZInt : toInt(t)
+    ZNullableDouble ..> ZNullableInt : toInt(t)
+    ZString ..> ZInt : toInt()
+    ZNullableString ..> ZNullableInt : toInt()
+    %% \toInt %%
+
+    %% toDateTime %%
+    ZString ..> ZDateTime : toDateTime()
+    ZNullableString ..> ZNullableDateTime : toDateTime()
+    %% \toDateTime %%
+
+    ZArray ..> ZNullableArray : nullable()
+    ZObject ..> ZNullableObject : nullable()
+    ZBool ..> ZNullableBool : nullable()
+    ZDateTime ..> ZNullableDateTime : nullable()
+    ZInt ..> ZNullableInt : nullable()
+    ZDouble ..> ZNullableDouble : nullable()
+    ZString ..> ZNullableString : nullable()
 ```
+
+## Type conversions
+
+| ⬇️From ➡️To Type             | **ZBool** | **ZInt**  | **ZDouble** | **ZDateTime** | **ZString** | **ZArray&lt;T&gt;**    | **ZObject&lt;T&gt;** | **ZNullableBool**      | **ZNullableInt**       | **ZNullableDouble**    | **ZNullableDateTime**  | **ZNullableString**    | **ZNullableArray&lt;T&gt;**        | **ZNullableObject&lt;T&gt;**     |
+| ---------------------------- | --------- | --------- | ----------- | ------------- | ----------- | ---------------------- | -------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------- | ---------------------------------- | -------------------------------- |
+| **ZBool**                    |           |           |             |               | toStr(t)    |                        |                      | nullable(), optional() |                        |                        |                        |                        |                                    |                                  |
+| **ZInt**                     |           |           | toDouble()  |               | toStr(t)    |                        |                      |                        | nullable(), optional() |                        |                        |                        |                                    |                                  |
+| **ZDouble**                  |           | toInt(t)  |             |               | toStr(t)    |                        |                      |                        |                        | nullable(), optional() |                        |                        |                                    |                                  |
+| **ZDateTime**                |           |           |             |               | toStr(t)    |                        |                      |                        |                        |                        | nullable(), optional() |                        |                                    |                                  |
+| **ZString**                  |           | toInt()   | toDouble()  | toDateTime()  |             |                        |                      |                        |                        |                        |                        | nullable(), optional() |                                    |                                  |
+| **ZArray&lt;T&gt;**          |           |           |             |               | toStr(t)    | toArray&lt;NewT&gt;(t) |                      |                        |                        |                        |                        |                        | nullable(), optional()             |                                  |
+| **ZObject&lt;T&gt;**         |           |           |             |               | toStr(t)    |                        | toObj&lt;NewT&gt;(t) |                        |                        |                        |                        |                        |                                    | nullable(), optional()           |
+| **ZNullableBool**            | onNull(t) |           |             |               |             |                        |                      | optional()             |                        |                        |                        | toStr(t)               |                                    |                                  |
+| **ZNullableInt**             |           | onNull(t) |             |               |             |                        |                      |                        | optional()             | toDouble()             |                        | toStr(t)               |                                    |                                  |
+| **ZNullableDouble**          |           |           | onNull(t)   |               |             |                        |                      |                        | toInt(t)               | optional()             |                        | toStr(t)               |                                    |                                  |
+| **ZNullableDateTime**        |           |           |             | onNull(t)     |             |                        |                      |                        |                        |                        | optional()             | toStr(t)               |                                    |                                  |
+| **ZNullableString**          |           |           |             |               | onNull(t)   |                        |                      |                        | toInt()                | toDouble()             | toDateTime()           | optional()             |                                    |                                  |
+| **ZNullableArray&lt;T&gt;**  |           |           |             |               |             | onNull(t)              |                      |                        |                        |                        |                        | toStr(t)               | toArray&lt;NewT&gt;(t), optional() |                                  |
+| **ZNullableObject&lt;T&gt;** |           |           |             |               |             |                        | onNull(t)            |                        |                        |                        |                        | toStr(t)               |                                    | toObj&lt;NewT&gt;(t), optional() |

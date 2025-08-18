@@ -9,7 +9,7 @@ part of 'types.dart';
 /// Not intended to be used directly. Use one of the schema constructors
 /// (e.g., `ZString()`, etc.) to create schemas.
 sealed class ZBase<T> {
-  ZBase._new(ParseAny<dynamic> parse) : _config = ZBaseConfig(fns: [parse]);
+  ZBase._new(Operation<Object?, dynamic> parse) : _config = ZBaseConfig(fns: [parse]);
   ZBase._withConfig(this._config);
 
   final ZBaseConfig _config;
@@ -36,6 +36,157 @@ sealed class ZBase<T> {
         }
       },
     );
+  }
+
+  /// Converts [Transformer] to [ResTransformer] by wrapping it by function returning [ZRes].
+  ZRes<To> Function(From) _toResTransformer<From, To>(Transformer<From, To> t) =>
+      (From val) => ZRes.success(t(val));
+
+  /// Adds a transformation function to the pipeline.
+  ///
+  /// Used internally by built-in methods (e.g. `.toDouble()`).
+  ZType _transformBuildIn<ZType extends ZBase<dynamic>, From, To>({
+    required ZType Function(ZBaseConfig) constructor,
+    required ResTransformer<From, To> transformer,
+  }) {
+    return constructor(
+      _config.addTransformation(
+        Transformation(
+          transformer,
+          isUserDefined: false,
+        ),
+      ),
+    );
+  }
+
+  /// Adds a transformation function to the pipeline.
+  ///
+  /// Used to provide custom transformation at [transformer].
+  ///
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _transformCustom<ZType extends ZBase<dynamic>, From, To>({
+    required ZType Function(ZBaseConfig) constructor,
+    required Transformer<From, To> transformer,
+  }) {
+    return constructor(
+      _config.addTransformation(
+        Transformation<From, To>(
+          _toResTransformer(transformer),
+          isUserDefined: true,
+        ),
+      ),
+    );
+  }
+
+  /// Adds a pure processing function to the pipeline.
+  ///
+  /// Used for both built-in methods (e.g. `.trim()`) and user-defined `.process()` calls.
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _processPure<ZType extends ZBase<dynamic>, Val>({
+    required ZType Function(ZBaseConfig) constructor,
+    required Processor<Val> processor,
+    required bool isUserDefined,
+  }) {
+    return constructor(
+      _config.addProcessing(
+        Processing<Val>(
+          (val) => ZRes.success(processor(val)),
+          isUserDefined: isUserDefined,
+        ),
+      ),
+    );
+  }
+
+  /// Adds a built-in validation rule to the pipeline.
+  ///
+  /// Used for methods like `.min()` or `.max()`.
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _validateBuildIn<ZType extends ZBase<dynamic>, Val>({
+    required ZType Function(ZBaseConfig) constructor,
+    required ResRule<Val> validation,
+  }) {
+    return constructor(
+      _config.addValidation(
+        Validation(
+          validation,
+          isUserDefined: false,
+        ),
+      ),
+    );
+  }
+
+  /// Adds a custom validation rule to the pipeline using `.refine()`.
+  ///
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  /// Optional [message] and [code] can be used to customize the error.
+  ZType _refine<ZType extends ZBase<dynamic>, Val>({
+    required ZType Function(ZBaseConfig) constructor,
+    required Refiner<Val> refiner,
+    String? message,
+    String? code,
+  }) {
+    return constructor(
+      _config.addValidation(
+        Validation(
+          refineRule(refiner, message: message, code: code),
+          isUserDefined: true,
+        ),
+      ),
+    );
+  }
+
+  /// Adds a complex validation rule using `.superRefine()`.
+  ///
+  /// Allows cross-field or contextual validation.
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _superRefine<ZType extends ZBase<dynamic>, Val>({
+    required ZType Function(ZBaseConfig) constructor,
+    required SuperRefiner<Val> refiner,
+  }) {
+    return constructor(
+      _config.addValidation(
+        Validation(
+          superRefineRule(refiner),
+          isUserDefined: true,
+        ),
+      ),
+    );
+  }
+
+  /// Adds a fallback handler for `null` values using `.onNull()`.
+  ///
+  /// If input is `null`, the [onNull] function will be called to provide a replacement value.
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _defaultForNull<ZType extends ZBase<dynamic>, To>({
+    required ZType Function(ZBaseConfig) constructor,
+    required NullFallback<To> onNull,
+  }) {
+    return constructor(
+      _config.addNullFallback(
+        OnNullTransformation<To>(
+          () => ZRes.success(onNull()),
+          isUserDefined: true,
+        ),
+      ),
+    );
+  }
+
+  /// Marks this schema as nullable.
+  ///
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _nullable<ZType extends ZBase<dynamic>>({
+    required ZType Function(ZBaseConfig) constructor,
+  }) {
+    return constructor(_config.makeNullable());
+  }
+
+  /// Marks this schema as optional (may be omitted).
+  ///
+  /// Returns a new instance of [ZBase] subclass using [constructor].
+  ZType _optional<ZType extends ZBase<dynamic>>({
+    required ZType Function(ZBaseConfig) constructor,
+  }) {
+    return constructor(_config.makeOptional());
   }
 
   /// Parses [val] using the configured transformation pipeline and returns a [ZRes]

@@ -489,4 +489,31 @@ void main() {
       });
     });
   });
+
+  group('onNull', () {
+    String onNullaFallback() => 'default value';
+    final validInputs = [
+      (input: '', expected: ''),
+      (input: 'some value', expected: 'some value'),
+      (input: null, expected: 'default value'),
+    ];
+    group('nullable', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZString().nullable().onNull(onNullaFallback),
+      );
+    });
+    group('optional', () {
+      testInputs(
+        (
+          validInputs: validInputs,
+          invalidInputs: [],
+        ),
+        ZString().optional().onNull(onNullaFallback),
+      );
+    });
+  });
 }

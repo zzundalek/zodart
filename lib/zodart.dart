@@ -35,4 +35,6 @@
 /// See more on: https://github.com/zzundalek/zodart
 library;
 
+// Note: Needed for collection equality/hash in the code generation.
+export 'package:collection/collection.dart' show DeepCollectionEquality;
 export 'src/zodart_base.dart';
