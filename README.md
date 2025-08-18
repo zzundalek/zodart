@@ -238,6 +238,24 @@ For all other schemas like `ZString`, `ZInt`, etc., there is no concept of a "mi
 
 See more at [nullable modifier doc](doc/modifiers/nullability.md).
 
+## Handling null values with onNull
+
+Sometimes you don’t just want to accept null, but also provide a default value in that case.
+For this purpose, every nullable schema type supports the .onNull() handler, which is invoked whenever the current value is null.
+
+See the [full example](example/on_null_method/on_null_method.dart).
+
+```dart
+import 'package:zodart/zodart.dart';
+
+void main() {
+  final zString = ZString().nullable().onNull(() => 'default value');
+
+  print(zString.parse('ZodArt').value); // ZodArt
+  print(zString.parse(null).value); // default value
+}
+```
+
 ## Validation & refine
 
 > ⚠️ Important: Do not throw exceptions inside a `.refine()` function — ZodArt will not catch them.
