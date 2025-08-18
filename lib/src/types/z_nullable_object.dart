@@ -20,14 +20,15 @@ part of 'types.dart';
 ///
 /// final nullablePerson = personSchema.parse({'firstName': 'Zod', 'lastName': 'Art'});
 /// ```
-class ZNullableObject<T> extends ZBase<T?> implements ZTransformations<T, T?>, ZNullableTransformations<T, T?> {
+class ZNullableObject<T extends Object> extends ZBase<T?>
+    implements ZTransformations<T, T?>, ZNullableTransformations<T, T?> {
   ZNullableObject._withConfig(super.config) : super._withConfig();
 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableObject<T> optional() => _optional(constructor: ZNullableObject<T>._withConfig);
 
   /// Adds a transformation of current type [T] to an object of type [To] using custom transformer.
-  ZNullableObject<To> toObj<To>(Transformer<T, To> transformer) => _transformCustom(
+  ZNullableObject<To> toObj<To extends Object>(Transformer<T, To> transformer) => _transformCustom(
     constructor: ZNullableObject<To>._withConfig,
     transformer: transformer,
   );

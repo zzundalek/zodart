@@ -18,7 +18,7 @@ part of 'types.dart';
 
 // final person = personSchema.parse({'firstName': 'Zod', 'lastName': 'Art'});
 /// ```
-class ZObject<T> extends ZBase<T> implements ZTransformations<T, T> {
+class ZObject<T extends Object> extends ZBase<T> implements ZTransformations<T, T> {
   /// Factory constructor that creates a new instance using the given [schema]
   /// for parsing and the [fromJson] function for mapping parsed data to type [T].
   factory ZObject.withMapper(ZSchema schema, {required ObjectMapper<T> fromJson}) => ZObject._new(schema, fromJson);
@@ -38,7 +38,7 @@ class ZObject<T> extends ZBase<T> implements ZTransformations<T, T> {
   ZNullableObject<T> optional() => _optional(constructor: ZNullableObject<T>._withConfig);
 
   /// Adds a transformation of current type [T] to an object of type [To] using custom transformer.
-  ZObject<To> toObj<To>(Transformer<T, To> transformer) => _transformCustom(
+  ZObject<To> toObj<To extends Object>(Transformer<T, To> transformer) => _transformCustom(
     constructor: ZObject<To>._withConfig,
     transformer: transformer,
   );

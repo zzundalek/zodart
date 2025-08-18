@@ -10,7 +10,7 @@ import '../zodart_base.dart';
 ///
 /// This abstraction helps ensure type safety and adds syntactic sugar for working with
 /// ZObject-based schemas in a more declarative and ergonomic way.
-abstract class ZGenSchemaUtils<Props, ParseRes> {
+abstract class ZGenSchemaUtils<Props, ParseRes extends Object> {
   /// Enum-like access to field keys (e.g., for serialization or obtaining parse issues for a field).
   Props get props;
 
