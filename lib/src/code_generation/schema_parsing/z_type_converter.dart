@@ -51,7 +51,8 @@ class ZTypeConverter {
   }
 
   /// Returns true if the [zodType] ([Type]) is the same type as [dartType] ([DartType]).
-  bool _isExactType(Type zodType, DartType dartType) => TypeChecker.fromRuntime(zodType).isExactlyType(dartType);
+  bool _isExactType(Type zodType, DartType dartType) =>
+      TypeChecker.typeNamed(zodType, inPackage: 'zodart').isExactlyType(dartType);
 
   /// Returns a [String] representing the type of the value produced by calling
   /// `.parse()` on the given [dartType], assuming the parse is successful.

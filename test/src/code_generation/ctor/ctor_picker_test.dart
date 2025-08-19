@@ -4,7 +4,7 @@ import 'package:zodart/src/code_generation/ctor/_ctor.dart';
 import '../../../mocks/class_element/class_element.dart';
 import '../../../mocks/constructor_element/constructor_element.dart';
 import '../../../mocks/constructor_element/constructor_element.mocks.dart';
-import '../../../mocks/parameter_element/parameter_element.dart';
+import '../../../mocks/formal_parameter_element/formal_parameter_element.dart';
 import 'ctor_test_helper.dart';
 
 void main() {
@@ -18,7 +18,7 @@ void main() {
       });
 
       test('throws an ArgumentError error if an empty schema is passed', () {
-        final ctor = MockConstructorElement();
+        final ctor = MockConstructorElement2();
 
         expect(
           () => pickBestCtor(ctorElements: [ctor], schema: {}),
