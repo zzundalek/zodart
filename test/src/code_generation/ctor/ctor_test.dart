@@ -3,22 +3,22 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:zodart/src/code_generation/ctor/ctor.dart';
 import '../../../mocks/constructor_element/constructor_element.mocks.dart';
-import '../../../mocks/dart_type/dart_type.mocks.dart';
-import '../../../mocks/parameter_element/parameter_element.mocks.dart';
+import '../../../mocks/formal_parameter_element/formal_parameter_element.dart';
+import '../../../mocks/formal_parameter_element/formal_parameter_element.mocks.dart';
 
 void main() {
   group('fromCtorElement', () {
-    late MockConstructorElement ctorElement;
+    late MockConstructorElement2 ctorElement;
 
     setUp(() {
-      ctorElement = MockConstructorElement();
+      ctorElement = MockConstructorElement2();
 
       when(ctorElement.isConst).thenReturn(true);
       when(ctorElement.isFactory).thenReturn(true);
-      when(ctorElement.parameters).thenReturn([]);
+      when(ctorElement.formalParameters).thenReturn([]);
     });
     test('unnamed', () {
-      when(ctorElement.name).thenReturn('');
+      when(ctorElement.name3).thenReturn('new');
 
       final ctor = Ctor.fromCtorElement(ctorElement);
 
@@ -37,7 +37,7 @@ void main() {
       );
     });
     test('named', () {
-      when(ctorElement.name).thenReturn('myName');
+      when(ctorElement.name3).thenReturn('myName');
 
       final ctor = Ctor.fromCtorElement(ctorElement);
 
@@ -83,15 +83,10 @@ void main() {
     });
   });
   group('toUnnamedParam', () {
-    late MockParameterElement paramElement;
-    late MockDartType dartType;
+    late MockFormalParameterElement paramElement;
 
     setUp(() {
-      paramElement = MockParameterElement();
-      dartType = MockDartType();
-
-      when(paramElement.type).thenReturn(dartType);
-      when(dartType.getDisplayString()).thenReturn('String');
+      paramElement = mockPositionalParameterElement(isRequired: false, type: 'String');
     });
 
     test('returns proper reference', () {
@@ -99,16 +94,10 @@ void main() {
     });
   });
   group('toNamedParam', () {
-    late MockParameterElement paramElement;
-    late MockDartType dartType;
+    late MockFormalParameterElement paramElement;
 
     setUp(() {
-      paramElement = MockParameterElement();
-      dartType = MockDartType();
-
-      when(paramElement.type).thenReturn(dartType);
-      when(paramElement.name).thenReturn('MyName');
-      when(dartType.getDisplayString()).thenReturn('String');
+      paramElement = mockNamedParameterElement(name: 'MyName', type: 'String');
     });
 
     test('returns proper name and reference', () {
@@ -116,6 +105,15 @@ void main() {
 
       expect(res.key, 'MyName');
       expect(res.value, refer('String'));
+    });
+
+    test('throws an ArgumentError for unnamed params', () {
+      final unnamedParamElement = mockPositionalParameterElement(type: 'String', isRequired: false);
+
+      expect(
+        () => Ctor.toNamedParam(unnamedParamElement),
+        throwsA(isA<ArgumentError>()),
+      );
     });
   });
 }

@@ -1,15 +1,12 @@
-// Will be migrated in new version automatically https://github.com/dart-lang/source_gen/issues/743
-// ignore_for_file: deprecated_member_use
-
 @GenerateNiceMocks([
-  MockSpec<ParameterElement>(),
+  MockSpec<FormalParameterElement>(),
 ])
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../dart_type/dart_type.mocks.dart';
-import 'parameter_element.mocks.dart';
+import 'formal_parameter_element.mocks.dart';
 
 MockDartType mockDartType({required String type}) {
   final dartType = MockDartType();
@@ -18,15 +15,16 @@ MockDartType mockDartType({required String type}) {
   return dartType;
 }
 
-MockParameterElement mockNamedParameterElement({
+MockFormalParameterElement mockNamedParameterElement({
   required String name,
   required String type,
   bool isRequired = true,
 }) {
-  final param = MockParameterElement();
+  final param = MockFormalParameterElement();
 
   // named
-  when(param.name).thenReturn(name);
+  when(param.name3).thenReturn(name);
+  when(param.isNamed).thenReturn(true);
   when(param.isRequiredNamed).thenReturn(isRequired);
   when(param.isOptionalNamed).thenReturn(!isRequired);
 
@@ -41,14 +39,14 @@ MockParameterElement mockNamedParameterElement({
   return param;
 }
 
-MockParameterElement mockPositionalParameterElement({
+MockFormalParameterElement mockPositionalParameterElement({
   required bool isRequired,
   required String type,
 }) {
-  final param = MockParameterElement();
+  final param = MockFormalParameterElement();
 
-  // named
-  when(param.name).thenReturn('');
+  when(param.name3).thenReturn(null);
+  when(param.isNamed).thenReturn(false);
   when(param.isRequiredNamed).thenReturn(false);
   when(param.isOptionalNamed).thenReturn(false);
 

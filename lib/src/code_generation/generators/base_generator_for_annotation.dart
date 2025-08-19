@@ -1,7 +1,4 @@
-// Will be migrated in new version automatically https://github.com/dart-lang/source_gen/issues/743
-// ignore_for_file: deprecated_member_use
-
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart' show DartEmitter, Spec;
 import 'package:dart_style/dart_style.dart';
@@ -51,18 +48,18 @@ abstract class BaseGeneratorForAnnotation extends GeneratorForAnnotation<ZodArt>
   List<Spec> buildSpecs(SpecBuilderInput parseResult);
 
   @override
-  String generateForAnnotatedElement(Element element, ConstantReader rawAnnotation, BuildStep buildStep) {
-    final annotation = annotationParser(rawAnnotation: rawAnnotation);
+  dynamic generateForAnnotatedElement(Element2 element, ConstantReader annotation, BuildStep buildStep) {
+    final zodArtAnnotation = annotationParser(rawAnnotation: annotation);
 
     final parseResult = schemaParser
-        .parseAnnotatedElement(element, annotation)
+        .parseAnnotatedElement(element, zodArtAnnotation)
         .match(
           (parseError) => throw InvalidGenerationSourceError(
             schemaErrorFormatter.getErrorText(
               parseError,
               (
-                annotatedElementName: element.name ?? element.getDisplayString(),
-                schemaPropertyName: annotation.schemaPropertyName,
+                annotatedElementName: element.name3 ?? element.displayString2(),
+                schemaPropertyName: zodArtAnnotation.schemaPropertyName,
               ),
             ),
             element: element,

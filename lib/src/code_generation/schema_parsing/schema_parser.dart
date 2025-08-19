@@ -1,7 +1,4 @@
-// Will be migrated in new version automatically https://github.com/dart-lang/source_gen/issues/743
-// ignore_for_file: deprecated_member_use
-
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:code_builder/code_builder.dart' hide RecordType;
@@ -36,21 +33,21 @@ class SchemaParser {
   final CtorElemsExtractor ctorElementsExtractor;
 
   /// Finds a static field named [fieldName] on [classElement], or `null` if not found.
-  FieldElement? getStaticFieldByName(ClassElement classElement, String fieldName) =>
-      classElement.fields.firstWhereOrNull((f) => f.name == fieldName && f.isStatic);
+  FieldElement2? getStaticFieldByName(ClassElement2 classElement, String fieldName) =>
+      classElement.fields2.firstWhereOrNull((f) => f.name3 == fieldName && f.isStatic);
 
   /// Converts a list of named record fields to a map of field names to their Dart types.
   Map<String, DartType> toNamedFieldsMap(List<RecordTypeNamedField> namedFields) => {
     for (final field in namedFields) field.name: field.type,
   };
 
-  /// Attempts to extract the [ClassElement] from the given [annotatedElement].
+  /// Attempts to extract the [ClassElement2] from the given [annotatedElement].
   ///
   /// Returns [NotAClass] error if not a class,
   /// or [NotAbstractClass] if the class is not abstract.
-  Either<SchemaParsingError, ClassElement> getClassElement(Element annotatedElement) {
-    return Right<SchemaParsingError, Element>(annotatedElement)
-        .refineRightType<ClassElement>((annotatedElement) => const NotAClass())
+  Either<SchemaParsingError, ClassElement2> getClassElement(Element2 annotatedElement) {
+    return Right<SchemaParsingError, Element2>(annotatedElement)
+        .refineRightType<ClassElement2>((annotatedElement) => const NotAClass())
         .flatMap(
           (classElement) => Either.fromPredicate(
             classElement,
@@ -95,10 +92,10 @@ class SchemaParser {
   /// - has no positional fields,
   /// - and is not empty.
   Either<SchemaParsingError, Map<String, DartType>> getRawSchema(
-    ClassElement classElement,
+    ClassElement2 classElement,
     ZodArtAnnotation annotation,
   ) {
-    return Either<SchemaParsingError, FieldElement>.fromNullable(
+    return Either<SchemaParsingError, FieldElement2>.fromNullable(
           getStaticFieldByName(classElement, annotation.schemaPropertyName),
           () => const MissingSchemaField(),
         )
@@ -139,13 +136,13 @@ class SchemaParser {
         )
         .flatMap(
           (outputType) => Either.fromNullable(
-            outputType.element,
+            outputType.element3,
             () => const OutputClassIsUnknownType(),
           ),
         )
-        .refineRightType<ClassElement>(
+        .refineRightType<ClassElement2>(
           (elementAny) => OutputClassIsWrongType(
-            outputTypeName: elementAny.getDisplayString(),
+            outputTypeName: elementAny.displayString2(),
           ),
         )
         .flatMap(
@@ -180,9 +177,11 @@ class SchemaParser {
   /// Supports two annotation types:
   /// - [ZodArtGenerateNewClass]: validates output class name and generates a new class spec.
   /// - [ZodArtUseExistingClass]: picks a constructor and generates an existing class spec.
-  Either<SchemaParsingError, SpecBuilderInput> parseAnnotatedElement(Element element, ZodArtAnnotation annotation) {
+  Either<SchemaParsingError, SpecBuilderInput> parseAnnotatedElement(Element2 element, ZodArtAnnotation annotation) {
     final parseResultOrError = getClassElement(element).flatMap((classElement) {
-      final annotatedClassName = classElement.name;
+      // Note: add a fallback with regards to: https://github.com/dart-lang/sdk/issues/61026
+      final annotatedClassName = classElement.name3 ?? '';
+
       return getRawSchema(
             classElement,
             annotation,
