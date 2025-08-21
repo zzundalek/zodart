@@ -121,6 +121,102 @@ void main() {
     });
   });
 
+  group('min', () {
+    const min = 3;
+    const baseValidInputs = <ValidInput>[
+      (input: [1, 2, 3], expected: [1, 2, 3]),
+      (input: [1, 2, 3, 4], expected: [1, 2, 3, 4]),
+      (input: [1, 2, 3, 4, 5], expected: [1, 2, 3, 4, 5]),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: <int>[], expected: [ZIssueMinLengthNotMet(minLength: min, actualLength: 0)]),
+      (input: [1], expected: [ZIssueMinLengthNotMet(minLength: min, actualLength: 1)]),
+      (input: [1, 2], expected: [ZIssueMinLengthNotMet(minLength: min, actualLength: 2)]),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZArray(ZInt()).min(min),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZArray(ZInt()).nullable().min(min),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZArray(ZInt()).min(min).nullable(),
+      );
+    });
+  });
+
+  group('max', () {
+    const max = 3;
+    const baseValidInputs = <ValidInput>[
+      (input: <int>[], expected: <int>[]),
+      (input: [1], expected: [1]),
+      (input: [1, 2], expected: [1, 2]),
+      (input: [1, 2, 3], expected: [1, 2, 3]),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: [1, 2, 3, 4], expected: [ZIssueMaxLengthExceeded(maxLength: max, actualLength: 4)]),
+      (input: [1, 2, 3, 4, 5], expected: [ZIssueMaxLengthExceeded(maxLength: max, actualLength: 5)]),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZArray(ZInt()).max(max),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZArray(ZInt()).nullable().max(max),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZArray(ZInt()).max(max).nullable(),
+      );
+    });
+  });
+
   group('toArray', () {
     List<String> toUSD(List<double> vals) => vals.map((val) => '\$${val.toStringAsFixed(1)}').toList();
 
