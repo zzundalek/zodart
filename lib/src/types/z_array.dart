@@ -21,6 +21,16 @@ class ZArray<T> extends ZBase<List<T>> implements ZTransformations<List<T>, List
   /// such as after applying transformation or additional rules.
   ZArray._withConfig(super.config) : super._withConfig();
 
+  /// Adds a custom rule for Iterable (List) validation and returns a new `ZArray` instance.
+  ZArray<T> _addRule(ResRule<Iterable<T>> validation) =>
+      _validateBuildIn(constructor: ZArray<T>._withConfig, validation: validation);
+
+  /// Adds a rule to enforce that the array length must be greater than or equal to `min`.
+  ZArray<T> min(int min) => _addRule(minIterableLengthRule<T>(min));
+
+  /// Adds a rule to enforce that the array length must be less than or equal to `max`.
+  ZArray<T> max(int max) => _addRule(maxIterableLengthRule(max));
+
   /// Enable `null` value. All rules will be skipped for null values.
   ZNullableArray<T> nullable() => _nullable(constructor: ZNullableArray<T>._withConfig);
 

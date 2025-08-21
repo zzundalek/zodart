@@ -14,6 +14,16 @@ class ZNullableArray<T> extends ZBase<List<T>?>
     implements ZTransformations<List<T>, List<T>?>, ZNullableTransformations<List<T>, List<T>?> {
   ZNullableArray._withConfig(super.config) : super._withConfig();
 
+  /// Adds a custom rule for Iterable (List) validation and returns a new `ZNullableArray` instance.
+  ZNullableArray<T> _addRule(ResRule<Iterable<T>> validation) =>
+      _validateBuildIn(constructor: ZNullableArray<T>._withConfig, validation: validation);
+
+  /// Adds a rule to enforce that the array length must be greater than or equal to `min`.
+  ZNullableArray<T> min(int min) => _addRule(minIterableLengthRule<T>(min));
+
+  /// Adds a rule to enforce that the array length must be less than or equal to `max`.
+  ZNullableArray<T> max(int max) => _addRule(maxIterableLengthRule(max));
+
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableArray<T> optional() => _optional(constructor: ZNullableArray<T>._withConfig);
 

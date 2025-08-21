@@ -9,6 +9,9 @@ classDiagram
     }
 
     class ZArray~T~ {
+        + min(min)
+        + max(max)
+
         + nullable() ZNullableArray
         + optional() ZNullableArray
 
@@ -104,6 +107,9 @@ classDiagram
     }
 
     class ZNullableArray~T~ {
+        + min(min)
+        + max(max)
+
         + toStr(t)
         + toArray<NewType>(t)
 
