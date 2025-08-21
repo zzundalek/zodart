@@ -1,42 +1,79 @@
 import '../base/base.dart';
 
+/// Returns the String length
+int getStrLength(String val) => val.length;
+
+/// Returns the length of a T  Iterable
+int getIterableLength<T>(Iterable<T> val) => val.length;
+
+/// Function which returns length of T
+typedef LengthGetter<T> = int Function(T);
+
+/// Builds a rule that checks a value of type [T] has length ≥ `min`.
+///
+/// Uses [lengthGetter] to extract the length.
+/// Returns success if valid, otherwise [ZIssueMinLengthNotMet].
+ResRule<T> Function(int min) minLengthRule<T>(LengthGetter<T> lengthGetter) {
+  return (int min) {
+    return (T val) {
+      final length = lengthGetter(val);
+
+      return length >= min
+          ? ZRes.success(val)
+          : ZRes.errorSingleIssue(
+              ZIssueMinLengthNotMet(
+                actualLength: length,
+                minLength: min,
+              ),
+            );
+    };
+  };
+}
+
+/// Builds a rule that checks a value of type [T] has length ≤ `max`.
+///
+/// Uses [lengthGetter] to extract the length.
+/// Returns success if valid, otherwise [ZIssueMaxLengthExceeded].
+ResRule<T> Function(int max) maxLengthRule<T>(LengthGetter<T> lengthGetter) {
+  return (int max) {
+    return (T val) {
+      final length = lengthGetter(val);
+
+      return length <= max
+          ? ZRes.success(val)
+          : ZRes.errorSingleIssue(
+              ZIssueMaxLengthExceeded(
+                actualLength: length,
+                maxLength: max,
+              ),
+            );
+    };
+  };
+}
+
 /// Returns a [ResRule] of type `ResRule<String>`, which checks minimum string length.
 ///
 /// The returned rule will succeed if the input string's length is greater than or equal to [min],
 /// otherwise it will return a [ZIssueMinLengthNotMet].
-ResRule<String> minStrLengthRule(int min) {
-  return (String val) {
-    final length = val.length;
-
-    return length >= min
-        ? ZRes.success(val)
-        : ZRes.errorSingleIssue(
-            ZIssueMinLengthNotMet(
-              actualLength: length,
-              minLength: min,
-            ),
-          );
-  };
-}
+ResRule<String> minStrLengthRule(int min) => minLengthRule(getStrLength)(min);
 
 /// Returns a [ResRule] of type `ResRule<String>`, which checks maximum string length.
 ///
 /// The returned rule will succeed if the input string's length is less than or equal to [max],
 /// otherwise it will return a [ZIssueMaxLengthExceeded].
-ResRule<String> maxStrLengthRule(int max) {
-  return (String val) {
-    final length = val.length;
+ResRule<String> maxStrLengthRule(int max) => maxLengthRule(getStrLength)(max);
 
-    return length <= max
-        ? ZRes.success(val)
-        : ZRes.errorSingleIssue(
-            ZIssueMaxLengthExceeded(
-              actualLength: length,
-              maxLength: max,
-            ),
-          );
-  };
-}
+/// Returns a [ResRule] of type `ResRule<Iterable<T>>`, which checks minimum iterable length.
+///
+/// The returned rule will succeed if the input iterable's length is greater than or equal to [min],
+/// otherwise it will return a [ZIssueMinLengthNotMet].
+ResRule<Iterable<T>> minIterableLengthRule<T>(int min) => minLengthRule(getIterableLength<T>)(min);
+
+/// Returns a [ResRule] of type `ResRule<Iterable<T>>`, which checks maximum iterable length.
+///
+/// The returned rule will succeed if the input iterable's length is less than or equal to [max],
+/// otherwise it will return a [ZIssueMaxLengthExceeded].
+ResRule<Iterable<T>> maxIterableLengthRule<T>(int max) => maxLengthRule(getIterableLength<T>)(max);
 
 /// Returns a [ResRule] of type `ResRule<T>`, which checks minimum number value.
 ///
