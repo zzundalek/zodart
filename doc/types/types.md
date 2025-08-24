@@ -98,6 +98,7 @@ classDiagram
 
         + min(min)
         + max(max)
+        + regex(r)
 
         + trim()
 
@@ -173,6 +174,7 @@ classDiagram
     class ZNullableString {
         + min(min)
         + max(max)
+        + regex(r)
 
         + trim()
 
