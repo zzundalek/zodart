@@ -60,6 +60,17 @@ class ZString extends ZBase<String> implements ZTransformations<String, String> 
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableString optional() => _optional(constructor: ZNullableString._withConfig);
 
+  /// Adds a rule to enforce that the string matches a regular expression string at [regex].
+  ///
+  /// Uses RegExp.hasMatch() internally.
+  ZString regex(String regex, {String? message, String? code}) => _addRule(
+    regexRule(
+      regex,
+      message: message,
+      code: code,
+    ),
+  );
+
   @override
   ZString refine(Refiner<String> refiner, {String? message, String? code}) => _refine(
     constructor: ZString._withConfig,
