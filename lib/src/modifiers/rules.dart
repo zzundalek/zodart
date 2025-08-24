@@ -113,6 +113,18 @@ ResRule<T> maxNumRule<T extends num>(T max) {
   };
 }
 
+/// Returns a [ResRule] of type `ResRule<String>`, which checks the string value against [regex].
+///
+/// The returned rule will succeed if the input value `hasMatch` against the [regex] string,
+/// otherwise it will return a [ZIssueCustom].
+ResRule<String> regexRule(String regex, {String? message, String? code}) {
+  return (String val) {
+    return RegExp(regex).hasMatch(val)
+        ? ZRes.success(val)
+        : ZRes.errorSingleIssue(ZIssueCustom(message: message, code: code));
+  };
+}
+
 /// Returns a [ResRule] of type `ResRule<T>`, which wraps the passed refiner to return a [ZRes]
 /// depending on the refiner result.
 ///
