@@ -161,6 +161,80 @@ void main() {
       );
     });
   });
+
+  group('regex', () {
+    const regex = 'Z[a-z]{2}A[a-z]{2}';
+    final baseValidInputs = <ValidInput>[
+      (input: 'I love ZodArt.', expected: 'I love ZodArt.'),
+      (input: 'ZodArt makes my life easier', expected: 'ZodArt makes my life easier'),
+    ];
+    const baseInvalidInputs = <InvalidInput>[
+      (input: 'I like Dart.', expected: [ZIssueCustom()]),
+      (input: 'I love zodart.', expected: [ZIssueCustom()]),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZString().regex(regex),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZString().nullable().regex(regex),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: baseInvalidInputs,
+        ),
+        ZString().regex(regex).nullable(),
+      );
+    });
+    group('custom errors', () {
+      final zStringWithCustomMessageAndCode = ZString().regex(regex, message: 'Custom error message', code: '01');
+      final validValidInputs = <ValidInput>[
+        (input: 'I love ZodArt.', expected: 'I love ZodArt.'),
+      ];
+      const invalidInputs = <InvalidInput>[
+        (input: 'I like Dart.', expected: [ZIssueCustom(message: 'Custom error message', code: '01')]),
+      ];
+      group('required', () {
+        testInputs(
+          (
+            validInputs: validValidInputs,
+            invalidInputs: invalidInputs,
+          ),
+          zStringWithCustomMessageAndCode,
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: validValidInputs,
+            invalidInputs: invalidInputs,
+          ),
+          zStringWithCustomMessageAndCode.nullable(),
+        );
+      });
+    });
+  });
+
   group('trim', () {
     final baseValidInputs = <ValidInput>[
       (input: '', expected: ''),
