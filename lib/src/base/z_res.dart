@@ -155,7 +155,10 @@ extension ZResExt<T> on ZRes<T> {
 
   /// Returns localized issue messages joined by a newline for the given [path],
   /// or `null` if no matching issues are found.
-  String? getSummaryFor(String path) => _findIssuesForPath(path).map((issues) => issues.localizedSummary).toNullable();
+  ///
+  /// Includes the field path if [includePath] is set to true. Default: `false`.
+  String? getSummaryFor(String path, {bool includePath = false}) =>
+      _findIssuesForPath(path).map((issues) => issues.getLocalizedSummary(includePath: includePath)).toNullable();
 
   Option<ZIssues> _findIssuesForPath(String path) => match(
     (rawIssues) => findIssuesForPath(rawIssues, path),

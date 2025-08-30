@@ -72,13 +72,15 @@ void main() {
       late MockZIssueLocalizationService serviceMock;
       setUp(() {
         serviceMock = MockZIssueLocalizationService();
-        when(serviceMock.getIssueText(argThat(isA<ZIssue>()))).thenReturn(stubbedMessage);
+        when(
+          serviceMock.getIssueText(argThat(isA<ZIssue>()), includePath: anyNamed('includePath')),
+        ).thenReturn(stubbedMessage);
       });
 
       test('uses current ZIssueLocalizationService to return localized issueMessages', () {
         final res = runWithValue(zoneKeyForLocalizationService, serviceMock, () {
           expect(ZRes<String>.errorSingleIssue(testIssue).issueMessages, equals([stubbedMessage]));
-          verify(serviceMock.getIssueText(testIssue)).called(1);
+          verify(serviceMock.getIssueText(testIssue, includePath: true)).called(1);
           verifyNoMoreInteractions(serviceMock);
           return true;
         });
@@ -87,7 +89,7 @@ void main() {
       test('returns null for issueMessages on success and does not call getIssueText', () {
         final res = runWithValue(zoneKeyForLocalizationService, serviceMock, () {
           expect(ZRes.success('string value').issueMessages, isNull);
-          verifyNever(serviceMock.getIssueText(testIssue));
+          verifyNever(serviceMock.getIssueText(testIssue, includePath: anyNamed('includePath')));
           return true;
         });
         expect(res, isTrue);
@@ -107,15 +109,19 @@ void main() {
 
       setUp(() {
         serviceMock = MockZIssueLocalizationService();
-        when(serviceMock.getIssueText(testIssues[0])).thenReturn(stubbedMessages[0]);
-        when(serviceMock.getIssueText(testIssues[1])).thenReturn(stubbedMessages[1]);
+        when(
+          serviceMock.getIssueText(testIssues[0], includePath: anyNamed('includePath')),
+        ).thenReturn(stubbedMessages[0]);
+        when(
+          serviceMock.getIssueText(testIssues[1], includePath: anyNamed('includePath')),
+        ).thenReturn(stubbedMessages[1]);
       });
 
       test('uses current ZIssueLocalizationService to return localized issueSummary', () {
         final res = runWithValue(zoneKeyForLocalizationService, serviceMock, () {
           expect(ZRes<String>.error(testIssues).issueSummary, equals(stubbedMessages.join('\n')));
-          verify(serviceMock.getIssueText(testIssues[0])).called(1);
-          verify(serviceMock.getIssueText(testIssues[1])).called(1);
+          verify(serviceMock.getIssueText(testIssues[0], includePath: true)).called(1);
+          verify(serviceMock.getIssueText(testIssues[1], includePath: true)).called(1);
           verifyNoMoreInteractions(serviceMock);
           return true;
         });
@@ -124,7 +130,7 @@ void main() {
       test('returns null for issueSummary on success and does not call getIssueText', () {
         final res = runWithValue(zoneKeyForLocalizationService, serviceMock, () {
           expect(ZRes.success('string value').issueSummary, isNull);
-          verifyNever(serviceMock.getIssueText(any));
+          verifyNever(serviceMock.getIssueText(any, includePath: anyNamed('includePath')));
           return true;
         });
         expect(res, isTrue);
@@ -163,6 +169,13 @@ void main() {
           isA<String>(),
         );
       });
+      test('Path is not included in the return text', () {
+        final text = ZRes<String>.errorSingleIssue(
+          ZIssueMissingValue(rawPath: ZPath.property('zodArt')),
+        ).getSummaryFor('zodArt');
+
+        expect(RegExp(r'^\[.+\] .+$').hasMatch(text ?? ''), isFalse);
+      });
     });
     group('getRawIssuesFor', () {
       test('Returns null for success', () {
@@ -191,12 +204,14 @@ void main() {
       late MockZIssueLocalizationService serviceMock;
       setUp(() {
         serviceMock = MockZIssueLocalizationService();
-        when(serviceMock.getIssueText(argThat(isA<ZIssue>()))).thenReturn(stubbedMessage);
+        when(
+          serviceMock.getIssueText(argThat(isA<ZIssue>()), includePath: anyNamed('includePath')),
+        ).thenReturn(stubbedMessage);
       });
       test('uses current ZIssueLocalizationService to return localized messages', () {
         final res = runWithValue(zoneKeyForLocalizationService, serviceMock, () {
           expect(const ZError<String>([testIssue]).messages, equals([stubbedMessage]));
-          verify(serviceMock.getIssueText(testIssue)).called(1);
+          verify(serviceMock.getIssueText(testIssue, includePath: true)).called(1);
           verifyNoMoreInteractions(serviceMock);
           return true;
         });
@@ -217,15 +232,19 @@ void main() {
 
       setUp(() {
         serviceMock = MockZIssueLocalizationService();
-        when(serviceMock.getIssueText(testIssues[0])).thenReturn(stubbedMessages[0]);
-        when(serviceMock.getIssueText(testIssues[1])).thenReturn(stubbedMessages[1]);
+        when(
+          serviceMock.getIssueText(testIssues[0], includePath: anyNamed('includePath')),
+        ).thenReturn(stubbedMessages[0]);
+        when(
+          serviceMock.getIssueText(testIssues[1], includePath: anyNamed('includePath')),
+        ).thenReturn(stubbedMessages[1]);
       });
 
       test('uses current ZIssueLocalizationService to return localized summary', () {
         final res = runWithValue(zoneKeyForLocalizationService, serviceMock, () {
           expect(const ZError<String>(testIssues).summary, equals(stubbedMessages.join('\n')));
-          verify(serviceMock.getIssueText(testIssues[0])).called(1);
-          verify(serviceMock.getIssueText(testIssues[1])).called(1);
+          verify(serviceMock.getIssueText(testIssues[0], includePath: true)).called(1);
+          verify(serviceMock.getIssueText(testIssues[1], includePath: true)).called(1);
           verifyNoMoreInteractions(serviceMock);
           return true;
         });

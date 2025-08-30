@@ -23,8 +23,9 @@ class ZIssueLocalizationService {
   /// Returns a localized message for the given [ZIssue].
   ///
   /// Uses the appropriate method from [_zIssueLocalization] based on the type of the issue.
-  /// If the issue has an associated [ZIssue.path], it will be prefixed to the message.
-  String getIssueText(ZIssue issue) {
+  /// If the issue has an associated [ZIssue.path] and [includePath] is true,
+  /// the path will be prefixed to the message.
+  String getIssueText(ZIssue issue, {required bool includePath}) {
     final messageText = switch (issue) {
       final ZIssueLengthNotMet issue => _zIssueLocalization.lengthNotMet(issue),
       final ZIssueMinLengthNotMet issue => _zIssueLocalization.minLengthNotMet(issue),
@@ -40,7 +41,7 @@ class ZIssueLocalizationService {
 
     /// Prepends the issue path (if available) to the message text.
     final path = issue.path;
-    return path != null ? _withPath(messageText, path) : messageText;
+    return path != null && includePath ? _withPath(messageText, path) : messageText;
   }
 
   /// Prepends the issue path to the message text.
