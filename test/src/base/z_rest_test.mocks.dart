@@ -27,16 +27,28 @@ import 'package:zodart/src/localization/localization.dart' as _i2;
 /// See the documentation for Mockito's code generation for more information.
 class MockZIssueLocalizationService extends _i1.Mock implements _i2.ZIssueLocalizationService {
   @override
-  String getIssueText(_i3.ZIssue? issue) =>
+  String getIssueText(_i3.ZIssue? issue, {required bool? includePath}) =>
       (super.noSuchMethod(
-            Invocation.method(#getIssueText, [issue]),
+            Invocation.method(
+              #getIssueText,
+              [issue],
+              {#includePath: includePath},
+            ),
             returnValue: _i4.dummyValue<String>(
               this,
-              Invocation.method(#getIssueText, [issue]),
+              Invocation.method(
+                #getIssueText,
+                [issue],
+                {#includePath: includePath},
+              ),
             ),
             returnValueForMissingStub: _i4.dummyValue<String>(
               this,
-              Invocation.method(#getIssueText, [issue]),
+              Invocation.method(
+                #getIssueText,
+                [issue],
+                {#includePath: includePath},
+              ),
             ),
           )
           as String);

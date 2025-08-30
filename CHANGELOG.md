@@ -1,5 +1,6 @@
 ## [UNRELEASED]
 
+- getSummaryFor() does not include [path] in the response
 - add .regex() volidation for ZString
 - add .min() and .max() methods for ZArray
 - update build package to 3.0.2 and source_gen to 3.1.0
