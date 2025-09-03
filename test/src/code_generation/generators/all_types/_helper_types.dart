@@ -7,6 +7,26 @@ import 'package:zodart/zodart.dart';
 // Output types
 // **************************************************************************
 
+/// Record as an output
+/// Note: names are selected carfully not to cause
+/// formatting issue.
+typedef OutputRecord = ({
+  bool zBool,
+  DateTime zDt,
+  double zDbl,
+  int zInt,
+  String zStr,
+  List<String> zArrayOfStr,
+  EmbeddedObj zObj,
+  bool? znBool,
+  DateTime? znDt,
+  double? znDbl,
+  int? znInt,
+  String? znStr,
+  List<String?>? znArrayOfStr,
+  EmbeddedObj? znObj,
+});
+
 /// Class used as an output
 /// Note: names are selected carfully not to cause
 /// formatting issue.

@@ -9,6 +9,16 @@ import '_helper_types.dart';
 part 'goldens/pretype_new_class.dart';
 
 // **************************************************************************
+// Record test
+// **************************************************************************
+
+@ShouldGenerate('\n')
+@ZodArt.withRecord(outputRecordType: OutputRecord)
+abstract class R {
+  static final schema = allTypesSchemaDef;
+}
+
+// **************************************************************************
 // Existing class test
 // **************************************************************************
 
