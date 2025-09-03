@@ -43,6 +43,7 @@ class ZodArtGenerator extends BaseGeneratorForAnnotation {
     NewClassImplSpecBuilder(ClassBuilderUtils()),
     ExistingClassSpecBuilder(),
     UtilsSpecBuilder(),
+    NewRecordSpecBuilder(),
   ];
 
   @override
