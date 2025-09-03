@@ -7,6 +7,7 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../utils/utils.dart';
 import '../ctor/_ctor.dart';
+import '../record/_record.dart';
 import 'schema_parsing.dart';
 
 /// Parses annotated Dart elements and extracts schema and constructor information.
@@ -165,6 +166,34 @@ class SchemaParser {
         );
   }
 
+  /// Validate the output record type specified in [annotation],
+  /// against [outObjSchema].
+  ///
+  /// Returns errors if the output record is not a record, it is nullable
+  /// or it doesn't conform to the output schema.
+  Either<SchemaParsingError, Record> validateOutputRecord({
+    required ZodArtUseRecord annotation,
+    required Map<String, Reference> outObjSchema,
+  }) {
+    return Either<SchemaParsingError, DartType>.fromPredicate(
+          annotation.outputRecordType,
+          (outputType) => outputType.nullabilitySuffix != NullabilitySuffix.question,
+          (_) => OutputTypeIsNullable(
+            outputTypeName: annotation.outputRecordType.getDisplayString(),
+          ),
+        )
+        .refineRightType<RecordType>(
+          (dartType) => OutputRecordIsWrongType(
+            outputTypeName: dartType.toString(),
+          ),
+        )
+        .flatMap(
+          (recordType) => validateRecord(recordType: recordType, schema: outObjSchema).mapLeft(
+            (invalidRecord) => InvalidOutputRecord(errorSummary: invalidRecord.errorsSummary),
+          ),
+        );
+  }
+
   /// Validates whether the given [className] is a valid Dart class identifier.
   bool isNewClassNameValid(String className) {
     final validClassNameRegex = RegExp(r'^_?[a-zA-Z][_a-zA-Z0-9]*$');
@@ -233,6 +262,23 @@ class SchemaParser {
             ctor: ctor,
             refs: Refs(
               annotatedClassName: annotatedClassName,
+              outputTypeName: annotation.outputTypeName,
+              schemaFieldName: annotation.schemaPropertyName,
+            ),
+          ),
+        );
+      }),
+      ZodArtUseRecord() => parseResultOrError.flatMap((parseResult) {
+        final schema = parseResult.schema;
+
+        return validateOutputRecord(
+          annotation: annotation,
+          outObjSchema: schema.outSchema.mapValue(refer),
+        ).map(
+          (_) => UseRecordSpec(
+            schema: parseResult.schema,
+            refs: Refs(
+              annotatedClassName: parseResult.annotatedClassName,
               outputTypeName: annotation.outputTypeName,
               schemaFieldName: annotation.schemaPropertyName,
             ),
