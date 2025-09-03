@@ -130,8 +130,8 @@ class SchemaParser {
     return Either<SchemaParsingError, DartType>.fromPredicate(
           annotation.outputClassType,
           (outputType) => outputType.nullabilitySuffix != NullabilitySuffix.question,
-          (_) => OutputClassIsNullable(
-            outputClassName: annotation.outputClassType.getDisplayString(),
+          (_) => OutputTypeIsNullable(
+            outputTypeName: annotation.outputClassType.getDisplayString(),
           ),
         )
         .flatMap(
