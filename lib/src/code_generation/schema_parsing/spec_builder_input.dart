@@ -57,5 +57,5 @@ class UseRecordSpec extends SpecBuilderInput {
   const UseRecordSpec({required super.refs, required super.schema});
 
   @override
-  List<Spec> accept(SpecBuilderInputVisitor visitor) => []; // TODO(zzundalek): add proper generation logic
+  List<Spec> accept(SpecBuilderInputVisitor visitor) => visitor.visiCreateRecordSpecInput(this);
 }

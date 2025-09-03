@@ -181,4 +181,7 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
 
   @override
   List<Spec> visitUseExistingClassSpecInput(UseExistingClassSpec specInput) => build(specInput);
+
+  @override
+  List<Spec> visiCreateRecordSpecInput(UseRecordSpec specInput) => build(specInput);
 }

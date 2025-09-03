@@ -43,8 +43,7 @@ class NewRecordSpecBuilder implements SpecBuilderInputVisitor {
   @override
   List<Spec> visitUseExistingClassSpecInput(UseExistingClassSpec specInput) => [];
 
-  // TODO(zzundalek): add override annotation
-  ///
+  @override
   List<Spec> visiCreateRecordSpecInput(UseRecordSpec specInput) {
     final schema = specInput.schema;
     final refs = specInput.refs;
