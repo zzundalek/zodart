@@ -1,23 +1,20 @@
-// Will be migrated in new version automatically https://github.com/dart-lang/source_gen/issues/743
-// ignore_for_file: deprecated_member_use
-
 @GenerateNiceMocks([
-  MockSpec<ClassElement>(),
+  MockSpec<ClassElement2>(),
 ])
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../constructor_element/constructor_element.mocks.dart';
 import 'class_element.mocks.dart';
 
-MockClassElement mockClassElement({
+MockClassElement2 mockClassElement({
   required String name,
-  List<MockConstructorElement> ctors = const [],
+  List<MockConstructorElement2> ctors = const [],
 }) {
-  final classElem = MockClassElement();
-  when(classElem.name).thenReturn(name);
-  when(classElem.constructors).thenReturn(ctors);
+  final classElem = MockClassElement2();
+  when(classElem.name3).thenReturn(name);
+  when(classElem.constructors2).thenReturn(ctors);
 
   return classElem;
 }

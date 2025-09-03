@@ -12,7 +12,7 @@ Parse unstructured data from APIs, Flutter forms, config files, and more — wit
 | Version | Status                                                                                                                                                                                                                                                                                       |
 | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | current | [![Pub Version](https://img.shields.io/pub/v/zodart.svg?)](https://pub.dev/packages/zodart) ![GitHub open bugs](https://img.shields.io/github/issues-search/zzundalek/zodart?query=is%3Aissue%20label%3Abug%20is%3Aopen%20&logo=openbugbounty&logoColor=orange&label=bugs&color=brightgreen) |
-| next    | ![GitHub next milestone details](https://img.shields.io/github/milestones/progress-percent/zzundalek/zodart/5?logo=rocket) ![GitHub last commit](https://img.shields.io/github/last-commit/zzundalek/zodart)                                                                                 |
+| next    | ![GitHub next milestone details](https://img.shields.io/github/milestones/progress-percent/zzundalek/zodart/6?logo=rocket) ![GitHub last commit](https://img.shields.io/github/last-commit/zzundalek/zodart)                                                                                 |
 
 ## Simple example
 
@@ -23,8 +23,8 @@ To start using the code generation [set it up first](#setup-code-generation).
 ```dart
 import 'package:zodart/zodart.dart';
 
-// part '<FILE_NAME>.zodart.dart';
-// part '<FILE_NAME>.zodart.type.dart';
+part '<FILE_NAME>.zodart.dart';
+part '<FILE_NAME>.zodart.type.dart';
 
 // Item schema (automatically generates the Item class)
 @ZodArt.generateNewClass(outputClassName: 'Item')
@@ -33,7 +33,7 @@ abstract class ItemSchema {
   static final schema = (
     id: ZInt().min(1).max(9999),
     name: ZString().trim().min(1).max(20),
-    makerName: ZString().process((val) => '$val🚀 '), // append 🚀 to the name
+    makerName: ZString().process((val) => '$val🚀'), // append 🚀 to the name
     notes: ZArray(ZString().min(1)).nullable(), // nullable list of notes
     price: ZDouble().min(0),
     archived: ZBool().optional(), // optional archived flag
@@ -54,15 +54,22 @@ void main() {
     'notes': null,
   });
 
+  // To access the parsed result use `.isSuccess`
   if (res.isSuccess) {
     print(res.value); // Prints: Item(..., id: 7, makerName: ZodArt🚀, ...
   } else {
-    print('❌ Validation failed! ${res.issueSummary}'); // Print all issues
-    print(
-      'Item.price issue:' // Pinpoint only issue for `item.price`
-      '${res.getRawIssuesFor(ItemSchema.z.props.price.name)?.localizedSummary}',
-    );
+    print('❌ Validation failed: ${res.issueSummary}'); // Print all issues
   }
+
+  // Or use `match` method for a more FP way
+  res.match(
+    (issues) => print('❌ Validation failed: ${issues.localizedSummary}'),
+    (item) => print('🟢 Validation successful: $item'),
+  );
+
+  // To obtain only issues summary for `item.price` use `getSummaryFor`
+  final priceIssueSummary = res.getSummaryFor(ItemSchemaProps.price.name);
+  print('Item.price issue: $priceIssueSummary');
 }
 ```
 
@@ -72,8 +79,10 @@ void main() {
 - [Basic Usage](#basic-usage)
 - [Parsing values](#parsing-values)
 - [Nullable & optional values](#nullable--optional-values)
+- [Handling null values](#handling-null-values)
 - [Validation & refine](#validation--refine)
 - [Value processing](#value-processing)
+- [Value transformation](#value-transformation)
 - [Localization & Custom Errors](#localization--custom-errors)
 - [Additional information](#additional-information)
 
@@ -149,6 +158,12 @@ See more about code generation in the [build_runner package](https://pub.dev/pac
 - ✅ Exposes type-safe property access to simplify field-specific issue handling.
 
 ### ZodArt annotation
+
+#### Use a record as output
+
+Annotation: `@ZodArt.withRecord(outputRecordType: <TYPE>)`
+
+Automatically creates the output record.
 
 #### Use an existing class
 
@@ -238,7 +253,7 @@ For all other schemas like `ZString`, `ZInt`, etc., there is no concept of a "mi
 
 See more at [nullable modifier doc](doc/modifiers/nullability.md).
 
-## Handling null values with onNull
+## Handling null values
 
 Sometimes you don’t just want to accept null, but also provide a default value in that case.
 For this purpose, every nullable schema type supports the .onNull() handler, which is invoked whenever the current value is null.

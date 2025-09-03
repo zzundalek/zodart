@@ -48,6 +48,17 @@ class ZNullableString extends ZBase<String?>
   ZNullableDateTime toDateTime() =>
       _transformBuildIn(constructor: ZNullableDateTime._withConfig, transformer: stringToDateTime);
 
+  /// Adds a rule to enforce that the string matches a regular expression string at [regex].
+  ///
+  /// Uses RegExp.hasMatch() internally.
+  ZNullableString regex(String regex, {String? message, String? code}) => _addRule(
+    regexRule(
+      regex,
+      message: message,
+      code: code,
+    ),
+  );
+
   /// Enable omitting this value. All rules will be skipped if the value is missing.
   ZNullableString optional() => _optional(constructor: ZNullableString._withConfig);
 

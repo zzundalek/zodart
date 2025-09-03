@@ -3,6 +3,8 @@ import 'package:zodart/src/code_generation/annotations.dart';
 
 class TestOutputClass {}
 
+typedef TestOutputRecord = ({String val});
+
 void main() {
   group('ZodArt', () {
     late ZodArt zodArt;
@@ -37,6 +39,22 @@ void main() {
       });
       test('check outputTypeStr', () {
         expect(zodArt.outputTypeStr, equals('TestOutputClass'));
+      });
+    });
+    group('ZodArt.withRecord', () {
+      setUp(() {
+        // Using const ctor will not trigger this._(...) during the test
+        // ignore: prefer_const_constructors
+        zodArt = ZodArt.withRecord(outputRecordType: TestOutputRecord);
+      });
+      test('check right annotation kind', () {
+        expect(zodArt.annotationKind, equals('useRecord'));
+      });
+      test('check outputType', () {
+        expect(zodArt.outputType, equals(TestOutputRecord));
+      });
+      test('check outputTypeStr', () {
+        expect(zodArt.outputTypeStr, isNull);
       });
     });
   });

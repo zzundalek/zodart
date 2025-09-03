@@ -52,9 +52,9 @@ class BaseMockCtorAnalysis extends _i1.Mock implements _i2.CtorAnalysis {
           as Map<String, _i5.Reference>);
 
   @override
-  Set<String> get missingInCtor =>
+  Set<String> get missingInEntity =>
       (super.noSuchMethod(
-            Invocation.getter(#missingInCtor),
+            Invocation.getter(#missingInEntity),
             returnValue: <String>{},
             returnValueForMissingStub: <String>{},
           )

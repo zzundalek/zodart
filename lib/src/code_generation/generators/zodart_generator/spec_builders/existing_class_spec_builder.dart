@@ -49,6 +49,9 @@ class ExistingClassSpecBuilder implements SpecBuilderInputVisitor {
   List<Spec> visitGenerateNewClassSpecInput(GenerateNewClassSpec specInput) => [];
 
   @override
+  List<Spec> visiCreateRecordSpecInput(UseRecordSpec specInput) => [];
+
+  @override
   List<Spec> visitUseExistingClassSpecInput(UseExistingClassSpec specInput) {
     final instatiateFn = buildInstatiateFn(specInput.ctor, refs: specInput.refs);
 

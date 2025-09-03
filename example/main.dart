@@ -12,7 +12,7 @@ abstract class ItemSchema {
   static final schema = (
     id: ZInt().min(1).max(9999),
     name: ZString().trim().min(1).max(20),
-    makerName: ZString().process((val) => '$val🚀 '), // append 🚀 to the name
+    makerName: ZString().process((val) => '$val🚀'), // append 🚀 to the name
     notes: ZArray(ZString().min(1)).nullable(), // nullable list of notes
     price: ZDouble().min(0),
     archived: ZBool().optional(), // optional archived flag
@@ -33,13 +33,20 @@ void main() {
     'notes': null,
   });
 
+  // To access the parsed result use `.isSuccess`
   if (res.isSuccess) {
     print(res.value); // Prints: Item(..., id: 7, makerName: ZodArt🚀, ...
   } else {
-    print('❌ Validation failed! ${res.issueSummary}'); // Print all issues
-    print(
-      'Item.price issue:' // Pinpoint only issue for `item.price`
-      '${res.getRawIssuesFor(ItemSchema.z.props.price.name)?.localizedSummary}',
-    );
+    print('❌ Validation failed: ${res.issueSummary}'); // Print all issues
   }
+
+  // Or use `match` method for a more FP way
+  res.match(
+    (issues) => print('❌ Validation failed: ${issues.localizedSummary}'),
+    (item) => print('🟢 Validation successful: $item'),
+  );
+
+  // To obtain only issues summary for `item.price` use `getSummaryFor`
+  final priceIssueSummary = res.getSummaryFor(ItemSchemaProps.price.name);
+  print('Item.price issue: $priceIssueSummary');
 }

@@ -3,13 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:analyzer/dart/element/element.dart' as _i2;
-import 'package:analyzer/dart/element/element2.dart' as _i5;
+import 'package:analyzer/dart/element/element.dart' as _i4;
+import 'package:analyzer/dart/element/element2.dart' as _i2;
 import 'package:analyzer/dart/element/type.dart' as _i3;
-import 'package:analyzer/source/source.dart' as _i6;
-import 'package:analyzer/src/generated/engine.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,90 +23,99 @@ import 'package:mockito/src/dummies.dart' as _i7;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeConstructorElement_0 extends _i1.SmartFake implements _i2.ConstructorElement {
-  _FakeConstructorElement_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeConstructorElement2_0 extends _i1.SmartFake implements _i2.ConstructorElement2 {
+  _FakeConstructorElement2_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeInterfaceElement_1 extends _i1.SmartFake implements _i2.InterfaceElement {
-  _FakeInterfaceElement_1(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeInterfaceElement2_1 extends _i1.SmartFake implements _i2.InterfaceElement2 {
+  _FakeInterfaceElement2_1(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeInterfaceType_2 extends _i1.SmartFake implements _i3.InterfaceType {
-  _FakeInterfaceType_2(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeConstructorFragment_2 extends _i1.SmartFake implements _i2.ConstructorFragment {
+  _FakeConstructorFragment_2(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeAnalysisContext_3 extends _i1.SmartFake implements _i4.AnalysisContext {
-  _FakeAnalysisContext_3(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeInterfaceType_3 extends _i1.SmartFake implements _i3.InterfaceType {
+  _FakeInterfaceType_3(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeElementKind_4 extends _i1.SmartFake implements _i5.ElementKind {
-  _FakeElementKind_4(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeFunctionType_4 extends _i1.SmartFake implements _i3.FunctionType {
+  _FakeFunctionType_4(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeLibraryElement_5 extends _i1.SmartFake implements _i2.LibraryElement {
-  _FakeLibraryElement_5(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeLibraryElement2_5 extends _i1.SmartFake implements _i2.LibraryElement2 {
+  _FakeLibraryElement2_5(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeElement_6 extends _i1.SmartFake implements _i2.Element {
-  _FakeElement_6(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeElementKind_6 extends _i1.SmartFake implements _i4.ElementKind {
+  _FakeElementKind_6(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeSource_7 extends _i1.SmartFake implements _i6.Source {
-  _FakeSource_7(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeElement2_7 extends _i1.SmartFake implements _i2.Element2 {
+  _FakeElement2_7(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeFunctionType_8 extends _i1.SmartFake implements _i3.FunctionType {
-  _FakeFunctionType_8(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeMetadata_8 extends _i1.SmartFake implements _i2.Metadata {
+  _FakeMetadata_8(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-/// A class which mocks [ConstructorElement].
+/// A class which mocks [ConstructorElement2].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockConstructorElement extends _i1.Mock implements _i2.ConstructorElement {
+class MockConstructorElement2 extends _i1.Mock implements _i2.ConstructorElement2 {
   @override
-  _i2.ConstructorElement get declaration =>
+  _i2.ConstructorElement2 get baseElement =>
       (super.noSuchMethod(
-            Invocation.getter(#declaration),
-            returnValue: _FakeConstructorElement_0(
+            Invocation.getter(#baseElement),
+            returnValue: _FakeConstructorElement2_0(
               this,
-              Invocation.getter(#declaration),
+              Invocation.getter(#baseElement),
             ),
-            returnValueForMissingStub: _FakeConstructorElement_0(
+            returnValueForMissingStub: _FakeConstructorElement2_0(
               this,
-              Invocation.getter(#declaration),
+              Invocation.getter(#baseElement),
             ),
           )
-          as _i2.ConstructorElement);
+          as _i2.ConstructorElement2);
 
   @override
-  String get displayName =>
+  _i2.InterfaceElement2 get enclosingElement2 =>
       (super.noSuchMethod(
-            Invocation.getter(#displayName),
-            returnValue: _i7.dummyValue<String>(
+            Invocation.getter(#enclosingElement2),
+            returnValue: _FakeInterfaceElement2_1(
               this,
-              Invocation.getter(#displayName),
+              Invocation.getter(#enclosingElement2),
             ),
-            returnValueForMissingStub: _i7.dummyValue<String>(
+            returnValueForMissingStub: _FakeInterfaceElement2_1(
               this,
-              Invocation.getter(#displayName),
+              Invocation.getter(#enclosingElement2),
             ),
           )
-          as String);
+          as _i2.InterfaceElement2);
 
   @override
-  _i2.InterfaceElement get enclosingElement3 =>
+  _i2.ConstructorFragment get firstFragment =>
       (super.noSuchMethod(
-            Invocation.getter(#enclosingElement3),
-            returnValue: _FakeInterfaceElement_1(
+            Invocation.getter(#firstFragment),
+            returnValue: _FakeConstructorFragment_2(
               this,
-              Invocation.getter(#enclosingElement3),
+              Invocation.getter(#firstFragment),
             ),
-            returnValueForMissingStub: _FakeInterfaceElement_1(
+            returnValueForMissingStub: _FakeConstructorFragment_2(
               this,
-              Invocation.getter(#enclosingElement3),
+              Invocation.getter(#firstFragment),
             ),
           )
-          as _i2.InterfaceElement);
+          as _i2.ConstructorFragment);
+
+  @override
+  List<_i2.ConstructorFragment> get fragments =>
+      (super.noSuchMethod(
+            Invocation.getter(#fragments),
+            returnValue: <_i2.ConstructorFragment>[],
+            returnValueForMissingStub: <_i2.ConstructorFragment>[],
+          )
+          as List<_i2.ConstructorFragment>);
 
   @override
   bool get isConst =>
@@ -147,31 +154,55 @@ class MockConstructorElement extends _i1.Mock implements _i2.ConstructorElement 
           as bool);
 
   @override
-  String get name =>
-      (super.noSuchMethod(
-            Invocation.getter(#name),
-            returnValue: _i7.dummyValue<String>(this, Invocation.getter(#name)),
-            returnValueForMissingStub: _i7.dummyValue<String>(
-              this,
-              Invocation.getter(#name),
-            ),
-          )
-          as String);
-
-  @override
   _i3.InterfaceType get returnType =>
       (super.noSuchMethod(
             Invocation.getter(#returnType),
-            returnValue: _FakeInterfaceType_2(
+            returnValue: _FakeInterfaceType_3(
               this,
               Invocation.getter(#returnType),
             ),
-            returnValueForMissingStub: _FakeInterfaceType_2(
+            returnValueForMissingStub: _FakeInterfaceType_3(
               this,
               Invocation.getter(#returnType),
             ),
           )
           as _i3.InterfaceType);
+
+  @override
+  bool get hasImplicitReturnType =>
+      (super.noSuchMethod(
+            Invocation.getter(#hasImplicitReturnType),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  bool get isAbstract =>
+      (super.noSuchMethod(
+            Invocation.getter(#isAbstract),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  bool get isExtensionTypeMember =>
+      (super.noSuchMethod(
+            Invocation.getter(#isExtensionTypeMember),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  bool get isExternal =>
+      (super.noSuchMethod(
+            Invocation.getter(#isExternal),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
 
   @override
   bool get isStatic =>
@@ -183,271 +214,82 @@ class MockConstructorElement extends _i1.Mock implements _i2.ConstructorElement 
           as bool);
 
   @override
-  List<_i2.Element> get children =>
+  List<_i2.FormalParameterElement> get formalParameters =>
       (super.noSuchMethod(
-            Invocation.getter(#children),
-            returnValue: <_i2.Element>[],
-            returnValueForMissingStub: <_i2.Element>[],
+            Invocation.getter(#formalParameters),
+            returnValue: <_i2.FormalParameterElement>[],
+            returnValueForMissingStub: <_i2.FormalParameterElement>[],
           )
-          as List<_i2.Element>);
+          as List<_i2.FormalParameterElement>);
 
   @override
-  _i4.AnalysisContext get context =>
+  _i3.FunctionType get type =>
       (super.noSuchMethod(
-            Invocation.getter(#context),
-            returnValue: _FakeAnalysisContext_3(
+            Invocation.getter(#type),
+            returnValue: _FakeFunctionType_4(this, Invocation.getter(#type)),
+            returnValueForMissingStub: _FakeFunctionType_4(
               this,
-              Invocation.getter(#context),
-            ),
-            returnValueForMissingStub: _FakeAnalysisContext_3(
-              this,
-              Invocation.getter(#context),
+              Invocation.getter(#type),
             ),
           )
-          as _i4.AnalysisContext);
+          as _i3.FunctionType);
 
   @override
-  bool get hasAlwaysThrows =>
+  bool get isSimplyBounded =>
       (super.noSuchMethod(
-            Invocation.getter(#hasAlwaysThrows),
+            Invocation.getter(#isSimplyBounded),
             returnValue: false,
             returnValueForMissingStub: false,
           )
           as bool);
 
   @override
-  bool get hasDeprecated =>
+  _i2.LibraryElement2 get library2 =>
       (super.noSuchMethod(
-            Invocation.getter(#hasDeprecated),
-            returnValue: false,
-            returnValueForMissingStub: false,
+            Invocation.getter(#library2),
+            returnValue: _FakeLibraryElement2_5(
+              this,
+              Invocation.getter(#library2),
+            ),
+            returnValueForMissingStub: _FakeLibraryElement2_5(
+              this,
+              Invocation.getter(#library2),
+            ),
           )
-          as bool);
+          as _i2.LibraryElement2);
 
   @override
-  bool get hasDoNotStore =>
+  List<_i2.TypeParameterElement2> get typeParameters2 =>
       (super.noSuchMethod(
-            Invocation.getter(#hasDoNotStore),
-            returnValue: false,
-            returnValueForMissingStub: false,
+            Invocation.getter(#typeParameters2),
+            returnValue: <_i2.TypeParameterElement2>[],
+            returnValueForMissingStub: <_i2.TypeParameterElement2>[],
           )
-          as bool);
+          as List<_i2.TypeParameterElement2>);
 
   @override
-  bool get hasDoNotSubmit =>
+  List<_i2.Element2> get children2 =>
       (super.noSuchMethod(
-            Invocation.getter(#hasDoNotSubmit),
-            returnValue: false,
-            returnValueForMissingStub: false,
+            Invocation.getter(#children2),
+            returnValue: <_i2.Element2>[],
+            returnValueForMissingStub: <_i2.Element2>[],
           )
-          as bool);
+          as List<_i2.Element2>);
 
   @override
-  bool get hasFactory =>
+  String get displayName =>
       (super.noSuchMethod(
-            Invocation.getter(#hasFactory),
-            returnValue: false,
-            returnValueForMissingStub: false,
+            Invocation.getter(#displayName),
+            returnValue: _i5.dummyValue<String>(
+              this,
+              Invocation.getter(#displayName),
+            ),
+            returnValueForMissingStub: _i5.dummyValue<String>(
+              this,
+              Invocation.getter(#displayName),
+            ),
           )
-          as bool);
-
-  @override
-  bool get hasImmutable =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasImmutable),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasInternal =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasInternal),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasIsTest =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasIsTest),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasIsTestGroup =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasIsTestGroup),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasJS =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasJS),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasLiteral =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasLiteral),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasMustBeConst =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasMustBeConst),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasMustBeOverridden =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasMustBeOverridden),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasMustCallSuper =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasMustCallSuper),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasNonVirtual =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasNonVirtual),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasOptionalTypeArgs =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasOptionalTypeArgs),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasOverride =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasOverride),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasProtected =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasProtected),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasRedeclare =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasRedeclare),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasReopen =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasReopen),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasRequired =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasRequired),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasSealed =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasSealed),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasUseResult =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasUseResult),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasVisibleForOverriding =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasVisibleForOverriding),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasVisibleForTemplate =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasVisibleForTemplate),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasVisibleForTesting =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasVisibleForTesting),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get hasVisibleOutsideTemplate =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasVisibleOutsideTemplate),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
+          as String);
 
   @override
   int get id =>
@@ -486,306 +328,122 @@ class MockConstructorElement extends _i1.Mock implements _i2.ConstructorElement 
           as bool);
 
   @override
-  _i5.ElementKind get kind =>
+  _i4.ElementKind get kind =>
       (super.noSuchMethod(
             Invocation.getter(#kind),
-            returnValue: _FakeElementKind_4(this, Invocation.getter(#kind)),
-            returnValueForMissingStub: _FakeElementKind_4(
+            returnValue: _FakeElementKind_6(this, Invocation.getter(#kind)),
+            returnValueForMissingStub: _FakeElementKind_6(
               this,
               Invocation.getter(#kind),
             ),
           )
-          as _i5.ElementKind);
+          as _i4.ElementKind);
 
   @override
-  _i2.LibraryElement get library =>
+  _i2.Element2 get nonSynthetic2 =>
       (super.noSuchMethod(
-            Invocation.getter(#library),
-            returnValue: _FakeLibraryElement_5(
+            Invocation.getter(#nonSynthetic2),
+            returnValue: _FakeElement2_7(
               this,
-              Invocation.getter(#library),
+              Invocation.getter(#nonSynthetic2),
             ),
-            returnValueForMissingStub: _FakeLibraryElement_5(
+            returnValueForMissingStub: _FakeElement2_7(
               this,
-              Invocation.getter(#library),
-            ),
-          )
-          as _i2.LibraryElement);
-
-  @override
-  List<_i5.ElementAnnotation> get metadata =>
-      (super.noSuchMethod(
-            Invocation.getter(#metadata),
-            returnValue: <_i5.ElementAnnotation>[],
-            returnValueForMissingStub: <_i5.ElementAnnotation>[],
-          )
-          as List<_i5.ElementAnnotation>);
-
-  @override
-  int get nameLength =>
-      (super.noSuchMethod(
-            Invocation.getter(#nameLength),
-            returnValue: 0,
-            returnValueForMissingStub: 0,
-          )
-          as int);
-
-  @override
-  int get nameOffset =>
-      (super.noSuchMethod(
-            Invocation.getter(#nameOffset),
-            returnValue: 0,
-            returnValueForMissingStub: 0,
-          )
-          as int);
-
-  @override
-  _i2.Element get nonSynthetic =>
-      (super.noSuchMethod(
-            Invocation.getter(#nonSynthetic),
-            returnValue: _FakeElement_6(this, Invocation.getter(#nonSynthetic)),
-            returnValueForMissingStub: _FakeElement_6(
-              this,
-              Invocation.getter(#nonSynthetic),
+              Invocation.getter(#nonSynthetic2),
             ),
           )
-          as _i2.Element);
+          as _i2.Element2);
 
   @override
-  _i6.Source get source =>
+  _i2.Metadata get metadata2 =>
       (super.noSuchMethod(
-            Invocation.getter(#source),
-            returnValue: _FakeSource_7(this, Invocation.getter(#source)),
-            returnValueForMissingStub: _FakeSource_7(
+            Invocation.getter(#metadata2),
+            returnValue: _FakeMetadata_8(this, Invocation.getter(#metadata2)),
+            returnValueForMissingStub: _FakeMetadata_8(
               this,
-              Invocation.getter(#source),
+              Invocation.getter(#metadata2),
             ),
           )
-          as _i6.Source);
+          as _i2.Metadata);
 
   @override
-  _i6.Source get librarySource =>
+  T? accept2<T>(_i2.ElementVisitor2<T>? visitor) =>
       (super.noSuchMethod(
-            Invocation.getter(#librarySource),
-            returnValue: _FakeSource_7(this, Invocation.getter(#librarySource)),
-            returnValueForMissingStub: _FakeSource_7(
-              this,
-              Invocation.getter(#librarySource),
-            ),
-          )
-          as _i6.Source);
-
-  @override
-  bool get hasImplicitReturnType =>
-      (super.noSuchMethod(
-            Invocation.getter(#hasImplicitReturnType),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isAbstract =>
-      (super.noSuchMethod(
-            Invocation.getter(#isAbstract),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isAsynchronous =>
-      (super.noSuchMethod(
-            Invocation.getter(#isAsynchronous),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isAugmentation =>
-      (super.noSuchMethod(
-            Invocation.getter(#isAugmentation),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isExtensionTypeMember =>
-      (super.noSuchMethod(
-            Invocation.getter(#isExtensionTypeMember),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isExternal =>
-      (super.noSuchMethod(
-            Invocation.getter(#isExternal),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isGenerator =>
-      (super.noSuchMethod(
-            Invocation.getter(#isGenerator),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isOperator =>
-      (super.noSuchMethod(
-            Invocation.getter(#isOperator),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isSynchronous =>
-      (super.noSuchMethod(
-            Invocation.getter(#isSynchronous),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  List<_i2.ParameterElement> get parameters =>
-      (super.noSuchMethod(
-            Invocation.getter(#parameters),
-            returnValue: <_i2.ParameterElement>[],
-            returnValueForMissingStub: <_i2.ParameterElement>[],
-          )
-          as List<_i2.ParameterElement>);
-
-  @override
-  _i3.FunctionType get type =>
-      (super.noSuchMethod(
-            Invocation.getter(#type),
-            returnValue: _FakeFunctionType_8(this, Invocation.getter(#type)),
-            returnValueForMissingStub: _FakeFunctionType_8(
-              this,
-              Invocation.getter(#type),
-            ),
-          )
-          as _i3.FunctionType);
-
-  @override
-  bool get isSimplyBounded =>
-      (super.noSuchMethod(
-            Invocation.getter(#isSimplyBounded),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  List<_i2.TypeParameterElement> get typeParameters =>
-      (super.noSuchMethod(
-            Invocation.getter(#typeParameters),
-            returnValue: <_i2.TypeParameterElement>[],
-            returnValueForMissingStub: <_i2.TypeParameterElement>[],
-          )
-          as List<_i2.TypeParameterElement>);
-
-  @override
-  bool get isConstantEvaluated =>
-      (super.noSuchMethod(
-            Invocation.getter(#isConstantEvaluated),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  T? accept<T>(_i2.ElementVisitor<T>? visitor) =>
-      (super.noSuchMethod(
-            Invocation.method(#accept, [visitor]),
+            Invocation.method(#accept2, [visitor]),
             returnValueForMissingStub: null,
           )
           as T?);
 
   @override
-  String getDisplayString({
-    bool? withNullability = true,
+  String displayString2({
     bool? multiline = false,
+    bool? preferTypeAlias = false,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#getDisplayString, [], {
-              #withNullability: withNullability,
+            Invocation.method(#displayString2, [], {
               #multiline: multiline,
+              #preferTypeAlias: preferTypeAlias,
             }),
-            returnValue: _i7.dummyValue<String>(
+            returnValue: _i5.dummyValue<String>(
               this,
-              Invocation.method(#getDisplayString, [], {
-                #withNullability: withNullability,
+              Invocation.method(#displayString2, [], {
                 #multiline: multiline,
+                #preferTypeAlias: preferTypeAlias,
               }),
             ),
-            returnValueForMissingStub: _i7.dummyValue<String>(
+            returnValueForMissingStub: _i5.dummyValue<String>(
               this,
-              Invocation.method(#getDisplayString, [], {
-                #withNullability: withNullability,
+              Invocation.method(#displayString2, [], {
                 #multiline: multiline,
+                #preferTypeAlias: preferTypeAlias,
               }),
             ),
           )
           as String);
 
   @override
-  String getExtendedDisplayName(String? shortName) =>
+  String getExtendedDisplayName2({String? shortName}) =>
       (super.noSuchMethod(
-            Invocation.method(#getExtendedDisplayName, [shortName]),
-            returnValue: _i7.dummyValue<String>(
+            Invocation.method(#getExtendedDisplayName2, [], {
+              #shortName: shortName,
+            }),
+            returnValue: _i5.dummyValue<String>(
               this,
-              Invocation.method(#getExtendedDisplayName, [shortName]),
+              Invocation.method(#getExtendedDisplayName2, [], {
+                #shortName: shortName,
+              }),
             ),
-            returnValueForMissingStub: _i7.dummyValue<String>(
+            returnValueForMissingStub: _i5.dummyValue<String>(
               this,
-              Invocation.method(#getExtendedDisplayName, [shortName]),
+              Invocation.method(#getExtendedDisplayName2, [], {
+                #shortName: shortName,
+              }),
             ),
           )
           as String);
 
   @override
-  bool isAccessibleIn(_i2.LibraryElement? library) =>
+  bool isAccessibleIn2(_i2.LibraryElement2? library) =>
       (super.noSuchMethod(
-            Invocation.method(#isAccessibleIn, [library]),
+            Invocation.method(#isAccessibleIn2, [library]),
             returnValue: false,
             returnValueForMissingStub: false,
           )
           as bool);
 
   @override
-  E? thisOrAncestorMatching<E extends _i2.Element>(
-    bool Function(_i2.Element)? predicate,
+  _i2.Element2? thisOrAncestorMatching2(
+    bool Function(_i2.Element2)? predicate,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#thisOrAncestorMatching, [predicate]),
+            Invocation.method(#thisOrAncestorMatching2, [predicate]),
             returnValueForMissingStub: null,
           )
-          as E?);
+          as _i2.Element2?);
 
   @override
-  E? thisOrAncestorMatching3<E extends _i2.Element>(
-    bool Function(_i2.Element)? predicate,
-  ) =>
-      (super.noSuchMethod(
-            Invocation.method(#thisOrAncestorMatching3, [predicate]),
-            returnValueForMissingStub: null,
-          )
-          as E?);
-
-  @override
-  void visitChildren(_i2.ElementVisitor<dynamic>? visitor) => super.noSuchMethod(
-    Invocation.method(#visitChildren, [visitor]),
+  void visitChildren2<T>(_i2.ElementVisitor2<T>? visitor) => super.noSuchMethod(
+    Invocation.method(#visitChildren2, [visitor]),
     returnValueForMissingStub: null,
   );
 }

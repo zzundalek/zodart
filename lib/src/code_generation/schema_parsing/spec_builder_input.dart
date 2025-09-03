@@ -48,3 +48,14 @@ class UseExistingClassSpec extends SpecBuilderInput {
   @override
   List<Spec> accept(SpecBuilderInputVisitor visitor) => visitor.visitUseExistingClassSpecInput(this);
 }
+
+/// Represents a [SpecBuilderInput] that uses record as output for code generation.
+///
+/// This is used when an annotation specifies a record.
+class UseRecordSpec extends SpecBuilderInput {
+  /// Creates a new [UseRecordSpec] with the given references, and schema.
+  const UseRecordSpec({required super.refs, required super.schema});
+
+  @override
+  List<Spec> accept(SpecBuilderInputVisitor visitor) => visitor.visiCreateRecordSpecInput(this);
+}

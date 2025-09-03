@@ -1,7 +1,4 @@
-// Will be migrated in new version automatically https://github.com/dart-lang/source_gen/issues/743
-// ignore_for_file: deprecated_member_use
-
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,7 +6,7 @@ part 'ctor.freezed.dart';
 
 /// A base class representation of a constructor.
 ///
-/// Use [Ctor.fromCtorElement] to create a [NamedCtor] or [UnnamedCtor] from a [ConstructorElement].
+/// Use [Ctor.fromCtorElement] to create a [NamedCtor] or [UnnamedCtor] from a [ConstructorElement2].
 @freezed
 sealed class Ctor with _$Ctor {
   const Ctor._();
@@ -33,8 +30,8 @@ sealed class Ctor with _$Ctor {
     required List<Reference> optPositionalParams,
   }) = UnnamedCtor;
 
-  factory Ctor.fromCtorElement(ConstructorElement ctorElement) {
-    final params = ctorElement.parameters;
+  factory Ctor.fromCtorElement(ConstructorElement2 ctorElement) {
+    final params = ctorElement.formalParameters;
 
     final reqNamedParams = Map.fromEntries(params.where((p) => p.isRequiredNamed).map(toNamedParam));
     final optNamedParams = Map.fromEntries(params.where((p) => p.isOptionalNamed).map(toNamedParam));
@@ -42,11 +39,13 @@ sealed class Ctor with _$Ctor {
     final reqPositionalParams = params.where((p) => p.isRequiredPositional).map(toUnnamedParam).toList();
     final optPositionalParams = params.where((p) => p.isOptionalPositional).map(toUnnamedParam).toList();
 
-    final ctorName = ctorElement.name;
+    final ctorName = _getCtorName(ctorElement);
     final isConst = ctorElement.isConst;
     final isFactory = ctorElement.isFactory;
 
-    return ctorName.isNotEmpty
+    _getCtorName(ctorElement);
+
+    return ctorName != null
         ? NamedCtor(
             name: ctorName,
             isConst: isConst,
@@ -66,6 +65,11 @@ sealed class Ctor with _$Ctor {
           );
   }
 
+  static String? _getCtorName(ConstructorElement2 ctor) {
+    final name = ctor.name3;
+    return name != null && name.isNotEmpty && name != 'new' ? name : null;
+  }
+
   /// Whether the constructor has a name (i.e., is a named constructor).
   bool get isNamed => switch (this) {
     NamedCtor() => true,
@@ -83,10 +87,17 @@ sealed class Ctor with _$Ctor {
 
   /// Returns a reference for an unnamed parameter
   @visibleForTesting
-  static Reference toUnnamedParam(ParameterElement p) => refer(p.type.getDisplayString());
+  static Reference toUnnamedParam(FormalParameterElement p) => refer(p.type.getDisplayString());
 
   /// Returns a name, reference for a named parameter
   @visibleForTesting
-  static MapEntry<String, Reference> toNamedParam(ParameterElement p) =>
-      MapEntry(p.name, refer(p.type.getDisplayString()));
+  static MapEntry<String, Reference> toNamedParam(FormalParameterElement p) {
+    return switch (p) {
+      FormalParameterElement(isNamed: true, name3: final String name) => MapEntry(
+        name,
+        refer(p.type.getDisplayString()),
+      ),
+      _ => throw ArgumentError('Expected a named parameter: $p'),
+    };
+  }
 }

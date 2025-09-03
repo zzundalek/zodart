@@ -27,4 +27,7 @@ class NewClassSpecBuilder implements SpecBuilderInputVisitor {
 
   @override
   List<Spec> visitUseExistingClassSpecInput(UseExistingClassSpec specInput) => [];
+
+  @override
+  List<Spec> visiCreateRecordSpecInput(UseRecordSpec specInput) => [];
 }

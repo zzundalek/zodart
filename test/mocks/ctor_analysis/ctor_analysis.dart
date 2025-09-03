@@ -4,6 +4,7 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:zodart/src/code_generation/analysis/entity_analysis.dart';
 import 'package:zodart/src/code_generation/ctor/_ctor.dart';
 
 import 'ctor_analysis.mocks.dart';
@@ -14,7 +15,7 @@ class MockCtorAnalysis extends BaseMockCtorAnalysis {
     return 'MockCtorAnalysis('
         'ctor: $ctor, '
         'schema: $schema, '
-        'missingInCtor: $missingInCtor, '
+        'missingInCtor: $missingInEntity, '
         'missingInSchema: $missingInSchema, '
         'typeMismatches: $typeMismatches'
         ')';
@@ -35,7 +36,7 @@ MockCtorAnalysis mockCtorAnalysis({
 
   when(analysis.ctor).thenReturn(ctor);
   when(analysis.schema).thenReturn(schema);
-  when(analysis.missingInCtor).thenReturn(missingInCtor);
+  when(analysis.missingInEntity).thenReturn(missingInCtor);
   when(analysis.missingInSchema).thenReturn(missingInSchema);
   when(analysis.typeMismatches).thenReturn(typeMismatches);
 

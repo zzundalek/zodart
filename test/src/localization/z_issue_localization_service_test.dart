@@ -27,54 +27,80 @@ void main() {
       when(mockIssueLocalization.missingValue(argThat(isA<ZIssueMissingValue>()))).thenReturn(stubbedMessage);
       when(mockIssueLocalization.custom(argThat(isA<ZIssueCustom>()))).thenReturn(stubbedMessage);
     });
+    group('Check that proper method is called based on ZIssueType', () {
+      test('calls lengthNotMet for ZIssueLengthNotMet', () {
+        const issue = ZIssueLengthNotMet(expectedLength: 1, actualLength: 2);
+        service.getIssueText(issue, includePath: true);
+        verify(mockIssueLocalization.lengthNotMet(issue)).called(1);
+        verifyNoMoreInteractions(mockIssueLocalization);
+      });
+      test('calls minLengthNotMet for ZIssueMinLengthNotMet', () {
+        const issue = ZIssueMinLengthNotMet(minLength: 10, actualLength: 9);
+        service.getIssueText(issue, includePath: true);
+        verify(mockIssueLocalization.minLengthNotMet(issue)).called(1);
+        verifyNoMoreInteractions(mockIssueLocalization);
+      });
+      test('calls maxLengthExceeded for ZIssueMaxLengthExceeded', () {
+        const issue = ZIssueMaxLengthExceeded(maxLength: 10, actualLength: 11);
+        service.getIssueText(issue, includePath: true);
+        verify(mockIssueLocalization.maxLengthExceeded(issue)).called(1);
+        verifyNoMoreInteractions(mockIssueLocalization);
+      });
+      test('calls minNotMet for ZIssueMinNotMet', () {
+        const issue = ZIssueMinNotMet(min: 10, val: 9);
+        service.getIssueText(issue, includePath: true);
+        verify(mockIssueLocalization.minNotMet(issue)).called(1);
+        verifyNoMoreInteractions(mockIssueLocalization);
+      });
+      test('calls maxExceeded for ZIssueMaxExceeded', () {
+        const issue = ZIssueMaxExceeded(max: 10, val: 11);
+        service.getIssueText(issue, includePath: true);
+        verify(mockIssueLocalization.maxExceeded(issue)).called(1);
+        verifyNoMoreInteractions(mockIssueLocalization);
+      });
+      test('calls parseFail for ZIssueParseFail', () {
+        const issue = ZIssueParseFail(from: String, to: int, val: 'dummy');
+        service.getIssueText(issue, includePath: true);
+        verify(mockIssueLocalization.parseFail(issue)).called(1);
+        verifyNoMoreInteractions(mockIssueLocalization);
+      });
+      test('calls missingValue for ZIssueMissingValue', () {
+        final issue = ZIssueMissingValue(rawPath: ZPath.property('name'));
+        service.getIssueText(issue, includePath: true);
+        verify(mockIssueLocalization.missingValue(issue)).called(1);
+        verifyNoMoreInteractions(mockIssueLocalization);
+      });
+      test('calls custom for ZIssuCustom', () {
+        const issue = ZIssueCustom();
+        service.getIssueText(issue, includePath: true);
+        verify(mockIssueLocalization.custom(issue)).called(1);
+        verifyNoMoreInteractions(mockIssueLocalization);
+      });
+    });
 
-    test('calls lengthNotMet for ZIssueLengthNotMet', () {
-      const issue = ZIssueLengthNotMet(expectedLength: 1, actualLength: 2);
-      service.getIssueText(issue);
-      verify(mockIssueLocalization.lengthNotMet(issue)).called(1);
-      verifyNoMoreInteractions(mockIssueLocalization);
-    });
-    test('calls minLengthNotMet for ZIssueMinLengthNotMet', () {
-      const issue = ZIssueMinLengthNotMet(minLength: 10, actualLength: 9);
-      service.getIssueText(issue);
-      verify(mockIssueLocalization.minLengthNotMet(issue)).called(1);
-      verifyNoMoreInteractions(mockIssueLocalization);
-    });
-    test('calls maxLengthExceeded for ZIssueMaxLengthExceeded', () {
-      const issue = ZIssueMaxLengthExceeded(maxLength: 10, actualLength: 11);
-      service.getIssueText(issue);
-      verify(mockIssueLocalization.maxLengthExceeded(issue)).called(1);
-      verifyNoMoreInteractions(mockIssueLocalization);
-    });
-    test('calls minNotMet for ZIssueMinNotMet', () {
-      const issue = ZIssueMinNotMet(min: 10, val: 9);
-      service.getIssueText(issue);
-      verify(mockIssueLocalization.minNotMet(issue)).called(1);
-      verifyNoMoreInteractions(mockIssueLocalization);
-    });
-    test('calls maxExceeded for ZIssueMaxExceeded', () {
-      const issue = ZIssueMaxExceeded(max: 10, val: 11);
-      service.getIssueText(issue);
-      verify(mockIssueLocalization.maxExceeded(issue)).called(1);
-      verifyNoMoreInteractions(mockIssueLocalization);
-    });
-    test('calls parseFail for ZIssueParseFail', () {
-      const issue = ZIssueParseFail(from: String, to: int, val: 'dummy');
-      service.getIssueText(issue);
-      verify(mockIssueLocalization.parseFail(issue)).called(1);
-      verifyNoMoreInteractions(mockIssueLocalization);
-    });
-    test('calls missingValue for ZIssueMissingValue', () {
-      final issue = ZIssueMissingValue(rawPath: ZPath.property('name'));
-      service.getIssueText(issue);
-      verify(mockIssueLocalization.missingValue(issue)).called(1);
-      verifyNoMoreInteractions(mockIssueLocalization);
-    });
-    test('calls custom for ZIssuCustom', () {
-      const issue = ZIssueCustom();
-      service.getIssueText(issue);
-      verify(mockIssueLocalization.custom(issue)).called(1);
-      verifyNoMoreInteractions(mockIssueLocalization);
+    group('test path is properly prepended to the message based on includePath parameter', () {
+      group('path is empty', () {
+        final issue = ZIssueCustom(rawPath: ZPath.empty());
+        test('does not prepend path when empty and includePath = true', () {
+          final text = service.getIssueText(issue, includePath: true);
+          expect(text, stubbedMessage);
+        });
+        test('does not prepend path when empty and includePath = false', () {
+          final text = service.getIssueText(issue, includePath: false);
+          expect(text, stubbedMessage);
+        });
+      });
+      group('path is not empty', () {
+        final issue = ZIssueCustom(rawPath: ZPath.property('testPath'));
+        test('prepends path when not empty and includePath = true', () {
+          final text = service.getIssueText(issue, includePath: true);
+          expect(text, '[testPath] $stubbedMessage');
+        });
+        test('does not prepends path when not empty and includePath = false', () {
+          final text = service.getIssueText(issue, includePath: false);
+          expect(text, stubbedMessage);
+        });
+      });
     });
   });
 }

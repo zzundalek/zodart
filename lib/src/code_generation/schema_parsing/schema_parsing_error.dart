@@ -40,13 +40,13 @@ class SchemaIsEmpty extends SchemaParsingError {
   const SchemaIsEmpty();
 }
 
-/// Output class is nullable, which is not allowed.
-class OutputClassIsNullable extends SchemaParsingError {
-  /// Creates an [OutputClassIsNullable] error with the given class name.
-  const OutputClassIsNullable({required this.outputClassName});
+/// Output type (class/record) is nullable, which is not allowed.
+class OutputTypeIsNullable extends SchemaParsingError {
+  /// Creates an [OutputTypeIsNullable] error with the given class name.
+  const OutputTypeIsNullable({required this.outputTypeName});
 
   /// The name of the nullable output class.
-  final String outputClassName;
+  final String outputTypeName;
 }
 
 /// Output class type could not be resolved.
@@ -63,6 +63,17 @@ class OutputClassIsUnknownType extends SchemaParsingError {
 class OutputClassIsWrongType extends SchemaParsingError {
   /// Creates an [OutputClassIsWrongType] error with the given type name.
   const OutputClassIsWrongType({required this.outputTypeName});
+
+  /// The name of the invalid type.
+  final String outputTypeName;
+}
+
+/// Output type is not a valid record type.
+///
+/// Note: Used when using a Record.
+class OutputRecordIsWrongType extends SchemaParsingError {
+  /// Creates an [OutputRecordIsWrongType] error with the given type name.
+  const OutputRecordIsWrongType({required this.outputTypeName});
 
   /// The name of the invalid type.
   final String outputTypeName;
@@ -97,6 +108,19 @@ class OutputClassHasNoUsableCtor extends SchemaParsingError {
   final String pickedCtorName;
 
   /// Explanation of why the constructor was unusable.
+  final String errorSummary;
+}
+
+/// The output Record Type is unusable.
+///
+/// Note: Used when reusing record.
+class InvalidOutputRecord extends SchemaParsingError {
+  /// Creates an [InvalidOutputRecord] error with details.
+  const InvalidOutputRecord({
+    required this.errorSummary,
+  });
+
+  /// Explanation of why the record was unusable.
   final String errorSummary;
 }
 
