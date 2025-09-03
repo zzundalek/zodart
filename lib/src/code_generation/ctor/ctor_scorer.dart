@@ -23,7 +23,7 @@ class CtorScorer {
     final ctor = ctorAnalysis.ctor;
 
     final missingInSchemaCount = ctorAnalysis.missingInSchema.length;
-    final missingInConstructorCount = ctorAnalysis.missingInCtor.length;
+    final missingInConstructorCount = ctorAnalysis.missingInEntity.length;
     final typeMismatchesCount = ctorAnalysis.typeMismatches.length;
 
     final reqPositionalParamsCount = ctor.reqPositionalParams.length;

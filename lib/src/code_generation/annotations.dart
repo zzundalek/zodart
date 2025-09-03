@@ -7,6 +7,9 @@ class AnnotationKinds {
 
   /// Use an existing class
   static const useExistingClass = 'useExistingClass';
+
+  /// Use record as output
+  static const useRecord = 'useRecord';
 }
 
 /// {@template zodart_annotation.annotation}
@@ -37,6 +40,15 @@ class ZodArt {
         outputTypeStr: outputClassName,
       );
 
+  /// {@macro zodart_annotation.annotation}
+  ///
+  /// Use [outputRecordType] as the ZObject T type.
+  const ZodArt.withRecord({required Type outputRecordType})
+    : this._(
+        annotationKind: AnnotationKinds.useRecord,
+        outputType: outputRecordType,
+      );
+
   const ZodArt._({required this.annotationKind, this.outputType, this.outputTypeStr});
 
   /// Reuse existing / generate new class
@@ -48,6 +60,8 @@ class ZodArt {
   /// Output type string - used when generating a new class
   final String? outputTypeStr;
 
-  /// Output type - used when using an existing class
+  /// Output type - used when:
+  ///   - using an existing class
+  ///   - using record
   final Type? outputType;
 }

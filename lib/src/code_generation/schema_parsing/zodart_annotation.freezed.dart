@@ -55,12 +55,13 @@ extension ZodArtAnnotationPatterns on ZodArtAnnotation {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ZodArtGenerateNewClass value)?  generateNewClass,TResult Function( ZodArtUseExistingClass value)?  useExistingClass,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ZodArtGenerateNewClass value)?  generateNewClass,TResult Function( ZodArtUseExistingClass value)?  useExistingClass,TResult Function( ZodArtUseRecord value)?  useRecord,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass() when generateNewClass != null:
 return generateNewClass(_that);case ZodArtUseExistingClass() when useExistingClass != null:
-return useExistingClass(_that);case _:
+return useExistingClass(_that);case ZodArtUseRecord() when useRecord != null:
+return useRecord(_that);case _:
   return orElse();
 
 }
@@ -78,12 +79,13 @@ return useExistingClass(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ZodArtGenerateNewClass value)  generateNewClass,required TResult Function( ZodArtUseExistingClass value)  useExistingClass,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ZodArtGenerateNewClass value)  generateNewClass,required TResult Function( ZodArtUseExistingClass value)  useExistingClass,required TResult Function( ZodArtUseRecord value)  useRecord,}){
 final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass():
 return generateNewClass(_that);case ZodArtUseExistingClass():
-return useExistingClass(_that);}
+return useExistingClass(_that);case ZodArtUseRecord():
+return useRecord(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -97,12 +99,13 @@ return useExistingClass(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ZodArtGenerateNewClass value)?  generateNewClass,TResult? Function( ZodArtUseExistingClass value)?  useExistingClass,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ZodArtGenerateNewClass value)?  generateNewClass,TResult? Function( ZodArtUseExistingClass value)?  useExistingClass,TResult? Function( ZodArtUseRecord value)?  useRecord,}){
 final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass() when generateNewClass != null:
 return generateNewClass(_that);case ZodArtUseExistingClass() when useExistingClass != null:
-return useExistingClass(_that);case _:
+return useExistingClass(_that);case ZodArtUseRecord() when useRecord != null:
+return useRecord(_that);case _:
   return null;
 
 }
@@ -119,11 +122,12 @@ return useExistingClass(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String outputClassName)?  generateNewClass,TResult Function( DartType outputClassType)?  useExistingClass,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String outputClassName)?  generateNewClass,TResult Function( DartType outputClassType)?  useExistingClass,TResult Function( DartType outputRecordType)?  useRecord,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass() when generateNewClass != null:
 return generateNewClass(_that.outputClassName);case ZodArtUseExistingClass() when useExistingClass != null:
-return useExistingClass(_that.outputClassType);case _:
+return useExistingClass(_that.outputClassType);case ZodArtUseRecord() when useRecord != null:
+return useRecord(_that.outputRecordType);case _:
   return orElse();
 
 }
@@ -141,11 +145,12 @@ return useExistingClass(_that.outputClassType);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String outputClassName)  generateNewClass,required TResult Function( DartType outputClassType)  useExistingClass,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String outputClassName)  generateNewClass,required TResult Function( DartType outputClassType)  useExistingClass,required TResult Function( DartType outputRecordType)  useRecord,}) {final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass():
 return generateNewClass(_that.outputClassName);case ZodArtUseExistingClass():
-return useExistingClass(_that.outputClassType);}
+return useExistingClass(_that.outputClassType);case ZodArtUseRecord():
+return useRecord(_that.outputRecordType);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -159,11 +164,12 @@ return useExistingClass(_that.outputClassType);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String outputClassName)?  generateNewClass,TResult? Function( DartType outputClassType)?  useExistingClass,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String outputClassName)?  generateNewClass,TResult? Function( DartType outputClassType)?  useExistingClass,TResult? Function( DartType outputRecordType)?  useRecord,}) {final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass() when generateNewClass != null:
 return generateNewClass(_that.outputClassName);case ZodArtUseExistingClass() when useExistingClass != null:
-return useExistingClass(_that.outputClassType);case _:
+return useExistingClass(_that.outputClassType);case ZodArtUseRecord() when useRecord != null:
+return useRecord(_that.outputRecordType);case _:
   return null;
 
 }
@@ -296,6 +302,72 @@ class _$ZodArtUseExistingClassCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? outputClassType = null,}) {
   return _then(ZodArtUseExistingClass(
 outputClassType: null == outputClassType ? _self.outputClassType : outputClassType // ignore: cast_nullable_to_non_nullable
+as DartType,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class ZodArtUseRecord extends ZodArtAnnotation {
+  const ZodArtUseRecord({required this.outputRecordType}): super._();
+  
+
+ final  DartType outputRecordType;
+
+/// Create a copy of ZodArtAnnotation
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ZodArtUseRecordCopyWith<ZodArtUseRecord> get copyWith => _$ZodArtUseRecordCopyWithImpl<ZodArtUseRecord>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtUseRecord&&(identical(other.outputRecordType, outputRecordType) || other.outputRecordType == outputRecordType));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,outputRecordType);
+
+@override
+String toString() {
+  return 'ZodArtAnnotation.useRecord(outputRecordType: $outputRecordType)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ZodArtUseRecordCopyWith<$Res> implements $ZodArtAnnotationCopyWith<$Res> {
+  factory $ZodArtUseRecordCopyWith(ZodArtUseRecord value, $Res Function(ZodArtUseRecord) _then) = _$ZodArtUseRecordCopyWithImpl;
+@useResult
+$Res call({
+ DartType outputRecordType
+});
+
+
+
+
+}
+/// @nodoc
+class _$ZodArtUseRecordCopyWithImpl<$Res>
+    implements $ZodArtUseRecordCopyWith<$Res> {
+  _$ZodArtUseRecordCopyWithImpl(this._self, this._then);
+
+  final ZodArtUseRecord _self;
+  final $Res Function(ZodArtUseRecord) _then;
+
+/// Create a copy of ZodArtAnnotation
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? outputRecordType = null,}) {
+  return _then(ZodArtUseRecord(
+outputRecordType: null == outputRecordType ? _self.outputRecordType : outputRecordType // ignore: cast_nullable_to_non_nullable
 as DartType,
   ));
 }

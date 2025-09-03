@@ -1,5 +1,6 @@
 ## [UNRELEASED]
 
+- Add support for Records as output type in code generation
 - getSummaryFor() does not include [path] in the response
 - add .regex() volidation for ZString
 - add .min() and .max() methods for ZArray

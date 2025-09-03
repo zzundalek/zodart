@@ -8,8 +8,23 @@ import '_helper_types.dart';
 
 part 'goldens/zodart_new_class.dart';
 part 'goldens/zodart_existing_class.dart';
+part 'goldens/zodart_record.dart';
 
 // **************************************************************************
+// Record test
+// **************************************************************************
+
+@ShouldGenerateFile(
+  'goldens/zodart_record.dart',
+  partOfCurrent: true,
+)
+@ZodArt.withRecord(outputRecordType: OutputRecord)
+abstract class R {
+  static final schema = allTypesSchemaDef;
+  static const z = _RUtils();
+}
+
+// *R************************************************************************
 // Existing class test
 // **************************************************************************
 

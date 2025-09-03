@@ -1,22 +1,22 @@
-import 'ctor_analysis.dart';
+import 'entity_analysis.dart';
 
-/// Extension on [CtorAnalysis] for providing validation errors summary.
-extension CtorAnalysisExt on CtorAnalysis {
+/// Extension on [EntityAnalysis] for providing validation errors summary.
+extension EntityAnalysisErrorSummary on EntityAnalysis {
   /// Returns error summary string
   String get errorSummary {
     final summaryBuffer = StringBuffer();
 
     if (hasReqPositionalParams) {
-      summaryBuffer.writeln('- requires unnamed (positional) parameters.');
+      summaryBuffer.writeln('- requires unnamed (positional) parameters');
     }
 
     if (hasOptPositionalParams) {
-      summaryBuffer.writeln('- allows unnamed (positional) parameters.');
+      summaryBuffer.writeln('- allows unnamed (positional) parameters');
     }
 
-    if (missingInCtor.isNotEmpty) {
+    if (missingInEntity.isNotEmpty) {
       summaryBuffer.writeln(
-        '- missing required schema parameters: $missingInCtor',
+        '- missing required schema parameters: $missingInEntity',
       );
     }
 
@@ -27,7 +27,7 @@ extension CtorAnalysisExt on CtorAnalysis {
     if (typeMismatches.isNotEmpty) {
       final mismatchesDetail = typeMismatches.entries.map(
         (entry) =>
-            "    - '${entry.key}' expected type is '${entry.value.expectedType}', "
+            "  - '${entry.key}' expected type is '${entry.value.expectedType}', "
             "but received '${entry.value.actualType}'",
       );
       summaryBuffer

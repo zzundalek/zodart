@@ -7,6 +7,7 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../utils/utils.dart';
 import '../ctor/_ctor.dart';
+import '../record/_record.dart';
 import 'schema_parsing.dart';
 
 /// Parses annotated Dart elements and extracts schema and constructor information.
@@ -130,8 +131,8 @@ class SchemaParser {
     return Either<SchemaParsingError, DartType>.fromPredicate(
           annotation.outputClassType,
           (outputType) => outputType.nullabilitySuffix != NullabilitySuffix.question,
-          (_) => OutputClassIsNullable(
-            outputClassName: annotation.outputClassType.getDisplayString(),
+          (_) => OutputTypeIsNullable(
+            outputTypeName: annotation.outputClassType.getDisplayString(),
           ),
         )
         .flatMap(
@@ -161,6 +162,34 @@ class SchemaParser {
               pickedCtorName: invalidCtor.ctor.getDisplayName(),
               errorSummary: invalidCtor.errorsSummary,
             ),
+          ),
+        );
+  }
+
+  /// Validate the output record type specified in [annotation],
+  /// against [outObjSchema].
+  ///
+  /// Returns errors if the output record is not a record, it is nullable
+  /// or it doesn't conform to the output schema.
+  Either<SchemaParsingError, Record> validateOutputRecord({
+    required ZodArtUseRecord annotation,
+    required Map<String, Reference> outObjSchema,
+  }) {
+    return Either<SchemaParsingError, DartType>.fromPredicate(
+          annotation.outputRecordType,
+          (outputType) => outputType.nullabilitySuffix != NullabilitySuffix.question,
+          (_) => OutputTypeIsNullable(
+            outputTypeName: annotation.outputRecordType.getDisplayString(),
+          ),
+        )
+        .refineRightType<RecordType>(
+          (dartType) => OutputRecordIsWrongType(
+            outputTypeName: dartType.toString(),
+          ),
+        )
+        .flatMap(
+          (recordType) => validateRecord(recordType: recordType, schema: outObjSchema).mapLeft(
+            (invalidRecord) => InvalidOutputRecord(errorSummary: invalidRecord.errorsSummary),
           ),
         );
   }
@@ -233,6 +262,23 @@ class SchemaParser {
             ctor: ctor,
             refs: Refs(
               annotatedClassName: annotatedClassName,
+              outputTypeName: annotation.outputTypeName,
+              schemaFieldName: annotation.schemaPropertyName,
+            ),
+          ),
+        );
+      }),
+      ZodArtUseRecord() => parseResultOrError.flatMap((parseResult) {
+        final schema = parseResult.schema;
+
+        return validateOutputRecord(
+          annotation: annotation,
+          outObjSchema: schema.outSchema.mapValue(refer),
+        ).map(
+          (_) => UseRecordSpec(
+            schema: parseResult.schema,
+            refs: Refs(
+              annotatedClassName: parseResult.annotatedClassName,
               outputTypeName: annotation.outputTypeName,
               schemaFieldName: annotation.schemaPropertyName,
             ),

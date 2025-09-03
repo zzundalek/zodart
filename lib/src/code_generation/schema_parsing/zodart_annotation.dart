@@ -16,6 +16,7 @@ sealed class ZodArtAnnotation with _$ZodArtAnnotation {
 
   const factory ZodArtAnnotation.generateNewClass({required String outputClassName}) = ZodArtGenerateNewClass;
   const factory ZodArtAnnotation.useExistingClass({required DartType outputClassType}) = ZodArtUseExistingClass;
+  const factory ZodArtAnnotation.useRecord({required DartType outputRecordType}) = ZodArtUseRecord;
 
   /// Parses the raw [ZodArt] annotation and returns the subclass based on its kind.
   ///
@@ -30,6 +31,9 @@ sealed class ZodArtAnnotation with _$ZodArtAnnotation {
       ),
       AnnotationKinds.useExistingClass => ZodArtUseExistingClass(
         outputClassType: rawAnnotation.read(outputTypeFieldName).typeValue,
+      ),
+      AnnotationKinds.useRecord => ZodArtUseRecord(
+        outputRecordType: rawAnnotation.read(outputTypeFieldName).typeValue,
       ),
       _ => throw ZodArtInternalException(
         "Unexpected annotation kind. Got: '$annotationKind'.",
@@ -53,6 +57,7 @@ sealed class ZodArtAnnotation with _$ZodArtAnnotation {
   String get outputTypeName => switch (this) {
     ZodArtGenerateNewClass(:final outputClassName) => outputClassName,
     ZodArtUseExistingClass(:final outputClassType) => outputClassType.getDisplayString(),
+    ZodArtUseRecord(:final outputRecordType) => outputRecordType.getDisplayString(),
   };
 
   /// A property name in the annotated class used to define the schema.
