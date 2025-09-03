@@ -2,11 +2,12 @@
 // ignore_for_file: specify_nonobvious_property_types, avoid_print
 import 'package:zodart/zodart.dart';
 
-part 'main.zodart.dart';
-part 'main.zodart.type.dart';
+part 'output_record.zodart.dart';
+
+typedef Item = ({int id, String name, String makerName, List<String>? notes, double price, bool? archived});
 
 // Item schema (automatically generates the Item class)
-@ZodArt.generateNewClass(outputClassName: 'Item')
+@ZodArt.withRecord(outputRecordType: Item)
 abstract class ItemSchema {
   /// Schema definition
   static final schema = (
@@ -35,7 +36,7 @@ void main() {
 
   // To access the parsed result use `.isSuccess`
   if (res.isSuccess) {
-    print(res.value); // Prints: Item(..., id: 7, makerName: ZodArt🚀, ...
+    print(res.value); // Prints: (..., id: 7, makerName: ZodArt🚀, ...
   } else {
     print('❌ Validation failed: ${res.issueSummary}'); // Print all issues
   }
