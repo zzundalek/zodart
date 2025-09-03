@@ -1,4 +1,4 @@
-## [UNRELEASED]
+## 1.1.0 - 2025-09-04
 
 - Add support for Records as output type in code generation
 - getSummaryFor() does not include [path] in the response
