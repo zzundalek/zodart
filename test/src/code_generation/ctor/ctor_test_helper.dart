@@ -1,5 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:test/test.dart';
+import 'package:zodart/src/code_generation/analysis/entity_analysis.dart';
 import 'package:zodart/src/code_generation/ctor/_ctor.dart';
 
 typedef ExpectedResult = ({
@@ -56,7 +57,7 @@ void testAnalysisResult(ExpectedResult expectedResult, CtorAnalysis ctorAnalysis
         "but got '${ctorAnalysis.isValid}'.",
   );
 
-  expect(ctorAnalysis.missingInCtor, unorderedEquals(expectedResult.missingInCtor));
+  expect(ctorAnalysis.missingInEntity, unorderedEquals(expectedResult.missingInCtor));
   expect(ctorAnalysis.missingInSchema, unorderedEquals(expectedResult.missingInSchema));
   expect(ctorAnalysis.typeMismatches, equals(expectedResult.typeMismatches));
 }

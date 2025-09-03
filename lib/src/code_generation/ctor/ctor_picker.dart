@@ -2,9 +2,9 @@ import 'package:analyzer/dart/element/element2.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:fpdart/fpdart.dart';
 
+import '../analysis/entity_analysis_error_summary.dart';
 import 'ctor.dart';
 import 'ctor_analysis.dart';
-import 'ctor_analysis_ext.dart';
 import 'ctor_scorer.dart';
 
 /// A function that extracts constructor elements from a given [ClassElement2].

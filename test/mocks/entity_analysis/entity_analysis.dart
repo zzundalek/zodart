@@ -1,19 +1,17 @@
 @GenerateNiceMocks([
-  MockSpec<CtorAnalysis>(as: #BaseMockCtorAnalysis),
+  MockSpec<EntityAnalysis>(as: #BaseMockEntityAnalysis),
 ])
 import 'package:code_builder/code_builder.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:zodart/src/code_generation/analysis/entity_analysis.dart';
-import 'package:zodart/src/code_generation/ctor/_ctor.dart';
 
-import 'ctor_analysis.mocks.dart';
+import 'entity_analysis.mocks.dart';
 
-class MockCtorAnalysis extends BaseMockCtorAnalysis {
+class MockEntityAnalysis extends BaseMockEntityAnalysis {
   @override
   String toString() {
-    return 'MockCtorAnalysis('
-        'ctor: $ctor, '
+    return 'MockEntityAnalysis('
         'schema: $schema, '
         'missingInCtor: $missingInEntity, '
         'missingInSchema: $missingInSchema, '
@@ -22,19 +20,14 @@ class MockCtorAnalysis extends BaseMockCtorAnalysis {
   }
 }
 
-MockCtorAnalysis mockCtorAnalysis({
-  required Ctor ctor,
+MockEntityAnalysis mockCtorAnalysis({
   required Map<String, Reference> schema,
   Set<String> missingInCtor = const {},
   Set<String> missingInSchema = const {},
   Map<String, TypeMismatch> typeMismatches = const {},
 }) {
-  // Ensure Mockito has a dummy Ctor for non-nullable fields
-  provideDummy<Ctor>(ctor);
+  final analysis = MockEntityAnalysis();
 
-  final analysis = MockCtorAnalysis();
-
-  when(analysis.ctor).thenReturn(ctor);
   when(analysis.schema).thenReturn(schema);
   when(analysis.missingInEntity).thenReturn(missingInCtor);
   when(analysis.missingInSchema).thenReturn(missingInSchema);
