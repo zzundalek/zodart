@@ -278,6 +278,88 @@ void main() {
       );
     });
   });
+  group('toLowerCase', () {
+    final baseValidInputs = <ValidInput>[
+      (input: '', expected: ''),
+      (input: 'lower Case', expected: 'lower case'),
+      (input: ' LOWER_CASE', expected: ' lower_case'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZString().toLowerCase(),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZString().nullable().toLowerCase(),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZString().toLowerCase().nullable(),
+      );
+    });
+  });
+  group('toUpperCase', () {
+    final baseValidInputs = <ValidInput>[
+      (input: '', expected: ''),
+      (input: 'upPer Case', expected: 'UPPER CASE'),
+      (input: ' upper_case', expected: ' UPPER_CASE'),
+    ];
+
+    group('required', () {
+      testInputs(
+        (
+          validInputs: baseValidInputs,
+          invalidInputs: [],
+        ),
+        ZString().toUpperCase(),
+      );
+    });
+    group('nullable first', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZString().nullable().toUpperCase(),
+      );
+    });
+    group('nullable last', () {
+      testInputs(
+        (
+          validInputs: [
+            ...baseValidInputs,
+            (input: null, expected: null),
+          ],
+          invalidInputs: [],
+        ),
+        ZString().toUpperCase().nullable(),
+      );
+    });
+  });
   group('toInt', () {
     final baseValidInputs = <ValidInput>[
       (input: '-1', expected: -1),
