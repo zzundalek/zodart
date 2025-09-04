@@ -37,6 +37,20 @@ class ZNullableString extends ZBase<String?>
     isUserDefined: false,
   );
 
+  /// Adds a rule which converts the value to lower case.
+  ZNullableString toLowerCase() => _processPure<ZNullableString, String>(
+    constructor: ZNullableString._withConfig,
+    processor: (val) => val.toLowerCase(),
+    isUserDefined: false,
+  );
+
+  /// Adds a rule which converts the value to upper case.
+  ZNullableString toUpperCase() => _processPure<ZNullableString, String>(
+    constructor: ZNullableString._withConfig,
+    processor: (val) => val.toUpperCase(),
+    isUserDefined: false,
+  );
+
   /// Adds a transformation of current nullable [String] value to nullable [int].
   ZNullableInt toInt() => _transformBuildIn(constructor: ZNullableInt._withConfig, transformer: stringToInt);
 
