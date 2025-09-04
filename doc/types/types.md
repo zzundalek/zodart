@@ -101,6 +101,8 @@ classDiagram
         + regex(r)
 
         + trim()
+        + toLowerCase()
+        + toUpperCase()
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)
@@ -177,6 +179,8 @@ classDiagram
         + regex(r)
 
         + trim()
+        + toLowerCase()
+        + toUpperCase()
 
         + refine(refiner, message?, code?)
         + superRefine(refiner)

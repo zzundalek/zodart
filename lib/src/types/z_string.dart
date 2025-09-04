@@ -39,6 +39,20 @@ class ZString extends ZBase<String> implements ZTransformations<String, String> 
     isUserDefined: false,
   );
 
+  /// Adds a rule which converts the value to lower case.
+  ZString toLowerCase() => _processPure<ZString, String>(
+    constructor: ZString._withConfig,
+    processor: (val) => val.toLowerCase(),
+    isUserDefined: false,
+  );
+
+  /// Adds a rule which converts the value to upper case.
+  ZString toUpperCase() => _processPure<ZString, String>(
+    constructor: ZString._withConfig,
+    processor: (val) => val.toUpperCase(),
+    isUserDefined: false,
+  );
+
   /// Adds a transformation of current [String] value to [int].
   ZInt toInt() => _transformBuildIn(constructor: ZInt._withConfig, transformer: stringToInt);
 
