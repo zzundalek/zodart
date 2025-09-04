@@ -1,3 +1,8 @@
+## [Unreleased]
+
+- Add .toUpperCase() for ZString
+- Add .toLowerCase() for ZString
+
 ## 1.1.0 - 2025-09-04
 
 - Add support for Records as output type in code generation
