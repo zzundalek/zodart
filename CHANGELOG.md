@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Add external documentation pages
 - Add .toUpperCase() for ZString
 - Add .toLowerCase() for ZString
 
