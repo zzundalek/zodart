@@ -1,3 +1,9 @@
+## 1.2.0 - 2025-11-16
+
+- Add external documentation pages
+- Add .toUpperCase() for ZString
+- Add .toLowerCase() for ZString
+
 ## 1.1.0 - 2025-09-04
 
 - Add support for Records as output type in code generation
@@ -27,7 +33,7 @@
 
 - Allow using the `.optional()` modifier on `.nullable()` types
 - Add detailed parser descriptions to documentation
-- Add documentation for [nullable and optional modifier](doc/modifiers/nullability.md)
+- Add documentation for nullable and optional modifier
 - Add new type for DateTime
 
 ## 0.3.0 - 2025-06-16
