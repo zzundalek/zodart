@@ -111,6 +111,7 @@ mixin _N {
     znObj,
     znStr,
   );
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
