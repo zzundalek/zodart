@@ -1,4 +1,4 @@
-## [Unreleased]
+## 1.2.0 - 2025-11-16
 
 - Add external documentation pages
 - Add .toUpperCase() for ZString

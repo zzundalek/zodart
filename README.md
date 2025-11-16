@@ -2,7 +2,7 @@
 ![Pub Points](https://img.shields.io/pub/points/zodart)
 [![Code coverage](https://img.shields.io/badge/coverage-100%25-brightgreen?logo=codecov)](https://app.codecov.io/gh/zzundalek/zodart)
 ![GitHub open bugs](https://img.shields.io/github/issues-search/zzundalek/zodart?query=is%3Aissue%20label%3Abug%20is%3Aopen%20&logo=openbugbounty&logoColor=orange&label=bugs&color=brightgreen)
-![GitHub next milestone details](https://img.shields.io/github/milestones/progress-percent/zzundalek/zodart/6?logo=rocket)
+![GitHub next milestone details](https://img.shields.io/github/milestones/progress-percent/zzundalek/zodart/7?logo=rocket)
 ![GitHub last commit](https://img.shields.io/github/last-commit/zzundalek/zodart)
 
 <p align="center">
