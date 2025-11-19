@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'main.dart';
 
@@ -63,6 +63,7 @@ mixin _ItemSchema {
     const DeepCollectionEquality().hash(notes),
     price,
   );
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||

@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'refine_method.dart';
 
@@ -48,6 +48,7 @@ mixin _PersonSchema {
   @override
   int get hashCode =>
       Object.hash(runtimeType, firstName, lastName, validFrom, validTo);
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||

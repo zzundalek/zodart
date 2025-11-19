@@ -4,7 +4,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:analyzer/dart/element/element.dart' as _i6;
-import 'package:analyzer/dart/element/element2.dart' as _i7;
 import 'package:analyzer/dart/element/nullability_suffix.dart' as _i3;
 import 'package:analyzer/dart/element/type.dart' as _i2;
 import 'package:analyzer/dart/element/type_visitor.dart' as _i4;
@@ -24,6 +23,7 @@ import 'package:mockito/src/dummies.dart' as _i5;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeDartType_0 extends _i1.SmartFake implements _i2.DartType {
   _FakeDartType_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
@@ -279,7 +279,7 @@ class MockDartType extends _i1.Mock implements _i2.DartType {
           as _i2.InterfaceType?);
 
   @override
-  _i2.InterfaceType? asInstanceOf2(_i7.InterfaceElement2? element) =>
+  _i2.InterfaceType? asInstanceOf2(_i6.InterfaceElement? element) =>
       (super.noSuchMethod(
             Invocation.method(#asInstanceOf2, [element]),
             returnValueForMissingStub: null,
@@ -306,13 +306,4 @@ class MockDartType extends _i1.Mock implements _i2.DartType {
             ),
           )
           as String);
-
-  @override
-  bool isStructurallyEqualTo(_i2.DartType? other) =>
-      (super.noSuchMethod(
-            Invocation.method(#isStructurallyEqualTo, [other]),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
 }

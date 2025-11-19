@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'transformations.dart';
 
@@ -54,6 +54,7 @@ mixin _LanguageDetailSchema {
     const DeepCollectionEquality().hash(notes),
     version,
   );
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
