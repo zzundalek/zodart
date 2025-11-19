@@ -3,11 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:analyzer/dart/element/element.dart' as _i4;
-import 'package:analyzer/dart/element/element2.dart' as _i2;
+import 'package:analyzer/dart/element/element.dart' as _i2;
 import 'package:analyzer/dart/element/type.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i5;
+import 'package:mockito/src/dummies.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,6 +21,7 @@ import 'package:mockito/src/dummies.dart' as _i5;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeFormalParameterElement_0 extends _i1.SmartFake implements _i2.FormalParameterElement {
   _FakeFormalParameterElement_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
@@ -35,16 +35,16 @@ class _FakeDartType_2 extends _i1.SmartFake implements _i3.DartType {
   _FakeDartType_2(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeElementKind_3 extends _i1.SmartFake implements _i4.ElementKind {
+class _FakeElementKind_3 extends _i1.SmartFake implements _i2.ElementKind {
   _FakeElementKind_3(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeElement2_4 extends _i1.SmartFake implements _i2.Element2 {
-  _FakeElement2_4(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeMetadata_4 extends _i1.SmartFake implements _i2.Metadata {
+  _FakeMetadata_4(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeMetadata_5 extends _i1.SmartFake implements _i2.Metadata {
-  _FakeMetadata_5(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeElement_5 extends _i1.SmartFake implements _i2.Element {
+  _FakeElement_5(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [FormalParameterElement].
@@ -208,13 +208,22 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as bool);
 
   @override
-  List<_i2.TypeParameterElement2> get typeParameters2 =>
+  List<_i2.TypeParameterElement> get typeParameters =>
+      (super.noSuchMethod(
+            Invocation.getter(#typeParameters),
+            returnValue: <_i2.TypeParameterElement>[],
+            returnValueForMissingStub: <_i2.TypeParameterElement>[],
+          )
+          as List<_i2.TypeParameterElement>);
+
+  @override
+  List<_i2.TypeParameterElement> get typeParameters2 =>
       (super.noSuchMethod(
             Invocation.getter(#typeParameters2),
-            returnValue: <_i2.TypeParameterElement2>[],
-            returnValueForMissingStub: <_i2.TypeParameterElement2>[],
+            returnValue: <_i2.TypeParameterElement>[],
+            returnValueForMissingStub: <_i2.TypeParameterElement>[],
           )
-          as List<_i2.TypeParameterElement2>);
+          as List<_i2.TypeParameterElement>);
 
   @override
   bool get hasImplicitType =>
@@ -274,23 +283,32 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as _i3.DartType);
 
   @override
-  List<_i2.Element2> get children2 =>
+  List<_i2.Element> get children =>
+      (super.noSuchMethod(
+            Invocation.getter(#children),
+            returnValue: <_i2.Element>[],
+            returnValueForMissingStub: <_i2.Element>[],
+          )
+          as List<_i2.Element>);
+
+  @override
+  List<_i2.Element> get children2 =>
       (super.noSuchMethod(
             Invocation.getter(#children2),
-            returnValue: <_i2.Element2>[],
-            returnValueForMissingStub: <_i2.Element2>[],
+            returnValue: <_i2.Element>[],
+            returnValueForMissingStub: <_i2.Element>[],
           )
-          as List<_i2.Element2>);
+          as List<_i2.Element>);
 
   @override
   String get displayName =>
       (super.noSuchMethod(
             Invocation.getter(#displayName),
-            returnValue: _i5.dummyValue<String>(
+            returnValue: _i4.dummyValue<String>(
               this,
               Invocation.getter(#displayName),
             ),
-            returnValueForMissingStub: _i5.dummyValue<String>(
+            returnValueForMissingStub: _i4.dummyValue<String>(
               this,
               Invocation.getter(#displayName),
             ),
@@ -334,7 +352,7 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as bool);
 
   @override
-  _i4.ElementKind get kind =>
+  _i2.ElementKind get kind =>
       (super.noSuchMethod(
             Invocation.getter(#kind),
             returnValue: _FakeElementKind_3(this, Invocation.getter(#kind)),
@@ -343,34 +361,64 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
               Invocation.getter(#kind),
             ),
           )
-          as _i4.ElementKind);
+          as _i2.ElementKind);
 
   @override
-  _i2.Element2 get nonSynthetic2 =>
+  _i2.Metadata get metadata =>
+      (super.noSuchMethod(
+            Invocation.getter(#metadata),
+            returnValue: _FakeMetadata_4(this, Invocation.getter(#metadata)),
+            returnValueForMissingStub: _FakeMetadata_4(
+              this,
+              Invocation.getter(#metadata),
+            ),
+          )
+          as _i2.Metadata);
+
+  @override
+  _i2.Element get nonSynthetic =>
+      (super.noSuchMethod(
+            Invocation.getter(#nonSynthetic),
+            returnValue: _FakeElement_5(this, Invocation.getter(#nonSynthetic)),
+            returnValueForMissingStub: _FakeElement_5(
+              this,
+              Invocation.getter(#nonSynthetic),
+            ),
+          )
+          as _i2.Element);
+
+  @override
+  _i2.Element get nonSynthetic2 =>
       (super.noSuchMethod(
             Invocation.getter(#nonSynthetic2),
-            returnValue: _FakeElement2_4(
+            returnValue: _FakeElement_5(
               this,
               Invocation.getter(#nonSynthetic2),
             ),
-            returnValueForMissingStub: _FakeElement2_4(
+            returnValueForMissingStub: _FakeElement_5(
               this,
               Invocation.getter(#nonSynthetic2),
             ),
           )
-          as _i2.Element2);
+          as _i2.Element);
 
   @override
   _i2.Metadata get metadata2 =>
       (super.noSuchMethod(
             Invocation.getter(#metadata2),
-            returnValue: _FakeMetadata_5(this, Invocation.getter(#metadata2)),
-            returnValueForMissingStub: _FakeMetadata_5(
+            returnValue: _FakeMetadata_4(this, Invocation.getter(#metadata2)),
+            returnValueForMissingStub: _FakeMetadata_4(
               this,
               Invocation.getter(#metadata2),
             ),
           )
           as _i2.Metadata);
+
+  @override
+  void appendToWithoutDelimiters(StringBuffer? buffer) => super.noSuchMethod(
+    Invocation.method(#appendToWithoutDelimiters, [buffer]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void appendToWithoutDelimiters2(StringBuffer? buffer) => super.noSuchMethod(
@@ -379,12 +427,47 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
   );
 
   @override
+  T? accept<T>(_i2.ElementVisitor2<T>? visitor) =>
+      (super.noSuchMethod(
+            Invocation.method(#accept, [visitor]),
+            returnValueForMissingStub: null,
+          )
+          as T?);
+
+  @override
   T? accept2<T>(_i2.ElementVisitor2<T>? visitor) =>
       (super.noSuchMethod(
             Invocation.method(#accept2, [visitor]),
             returnValueForMissingStub: null,
           )
           as T?);
+
+  @override
+  String displayString({
+    bool? multiline = false,
+    bool? preferTypeAlias = false,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#displayString, [], {
+              #multiline: multiline,
+              #preferTypeAlias: preferTypeAlias,
+            }),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#displayString, [], {
+                #multiline: multiline,
+                #preferTypeAlias: preferTypeAlias,
+              }),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#displayString, [], {
+                #multiline: multiline,
+                #preferTypeAlias: preferTypeAlias,
+              }),
+            ),
+          )
+          as String);
 
   @override
   String displayString2({
@@ -396,18 +479,39 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
               #multiline: multiline,
               #preferTypeAlias: preferTypeAlias,
             }),
-            returnValue: _i5.dummyValue<String>(
+            returnValue: _i4.dummyValue<String>(
               this,
               Invocation.method(#displayString2, [], {
                 #multiline: multiline,
                 #preferTypeAlias: preferTypeAlias,
               }),
             ),
-            returnValueForMissingStub: _i5.dummyValue<String>(
+            returnValueForMissingStub: _i4.dummyValue<String>(
               this,
               Invocation.method(#displayString2, [], {
                 #multiline: multiline,
                 #preferTypeAlias: preferTypeAlias,
+              }),
+            ),
+          )
+          as String);
+
+  @override
+  String getExtendedDisplayName({String? shortName}) =>
+      (super.noSuchMethod(
+            Invocation.method(#getExtendedDisplayName, [], {
+              #shortName: shortName,
+            }),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#getExtendedDisplayName, [], {
+                #shortName: shortName,
+              }),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#getExtendedDisplayName, [], {
+                #shortName: shortName,
               }),
             ),
           )
@@ -419,13 +523,13 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
             Invocation.method(#getExtendedDisplayName2, [], {
               #shortName: shortName,
             }),
-            returnValue: _i5.dummyValue<String>(
+            returnValue: _i4.dummyValue<String>(
               this,
               Invocation.method(#getExtendedDisplayName2, [], {
                 #shortName: shortName,
               }),
             ),
-            returnValueForMissingStub: _i5.dummyValue<String>(
+            returnValueForMissingStub: _i4.dummyValue<String>(
               this,
               Invocation.method(#getExtendedDisplayName2, [], {
                 #shortName: shortName,
@@ -435,7 +539,16 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as String);
 
   @override
-  bool isAccessibleIn2(_i2.LibraryElement2? library) =>
+  bool isAccessibleIn(_i2.LibraryElement? library) =>
+      (super.noSuchMethod(
+            Invocation.method(#isAccessibleIn, [library]),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  bool isAccessibleIn2(_i2.LibraryElement? library) =>
       (super.noSuchMethod(
             Invocation.method(#isAccessibleIn2, [library]),
             returnValue: false,
@@ -444,14 +557,26 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as bool);
 
   @override
-  _i2.Element2? thisOrAncestorMatching2(
-    bool Function(_i2.Element2)? predicate,
-  ) =>
+  _i2.Element? thisOrAncestorMatching(bool Function(_i2.Element)? predicate) =>
+      (super.noSuchMethod(
+            Invocation.method(#thisOrAncestorMatching, [predicate]),
+            returnValueForMissingStub: null,
+          )
+          as _i2.Element?);
+
+  @override
+  _i2.Element? thisOrAncestorMatching2(bool Function(_i2.Element)? predicate) =>
       (super.noSuchMethod(
             Invocation.method(#thisOrAncestorMatching2, [predicate]),
             returnValueForMissingStub: null,
           )
-          as _i2.Element2?);
+          as _i2.Element?);
+
+  @override
+  void visitChildren<T>(_i2.ElementVisitor2<T>? visitor) => super.noSuchMethod(
+    Invocation.method(#visitChildren, [visitor]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void visitChildren2<T>(_i2.ElementVisitor2<T>? visitor) => super.noSuchMethod(

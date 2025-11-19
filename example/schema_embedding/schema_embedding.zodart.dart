@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'schema_embedding.dart';
 
@@ -39,6 +39,7 @@ mixin _CustomerSchema {
   String get lastName;
   @override
   int get hashCode => Object.hash(runtimeType, firstName, id, lastName);
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -158,6 +159,7 @@ mixin _ItemSchema {
   double get price;
   @override
   int get hashCode => Object.hash(runtimeType, id, name, price);
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||

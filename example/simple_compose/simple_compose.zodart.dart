@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'simple_compose.dart';
 
@@ -36,6 +36,7 @@ mixin _ObjSchema {
   String get strVal;
   @override
   int get hashCode => Object.hash(runtimeType, intVal, strVal);
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
