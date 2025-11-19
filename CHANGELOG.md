@@ -1,3 +1,7 @@
+## [UNRELEASED]
+
+- Upgrade dependencies to fit with Dart 3.10
+
 ## 1.2.0 - 2025-11-16
 
 - Add external documentation pages
