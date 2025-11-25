@@ -18,7 +18,7 @@ void main() {
       });
 
       test('throws an ArgumentError error if an empty schema is passed', () {
-        final ctor = MockConstructorElement2();
+        final ctor = MockConstructorElement();
 
         expect(
           () => pickBestCtor(ctorElements: [ctor], schema: {}),

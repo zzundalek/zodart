@@ -49,6 +49,14 @@ class ZArray<T> extends ZBase<List<T>> implements ZTransformations<List<T>, List
     transformer: transformer,
   );
 
+  /// Adds a transformation of all array elements of type [T] to type [To] using the custom element transformer.
+  ///
+  /// Uses `Iterable.map(elementTransformer)` in the background.
+  ZArray<To> map<To>(Transformer<T, To> elementTransformer) => _transformCustom(
+    constructor: ZArray<To>._withConfig,
+    transformer: (List<T> from) => from.map(elementTransformer).toList(),
+  );
+
   @override
   ZArray<T> refine(Refiner<List<T>> refiner, {String? message, String? code}) => _refine(
     constructor: ZArray<T>._withConfig,

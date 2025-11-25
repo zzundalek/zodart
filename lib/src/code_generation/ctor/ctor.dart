@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -6,7 +6,7 @@ part 'ctor.freezed.dart';
 
 /// A base class representation of a constructor.
 ///
-/// Use [Ctor.fromCtorElement] to create a [NamedCtor] or [UnnamedCtor] from a [ConstructorElement2].
+/// Use [Ctor.fromCtorElement] to create a [NamedCtor] or [UnnamedCtor] from a [ConstructorElement].
 @freezed
 sealed class Ctor with _$Ctor {
   const Ctor._();
@@ -30,7 +30,7 @@ sealed class Ctor with _$Ctor {
     required List<Reference> optPositionalParams,
   }) = UnnamedCtor;
 
-  factory Ctor.fromCtorElement(ConstructorElement2 ctorElement) {
+  factory Ctor.fromCtorElement(ConstructorElement ctorElement) {
     final params = ctorElement.formalParameters;
 
     final reqNamedParams = Map.fromEntries(params.where((p) => p.isRequiredNamed).map(toNamedParam));
@@ -65,8 +65,8 @@ sealed class Ctor with _$Ctor {
           );
   }
 
-  static String? _getCtorName(ConstructorElement2 ctor) {
-    final name = ctor.name3;
+  static String? _getCtorName(ConstructorElement ctor) {
+    final name = ctor.name;
     return name != null && name.isNotEmpty && name != 'new' ? name : null;
   }
 
@@ -93,7 +93,7 @@ sealed class Ctor with _$Ctor {
   @visibleForTesting
   static MapEntry<String, Reference> toNamedParam(FormalParameterElement p) {
     return switch (p) {
-      FormalParameterElement(isNamed: true, name3: final String name) => MapEntry(
+      FormalParameterElement(isNamed: true, name: final String name) => MapEntry(
         name,
         refer(p.type.getDisplayString()),
       ),

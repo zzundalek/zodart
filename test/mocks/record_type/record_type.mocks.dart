@@ -4,7 +4,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:analyzer/dart/element/element.dart' as _i6;
-import 'package:analyzer/dart/element/element2.dart' as _i7;
 import 'package:analyzer/dart/element/nullability_suffix.dart' as _i3;
 import 'package:analyzer/dart/element/type.dart' as _i2;
 import 'package:analyzer/dart/element/type_visitor.dart' as _i4;
@@ -24,6 +23,7 @@ import 'package:mockito/src/dummies.dart' as _i5;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeDartType_0 extends _i1.SmartFake implements _i2.DartType {
   _FakeDartType_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
@@ -50,24 +50,6 @@ class MockRecordType extends _i1.Mock implements _i2.RecordType {
             returnValueForMissingStub: <_i2.RecordTypePositionalField>[],
           )
           as List<_i2.RecordTypePositionalField>);
-
-  @override
-  List<_i2.DartType> get positionalTypes =>
-      (super.noSuchMethod(
-            Invocation.getter(#positionalTypes),
-            returnValue: <_i2.DartType>[],
-            returnValueForMissingStub: <_i2.DartType>[],
-          )
-          as List<_i2.DartType>);
-
-  @override
-  List<_i2.RecordTypeNamedField> get sortedNamedTypes =>
-      (super.noSuchMethod(
-            Invocation.getter(#sortedNamedTypes),
-            returnValue: <_i2.RecordTypeNamedField>[],
-            returnValueForMissingStub: <_i2.RecordTypeNamedField>[],
-          )
-          as List<_i2.RecordTypeNamedField>);
 
   @override
   _i2.DartType get extensionTypeErasure =>
@@ -315,7 +297,7 @@ class MockRecordType extends _i1.Mock implements _i2.RecordType {
           as _i2.InterfaceType?);
 
   @override
-  _i2.InterfaceType? asInstanceOf2(_i7.InterfaceElement2? element) =>
+  _i2.InterfaceType? asInstanceOf2(_i6.InterfaceElement? element) =>
       (super.noSuchMethod(
             Invocation.method(#asInstanceOf2, [element]),
             returnValueForMissingStub: null,
@@ -342,13 +324,4 @@ class MockRecordType extends _i1.Mock implements _i2.RecordType {
             ),
           )
           as String);
-
-  @override
-  bool isStructurallyEqualTo(_i2.DartType? other) =>
-      (super.noSuchMethod(
-            Invocation.method(#isStructurallyEqualTo, [other]),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
 }

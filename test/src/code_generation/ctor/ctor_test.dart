@@ -8,17 +8,17 @@ import '../../../mocks/formal_parameter_element/formal_parameter_element.mocks.d
 
 void main() {
   group('fromCtorElement', () {
-    late MockConstructorElement2 ctorElement;
+    late MockConstructorElement ctorElement;
 
     setUp(() {
-      ctorElement = MockConstructorElement2();
+      ctorElement = MockConstructorElement();
 
       when(ctorElement.isConst).thenReturn(true);
       when(ctorElement.isFactory).thenReturn(true);
       when(ctorElement.formalParameters).thenReturn([]);
     });
     test('unnamed', () {
-      when(ctorElement.name3).thenReturn('new');
+      when(ctorElement.name).thenReturn('new');
 
       final ctor = Ctor.fromCtorElement(ctorElement);
 
@@ -37,7 +37,7 @@ void main() {
       );
     });
     test('named', () {
-      when(ctorElement.name3).thenReturn('myName');
+      when(ctorElement.name).thenReturn('myName');
 
       final ctor = Ctor.fromCtorElement(ctorElement);
 

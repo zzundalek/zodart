@@ -1,7 +1,7 @@
 @GenerateNiceMocks([
   MockSpec<FormalParameterElement>(),
 ])
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -23,7 +23,7 @@ MockFormalParameterElement mockNamedParameterElement({
   final param = MockFormalParameterElement();
 
   // named
-  when(param.name3).thenReturn(name);
+  when(param.name).thenReturn(name);
   when(param.isNamed).thenReturn(true);
   when(param.isRequiredNamed).thenReturn(isRequired);
   when(param.isOptionalNamed).thenReturn(!isRequired);
@@ -45,7 +45,7 @@ MockFormalParameterElement mockPositionalParameterElement({
 }) {
   final param = MockFormalParameterElement();
 
-  when(param.name3).thenReturn(null);
+  when(param.name).thenReturn(null);
   when(param.isNamed).thenReturn(false);
   when(param.isRequiredNamed).thenReturn(false);
   when(param.isOptionalNamed).thenReturn(false);

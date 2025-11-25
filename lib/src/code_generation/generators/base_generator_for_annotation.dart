@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart' show DartEmitter, Spec;
 import 'package:dart_style/dart_style.dart';
@@ -48,7 +48,7 @@ abstract class BaseGeneratorForAnnotation extends GeneratorForAnnotation<ZodArt>
   List<Spec> buildSpecs(SpecBuilderInput parseResult);
 
   @override
-  dynamic generateForAnnotatedElement(Element2 element, ConstantReader annotation, BuildStep buildStep) {
+  dynamic generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
     final zodArtAnnotation = annotationParser(rawAnnotation: annotation);
 
     final parseResult = schemaParser
@@ -58,7 +58,7 @@ abstract class BaseGeneratorForAnnotation extends GeneratorForAnnotation<ZodArt>
             schemaErrorFormatter.getErrorText(
               parseError,
               (
-                annotatedElementName: element.name3 ?? element.displayString2(),
+                annotatedElementName: element.name ?? element.displayString(),
                 schemaPropertyName: zodArtAnnotation.schemaPropertyName,
               ),
             ),
