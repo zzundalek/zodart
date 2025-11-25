@@ -39,6 +39,14 @@ class ZNullableArray<T> extends ZBase<List<T>?>
     transformer: transformer,
   );
 
+  /// Adds a transformation of all array elements of type [T] to type [To] using the custom element transformer.
+  ///
+  /// Uses `Iterable.map(elementTransformer)` in the background.
+  ZNullableArray<To> map<To>(Transformer<T, To> elementTransformer) => _transformCustom(
+    constructor: ZNullableArray<To>._withConfig,
+    transformer: (List<T> from) => from.map(elementTransformer).toList(),
+  );
+
   @override
   ZNullableArray<T> refine(Refiner<List<T>> refiner, {String? message, String? code}) => _refine(
     constructor: ZNullableArray<T>._withConfig,
