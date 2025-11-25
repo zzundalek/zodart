@@ -1,4 +1,4 @@
-## [UNRELEASED]
+## 1.3.0 - 2025-11-25
 
 - Add `.map(elementTransformer)` for ZArray
 - Upgrade dependencies to fit with Dart 3.10
