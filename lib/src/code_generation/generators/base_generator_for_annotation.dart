@@ -38,6 +38,16 @@ abstract class BaseGeneratorForAnnotation extends GeneratorForAnnotation<ZodArt>
   /// Utility to obtain human-readable errors produced by [SchemaParser].
   final SchemaParsingErrorFormatter schemaErrorFormatter;
 
+  /// Comment added to the beginning of generated files
+  ///
+  /// Used to turn off linter and coverage for generated files
+  static const _fileHeaderComment = '''
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
+''';
+
   /// Builds the list of code specifications (`Spec`) to be generated.
   ///
   /// Called during [generateForAnnotatedElement] after the annotation and schema
@@ -70,7 +80,8 @@ abstract class BaseGeneratorForAnnotation extends GeneratorForAnnotation<ZodArt>
     final specs = buildSpecs(parseResult);
 
     final emitter = DartEmitter();
-    final output = specs.map((spec) => spec.accept(emitter)).join(' ');
+    final specsOutput = specs.map((spec) => spec.accept(emitter)).join(' ');
+    final output = specsOutput.isNotEmpty ? _fileHeaderComment + specsOutput : '';
 
     // Returns the generated code
     return DartFormatter(
