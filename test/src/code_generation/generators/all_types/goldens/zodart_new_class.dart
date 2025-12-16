@@ -1,5 +1,9 @@
 part of '../zodart_src.dart';
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 /// Inferred Dart type returned from the schema defined in [N].
 ///
 /// This corresponds to the structure described by [N.schema].
