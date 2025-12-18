@@ -1,5 +1,6 @@
-## [UNRELEASED]
+## 1.4.0 - UNRELEASED
 
+- Add cross-field validation for ZObject
 - Turn off linter and test coverage for generated files
 
 ## 1.3.0 - 2025-11-25
