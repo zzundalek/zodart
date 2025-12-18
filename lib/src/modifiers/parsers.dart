@@ -1,4 +1,5 @@
 import '../base/base.dart';
+import '../base/cross_field_validation.dart';
 import '../types/types.dart';
 
 /// Strictly parses [val] as type [T].
@@ -51,15 +52,26 @@ ZRes<double> parseDouble(Object? val) => parseStrict(val);
 /// Returns success if [val] is a [bool], otherwise an error.
 ZRes<bool> parseBool(Object? val) => parseStrict(val);
 
-/// Returns a parser function that parses an object of type [T] using the given [schema]
+/// Returns a parser function that parses an object of type [T] using the given [schema],
+/// applies [crossFieldValidation] using the [crossFieldValidationExecutor]
 /// and maps the parsed map to [T] using the provided [mapper].
 ///
 /// The returned function expects an [Object?] and attempts to parse it as a [Map<String, dynamic>].
 /// If successful, it delegates to [parseObjectFromMap].
 /// Otherwise, returns a single parse failure error.
-ZRes<T> Function(Object?) parseObject<T>(ObjectSchema schema, ObjectMapper<T> mapper) => (Object? val) {
+ZRes<T> Function(Object?) parseObject<T>({
+  required ObjectSchema schema,
+  required ObjectMapper<T> mapper,
+  required UnsafeCrossFieldValidation crossFieldValidation,
+  CrossFieldValidationExecutorFactory crossFieldValidationExecutor = CrossFieldValidationExecutor.new,
+}) => (Object? val) {
   return switch (val) {
-    final Map<String, dynamic> val => parseObjectFromMap(mapper: mapper, schema: schema, val: val),
+    final Map<String, dynamic> val => parseObjectFromMap(
+      mapper: mapper,
+      schema: schema,
+      val: val,
+      crossFieldValidationExecutor: crossFieldValidationExecutor(crossFieldValidation),
+    ),
     _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
   };
 };
@@ -70,12 +82,15 @@ ZRes<T> Function(Object?) parseObject<T>(ObjectSchema schema, ObjectMapper<T> ma
 /// Iterates over each entry in the [schema], parses the corresponding value from [val],
 /// and collects parsing issues with prepended paths.
 ///
+/// Then runs the [crossFieldValidationExecutor] and collects all issues.
+///
 /// Returns a success with the mapped object if no issue occurs,
 /// otherwise returns an error containing all collected issues.
 ZRes<T> parseObjectFromMap<T>({
   required ObjectSchema schema,
   required ObjectMapper<T> mapper,
   required Map<String, dynamic> val,
+  required CrossFieldValidationExecutor crossFieldValidationExecutor,
 }) {
   final parsedValuesPerKey = <String, dynamic>{};
   final issuesForAllKeys = <ZIssue>[];
@@ -98,6 +113,13 @@ ZRes<T> parseObjectFromMap<T>({
           (val) => parsedValuesPerKey[key] = val,
         );
   }
+
+  final crossValidationIssues = crossFieldValidationExecutor.execute(
+    succesfullyParsedValues: parsedValuesPerKey,
+    schema: schema,
+  );
+
+  issuesForAllKeys.addAll(crossValidationIssues);
 
   return issuesForAllKeys.isEmpty ? ZRes.success(mapper(parsedValuesPerKey)) : ZRes.error(issuesForAllKeys);
 }
