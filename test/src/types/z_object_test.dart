@@ -1,4 +1,6 @@
 import 'package:test/test.dart';
+import 'package:zodart/src/base/cross_field_validation.dart' show FieldNotInSchemaAccessorException;
+import 'package:zodart/src/base/zodart_exceptions.dart' show ZConsumerCausedException;
 import 'package:zodart/zodart.dart';
 
 import '../../test_helper.dart';
@@ -22,6 +24,15 @@ ZSchema schema = {
 };
 
 typedef SimpleRec = ({String val});
+
+/// Helper class to test cross-field validation
+class TypedFieldAccessor extends ParsedFieldAccessor {
+  TypedFieldAccessor(super.schema, super.parsedValues);
+
+  int get id => this['id'] as int;
+
+  String get name => this['name'] as String;
+}
 
 void main() {
   group('parse', () {
@@ -477,6 +488,101 @@ void main() {
         ),
         zObj.optional().onNull(onNullaFallback),
       );
+    });
+  });
+
+  group('Cross-field validation', () {
+    final zIssue1 = ZIssue.custom(message: 'issue1', rawPath: ZPath.property('id'));
+
+    ({int id, String name}) fromJson(Map<String, dynamic> json) => (id: json['id'], name: json['name']);
+
+    final schema = <String, ZBase<dynamic>>{'id': ZInt().min(1), 'name': ZString().min(1)};
+
+    test('Throws FieldNotInSchemaAccessorException when accessing a field not in schema', () {
+      SuperRefinerErrorRes? invalidFieldAccessValidator(ParsedFieldAccessor fieldValues) =>
+          (fieldValues['dummy'] as int) < 10 ? null : (zIssue1, others: []);
+
+      final zObject = ZObject.withMapper(
+        schema,
+        fromJson: fromJson,
+        crossValidators: [invalidFieldAccessValidator],
+      );
+
+      expect(
+        () => zObject.parse({'id': 100, 'name': ''}),
+        throwsA(
+          isA<FieldNotInSchemaAccessorException>()
+              .having((e) => e.fieldName, 'Field name', 'dummy')
+              .having((e) => e.schemaFieldNames, 'Schema field names', equals(['id', 'name']))
+              .having((e) => e, 'Exception extends ZConsumerCausedException', isA<ZConsumerCausedException>()),
+        ),
+      );
+    });
+
+    group('withMapper', () {
+      SuperRefinerErrorRes? isIdLowerThan10(ParsedFieldAccessor fieldValues) =>
+          (fieldValues['id'] as int) < 10 ? null : (zIssue1, others: []);
+
+      test('parsing with cross validation returns issues for the field with issues for other fields', () {
+        final res = ZObject.withMapper(
+          schema,
+          fromJson: fromJson,
+          crossValidators: [isIdLowerThan10],
+        ).parse({'id': 100, 'name': ''});
+
+        expect(res.rawIssues, isA<List<ZIssue>>().having((issues) => issues.length, 'Number of issues', 2));
+        expect(res.getRawIssuesFor('id'), equals([zIssue1]));
+      });
+
+      test('if the field used in the cross-validator is not parsed properly that issue is returned instead', () {
+        final res = ZObject.withMapper(
+          schema,
+          fromJson: fromJson,
+          crossValidators: [isIdLowerThan10],
+        ).parse({'id': 0, 'name': ''});
+
+        expect(res.rawIssues, isA<List<ZIssue>>().having((issues) => issues.length, 'Number of issues', 2));
+        expect(
+          res.getRawIssuesFor('id'),
+          isA<List<ZIssue>>()
+              .having((issues) => issues.length, 'Number of issues for id', 1)
+              .having((issues) => issues.first, 'The issue type is ZIssueMinNotMet', isA<ZIssueMinNotMet>()),
+        );
+      });
+    });
+
+    group('withTypedCrossFieldValidation', () {
+      SuperRefinerErrorRes? isIdLowerThan10(TypedFieldAccessor fieldValues) =>
+          fieldValues.id < 10 ? null : (zIssue1, others: []);
+
+      test('parsing with cross validation returns issues for the field with issues for other fields', () {
+        final res = ZObject.withTypedCrossFieldValidation(
+          schema,
+          fromJson: fromJson,
+          crossValidators: [isIdLowerThan10],
+          parsedFieldAccessorFactory: TypedFieldAccessor.new,
+        ).parse({'id': 100, 'name': ''});
+
+        expect(res.rawIssues, isA<List<ZIssue>>().having((issues) => issues.length, 'Number of issues', 2));
+        expect(res.getRawIssuesFor('id'), equals([zIssue1]));
+      });
+
+      test('if the field used in the cross-validator is not parsed properly that issue is returned instead', () {
+        final res = ZObject.withTypedCrossFieldValidation(
+          schema,
+          fromJson: fromJson,
+          crossValidators: [isIdLowerThan10],
+          parsedFieldAccessorFactory: TypedFieldAccessor.new,
+        ).parse({'id': 0, 'name': ''});
+
+        expect(res.rawIssues, isA<List<ZIssue>>().having((issues) => issues.length, 'Number of issues', 2));
+        expect(
+          res.getRawIssuesFor('id'),
+          isA<List<ZIssue>>()
+              .having((issues) => issues.length, 'Number of issues for id', 1)
+              .having((issues) => issues.first, 'The issue type is ZIssueMinNotMet', isA<ZIssueMinNotMet>()),
+        );
+      });
     });
   });
 }
