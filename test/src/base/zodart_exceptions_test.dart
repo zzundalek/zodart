@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:zodart/src/base/zodart_internal_exception.dart';
+import 'package:zodart/src/base/zodart_exceptions.dart';
 import 'package:zodart/src/z_base_config/z_base_config.dart';
 
 void main() {

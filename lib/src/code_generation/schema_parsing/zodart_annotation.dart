@@ -2,7 +2,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
-import '../../base/zodart_internal_exception.dart';
+import '../../base/zodart_exceptions.dart';
 import '../annotations.dart';
 
 part 'zodart_annotation.freezed.dart';
