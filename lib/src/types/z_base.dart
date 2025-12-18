@@ -209,6 +209,9 @@ sealed class ZBase<T> {
 
       // NOTE: Need to fix the generic type for Left as it is untouched during processing above
       return _fixLeftGenericType(parseRes);
+    } on ZConsumerCausedException catch (_) {
+      // All consumer caused exceptions will be propageted without any change
+      rethrow;
     } on ZodArtInternalException catch (e, stack) {
       /// NOTE: Add ZBaseConfig to the exception and throw
       throw ZodArtInternalException(

@@ -33,3 +33,8 @@ class ZodArtInternalException implements Exception {
     return msg;
   }
 }
+
+/// Generic exception for exceptions caused by consumer (i.e. user) input
+///
+/// Used to distinguish between library internal exceptions and user caused ones
+abstract class ZConsumerCausedException implements Exception {}

@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 
-import '../base/zodart_internal_exception.dart';
+import '../base/zodart_exceptions.dart';
 import '../zodart_base.dart';
 
 /// Extension which adds `whereOrNull` to [Iterable]

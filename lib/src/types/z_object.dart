@@ -19,17 +19,66 @@ part of 'types.dart';
 // final person = personSchema.parse({'firstName': 'Zod', 'lastName': 'Art'});
 /// ```
 class ZObject<T extends Object> extends ZBase<T> implements ZTransformations<T, T> {
-  /// Factory constructor that creates a new instance using the given [schema]
-  /// for parsing and the [fromJson] function for mapping parsed data to type [T].
-  factory ZObject.withMapper(ZSchema schema, {required ObjectMapper<T> fromJson}) => ZObject._new(schema, fromJson);
+  /// Factory constructor that creates a [ZObject] using the given [schema]
+  /// for parsing and the [fromJson] function to map parsed data to type [T].
+  ///
+  /// Cross-field validators, if provided, operates on the default
+  /// [ParsedFieldAccessor].
+  factory ZObject.withMapper(
+    ZSchema schema, {
+    required ObjectMapper<T> fromJson,
+    List<CrossFieldValidator<ParsedFieldAccessor>> crossValidators = const [],
+  }) => ZObject._new(
+    schema: schema,
+    mapper: fromJson,
+    crossFieldValidation: (
+      parsedFieldAccessorFactory: ParsedFieldAccessor.new,
+      crossValidators: crossValidators,
+    ),
+  );
 
-  ZObject._new(ZSchema schema, ObjectMapper<T> mapper) : super._new(Parsing.buildIn(parseObject<T>(schema, mapper)));
+  ZObject._new({
+    required ZSchema schema,
+    required ObjectMapper<T> mapper,
+    required UnsafeCrossFieldValidation crossFieldValidation,
+  }) : super._new(
+         Parsing.buildIn(
+           parseObject<T>(
+             schema: schema,
+             mapper: mapper,
+             crossFieldValidation: crossFieldValidation,
+           ),
+         ),
+       );
 
   /// Internal constructor that accepts a custom configuration.
   ///
   /// Typically used for creating modified versions of this validator,
   /// such as after applying transformation or additional rules.
   ZObject._withConfig(super.config) : super._withConfig();
+
+  /// Creates a [ZObject] with strongly typed cross-field validation.
+  ///
+  /// The returned instance uses the provided [schema] for parsing and
+  /// [fromJson] to map parsed data to type [T].
+  ///
+  /// The generic type [G] enforces type safety for cross-field validation by
+  /// ensuring that [crossValidators] operate on a concrete
+  /// [ParsedFieldAccessor] implementation created by
+  /// [parsedFieldAccessorFactory].
+  static ZObject<T> withTypedCrossFieldValidation<T extends Object, G extends ParsedFieldAccessor>(
+    ZSchema schema, {
+    required ObjectMapper<T> fromJson,
+    required List<CrossFieldValidator<G>> crossValidators,
+    required ParsedFieldAccessorFactory<G> parsedFieldAccessorFactory,
+  }) => ZObject._new(
+    schema: schema,
+    mapper: fromJson,
+    crossFieldValidation: (
+      parsedFieldAccessorFactory: parsedFieldAccessorFactory,
+      crossValidators: crossValidators,
+    ),
+  );
 
   /// Enable `null` value. All rules will be skipped for null values.
   ZNullableObject<T> nullable() => _nullable(constructor: ZNullableObject<T>._withConfig);
