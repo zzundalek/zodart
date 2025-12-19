@@ -24,6 +24,8 @@ class Refs {
     final outputClassImpl = constructName(zodArtPrivate: true, suffix: outputClassImplSuffix);
     final instantiateSchemaFn = constructName(zodArtPrivate: true, prefix: instantiateSchemaFnPrefix);
     final schemaFieldPath = '$annotatedClassName.$schemaFieldName';
+    final parsedFieldsAccessor = constructName(suffix: parsedFieldAccessorSuffix, zodArtPrivate: false);
+    const parsedFieldAccessorBaseClass = 'ParsedFieldAccessor';
 
     return Refs._(
       annotatedClass: annotatedClassName,
@@ -39,6 +41,8 @@ class Refs {
       outputClassImpl: outputClassImpl,
       instantiateSchemaFn: instantiateSchemaFn,
       schemaFieldPath: schemaFieldPath,
+      parsedFieldAccessor: parsedFieldsAccessor,
+      parsedFieldAccessorBaseClass: parsedFieldAccessorBaseClass,
     );
   }
 
@@ -56,6 +60,8 @@ class Refs {
     required this.outputClassImpl,
     required this.instantiateSchemaFn,
     required this.schemaFieldPath,
+    required this.parsedFieldAccessor,
+    required this.parsedFieldAccessorBaseClass,
   });
 
   /// Annotated class name.
@@ -105,6 +111,14 @@ class Refs {
   /// The name of a top-level function used to instantiate a schema.
   final String instantiateSchemaFn;
 
+  /// The name of a class representing strongly typed parsed field accessor.
+  ///
+  /// This class extends the base parsed filed accessor
+  final String parsedFieldAccessor;
+
+  /// The name of the base class for parse field acessors.
+  final String parsedFieldAccessorBaseClass;
+
   /// Utils class name suffix.
   static const utilsClassSuffix = 'Utils';
 
@@ -125,6 +139,12 @@ class Refs {
 
   /// Schema instantiate function prefix.
   static const instantiateSchemaFnPrefix = 'instantiate';
+
+  /// Parsed field accessor suffix.
+  static const parsedFieldAccessorSuffix = 'FieldAccessor';
+
+  /// Type of the cross field validator.
+  String get crossFieldValidatorType => 'CrossFieldValidator<$parsedFieldAccessor>';
 
   /// Returns a helper function for constructing generated entity names,
   /// based on the given `className`, a `suffix`, `prefix` and the `zodArtPrivate` flag.
