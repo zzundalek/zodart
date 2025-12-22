@@ -1,4 +1,4 @@
-## 1.4.0 - UNRELEASED
+## 1.4.0 - 2025-12-22
 
 - Add cross-field validation for code generation
 - Add cross-field validation for ZObject
