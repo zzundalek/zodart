@@ -19,37 +19,45 @@ class AnnotationKinds {
 ///
 /// - Strongly-typed helper classes and type definitions that ensure consistency between the schema and its mapper.
 /// - Utility helpers that add syntactic sugar for schema introspection and manipulation.
+/// - Optionally, applies a static list of cross-field validators via [crossFieldValidators].
 /// {@endtemplate}
 class ZodArt {
   /// {@macro zodart_annotation.annotation}
   ///
   /// Use [outputClassType] as the ZObject T type.
-  /// Automatically selects the best constructor to instantiate the object.
-  const ZodArt.withExistingClass({required Type outputClassType})
+  const ZodArt.withExistingClass({required Type outputClassType, List<dynamic> crossFieldValidators = const []})
     : this._(
         annotationKind: AnnotationKinds.useExistingClass,
         outputType: outputClassType,
+        crossFieldValidators: crossFieldValidators,
       );
 
   /// {@macro zodart_annotation.annotation}
   ///
   /// Generates a new class code named [outputClassName] and use it as the ZObject T type.
-  const ZodArt.generateNewClass({required String outputClassName})
+  const ZodArt.generateNewClass({required String outputClassName, List<dynamic> crossFieldValidators = const []})
     : this._(
         annotationKind: AnnotationKinds.generateNewClass,
         outputTypeStr: outputClassName,
+        crossFieldValidators: crossFieldValidators,
       );
 
   /// {@macro zodart_annotation.annotation}
   ///
   /// Use [outputRecordType] as the ZObject T type.
-  const ZodArt.withRecord({required Type outputRecordType})
+  const ZodArt.withRecord({required Type outputRecordType, List<dynamic> crossFieldValidators = const []})
     : this._(
         annotationKind: AnnotationKinds.useRecord,
         outputType: outputRecordType,
+        crossFieldValidators: crossFieldValidators,
       );
 
-  const ZodArt._({required this.annotationKind, this.outputType, this.outputTypeStr});
+  const ZodArt._({
+    required this.annotationKind,
+    required this.crossFieldValidators,
+    this.outputType,
+    this.outputTypeStr,
+  });
 
   /// Reuse existing / generate new class
   ///
@@ -64,4 +72,7 @@ class ZodArt {
   ///   - using an existing class
   ///   - using record
   final Type? outputType;
+
+  /// Crossfield validators list
+  final List<dynamic> crossFieldValidators;
 }

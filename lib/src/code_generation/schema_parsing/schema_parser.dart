@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
@@ -200,89 +201,125 @@ class SchemaParser {
     return validClassNameRegex.hasMatch(className);
   }
 
+  /// Parse [crossFieldValidators] and return either a list of validator names or [SchemaParsingError].
+  Either<SchemaParsingError, List<String>> getCrossFieldValidatorsNames(List<DartObject> crossFieldValidators) {
+    return crossFieldValidators
+        .traverseEither(
+          (item) => Either<SchemaParsingError, ExecutableElement>.fromNullable(
+            item.toFunctionValue(),
+            () => CrossFieldValidatorIsNotFunction(item.type.toString()),
+          ),
+        )
+        /// Only const functions => must have a name
+        .mapList((validator) => validator.name!);
+  }
+
+  GenerateNewClassSpec _getGenerateNewClassSpec(
+    ZodArtGenerateNewClass annotation,
+    String annotatedClassName,
+    Schema schema,
+    List<String> validatorNames,
+  ) {
+    return GenerateNewClassSpec(
+      schema: schema,
+      crossFieldValidators: validatorNames,
+      refs: Refs(
+        annotatedClassName: annotatedClassName,
+        outputTypeName: annotation.outputTypeName,
+        schemaFieldName: annotation.schemaPropertyName,
+      ),
+    );
+  }
+
+  UseExistingClassSpec _getUseExistingClassSpec(
+    ZodArtUseExistingClass annotation,
+    String annotatedClassName,
+    Schema schema,
+    Ctor ctor,
+    List<String> validatorNames,
+  ) {
+    return UseExistingClassSpec(
+      schema: schema,
+      ctor: ctor,
+      crossFieldValidators: validatorNames,
+      refs: Refs(
+        annotatedClassName: annotatedClassName,
+        outputTypeName: annotation.outputTypeName,
+        schemaFieldName: annotation.schemaPropertyName,
+      ),
+    );
+  }
+
+  UseRecordSpec _getZodArtUseRecordSpec(
+    ZodArtUseRecord annotation,
+    String annotatedClassName,
+    Schema schema,
+    List<String> validatorNames,
+  ) {
+    return UseRecordSpec(
+      schema: schema,
+      crossFieldValidators: validatorNames,
+      refs: Refs(
+        annotatedClassName: annotatedClassName,
+        outputTypeName: annotation.outputTypeName,
+        schemaFieldName: annotation.schemaPropertyName,
+      ),
+    );
+  }
+
   /// Parses the annotated [element] with the given [annotation],
   /// extracting schema and constructor information to build a spec.
   ///
-  /// Supports two annotation types:
+  /// Supports three annotation types:
   /// - [ZodArtGenerateNewClass]: validates output class name and generates a new class spec.
   /// - [ZodArtUseExistingClass]: picks a constructor and generates an existing class spec.
+  /// - [ZodArtUseRecord]: creates the record typedef.
   Either<SchemaParsingError, SpecBuilderInput> parseAnnotatedElement(Element element, ZodArtAnnotation annotation) {
-    final parseResultOrError = getClassElement(element).flatMap((classElement) {
-      // Note: add a fallback with regards to: https://github.com/dart-lang/sdk/issues/61026
-      final annotatedClassName = classElement.name ?? '';
+    final classElementOrError = getClassElement(element);
 
-      return getRawSchema(
-            classElement,
-            annotation,
-          )
-          .flatMap(
-            getSchema,
-          )
-          .map(
-            (schema) => (
-              schema: Schema(schema),
-              annotatedClassName: annotatedClassName,
-            ),
-          );
-    });
+    // Note: add a fallback with regards to: https://github.com/dart-lang/sdk/issues/61026
+    final annotatedClassNameOrError = classElementOrError.map((classElement) => classElement.name ?? '');
+
+    final validatorsNamesOrError = getCrossFieldValidatorsNames(annotation.crossFieldValidators);
+
+    final parseResultOrError = classElementOrError
+        .flatMap((classElement) => getRawSchema(classElement, annotation))
+        .flatMap(getSchema)
+        .map(Schema.new);
 
     return switch (annotation) {
-      ZodArtGenerateNewClass() =>
-        parseResultOrError
-            .flatMap(
-              (parseResult) => Either.fromPredicate(
-                parseResult,
-                (_) => isNewClassNameValid(annotation.outputClassName),
-                (_) => InvalidNewClassName(newClassName: annotation.outputClassName),
-              ),
-            )
-            .map((parseResult) {
-              final schema = parseResult.schema;
-              final annotatedClassName = parseResult.annotatedClassName;
-
-              return GenerateNewClassSpec(
-                schema: schema,
-                refs: Refs(
-                  annotatedClassName: annotatedClassName,
-                  outputTypeName: annotation.outputTypeName,
-                  schemaFieldName: annotation.schemaPropertyName,
-                ),
-              );
-            }),
+      ZodArtGenerateNewClass() => parseResultOrError.flatMap((parseResult) {
+        return Either<SchemaParsingError, Schema>.fromPredicate(
+          parseResult,
+          (_) => isNewClassNameValid(annotation.outputClassName),
+          (_) => InvalidNewClassName(newClassName: annotation.outputClassName),
+        ).map3(
+          annotatedClassNameOrError,
+          validatorsNamesOrError,
+          (parseResult, annotatedClassName, validatorNames) =>
+              _getGenerateNewClassSpec(annotation, annotatedClassName, parseResult, validatorNames),
+        );
+      }),
       ZodArtUseExistingClass() => parseResultOrError.flatMap((parseResult) {
-        final schema = parseResult.schema;
-        final annotatedClassName = parseResult.annotatedClassName;
-
         return pickCtor(
           annotation: annotation,
-          outObjSchema: schema.outSchema.mapValue(refer),
-        ).map(
-          (ctor) => UseExistingClassSpec(
-            schema: parseResult.schema,
-            ctor: ctor,
-            refs: Refs(
-              annotatedClassName: annotatedClassName,
-              outputTypeName: annotation.outputTypeName,
-              schemaFieldName: annotation.schemaPropertyName,
-            ),
-          ),
+          outObjSchema: parseResult.outSchema.mapValue(refer),
+        ).map3(
+          annotatedClassNameOrError,
+          validatorsNamesOrError,
+          (ctor, annotatedClassName, validatorNames) =>
+              _getUseExistingClassSpec(annotation, annotatedClassName, parseResult, ctor, validatorNames),
         );
       }),
       ZodArtUseRecord() => parseResultOrError.flatMap((parseResult) {
-        final schema = parseResult.schema;
-
         return validateOutputRecord(
           annotation: annotation,
-          outObjSchema: schema.outSchema.mapValue(refer),
-        ).map(
-          (_) => UseRecordSpec(
-            schema: parseResult.schema,
-            refs: Refs(
-              annotatedClassName: parseResult.annotatedClassName,
-              outputTypeName: annotation.outputTypeName,
-              schemaFieldName: annotation.schemaPropertyName,
-            ),
-          ),
+          outObjSchema: parseResult.outSchema.mapValue(refer),
+        ).map3(
+          annotatedClassNameOrError,
+          validatorsNamesOrError,
+          (_, annotatedClassName, validatorNames) =>
+              _getZodArtUseRecordSpec(annotation, annotatedClassName, parseResult, validatorNames),
         );
       }),
     };

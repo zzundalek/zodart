@@ -52,3 +52,14 @@ extension EitherExt<L, R> on Either<L, R> {
     return flatMap((e) => e is T ? Right<L, T>(e as T) : Left<L, T>(onError(e)));
   }
 }
+
+/// Provides helper methods for [Either<L, List<R>>].
+extension EitherListExtension<L, R> on Either<L, List<R>> {
+  /// If the [Either] is [Right], then change its list values from type `R` to
+  /// type `C` using function `mapper`.
+  Either<L, List<C>> mapList<C>(C Function(R) mapper) => map((items) => items.map(mapper).toList());
+
+  /// If the [Either] is [Right], then execute `traverseEither` with `mapper` on the [Right].
+  Either<L, List<C>> flatMapList<C>(Either<L, C> Function(R) mapper) =>
+      flatMap((items) => items.traverseEither(mapper));
+}

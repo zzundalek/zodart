@@ -91,6 +91,15 @@ class SchemaParsingErrorFormatter {
           ..writeln()
           ..write('Make sure it is a valid ZodArt type and can be inferred correctly at build time.')
           ..toString(),
+
+      CrossFieldValidatorIsNotFunction(:final dartTypeStr) =>
+        StringBuffer()
+          ..writeln('invalid cross-field validator type.')
+          ..writeln()
+          ..write("Unable to use one of the cross-field validators. Expected a const function, got '$dartTypeStr'.")
+          ..writeln()
+          ..write('Make sure that all cross-field validators are const functions.')
+          ..toString(),
     };
 
     return '$_annotationName - $errorDetail';

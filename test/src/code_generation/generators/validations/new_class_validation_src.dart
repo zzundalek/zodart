@@ -48,6 +48,12 @@ abstract class UnsupportedType {
   static final schema = (name: DateTime.now());
 }
 
+@crossFieldValidatorIsString
+@ZodArt.generateNewClass(outputClassName: 'TestClass', crossFieldValidators: ['a'])
+abstract class CrossFieldValidatorsNotAFunction {
+  static final schema = (name: ZString());
+}
+
 @ShouldThrow(
   '''
 @ZodArt - inserted class name '' is not a valid Dart class name.

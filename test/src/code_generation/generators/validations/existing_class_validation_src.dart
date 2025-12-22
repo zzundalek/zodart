@@ -54,6 +54,17 @@ abstract class UnsupportedType {
   static final schema = (name: DateTime.now());
 }
 
+class Item {
+  const Item({required this.name});
+  final String name;
+}
+
+@crossFieldValidatorIsString
+@ZodArt.withExistingClass(outputClassType: Item, crossFieldValidators: ['a'])
+abstract class CrossFieldValidatorsNotAFunction {
+  static final schema = (name: ZString());
+}
+
 typedef SomeRecord = ({String name});
 
 @ShouldThrow(
