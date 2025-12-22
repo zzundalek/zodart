@@ -54,6 +54,12 @@ abstract class UnsupportedType {
   static final schema = (name: DateTime.now());
 }
 
+@crossFieldValidatorIsString
+@ZodArt.withRecord(outputRecordType: OutputRecord, crossFieldValidators: ['a'])
+abstract class CrossFieldValidatorsNotAFunction {
+  static final schema = (name: ZString());
+}
+
 enum SomeEnum { name }
 
 @ShouldThrow(

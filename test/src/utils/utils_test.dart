@@ -1,3 +1,4 @@
+import 'package:fpdart/fpdart.dart';
 import 'package:test/test.dart';
 import 'package:zodart/src/base/base.dart';
 import 'package:zodart/src/utils/utils.dart';
@@ -148,6 +149,41 @@ void main() {
       final res = findIssuesForPath(zIssueWithDuplicate, 'name');
       expect(res.isSome(), isTrue);
       expect(res.toNullable(), equals([zIssuesRec.propName, zIssuesRec.propName]));
+    });
+  });
+
+  group('EitherListExtension', () {
+    group('mapList', () {
+      final right = Either<String, List<int>>.right([1, 2, 3]);
+      final left = Either<String, List<int>>.left('Error');
+      int multiplyByTen(int val) => val * 10;
+      test('Tranforms correctly list of ints', () {
+        final res = right.mapList(multiplyByTen);
+        expect(res.getRight().toNullable(), equals([10, 20, 30]));
+      });
+      test('Result is Left and value is kept', () {
+        final res = left.mapList(multiplyByTen);
+        expect(res.getLeft().toNullable(), equals('Error'));
+      });
+    });
+    group('flatMapList', () {
+      final right = Either<String, List<int>>.right([2, 4, 6]);
+      final rightWithInvalidItem = Either<String, List<int>>.right([2, 4, 7, 8]);
+      final left = Either<String, List<int>>.left('Error');
+      Either<String, int> isEven(int val) => val.isEven ? Either.right(val) : Either.left('Number is not even');
+      test('Returns a list of numbers for all valid ones', () {
+        final res = right.flatMapList(isEven);
+        expect(res.getRight().toNullable(), equals([2, 4, 6]));
+      });
+      test('Result is left containing the new error when the list contains invalid number', () {
+        final res = rightWithInvalidItem.flatMapList(isEven);
+        expect(res.getLeft().toNullable(), equals('Number is not even'));
+      });
+      test('Result is Left and value is kept', () {
+        final res = left.flatMapList(isEven);
+        expect(res.getLeft().toNullable(), equals('Error'));
+      });
+      //
     });
   });
 }

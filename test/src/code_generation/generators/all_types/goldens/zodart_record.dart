@@ -167,7 +167,12 @@ final class _RUtils
     })
   >
   get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators: <CrossFieldValidator<RFieldAccessor>>[],
+      parsedFieldAccessorFactory: RFieldAccessor.new,
+    );
   }
 
   @override
@@ -255,3 +260,36 @@ _instantiateR({
   znObj: znObj,
   znStr: znStr,
 );
+
+/// Type-safe parsed fields accessor for [R].
+class RFieldAccessor extends ParsedFieldAccessor {
+  RFieldAccessor(super.schema, super.parsedValues);
+
+  List<String> get zArrayOfStr => (this['zArrayOfStr'] as List<String>);
+
+  bool get zBool => (this['zBool'] as bool);
+
+  double get zDbl => (this['zDbl'] as double);
+
+  DateTime get zDt => (this['zDt'] as DateTime);
+
+  int get zInt => (this['zInt'] as int);
+
+  ({String id}) get zObj => (this['zObj'] as ({String id}));
+
+  String get zStr => (this['zStr'] as String);
+
+  List<String?>? get znArrayOfStr => (this['znArrayOfStr'] as List<String?>?);
+
+  bool? get znBool => (this['znBool'] as bool?);
+
+  double? get znDbl => (this['znDbl'] as double?);
+
+  DateTime? get znDt => (this['znDt'] as DateTime?);
+
+  int? get znInt => (this['znInt'] as int?);
+
+  ({String id})? get znObj => (this['znObj'] as ({String id})?);
+
+  String? get znStr => (this['znStr'] as String?);
+}
