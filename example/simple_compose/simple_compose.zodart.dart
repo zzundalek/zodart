@@ -100,7 +100,12 @@ final class _ObjSchemaUtils
 
   @override
   ZObject<Obj> get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators: <CrossFieldValidator<ObjSchemaFieldAccessor>>[],
+      parsedFieldAccessorFactory: ObjSchemaFieldAccessor.new,
+    );
   }
 
   @override
@@ -110,4 +115,13 @@ final class _ObjSchemaUtils
     intVal: val['intVal'] as int?,
     strVal: val['strVal'] as String,
   );
+}
+
+/// Type-safe parsed fields accessor for [ObjSchema].
+class ObjSchemaFieldAccessor extends ParsedFieldAccessor {
+  ObjSchemaFieldAccessor(super.schema, super.parsedValues);
+
+  int? get intVal => (this['intVal'] as int?);
+
+  String get strVal => (this['strVal'] as String);
 }

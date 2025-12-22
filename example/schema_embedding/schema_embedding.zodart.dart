@@ -117,7 +117,12 @@ final class _CustomerSchemaUtils
 
   @override
   ZObject<Customer> get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators: <CrossFieldValidator<CustomerSchemaFieldAccessor>>[],
+      parsedFieldAccessorFactory: CustomerSchemaFieldAccessor.new,
+    );
   }
 
   @override
@@ -128,6 +133,17 @@ final class _CustomerSchemaUtils
     id: val['id'] as int,
     lastName: val['lastName'] as String,
   );
+}
+
+/// Type-safe parsed fields accessor for [CustomerSchema].
+class CustomerSchemaFieldAccessor extends ParsedFieldAccessor {
+  CustomerSchemaFieldAccessor(super.schema, super.parsedValues);
+
+  String get firstName => (this['firstName'] as String);
+
+  int get id => (this['id'] as int);
+
+  String get lastName => (this['lastName'] as String);
 }
 
 /// Inferred Dart type returned from the schema defined in [ItemSchema].
@@ -235,7 +251,12 @@ final class _ItemSchemaUtils
 
   @override
   ZObject<Item> get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators: <CrossFieldValidator<ItemSchemaFieldAccessor>>[],
+      parsedFieldAccessorFactory: ItemSchemaFieldAccessor.new,
+    );
   }
 
   @override
@@ -246,6 +267,17 @@ final class _ItemSchemaUtils
     name: val['name'] as String,
     price: val['price'] as double,
   );
+}
+
+/// Type-safe parsed fields accessor for [ItemSchema].
+class ItemSchemaFieldAccessor extends ParsedFieldAccessor {
+  ItemSchemaFieldAccessor(super.schema, super.parsedValues);
+
+  int get id => (this['id'] as int);
+
+  String get name => (this['name'] as String);
+
+  double get price => (this['price'] as double);
 }
 
 /// Inferred Dart type returned from the schema defined in [OrderSchema].
@@ -312,7 +344,12 @@ final class _OrderSchemaUtils
 
   @override
   ZObject<Order> get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators: <CrossFieldValidator<OrderSchemaFieldAccessor>>[],
+      parsedFieldAccessorFactory: OrderSchemaFieldAccessor.new,
+    );
   }
 
   @override
@@ -323,4 +360,15 @@ final class _OrderSchemaUtils
     id: val['id'] as int,
     items: val['items'] as List<Item>,
   );
+}
+
+/// Type-safe parsed fields accessor for [OrderSchema].
+class OrderSchemaFieldAccessor extends ParsedFieldAccessor {
+  OrderSchemaFieldAccessor(super.schema, super.parsedValues);
+
+  Customer get customer => (this['customer'] as Customer);
+
+  int get id => (this['id'] as int);
+
+  List<Item> get items => (this['items'] as List<Item>);
 }
