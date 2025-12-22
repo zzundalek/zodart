@@ -64,6 +64,7 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
   /// Returns the main utility class for working with the schema defined in the annotated class.
   Class buildUtils(
     Set<String> fieldNames, {
+    required List<String> crossFieldValidators,
     required Refs refs,
     List<Field> fields = const [],
     List<Method> methods = const [],
@@ -129,12 +130,17 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
               ..lambda = false
               ..body = Block.of([
                 const Code('return '),
-                refer(
-                      'ZObject.withMapper',
-                    )
+                refer('ZObject.withTypedCrossFieldValidation')
                     .call(
                       const [CodeExpression(Code('_schemaMap'))],
-                      const {'fromJson': CodeExpression(Code('_toResult'))},
+                      {
+                        'fromJson': const CodeExpression(Code('_toResult')),
+                        'crossValidators': literalList(
+                          crossFieldValidators.map(refer),
+                          refer(refs.crossFieldValidatorType),
+                        ),
+                        'parsedFieldAccessorFactory': refer(refs.parsedFieldAccessor).property('new'),
+                      },
                     )
                     .code,
                 const Code(';'),
@@ -164,6 +170,7 @@ class UtilsSpecBuilder implements SpecBuilderInputVisitor {
 
     final schemaUtils = buildUtils(
       schema.propertyNames,
+      crossFieldValidators: specInput.crossFieldValidators,
       fields: [
         buildSchemaMap(parsedValueFields, refs: refs),
       ],

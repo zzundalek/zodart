@@ -149,3 +149,12 @@ class InvalidNewClassName extends SchemaParsingError {
   /// The invalid class name.
   final String newClassName;
 }
+
+/// A cross field validator is not a function.
+class CrossFieldValidatorIsNotFunction extends SchemaParsingError {
+  /// Creates an [CrossFieldValidatorIsNotFunction] error the invalid type.
+  const CrossFieldValidatorIsNotFunction(this.dartTypeStr);
+
+  /// The string representation of the invalid Dart type.
+  final String dartTypeStr;
+}
