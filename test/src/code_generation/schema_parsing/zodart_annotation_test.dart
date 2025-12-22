@@ -10,6 +10,7 @@ void main() {
   group('fromAnnotatedElement', () {
     late MockConstantReader constantReader;
     late MockConstantReader annotationKindReader;
+    late MockConstantReader crossFieldValidatorsReader;
 
     group('annotationKind is generateNewClass', () {
       late MockConstantReader outputClassNameReader;
@@ -18,9 +19,11 @@ void main() {
         constantReader = MockConstantReader();
         annotationKindReader = MockConstantReader();
         outputClassNameReader = MockConstantReader();
+        crossFieldValidatorsReader = MockConstantReader();
 
         when(constantReader.read('annotationKind')).thenReturn(annotationKindReader);
         when(constantReader.read('outputTypeStr')).thenReturn(outputClassNameReader);
+        when(constantReader.read('crossFieldValidators')).thenReturn(crossFieldValidatorsReader);
 
         when(annotationKindReader.stringValue).thenReturn('generateNewClass');
         when(outputClassNameReader.stringValue).thenReturn('OutputClass');
@@ -29,7 +32,7 @@ void main() {
       test('for correct parameters returns ZodArtGenerateNewClass with proper output class name', () {
         final res = ZodArtAnnotation.fromAnnotatedElement(rawAnnotation: constantReader);
 
-        expect(res, equals(const ZodArtGenerateNewClass(outputClassName: 'OutputClass')));
+        expect(res, equals(const ZodArtGenerateNewClass(outputClassName: 'OutputClass', crossFieldValidators: [])));
       });
     });
     group('annotationKind is useExistingClass', () {
@@ -41,9 +44,11 @@ void main() {
         annotationKindReader = MockConstantReader();
         outputClassTypeReader = MockConstantReader();
         outputClassType = MockDartType();
+        crossFieldValidatorsReader = MockConstantReader();
 
         when(constantReader.read('annotationKind')).thenReturn(annotationKindReader);
         when(constantReader.read('outputType')).thenReturn(outputClassTypeReader);
+        when(constantReader.read('crossFieldValidators')).thenReturn(crossFieldValidatorsReader);
 
         when(annotationKindReader.stringValue).thenReturn('useExistingClass');
         when(outputClassTypeReader.typeValue).thenReturn(outputClassType);
@@ -52,7 +57,7 @@ void main() {
       test('for correct parameters returns ZodArtUseExistingClass with proper output class type', () {
         final res = ZodArtAnnotation.fromAnnotatedElement(rawAnnotation: constantReader);
 
-        expect(res, equals(ZodArtUseExistingClass(outputClassType: outputClassType)));
+        expect(res, equals(ZodArtUseExistingClass(outputClassType: outputClassType, crossFieldValidators: [])));
       });
       //
     });
@@ -60,9 +65,11 @@ void main() {
       setUp(() {
         constantReader = MockConstantReader();
         annotationKindReader = MockConstantReader();
+        crossFieldValidatorsReader = MockConstantReader();
 
         when(constantReader.read('annotationKind')).thenReturn(annotationKindReader);
         when(annotationKindReader.stringValue).thenReturn('unknown');
+        when(constantReader.read('crossFieldValidators')).thenReturn(crossFieldValidatorsReader);
       });
 
       test('Throws ZodArtInternalException for an unknown annotation kind', () {

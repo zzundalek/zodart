@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
 
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'freezed_integration.dart';
 
 // **************************************************************************
@@ -81,7 +84,12 @@ final class _PersonSchemaUtils
 
   @override
   ZObject<Person> get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators: <CrossFieldValidator<PersonSchemaFieldAccessor>>[],
+      parsedFieldAccessorFactory: PersonSchemaFieldAccessor.new,
+    );
   }
 
   @override
@@ -93,4 +101,17 @@ final class _PersonSchemaUtils
     firstName: val['firstName'] as String,
     lastName: val['lastName'] as String,
   );
+}
+
+/// Type-safe parsed fields accessor for [PersonSchema].
+class PersonSchemaFieldAccessor extends ParsedFieldAccessor {
+  PersonSchemaFieldAccessor(super.schema, super.parsedValues);
+
+  int? get age => (this['age'] as int?);
+
+  bool? get disabled => (this['disabled'] as bool?);
+
+  String get firstName => (this['firstName'] as String);
+
+  String get lastName => (this['lastName'] as String);
 }

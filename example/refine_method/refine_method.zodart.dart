@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
 
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'refine_method.dart';
 
 // **************************************************************************
@@ -136,7 +139,12 @@ final class _PersonSchemaUtils
 
   @override
   ZObject<Person> get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators: <CrossFieldValidator<PersonSchemaFieldAccessor>>[],
+      parsedFieldAccessorFactory: PersonSchemaFieldAccessor.new,
+    );
   }
 
   @override
@@ -148,4 +156,17 @@ final class _PersonSchemaUtils
     validFrom: val['validFrom'] as int,
     validTo: val['validTo'] as int?,
   );
+}
+
+/// Type-safe parsed fields accessor for [PersonSchema].
+class PersonSchemaFieldAccessor extends ParsedFieldAccessor {
+  PersonSchemaFieldAccessor(super.schema, super.parsedValues);
+
+  String get firstName => (this['firstName'] as String);
+
+  String get lastName => (this['lastName'] as String);
+
+  int get validFrom => (this['validFrom'] as int);
+
+  int? get validTo => (this['validTo'] as int?);
 }

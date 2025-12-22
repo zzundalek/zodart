@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
 
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'output_record.dart';
 
 // **************************************************************************
@@ -103,7 +106,12 @@ final class _ItemSchemaUtils
     })
   >
   get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators: <CrossFieldValidator<ItemSchemaFieldAccessor>>[],
+      parsedFieldAccessorFactory: ItemSchemaFieldAccessor.new,
+    );
   }
 
   @override
@@ -151,3 +159,20 @@ _instantiateItemSchema({
   notes: notes,
   price: price,
 );
+
+/// Type-safe parsed fields accessor for [ItemSchema].
+class ItemSchemaFieldAccessor extends ParsedFieldAccessor {
+  ItemSchemaFieldAccessor(super.schema, super.parsedValues);
+
+  bool? get archived => (this['archived'] as bool?);
+
+  int get id => (this['id'] as int);
+
+  String get makerName => (this['makerName'] as String);
+
+  String get name => (this['name'] as String);
+
+  List<String>? get notes => (this['notes'] as List<String>?);
+
+  double get price => (this['price'] as double);
+}

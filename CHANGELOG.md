@@ -1,3 +1,9 @@
+## 1.4.0 - 2025-12-22
+
+- Add cross-field validation for code generation
+- Add cross-field validation for ZObject
+- Turn off linter and test coverage for generated files
+
 ## 1.3.0 - 2025-11-25
 
 - Add `.map(elementTransformer)` for ZArray

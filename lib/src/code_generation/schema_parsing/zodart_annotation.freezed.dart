@@ -14,30 +14,61 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ZodArtAnnotation {
 
-
+ List<DartObject> get crossFieldValidators;
+/// Create a copy of ZodArtAnnotation
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ZodArtAnnotationCopyWith<ZodArtAnnotation> get copyWith => _$ZodArtAnnotationCopyWithImpl<ZodArtAnnotation>(this as ZodArtAnnotation, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtAnnotation);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtAnnotation&&const DeepCollectionEquality().equals(other.crossFieldValidators, crossFieldValidators));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(crossFieldValidators));
 
 @override
 String toString() {
-  return 'ZodArtAnnotation()';
+  return 'ZodArtAnnotation(crossFieldValidators: $crossFieldValidators)';
 }
 
 
 }
 
 /// @nodoc
-class $ZodArtAnnotationCopyWith<$Res>  {
-$ZodArtAnnotationCopyWith(ZodArtAnnotation _, $Res Function(ZodArtAnnotation) __);
+abstract mixin class $ZodArtAnnotationCopyWith<$Res>  {
+  factory $ZodArtAnnotationCopyWith(ZodArtAnnotation value, $Res Function(ZodArtAnnotation) _then) = _$ZodArtAnnotationCopyWithImpl;
+@useResult
+$Res call({
+ List<DartObject> crossFieldValidators
+});
+
+
+
+
+}
+/// @nodoc
+class _$ZodArtAnnotationCopyWithImpl<$Res>
+    implements $ZodArtAnnotationCopyWith<$Res> {
+  _$ZodArtAnnotationCopyWithImpl(this._self, this._then);
+
+  final ZodArtAnnotation _self;
+  final $Res Function(ZodArtAnnotation) _then;
+
+/// Create a copy of ZodArtAnnotation
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? crossFieldValidators = null,}) {
+  return _then(_self.copyWith(
+crossFieldValidators: null == crossFieldValidators ? _self.crossFieldValidators : crossFieldValidators // ignore: cast_nullable_to_non_nullable
+as List<DartObject>,
+  ));
+}
+
 }
 
 
@@ -122,12 +153,12 @@ return useRecord(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String outputClassName)?  generateNewClass,TResult Function( DartType outputClassType)?  useExistingClass,TResult Function( DartType outputRecordType)?  useRecord,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String outputClassName,  List<DartObject> crossFieldValidators)?  generateNewClass,TResult Function( DartType outputClassType,  List<DartObject> crossFieldValidators)?  useExistingClass,TResult Function( DartType outputRecordType,  List<DartObject> crossFieldValidators)?  useRecord,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass() when generateNewClass != null:
-return generateNewClass(_that.outputClassName);case ZodArtUseExistingClass() when useExistingClass != null:
-return useExistingClass(_that.outputClassType);case ZodArtUseRecord() when useRecord != null:
-return useRecord(_that.outputRecordType);case _:
+return generateNewClass(_that.outputClassName,_that.crossFieldValidators);case ZodArtUseExistingClass() when useExistingClass != null:
+return useExistingClass(_that.outputClassType,_that.crossFieldValidators);case ZodArtUseRecord() when useRecord != null:
+return useRecord(_that.outputRecordType,_that.crossFieldValidators);case _:
   return orElse();
 
 }
@@ -145,12 +176,12 @@ return useRecord(_that.outputRecordType);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String outputClassName)  generateNewClass,required TResult Function( DartType outputClassType)  useExistingClass,required TResult Function( DartType outputRecordType)  useRecord,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String outputClassName,  List<DartObject> crossFieldValidators)  generateNewClass,required TResult Function( DartType outputClassType,  List<DartObject> crossFieldValidators)  useExistingClass,required TResult Function( DartType outputRecordType,  List<DartObject> crossFieldValidators)  useRecord,}) {final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass():
-return generateNewClass(_that.outputClassName);case ZodArtUseExistingClass():
-return useExistingClass(_that.outputClassType);case ZodArtUseRecord():
-return useRecord(_that.outputRecordType);}
+return generateNewClass(_that.outputClassName,_that.crossFieldValidators);case ZodArtUseExistingClass():
+return useExistingClass(_that.outputClassType,_that.crossFieldValidators);case ZodArtUseRecord():
+return useRecord(_that.outputRecordType,_that.crossFieldValidators);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -164,12 +195,12 @@ return useRecord(_that.outputRecordType);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String outputClassName)?  generateNewClass,TResult? Function( DartType outputClassType)?  useExistingClass,TResult? Function( DartType outputRecordType)?  useRecord,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String outputClassName,  List<DartObject> crossFieldValidators)?  generateNewClass,TResult? Function( DartType outputClassType,  List<DartObject> crossFieldValidators)?  useExistingClass,TResult? Function( DartType outputRecordType,  List<DartObject> crossFieldValidators)?  useRecord,}) {final _that = this;
 switch (_that) {
 case ZodArtGenerateNewClass() when generateNewClass != null:
-return generateNewClass(_that.outputClassName);case ZodArtUseExistingClass() when useExistingClass != null:
-return useExistingClass(_that.outputClassType);case ZodArtUseRecord() when useRecord != null:
-return useRecord(_that.outputRecordType);case _:
+return generateNewClass(_that.outputClassName,_that.crossFieldValidators);case ZodArtUseExistingClass() when useExistingClass != null:
+return useExistingClass(_that.outputClassType,_that.crossFieldValidators);case ZodArtUseRecord() when useRecord != null:
+return useRecord(_that.outputRecordType,_that.crossFieldValidators);case _:
   return null;
 
 }
@@ -181,14 +212,21 @@ return useRecord(_that.outputRecordType);case _:
 
 
 class ZodArtGenerateNewClass extends ZodArtAnnotation {
-  const ZodArtGenerateNewClass({required this.outputClassName}): super._();
+  const ZodArtGenerateNewClass({required this.outputClassName, required final  List<DartObject> crossFieldValidators}): _crossFieldValidators = crossFieldValidators,super._();
   
 
  final  String outputClassName;
+ final  List<DartObject> _crossFieldValidators;
+@override List<DartObject> get crossFieldValidators {
+  if (_crossFieldValidators is EqualUnmodifiableListView) return _crossFieldValidators;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_crossFieldValidators);
+}
+
 
 /// Create a copy of ZodArtAnnotation
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $ZodArtGenerateNewClassCopyWith<ZodArtGenerateNewClass> get copyWith => _$ZodArtGenerateNewClassCopyWithImpl<ZodArtGenerateNewClass>(this, _$identity);
 
@@ -196,16 +234,16 @@ $ZodArtGenerateNewClassCopyWith<ZodArtGenerateNewClass> get copyWith => _$ZodArt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtGenerateNewClass&&(identical(other.outputClassName, outputClassName) || other.outputClassName == outputClassName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtGenerateNewClass&&(identical(other.outputClassName, outputClassName) || other.outputClassName == outputClassName)&&const DeepCollectionEquality().equals(other._crossFieldValidators, _crossFieldValidators));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,outputClassName);
+int get hashCode => Object.hash(runtimeType,outputClassName,const DeepCollectionEquality().hash(_crossFieldValidators));
 
 @override
 String toString() {
-  return 'ZodArtAnnotation.generateNewClass(outputClassName: $outputClassName)';
+  return 'ZodArtAnnotation.generateNewClass(outputClassName: $outputClassName, crossFieldValidators: $crossFieldValidators)';
 }
 
 
@@ -214,9 +252,9 @@ String toString() {
 /// @nodoc
 abstract mixin class $ZodArtGenerateNewClassCopyWith<$Res> implements $ZodArtAnnotationCopyWith<$Res> {
   factory $ZodArtGenerateNewClassCopyWith(ZodArtGenerateNewClass value, $Res Function(ZodArtGenerateNewClass) _then) = _$ZodArtGenerateNewClassCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
- String outputClassName
+ String outputClassName, List<DartObject> crossFieldValidators
 });
 
 
@@ -233,10 +271,11 @@ class _$ZodArtGenerateNewClassCopyWithImpl<$Res>
 
 /// Create a copy of ZodArtAnnotation
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? outputClassName = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? outputClassName = null,Object? crossFieldValidators = null,}) {
   return _then(ZodArtGenerateNewClass(
 outputClassName: null == outputClassName ? _self.outputClassName : outputClassName // ignore: cast_nullable_to_non_nullable
-as String,
+as String,crossFieldValidators: null == crossFieldValidators ? _self._crossFieldValidators : crossFieldValidators // ignore: cast_nullable_to_non_nullable
+as List<DartObject>,
   ));
 }
 
@@ -247,14 +286,21 @@ as String,
 
 
 class ZodArtUseExistingClass extends ZodArtAnnotation {
-  const ZodArtUseExistingClass({required this.outputClassType}): super._();
+  const ZodArtUseExistingClass({required this.outputClassType, required final  List<DartObject> crossFieldValidators}): _crossFieldValidators = crossFieldValidators,super._();
   
 
  final  DartType outputClassType;
+ final  List<DartObject> _crossFieldValidators;
+@override List<DartObject> get crossFieldValidators {
+  if (_crossFieldValidators is EqualUnmodifiableListView) return _crossFieldValidators;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_crossFieldValidators);
+}
+
 
 /// Create a copy of ZodArtAnnotation
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $ZodArtUseExistingClassCopyWith<ZodArtUseExistingClass> get copyWith => _$ZodArtUseExistingClassCopyWithImpl<ZodArtUseExistingClass>(this, _$identity);
 
@@ -262,16 +308,16 @@ $ZodArtUseExistingClassCopyWith<ZodArtUseExistingClass> get copyWith => _$ZodArt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtUseExistingClass&&(identical(other.outputClassType, outputClassType) || other.outputClassType == outputClassType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtUseExistingClass&&(identical(other.outputClassType, outputClassType) || other.outputClassType == outputClassType)&&const DeepCollectionEquality().equals(other._crossFieldValidators, _crossFieldValidators));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,outputClassType);
+int get hashCode => Object.hash(runtimeType,outputClassType,const DeepCollectionEquality().hash(_crossFieldValidators));
 
 @override
 String toString() {
-  return 'ZodArtAnnotation.useExistingClass(outputClassType: $outputClassType)';
+  return 'ZodArtAnnotation.useExistingClass(outputClassType: $outputClassType, crossFieldValidators: $crossFieldValidators)';
 }
 
 
@@ -280,9 +326,9 @@ String toString() {
 /// @nodoc
 abstract mixin class $ZodArtUseExistingClassCopyWith<$Res> implements $ZodArtAnnotationCopyWith<$Res> {
   factory $ZodArtUseExistingClassCopyWith(ZodArtUseExistingClass value, $Res Function(ZodArtUseExistingClass) _then) = _$ZodArtUseExistingClassCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
- DartType outputClassType
+ DartType outputClassType, List<DartObject> crossFieldValidators
 });
 
 
@@ -299,10 +345,11 @@ class _$ZodArtUseExistingClassCopyWithImpl<$Res>
 
 /// Create a copy of ZodArtAnnotation
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? outputClassType = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? outputClassType = null,Object? crossFieldValidators = null,}) {
   return _then(ZodArtUseExistingClass(
 outputClassType: null == outputClassType ? _self.outputClassType : outputClassType // ignore: cast_nullable_to_non_nullable
-as DartType,
+as DartType,crossFieldValidators: null == crossFieldValidators ? _self._crossFieldValidators : crossFieldValidators // ignore: cast_nullable_to_non_nullable
+as List<DartObject>,
   ));
 }
 
@@ -313,14 +360,21 @@ as DartType,
 
 
 class ZodArtUseRecord extends ZodArtAnnotation {
-  const ZodArtUseRecord({required this.outputRecordType}): super._();
+  const ZodArtUseRecord({required this.outputRecordType, required final  List<DartObject> crossFieldValidators}): _crossFieldValidators = crossFieldValidators,super._();
   
 
  final  DartType outputRecordType;
+ final  List<DartObject> _crossFieldValidators;
+@override List<DartObject> get crossFieldValidators {
+  if (_crossFieldValidators is EqualUnmodifiableListView) return _crossFieldValidators;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_crossFieldValidators);
+}
+
 
 /// Create a copy of ZodArtAnnotation
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $ZodArtUseRecordCopyWith<ZodArtUseRecord> get copyWith => _$ZodArtUseRecordCopyWithImpl<ZodArtUseRecord>(this, _$identity);
 
@@ -328,16 +382,16 @@ $ZodArtUseRecordCopyWith<ZodArtUseRecord> get copyWith => _$ZodArtUseRecordCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtUseRecord&&(identical(other.outputRecordType, outputRecordType) || other.outputRecordType == outputRecordType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZodArtUseRecord&&(identical(other.outputRecordType, outputRecordType) || other.outputRecordType == outputRecordType)&&const DeepCollectionEquality().equals(other._crossFieldValidators, _crossFieldValidators));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,outputRecordType);
+int get hashCode => Object.hash(runtimeType,outputRecordType,const DeepCollectionEquality().hash(_crossFieldValidators));
 
 @override
 String toString() {
-  return 'ZodArtAnnotation.useRecord(outputRecordType: $outputRecordType)';
+  return 'ZodArtAnnotation.useRecord(outputRecordType: $outputRecordType, crossFieldValidators: $crossFieldValidators)';
 }
 
 
@@ -346,9 +400,9 @@ String toString() {
 /// @nodoc
 abstract mixin class $ZodArtUseRecordCopyWith<$Res> implements $ZodArtAnnotationCopyWith<$Res> {
   factory $ZodArtUseRecordCopyWith(ZodArtUseRecord value, $Res Function(ZodArtUseRecord) _then) = _$ZodArtUseRecordCopyWithImpl;
-@useResult
+@override @useResult
 $Res call({
- DartType outputRecordType
+ DartType outputRecordType, List<DartObject> crossFieldValidators
 });
 
 
@@ -365,10 +419,11 @@ class _$ZodArtUseRecordCopyWithImpl<$Res>
 
 /// Create a copy of ZodArtAnnotation
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? outputRecordType = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? outputRecordType = null,Object? crossFieldValidators = null,}) {
   return _then(ZodArtUseRecord(
 outputRecordType: null == outputRecordType ? _self.outputRecordType : outputRecordType // ignore: cast_nullable_to_non_nullable
-as DartType,
+as DartType,crossFieldValidators: null == crossFieldValidators ? _self._crossFieldValidators : crossFieldValidators // ignore: cast_nullable_to_non_nullable
+as List<DartObject>,
   ));
 }
 

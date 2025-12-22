@@ -37,3 +37,12 @@ const schemaContainsNotZodArtType = ShouldThrow(
 Make sure it is a valid ZodArt type and can be inferred correctly at build time.''',
   element: null,
 );
+
+const crossFieldValidatorIsString = ShouldThrow(
+  '''
+@ZodArt - invalid cross-field validator type.
+
+Unable to use one of the cross-field validators. Expected a const function, got 'String'.
+Make sure that all cross-field validators are const functions.''',
+  element: null,
+);

@@ -1,9 +1,9 @@
 part of '../zodart_src.dart';
 
-/// Inferred Dart type returned from the schema defined in [N].
+/// Inferred Dart type returned from the schema defined in [C].
 ///
-/// This corresponds to the structure described by [N.schema].
-typedef _NDef = ({
+/// This corresponds to the structure described by [C.schema].
+typedef _CDef = ({
   ZArray<String> zArrayOfStr,
   ZBool zBool,
   ZDouble zDbl,
@@ -20,10 +20,10 @@ typedef _NDef = ({
   ZNullableString znStr,
 });
 
-/// Enum for fields declared in [N].
+/// Enum for fields declared in [C].
 ///
-/// Values mirror the keys of [N.schema].
-enum NProps {
+/// Values mirror the keys of [C.schema].
+enum CProps {
   zArrayOfStr,
   zBool,
   zDbl,
@@ -40,45 +40,45 @@ enum NProps {
   znStr,
 }
 
-/// Helper class for [N].
+/// Helper class for [C].
 ///
-/// Wrapper used to access [NProps] values as getters.
-final class _NPropsWrapper {
-  const _NPropsWrapper();
+/// Wrapper used to access [CProps] values as getters.
+final class _CPropsWrapper {
+  const _CPropsWrapper();
 
-  NProps get zArrayOfStr => NProps.zArrayOfStr;
+  CProps get zArrayOfStr => CProps.zArrayOfStr;
 
-  NProps get zBool => NProps.zBool;
+  CProps get zBool => CProps.zBool;
 
-  NProps get zDbl => NProps.zDbl;
+  CProps get zDbl => CProps.zDbl;
 
-  NProps get zDt => NProps.zDt;
+  CProps get zDt => CProps.zDt;
 
-  NProps get zInt => NProps.zInt;
+  CProps get zInt => CProps.zInt;
 
-  NProps get zObj => NProps.zObj;
+  CProps get zObj => CProps.zObj;
 
-  NProps get zStr => NProps.zStr;
+  CProps get zStr => CProps.zStr;
 
-  NProps get znArrayOfStr => NProps.znArrayOfStr;
+  CProps get znArrayOfStr => CProps.znArrayOfStr;
 
-  NProps get znBool => NProps.znBool;
+  CProps get znBool => CProps.znBool;
 
-  NProps get znDbl => NProps.znDbl;
+  CProps get znDbl => CProps.znDbl;
 
-  NProps get znDt => NProps.znDt;
+  CProps get znDt => CProps.znDt;
 
-  NProps get znInt => NProps.znInt;
+  CProps get znInt => CProps.znInt;
 
-  NProps get znObj => NProps.znObj;
+  CProps get znObj => CProps.znObj;
 
-  NProps get znStr => NProps.znStr;
+  CProps get znStr => CProps.znStr;
 }
 
-/// Mixin used as interface for [NewClass].
+/// Mixin used as interface for [NewClass2].
 ///
 /// Providing getters and overriding methods.
-mixin _N {
+mixin _C {
   List<String> get zArrayOfStr;
   bool get zBool;
   double get zDbl;
@@ -116,7 +116,7 @@ mixin _N {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (runtimeType == other.runtimeType &&
-            other is NewClass &&
+            other is NewClass2 &&
             (identical(zArrayOfStr, other.zArrayOfStr) ||
                 const DeepCollectionEquality().equals(
                   zArrayOfStr,
@@ -143,15 +143,15 @@ mixin _N {
 
   @override
   String toString() {
-    return 'NewClass(zArrayOfStr: $zArrayOfStr, zBool: $zBool, zDbl: $zDbl, zDt: $zDt, zInt: $zInt, zObj: $zObj, zStr: $zStr, znArrayOfStr: $znArrayOfStr, znBool: $znBool, znDbl: $znDbl, znDt: $znDt, znInt: $znInt, znObj: $znObj, znStr: $znStr)';
+    return 'NewClass2(zArrayOfStr: $zArrayOfStr, zBool: $zBool, zDbl: $zDbl, zDt: $zDt, zInt: $zInt, zObj: $zObj, zStr: $zStr, znArrayOfStr: $znArrayOfStr, znBool: $znBool, znDbl: $znDbl, znDt: $znDt, znInt: $znInt, znObj: $znObj, znStr: $znStr)';
   }
 }
 
-/// Class used as implementation for [NewClass] and [_N].
+/// Class used as implementation for [NewClass2] and [_C].
 ///
 /// Providing fields and a default constructor.
-final class _NImpl with _N implements NewClass {
-  const _NImpl({
+final class _CImpl with _C implements NewClass2 {
+  const _CImpl({
     required this.zArrayOfStr,
     required this.zBool,
     required this.zDbl,
@@ -211,8 +211,8 @@ final class _NImpl with _N implements NewClass {
   final String? znStr;
 }
 
-/// Instantiates the output class [NewClass] using [_NImpl].
-NewClass _instantiateN({
+/// Instantiates the output class [NewClass2] using [_CImpl].
+NewClass2 _instantiateC({
   required List<String> zArrayOfStr,
   required bool zBool,
   required double zDbl,
@@ -227,7 +227,7 @@ NewClass _instantiateN({
   required int? znInt,
   required ({String id})? znObj,
   required String? znStr,
-}) => _NImpl(
+}) => _CImpl(
   zArrayOfStr: zArrayOfStr,
   zBool: zBool,
   zDbl: zDbl,
@@ -244,17 +244,17 @@ NewClass _instantiateN({
   znStr: znStr,
 );
 
-/// Generated utility class for working with the schema defined in [N].
+/// Generated utility class for working with the schema defined in [C].
 ///
 /// Provides:
 /// - The `ZObject` instance for parsing/validating the schema.
 /// - Enum-style access to the schema properties.
 /// - Strongly-typed field access
 /// - Runtime `Type` of the schema record
-final class _NUtils implements ZGenSchemaUtils<_NPropsWrapper, NewClass> {
-  const _NUtils();
+final class _CUtils implements ZGenSchemaUtils<_CPropsWrapper, NewClass2> {
+  const _CUtils();
 
-  static const _props = _NPropsWrapper();
+  static const _props = _CPropsWrapper();
 
   static const _keys = [
     'zArrayOfStr',
@@ -274,42 +274,42 @@ final class _NUtils implements ZGenSchemaUtils<_NPropsWrapper, NewClass> {
   ];
 
   static final Map<String, ZBase<dynamic>> _schemaMap = {
-    'zArrayOfStr': N.schema.zArrayOfStr,
-    'zBool': N.schema.zBool,
-    'zDbl': N.schema.zDbl,
-    'zDt': N.schema.zDt,
-    'zInt': N.schema.zInt,
-    'zObj': N.schema.zObj,
-    'zStr': N.schema.zStr,
-    'znArrayOfStr': N.schema.znArrayOfStr,
-    'znBool': N.schema.znBool,
-    'znDbl': N.schema.znDbl,
-    'znDt': N.schema.znDt,
-    'znInt': N.schema.znInt,
-    'znObj': N.schema.znObj,
-    'znStr': N.schema.znStr,
+    'zArrayOfStr': C.schema.zArrayOfStr,
+    'zBool': C.schema.zBool,
+    'zDbl': C.schema.zDbl,
+    'zDt': C.schema.zDt,
+    'zInt': C.schema.zInt,
+    'zObj': C.schema.zObj,
+    'zStr': C.schema.zStr,
+    'znArrayOfStr': C.schema.znArrayOfStr,
+    'znBool': C.schema.znBool,
+    'znDbl': C.schema.znDbl,
+    'znDt': C.schema.znDt,
+    'znInt': C.schema.znInt,
+    'znObj': C.schema.znObj,
+    'znStr': C.schema.znStr,
   };
 
   @override
-  _NPropsWrapper get props => _props;
+  _CPropsWrapper get props => _props;
 
   @override
   List<String> get keys => _keys;
 
   @override
-  ZObject<NewClass> get zObject {
+  ZObject<NewClass2> get zObject {
     return ZObject.withTypedCrossFieldValidation(
       _schemaMap,
       fromJson: _toResult,
-      crossValidators: <CrossFieldValidator<NFieldAccessor>>[],
-      parsedFieldAccessorFactory: NFieldAccessor.new,
+      crossValidators: <CrossFieldValidator<CFieldAccessor>>[zStrNotEmpty],
+      parsedFieldAccessorFactory: CFieldAccessor.new,
     );
   }
 
   @override
-  Type get schema => _NDef;
+  Type get schema => _CDef;
 
-  NewClass _toResult(Map<String, dynamic> val) => _instantiateN(
+  NewClass2 _toResult(Map<String, dynamic> val) => _instantiateC(
     zArrayOfStr: val['zArrayOfStr'] as List<String>,
     zBool: val['zBool'] as bool,
     zDbl: val['zDbl'] as double,
@@ -327,9 +327,9 @@ final class _NUtils implements ZGenSchemaUtils<_NPropsWrapper, NewClass> {
   );
 }
 
-/// Type-safe parsed fields accessor for [N].
-class NFieldAccessor extends ParsedFieldAccessor {
-  NFieldAccessor(super.schema, super.parsedValues);
+/// Type-safe parsed fields accessor for [C].
+class CFieldAccessor extends ParsedFieldAccessor {
+  CFieldAccessor(super.schema, super.parsedValues);
 
   List<String> get zArrayOfStr => (this['zArrayOfStr'] as List<String>);
 

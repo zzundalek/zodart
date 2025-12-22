@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
 
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'transformations.dart';
 
 // **************************************************************************
@@ -144,7 +147,13 @@ final class _LanguageDetailSchemaUtils
 
   @override
   ZObject<LanguageDetail> get zObject {
-    return ZObject.withMapper(_schemaMap, fromJson: _toResult);
+    return ZObject.withTypedCrossFieldValidation(
+      _schemaMap,
+      fromJson: _toResult,
+      crossValidators:
+          <CrossFieldValidator<LanguageDetailSchemaFieldAccessor>>[],
+      parsedFieldAccessorFactory: LanguageDetailSchemaFieldAccessor.new,
+    );
   }
 
   @override
@@ -157,4 +166,17 @@ final class _LanguageDetailSchemaUtils
         notes: val['notes'] as List<String>?,
         version: val['version'] as String?,
       );
+}
+
+/// Type-safe parsed fields accessor for [LanguageDetailSchema].
+class LanguageDetailSchemaFieldAccessor extends ParsedFieldAccessor {
+  LanguageDetailSchemaFieldAccessor(super.schema, super.parsedValues);
+
+  DateTime get lastUpdate => (this['lastUpdate'] as DateTime);
+
+  String get name => (this['name'] as String);
+
+  List<String>? get notes => (this['notes'] as List<String>?);
+
+  String? get version => (this['version'] as String?);
 }

@@ -9,3 +9,6 @@ linter:
 formatter:
   page_width: 120
   trailing_commas: preserve # Make pana respect settings form very_good_analysis https://github.com/dart-lang/pana/issues/1459
+analyzer:
+  exclude:
+    - test/**/goldens/*.dart
