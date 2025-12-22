@@ -24,6 +24,10 @@ void main() {
         expect(refs.outputClassMixin, equals('_UserSchema'));
         expect(refs.outputClassImpl, equals('_UserSchemaImpl'));
         expect(refs.instantiateSchemaFn, equals('_instantiateUserSchema'));
+
+        expect(refs.parsedFieldAccessor, equals('UserSchemaFieldAccessor'));
+        expect(refs.parsedFieldAccessorBaseClass, equals('ParsedFieldAccessor'));
+        expect(refs.crossFieldValidatorType, equals('CrossFieldValidator<UserSchemaFieldAccessor>'));
       });
     });
   });
