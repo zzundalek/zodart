@@ -1,4 +1,4 @@
-## [UNRELEASED]
+## 1.5.0 - 2026-02-03
 
 - Upgrade analyzer package version to 3.9
 
