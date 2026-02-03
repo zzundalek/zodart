@@ -217,15 +217,6 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as List<_i2.TypeParameterElement>);
 
   @override
-  List<_i2.TypeParameterElement> get typeParameters2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#typeParameters2),
-            returnValue: <_i2.TypeParameterElement>[],
-            returnValueForMissingStub: <_i2.TypeParameterElement>[],
-          )
-          as List<_i2.TypeParameterElement>);
-
-  @override
   bool get hasImplicitType =>
       (super.noSuchMethod(
             Invocation.getter(#hasImplicitType),
@@ -286,15 +277,6 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
   List<_i2.Element> get children =>
       (super.noSuchMethod(
             Invocation.getter(#children),
-            returnValue: <_i2.Element>[],
-            returnValueForMissingStub: <_i2.Element>[],
-          )
-          as List<_i2.Element>);
-
-  @override
-  List<_i2.Element> get children2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#children2),
             returnValue: <_i2.Element>[],
             returnValueForMissingStub: <_i2.Element>[],
           )
@@ -388,41 +370,8 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as _i2.Element);
 
   @override
-  _i2.Element get nonSynthetic2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#nonSynthetic2),
-            returnValue: _FakeElement_5(
-              this,
-              Invocation.getter(#nonSynthetic2),
-            ),
-            returnValueForMissingStub: _FakeElement_5(
-              this,
-              Invocation.getter(#nonSynthetic2),
-            ),
-          )
-          as _i2.Element);
-
-  @override
-  _i2.Metadata get metadata2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#metadata2),
-            returnValue: _FakeMetadata_4(this, Invocation.getter(#metadata2)),
-            returnValueForMissingStub: _FakeMetadata_4(
-              this,
-              Invocation.getter(#metadata2),
-            ),
-          )
-          as _i2.Metadata);
-
-  @override
   void appendToWithoutDelimiters(StringBuffer? buffer) => super.noSuchMethod(
     Invocation.method(#appendToWithoutDelimiters, [buffer]),
-    returnValueForMissingStub: null,
-  );
-
-  @override
-  void appendToWithoutDelimiters2(StringBuffer? buffer) => super.noSuchMethod(
-    Invocation.method(#appendToWithoutDelimiters2, [buffer]),
     returnValueForMissingStub: null,
   );
 
@@ -430,14 +379,6 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
   T? accept<T>(_i2.ElementVisitor2<T>? visitor) =>
       (super.noSuchMethod(
             Invocation.method(#accept, [visitor]),
-            returnValueForMissingStub: null,
-          )
-          as T?);
-
-  @override
-  T? accept2<T>(_i2.ElementVisitor2<T>? visitor) =>
-      (super.noSuchMethod(
-            Invocation.method(#accept2, [visitor]),
             returnValueForMissingStub: null,
           )
           as T?);
@@ -470,33 +411,6 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as String);
 
   @override
-  String displayString2({
-    bool? multiline = false,
-    bool? preferTypeAlias = false,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#displayString2, [], {
-              #multiline: multiline,
-              #preferTypeAlias: preferTypeAlias,
-            }),
-            returnValue: _i4.dummyValue<String>(
-              this,
-              Invocation.method(#displayString2, [], {
-                #multiline: multiline,
-                #preferTypeAlias: preferTypeAlias,
-              }),
-            ),
-            returnValueForMissingStub: _i4.dummyValue<String>(
-              this,
-              Invocation.method(#displayString2, [], {
-                #multiline: multiline,
-                #preferTypeAlias: preferTypeAlias,
-              }),
-            ),
-          )
-          as String);
-
-  @override
   String getExtendedDisplayName({String? shortName}) =>
       (super.noSuchMethod(
             Invocation.method(#getExtendedDisplayName, [], {
@@ -518,27 +432,6 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as String);
 
   @override
-  String getExtendedDisplayName2({String? shortName}) =>
-      (super.noSuchMethod(
-            Invocation.method(#getExtendedDisplayName2, [], {
-              #shortName: shortName,
-            }),
-            returnValue: _i4.dummyValue<String>(
-              this,
-              Invocation.method(#getExtendedDisplayName2, [], {
-                #shortName: shortName,
-              }),
-            ),
-            returnValueForMissingStub: _i4.dummyValue<String>(
-              this,
-              Invocation.method(#getExtendedDisplayName2, [], {
-                #shortName: shortName,
-              }),
-            ),
-          )
-          as String);
-
-  @override
   bool isAccessibleIn(_i2.LibraryElement? library) =>
       (super.noSuchMethod(
             Invocation.method(#isAccessibleIn, [library]),
@@ -548,9 +441,9 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as bool);
 
   @override
-  bool isAccessibleIn2(_i2.LibraryElement? library) =>
+  bool isDeprecatedWithKind(String? kind) =>
       (super.noSuchMethod(
-            Invocation.method(#isAccessibleIn2, [library]),
+            Invocation.method(#isDeprecatedWithKind, [kind]),
             returnValue: false,
             returnValueForMissingStub: false,
           )
@@ -565,22 +458,8 @@ class MockFormalParameterElement extends _i1.Mock implements _i2.FormalParameter
           as _i2.Element?);
 
   @override
-  _i2.Element? thisOrAncestorMatching2(bool Function(_i2.Element)? predicate) =>
-      (super.noSuchMethod(
-            Invocation.method(#thisOrAncestorMatching2, [predicate]),
-            returnValueForMissingStub: null,
-          )
-          as _i2.Element?);
-
-  @override
   void visitChildren<T>(_i2.ElementVisitor2<T>? visitor) => super.noSuchMethod(
     Invocation.method(#visitChildren, [visitor]),
-    returnValueForMissingStub: null,
-  );
-
-  @override
-  void visitChildren2<T>(_i2.ElementVisitor2<T>? visitor) => super.noSuchMethod(
-    Invocation.method(#visitChildren2, [visitor]),
     returnValueForMissingStub: null,
   );
 }

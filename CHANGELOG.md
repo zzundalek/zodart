@@ -1,3 +1,7 @@
+## [UNRELEASED]
+
+- Upgrade analyzer package version to 3.9
+
 ## 1.4.0 - 2025-12-22
 
 - Add cross-field validation for code generation

@@ -297,14 +297,6 @@ class MockRecordType extends _i1.Mock implements _i2.RecordType {
           as _i2.InterfaceType?);
 
   @override
-  _i2.InterfaceType? asInstanceOf2(_i6.InterfaceElement? element) =>
-      (super.noSuchMethod(
-            Invocation.method(#asInstanceOf2, [element]),
-            returnValueForMissingStub: null,
-          )
-          as _i2.InterfaceType?);
-
-  @override
   String getDisplayString({bool? withNullability = true}) =>
       (super.noSuchMethod(
             Invocation.method(#getDisplayString, [], {

@@ -244,15 +244,6 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as List<_i2.ConstructorElement>);
 
   @override
-  List<_i2.ConstructorElement> get constructors2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#constructors2),
-            returnValue: <_i2.ConstructorElement>[],
-            returnValueForMissingStub: <_i2.ConstructorElement>[],
-          )
-          as List<_i2.ConstructorElement>);
-
-  @override
   Map<_i4.Name, _i2.ExecutableElement> get inheritedConcreteMembers =>
       (super.noSuchMethod(
             Invocation.getter(#inheritedConcreteMembers),
@@ -343,33 +334,9 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as _i2.LibraryElement);
 
   @override
-  _i2.LibraryElement get enclosingElement2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#enclosingElement2),
-            returnValue: _FakeLibraryElement_3(
-              this,
-              Invocation.getter(#enclosingElement2),
-            ),
-            returnValueForMissingStub: _FakeLibraryElement_3(
-              this,
-              Invocation.getter(#enclosingElement2),
-            ),
-          )
-          as _i2.LibraryElement);
-
-  @override
   List<_i2.FieldElement> get fields =>
       (super.noSuchMethod(
             Invocation.getter(#fields),
-            returnValue: <_i2.FieldElement>[],
-            returnValueForMissingStub: <_i2.FieldElement>[],
-          )
-          as List<_i2.FieldElement>);
-
-  @override
-  List<_i2.FieldElement> get fields2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#fields2),
             returnValue: <_i2.FieldElement>[],
             returnValueForMissingStub: <_i2.FieldElement>[],
           )
@@ -385,27 +352,9 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as List<_i2.GetterElement>);
 
   @override
-  List<_i2.GetterElement> get getters2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#getters2),
-            returnValue: <_i2.GetterElement>[],
-            returnValueForMissingStub: <_i2.GetterElement>[],
-          )
-          as List<_i2.GetterElement>);
-
-  @override
   List<_i2.MethodElement> get methods =>
       (super.noSuchMethod(
             Invocation.getter(#methods),
-            returnValue: <_i2.MethodElement>[],
-            returnValueForMissingStub: <_i2.MethodElement>[],
-          )
-          as List<_i2.MethodElement>);
-
-  @override
-  List<_i2.MethodElement> get methods2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#methods2),
             returnValue: <_i2.MethodElement>[],
             returnValueForMissingStub: <_i2.MethodElement>[],
           )
@@ -421,27 +370,42 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as List<_i2.SetterElement>);
 
   @override
-  List<_i2.SetterElement> get setters2 =>
+  bool get isSimplyBounded =>
       (super.noSuchMethod(
-            Invocation.getter(#setters2),
-            returnValue: <_i2.SetterElement>[],
-            returnValueForMissingStub: <_i2.SetterElement>[],
+            Invocation.getter(#isSimplyBounded),
+            returnValue: false,
+            returnValueForMissingStub: false,
           )
-          as List<_i2.SetterElement>);
+          as bool);
+
+  @override
+  _i2.LibraryElement get library =>
+      (super.noSuchMethod(
+            Invocation.getter(#library),
+            returnValue: _FakeLibraryElement_3(
+              this,
+              Invocation.getter(#library),
+            ),
+            returnValueForMissingStub: _FakeLibraryElement_3(
+              this,
+              Invocation.getter(#library),
+            ),
+          )
+          as _i2.LibraryElement);
+
+  @override
+  List<_i2.TypeParameterElement> get typeParameters =>
+      (super.noSuchMethod(
+            Invocation.getter(#typeParameters),
+            returnValue: <_i2.TypeParameterElement>[],
+            returnValueForMissingStub: <_i2.TypeParameterElement>[],
+          )
+          as List<_i2.TypeParameterElement>);
 
   @override
   List<_i2.Element> get children =>
       (super.noSuchMethod(
             Invocation.getter(#children),
-            returnValue: <_i2.Element>[],
-            returnValueForMissingStub: <_i2.Element>[],
-          )
-          as List<_i2.Element>);
-
-  @override
-  List<_i2.Element> get children2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#children2),
             returnValue: <_i2.Element>[],
             returnValueForMissingStub: <_i2.Element>[],
           )
@@ -511,36 +475,6 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as _i2.ElementKind);
 
   @override
-  _i2.LibraryElement get library =>
-      (super.noSuchMethod(
-            Invocation.getter(#library),
-            returnValue: _FakeLibraryElement_3(
-              this,
-              Invocation.getter(#library),
-            ),
-            returnValueForMissingStub: _FakeLibraryElement_3(
-              this,
-              Invocation.getter(#library),
-            ),
-          )
-          as _i2.LibraryElement);
-
-  @override
-  _i2.LibraryElement get library2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#library2),
-            returnValue: _FakeLibraryElement_3(
-              this,
-              Invocation.getter(#library2),
-            ),
-            returnValueForMissingStub: _FakeLibraryElement_3(
-              this,
-              Invocation.getter(#library2),
-            ),
-          )
-          as _i2.LibraryElement);
-
-  @override
   _i2.Metadata get metadata =>
       (super.noSuchMethod(
             Invocation.getter(#metadata),
@@ -563,114 +497,6 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
             ),
           )
           as _i2.Element);
-
-  @override
-  _i2.Element get nonSynthetic2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#nonSynthetic2),
-            returnValue: _FakeElement_6(
-              this,
-              Invocation.getter(#nonSynthetic2),
-            ),
-            returnValueForMissingStub: _FakeElement_6(
-              this,
-              Invocation.getter(#nonSynthetic2),
-            ),
-          )
-          as _i2.Element);
-
-  @override
-  _i2.Metadata get metadata2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#metadata2),
-            returnValue: _FakeMetadata_5(this, Invocation.getter(#metadata2)),
-            returnValueForMissingStub: _FakeMetadata_5(
-              this,
-              Invocation.getter(#metadata2),
-            ),
-          )
-          as _i2.Metadata);
-
-  @override
-  bool get isSimplyBounded =>
-      (super.noSuchMethod(
-            Invocation.getter(#isSimplyBounded),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  List<_i2.TypeParameterElement> get typeParameters =>
-      (super.noSuchMethod(
-            Invocation.getter(#typeParameters),
-            returnValue: <_i2.TypeParameterElement>[],
-            returnValueForMissingStub: <_i2.TypeParameterElement>[],
-          )
-          as List<_i2.TypeParameterElement>);
-
-  @override
-  List<_i2.TypeParameterElement> get typeParameters2 =>
-      (super.noSuchMethod(
-            Invocation.getter(#typeParameters2),
-            returnValue: <_i2.TypeParameterElement>[],
-            returnValueForMissingStub: <_i2.TypeParameterElement>[],
-          )
-          as List<_i2.TypeParameterElement>);
-
-  @override
-  bool isExtendableIn(_i2.LibraryElement? library) =>
-      (super.noSuchMethod(
-            Invocation.method(#isExtendableIn, [library]),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool isExtendableIn2(_i2.LibraryElement? library) =>
-      (super.noSuchMethod(
-            Invocation.method(#isExtendableIn2, [library]),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool isImplementableIn(_i2.LibraryElement? library) =>
-      (super.noSuchMethod(
-            Invocation.method(#isImplementableIn, [library]),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool isImplementableIn2(_i2.LibraryElement? library) =>
-      (super.noSuchMethod(
-            Invocation.method(#isImplementableIn2, [library]),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool isMixableIn(_i2.LibraryElement? library) =>
-      (super.noSuchMethod(
-            Invocation.method(#isMixableIn, [library]),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool isMixableIn2(_i2.LibraryElement? library) =>
-      (super.noSuchMethod(
-            Invocation.method(#isMixableIn2, [library]),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
 
   @override
   _i2.ExecutableElement? getInheritedConcreteMember(_i4.Name? name) =>
@@ -700,14 +526,6 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
   _i2.ConstructorElement? getNamedConstructor(String? name) =>
       (super.noSuchMethod(
             Invocation.method(#getNamedConstructor, [name]),
-            returnValueForMissingStub: null,
-          )
-          as _i2.ConstructorElement?);
-
-  @override
-  _i2.ConstructorElement? getNamedConstructor2(String? name) =>
-      (super.noSuchMethod(
-            Invocation.method(#getNamedConstructor2, [name]),
             returnValueForMissingStub: null,
           )
           as _i2.ConstructorElement?);
@@ -773,31 +591,9 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as _i2.MethodElement?);
 
   @override
-  _i2.MethodElement? lookUpInheritedMethod2({
-    required String? methodName,
-    required _i2.LibraryElement? library,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#lookUpInheritedMethod2, [], {
-              #methodName: methodName,
-              #library: library,
-            }),
-            returnValueForMissingStub: null,
-          )
-          as _i2.MethodElement?);
-
-  @override
   _i2.FieldElement? getField(String? name) =>
       (super.noSuchMethod(
             Invocation.method(#getField, [name]),
-            returnValueForMissingStub: null,
-          )
-          as _i2.FieldElement?);
-
-  @override
-  _i2.FieldElement? getField2(String? name) =>
-      (super.noSuchMethod(
-            Invocation.method(#getField2, [name]),
             returnValueForMissingStub: null,
           )
           as _i2.FieldElement?);
@@ -811,25 +607,9 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as _i2.GetterElement?);
 
   @override
-  _i2.GetterElement? getGetter2(String? name) =>
-      (super.noSuchMethod(
-            Invocation.method(#getGetter2, [name]),
-            returnValueForMissingStub: null,
-          )
-          as _i2.GetterElement?);
-
-  @override
   _i2.MethodElement? getMethod(String? name) =>
       (super.noSuchMethod(
             Invocation.method(#getMethod, [name]),
-            returnValueForMissingStub: null,
-          )
-          as _i2.MethodElement?);
-
-  @override
-  _i2.MethodElement? getMethod2(String? name) =>
-      (super.noSuchMethod(
-            Invocation.method(#getMethod2, [name]),
             returnValueForMissingStub: null,
           )
           as _i2.MethodElement?);
@@ -843,34 +623,12 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as _i2.SetterElement?);
 
   @override
-  _i2.SetterElement? getSetter2(String? name) =>
-      (super.noSuchMethod(
-            Invocation.method(#getSetter2, [name]),
-            returnValueForMissingStub: null,
-          )
-          as _i2.SetterElement?);
-
-  @override
   _i2.GetterElement? lookUpGetter({
     required String? name,
     required _i2.LibraryElement? library,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#lookUpGetter, [], {
-              #name: name,
-              #library: library,
-            }),
-            returnValueForMissingStub: null,
-          )
-          as _i2.GetterElement?);
-
-  @override
-  _i2.GetterElement? lookUpGetter2({
-    required String? name,
-    required _i2.LibraryElement? library,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#lookUpGetter2, [], {
               #name: name,
               #library: library,
             }),
@@ -893,20 +651,6 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as _i2.MethodElement?);
 
   @override
-  _i2.MethodElement? lookUpMethod2({
-    required String? name,
-    required _i2.LibraryElement? library,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#lookUpMethod2, [], {
-              #name: name,
-              #library: library,
-            }),
-            returnValueForMissingStub: null,
-          )
-          as _i2.MethodElement?);
-
-  @override
   _i2.SetterElement? lookUpSetter({
     required String? name,
     required _i2.LibraryElement? library,
@@ -921,31 +665,9 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as _i2.SetterElement?);
 
   @override
-  _i2.SetterElement? lookUpSetter2({
-    required String? name,
-    required _i2.LibraryElement? library,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#lookUpSetter2, [], {
-              #name: name,
-              #library: library,
-            }),
-            returnValueForMissingStub: null,
-          )
-          as _i2.SetterElement?);
-
-  @override
   T? accept<T>(_i2.ElementVisitor2<T>? visitor) =>
       (super.noSuchMethod(
             Invocation.method(#accept, [visitor]),
-            returnValueForMissingStub: null,
-          )
-          as T?);
-
-  @override
-  T? accept2<T>(_i2.ElementVisitor2<T>? visitor) =>
-      (super.noSuchMethod(
-            Invocation.method(#accept2, [visitor]),
             returnValueForMissingStub: null,
           )
           as T?);
@@ -978,33 +700,6 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as String);
 
   @override
-  String displayString2({
-    bool? multiline = false,
-    bool? preferTypeAlias = false,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#displayString2, [], {
-              #multiline: multiline,
-              #preferTypeAlias: preferTypeAlias,
-            }),
-            returnValue: _i5.dummyValue<String>(
-              this,
-              Invocation.method(#displayString2, [], {
-                #multiline: multiline,
-                #preferTypeAlias: preferTypeAlias,
-              }),
-            ),
-            returnValueForMissingStub: _i5.dummyValue<String>(
-              this,
-              Invocation.method(#displayString2, [], {
-                #multiline: multiline,
-                #preferTypeAlias: preferTypeAlias,
-              }),
-            ),
-          )
-          as String);
-
-  @override
   String getExtendedDisplayName({String? shortName}) =>
       (super.noSuchMethod(
             Invocation.method(#getExtendedDisplayName, [], {
@@ -1026,27 +721,6 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as String);
 
   @override
-  String getExtendedDisplayName2({String? shortName}) =>
-      (super.noSuchMethod(
-            Invocation.method(#getExtendedDisplayName2, [], {
-              #shortName: shortName,
-            }),
-            returnValue: _i5.dummyValue<String>(
-              this,
-              Invocation.method(#getExtendedDisplayName2, [], {
-                #shortName: shortName,
-              }),
-            ),
-            returnValueForMissingStub: _i5.dummyValue<String>(
-              this,
-              Invocation.method(#getExtendedDisplayName2, [], {
-                #shortName: shortName,
-              }),
-            ),
-          )
-          as String);
-
-  @override
   bool isAccessibleIn(_i2.LibraryElement? library) =>
       (super.noSuchMethod(
             Invocation.method(#isAccessibleIn, [library]),
@@ -1056,9 +730,9 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as bool);
 
   @override
-  bool isAccessibleIn2(_i2.LibraryElement? library) =>
+  bool isDeprecatedWithKind(String? kind) =>
       (super.noSuchMethod(
-            Invocation.method(#isAccessibleIn2, [library]),
+            Invocation.method(#isDeprecatedWithKind, [kind]),
             returnValue: false,
             returnValueForMissingStub: false,
           )
@@ -1073,22 +747,8 @@ class MockClassElement extends _i1.Mock implements _i2.ClassElement {
           as _i2.Element?);
 
   @override
-  _i2.Element? thisOrAncestorMatching2(bool Function(_i2.Element)? predicate) =>
-      (super.noSuchMethod(
-            Invocation.method(#thisOrAncestorMatching2, [predicate]),
-            returnValueForMissingStub: null,
-          )
-          as _i2.Element?);
-
-  @override
   void visitChildren<T>(_i2.ElementVisitor2<T>? visitor) => super.noSuchMethod(
     Invocation.method(#visitChildren, [visitor]),
-    returnValueForMissingStub: null,
-  );
-
-  @override
-  void visitChildren2<T>(_i2.ElementVisitor2<T>? visitor) => super.noSuchMethod(
-    Invocation.method(#visitChildren2, [visitor]),
     returnValueForMissingStub: null,
   );
 }
