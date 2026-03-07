@@ -73,3 +73,6 @@ typedef SuperRefinerErrorRes = (ZIssue, {ZIssues others});
 ///
 /// This is a more flexible and verbose alternative to [Refiner].
 typedef SuperRefiner<T> = SuperRefinerErrorRes? Function(T val);
+
+/// Type representing a function used to parse an unsafe value to enum of type [T]
+typedef EnumParser<T extends Enum> = T? Function(Object? value);
