@@ -1,3 +1,6 @@
+import 'package:collection/collection.dart';
+import 'package:fpdart/fpdart.dart';
+
 import '../base/base.dart';
 import '../base/cross_field_validation.dart';
 import '../types/types.dart';
@@ -162,3 +165,28 @@ ZRes<List<T>> parseArrayFromList<T>({
 
   return issuesForAllValues.isEmpty ? ZRes.success(parsedValues) : ZRes.error(issuesForAllValues);
 }
+
+/// Returns a parser function that parses an enum of type [T] from an [Object?].
+///
+/// - if the input type is [T], return [ZRes] containing the value.
+/// - if the input type is [String] tries to parse the value against `[Enum.values].name`
+/// - otherwise returns [ZRes] containing [ZIssue]
+ZRes<T> Function(Object? val) parseEnum<T extends Enum>(List<T> enumValues) =>
+    (Object? val) => switch (val) {
+      final T enumValue => ZRes.success(enumValue),
+      final String stringValue => _parseEnumFromString(stringValue, enumValues),
+      _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
+    };
+
+ZRes<T> _parseEnumFromString<T extends Enum>(String val, List<T> enumValues) =>
+    Option.fromNullable(enumValues.firstWhereOrNull((e) => e.name == val)).match(
+      () => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
+      ZRes.success,
+    );
+
+/// Returns a function that parses an enum of type [T] from an [Object?] using [customParser].
+ZRes<T> Function(Object? val) parseEnumCustom<T extends Enum>(EnumParser<T> customParser) =>
+    (Object? val) => Option.fromNullable(customParser(val)).match(
+      () => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
+      ZRes.success,
+    );
