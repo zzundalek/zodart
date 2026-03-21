@@ -40,7 +40,7 @@ abstract class ZPath with _$ZPath {
   String? get pathStr {
     if (path.isEmpty) return null;
 
-    return path.foldLeftWithIndex<String>('', (curr, item, index) => curr += _formatPathSegment(item, index == 0));
+    return path.foldLeftWithIndex<String>('', (curr, item, index) => curr + _formatPathSegment(item, index == 0));
   }
 
   /// Adds a path item to the beginning of this path.
