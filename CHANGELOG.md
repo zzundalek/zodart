@@ -1,4 +1,4 @@
-## UNRELEASED
+## 1.6.0 - 2026-03-21
 
 - Add ZEnum type
 
