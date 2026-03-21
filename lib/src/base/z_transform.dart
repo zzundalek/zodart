@@ -44,7 +44,14 @@ sealed class Operation<From, To> {
 /// Extends [Operation] and enforces runtime type checks for both input and output types.
 class Parsing<T> extends Operation<Object?, T> {
   /// Create a new transformation from [Object?] to [T] with the given function [fn].
+  ///
+  /// Using a build-in ZodArt function.
   Parsing.buildIn(Parser<T> p) : super(p);
+
+  /// Create a new transformation from [Object?] to [T] with the given function [fn].
+  ///
+  /// Using a custom function provided by the consumer.
+  Parsing.custom(Parser<T> p) : super(p, isUserDefined: true);
 }
 
 /// A type-safe wrapper for [T] validation logic.

@@ -1,3 +1,7 @@
+## 1.6.0 - 2026-03-21
+
+- Add ZEnum type
+
 ## 1.5.0 - 2026-02-03
 
 - Upgrade analyzer package version to 3.9
