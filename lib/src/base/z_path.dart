@@ -46,6 +46,9 @@ abstract class ZPath with _$ZPath {
   /// Adds a path item to the beginning of this path.
   ZPath prependPathItem(ZPathItem pathItem) => copyWith(path: [pathItem, ...path]);
 
+  /// Adds a path item to the end of this path.
+  ZPath appendPathItem(ZPathItem pathItem) => copyWith(path: [...path, pathItem]);
+
   /// Adds an index to the beginning of this path.
   ZPath prependIndex(int index) => prependPathItem(ZIndex(index));
 

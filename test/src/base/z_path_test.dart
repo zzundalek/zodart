@@ -59,4 +59,30 @@ void main() {
       );
     });
   });
+  group('appendPathItem', () {
+    test('Returns right path for an empty path appending a property.', () {
+      expect(
+        ZPath.empty().appendPathItem(const ZPathItem.property('prop')),
+        equals(const ZPath([ZPathItem.property('prop')])),
+      );
+    });
+    test('Returns right path for an empty path appending an index.', () {
+      expect(
+        ZPath.empty().appendPathItem(const ZPathItem.index(0)),
+        equals(const ZPath([ZPathItem.index(0)])),
+      );
+    });
+    test('Returns right path for a path contaning a property appending a property.', () {
+      expect(
+        ZPath.property('prop1').appendPathItem(const ZPathItem.property('prop2')),
+        equals(const ZPath([ZPathItem.property('prop1'), ZPathItem.property('prop2')])),
+      );
+    });
+    test('Returns right path for a path containg an index appending an index.', () {
+      expect(
+        ZPath.index(0).appendPathItem(const ZPathItem.index(1)),
+        equals(const ZPath([ZPathItem.index(0), ZPathItem.index(1)])),
+      );
+    });
+  });
 }
