@@ -152,7 +152,7 @@ class Refs {
   /// If `zodArtPrivate` is true (default), the name is prefixed with `_\$Z`.
   static String Function({String prefix, String suffix, bool zodArtPrivate}) _constructNameWithClassName(
     String className,
-  ) => ({String prefix = '', String suffix = '', bool zodArtPrivate = true}) {
+  ) => ({prefix = '', suffix = '', zodArtPrivate = true}) {
     final res = '$prefix$className$suffix';
     return zodArtPrivate ? '_$res' : res;
   };
