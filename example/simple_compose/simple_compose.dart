@@ -1,5 +1,5 @@
 // Example file
-// ignore_for_file: avoid_print, specify_nonobvious_property_types
+// ignore_for_file: specify_nonobvious_property_types
 
 import 'package:zodart/zodart.dart';
 

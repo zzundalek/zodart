@@ -34,7 +34,6 @@ class ZLocalizationContext {
   /// Returns the currently active [ZIssueLocalizationService].
   ///
   /// Used throughout the system to resolve issues into localized strings.
-  // ignore: unnecessary_getters_setters
   static ZIssueLocalizationService get current => currentZLocalizationService;
 
   /// Sets a new [ZIssueLocalizationService] as the active context.

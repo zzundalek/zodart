@@ -10,7 +10,7 @@ part of 'types.dart';
 /// (e.g., `ZString()`, etc.) to create schemas.
 sealed class ZBase<T> {
   ZBase._new(Operation<Object?, dynamic> parse) : _config = ZBaseConfig(fns: [parse]);
-  ZBase._withConfig(this._config);
+  ZBase._withConfig(ZBaseConfig config) : _config = config;
 
   final ZBaseConfig _config;
 
@@ -40,7 +40,7 @@ sealed class ZBase<T> {
 
   /// Converts [Transformer] to [ResTransformer] by wrapping it by function returning [ZRes].
   ZRes<To> Function(From) _toResTransformer<From, To>(Transformer<From, To> t) =>
-      (From val) => ZRes.success(t(val));
+      (val) => ZRes.success(t(val));
 
   /// Adds a transformation function to the pipeline.
   ///

@@ -1,9 +1,4 @@
 {
-  "dart.sdkPaths": ["~/.asdf/installs/dart/"],
-  "dart.getDartSdkCommand": {
-    "executable": "asdf",
-    "args": ["where", "dart"]
-  },
   "editor.formatOnSave": true,
   "files.insertFinalNewline": true,
   "editor.codeActionsOnSave": {

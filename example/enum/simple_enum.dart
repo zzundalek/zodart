@@ -1,5 +1,5 @@
 // Ignore for the schema definition
-// ignore_for_file: specify_nonobvious_property_types, avoid_print, cascade_invocations
+// ignore_for_file: specify_nonobvious_property_types, avoid_print
 import 'package:zodart/zodart.dart';
 
 enum Color { red, green, blue }

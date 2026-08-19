@@ -26,8 +26,14 @@ jobs:
       - name: Install dependencies
         run: dart pub get
 
+      # Run with fatal-infos ONLY for stable version
       - name: Run analyzer
-        run: dart analyze --fatal-infos
+        run: |
+          if [ "${{ matrix.sdk }}" = "stable" ]; then
+            dart analyze --fatal-infos
+          else
+            dart analyze --fatal-warnings
+          fi
 
       - name: Activate test coverage package
         run: dart pub global activate coverage

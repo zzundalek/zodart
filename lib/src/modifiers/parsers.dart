@@ -67,7 +67,7 @@ ZRes<T> Function(Object?) parseObject<T>({
   required ObjectMapper<T> mapper,
   required UnsafeCrossFieldValidation crossFieldValidation,
   CrossFieldValidationExecutorFactory crossFieldValidationExecutor = CrossFieldValidationExecutor.new,
-}) => (Object? val) {
+}) => (val) {
   return switch (val) {
     final Map<String, dynamic> val => parseObjectFromMap(
       mapper: mapper,
@@ -131,7 +131,7 @@ ZRes<T> parseObjectFromMap<T>({
 ///
 /// If the input is a [List<dynamic>], it delegates to [parseArrayFromList].
 /// Otherwise, returns a single parse failure error.
-ZRes<List<T>> Function(Object?) parseArray<T>(ZBase<T> schema) => (Object? val) {
+ZRes<List<T>> Function(Object?) parseArray<T>(ZBase<T> schema) => (val) {
   return switch (val) {
     final List<dynamic> val => parseArrayFromList(values: val, schema: schema),
     _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: List<T>, val: val)),
@@ -172,7 +172,7 @@ ZRes<List<T>> parseArrayFromList<T>({
 /// - if the input type is [String] tries to parse the value against `[Enum.values].name`
 /// - otherwise returns [ZRes] containing [ZIssue]
 ZRes<T> Function(Object? val) parseEnum<T extends Enum>(List<T> enumValues) =>
-    (Object? val) => switch (val) {
+    (val) => switch (val) {
       final T enumValue => ZRes.success(enumValue),
       final String stringValue => _parseEnumFromString(stringValue, enumValues),
       _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
@@ -186,7 +186,7 @@ ZRes<T> _parseEnumFromString<T extends Enum>(String val, List<T> enumValues) =>
 
 /// Returns a function that parses an enum of type [T] from an [Object?] using [customParser].
 ZRes<T> Function(Object? val) parseEnumCustom<T extends Enum>(EnumParser<T> customParser) =>
-    (Object? val) => Option.fromNullable(customParser(val)).match(
+    (val) => Option.fromNullable(customParser(val)).match(
       () => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
       ZRes.success,
     );

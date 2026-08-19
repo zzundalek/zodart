@@ -1,10 +1,16 @@
+## 1.7.0 - 2026-08-20
+
+- Improve ZPath to be used in ZodArtForm
+- Upgrade analyzer package version to 10.2.0
+- Fix dev dependencies
+
 ## 1.6.0 - 2026-03-21
 
 - Add ZEnum type
 
 ## 1.5.0 - 2026-02-03
 
-- Upgrade analyzer package version to 3.9
+- Upgrade analyzer package version to 9
 
 ## 1.4.0 - 2025-12-22
 
