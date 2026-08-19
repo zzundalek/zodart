@@ -1,4 +1,4 @@
-## [UNRELEASED]
+## 1.7.0 - 2026-08-20
 
 - Improve ZPath to be used in ZodArtForm
 - Upgrade analyzer package version to 10.2.0
