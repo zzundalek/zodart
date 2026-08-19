@@ -42,7 +42,7 @@ class ZEnum<T extends Enum> extends ZBase<T> implements ZTransformations<T, T> {
     Parsing.custom(parseEnumCustom(enumParser)),
   );
 
-  ZEnum._new(Parsing<T> super.parser) : super._new();
+  ZEnum._new(Parsing<T> super.parse) : super._new();
 
   /// Internal constructor that accepts a custom configuration.
   ///

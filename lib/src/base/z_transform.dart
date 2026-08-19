@@ -2,7 +2,6 @@
 // ignore_for_file: use_super_parameters
 
 import '../internal_typedefs.dart';
-import '../z_base_config/z_base_config.dart';
 import 'base.dart';
 
 /// A class used to encapsulate transformation, validation and processing functions.
@@ -17,7 +16,7 @@ sealed class Operation<From, To> {
   final bool isUserDefined;
 
   ConfiguredTransformer<From?, To?> _configureTransformer(ResTransformer<From, To> fn) =>
-      (Config config) => (dynamic val) {
+      (config) => (dynamic val) {
         // NOTE: For null value the transformer execution is skipped,
         // but the result must be converted to proper type.
         if (val == null && (config.nullable || config.optional)) {

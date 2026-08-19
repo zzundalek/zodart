@@ -44,6 +44,8 @@ class ZNullableArray<T> extends ZBase<List<T>?>
   /// Uses `Iterable.map(elementTransformer)` in the background.
   ZNullableArray<To> map<To>(Transformer<T, To> elementTransformer) => _transformCustom(
     constructor: ZNullableArray<To>._withConfig,
+    // TODO(zzu): fix
+    // ignore: avoid_types_on_closure_parameters
     transformer: (List<T> from) => from.map(elementTransformer).toList(),
   );
 

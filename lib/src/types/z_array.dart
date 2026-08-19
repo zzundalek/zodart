@@ -54,6 +54,8 @@ class ZArray<T> extends ZBase<List<T>> implements ZTransformations<List<T>, List
   /// Uses `Iterable.map(elementTransformer)` in the background.
   ZArray<To> map<To>(Transformer<T, To> elementTransformer) => _transformCustom(
     constructor: ZArray<To>._withConfig,
+    // TODO(zzu): fix
+    // ignore: avoid_types_on_closure_parameters
     transformer: (List<T> from) => from.map(elementTransformer).toList(),
   );
 
