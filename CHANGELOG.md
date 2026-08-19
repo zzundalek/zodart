@@ -1,5 +1,6 @@
 ## [UNRELEASED]
 
+- Improve ZPath to be used in ZodArtForm
 - Upgrade analyzer package version to 10.2.0
 - Fix dev dependencies
 
