@@ -10,8 +10,8 @@ part of 'types.dart';
 /// final result = intVal.parse(1);
 /// ```
 class ZInt extends ZBase<int> implements ZTransformations<int, int> {
-  /// Factory constructor that creates a new instance using the default configuration.
-  factory ZInt() => ZInt._new();
+  /// Constructor that creates a new instance using the default configuration.
+  ZInt() : this._new();
 
   /// Internal constructor that initializes with a default integer parser.
   ZInt._new() : super._new(Parsing.buildIn(parseInt));

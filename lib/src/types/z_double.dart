@@ -10,8 +10,8 @@ part of 'types.dart';
 /// final result = doubleVal.parse(1.0);
 /// ```
 class ZDouble extends ZBase<double> implements ZTransformations<double, double> {
-  /// Factory constructor that creates a new instance using the default configuration.
-  factory ZDouble() => ZDouble._new();
+  /// Constructor that creates a new instance using the default configuration.
+  ZDouble() : this._new();
 
   /// Internal constructor that initializes with a default double parser.
   ZDouble._new() : super._new(Parsing.buildIn(parseDouble));

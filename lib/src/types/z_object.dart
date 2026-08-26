@@ -19,23 +19,23 @@ part of 'types.dart';
 // final person = personSchema.parse({'firstName': 'Zod', 'lastName': 'Art'});
 /// ```
 class ZObject<T extends Object> extends ZBase<T> implements ZTransformations<T, T> {
-  /// Factory constructor that creates a [ZObject] using the given [schema]
+  /// Constructor that creates a [ZObject] using the given [schema]
   /// for parsing and the [fromJson] function to map parsed data to type [T].
   ///
   /// Cross-field validators, if provided, operates on the default
   /// [ParsedFieldAccessor].
-  factory ZObject.withMapper(
+  ZObject.withMapper(
     ZSchema schema, {
     required ObjectMapper<T> fromJson,
     List<CrossFieldValidator<ParsedFieldAccessor>> crossValidators = const [],
-  }) => ZObject._new(
-    schema: schema,
-    mapper: fromJson,
-    crossFieldValidation: (
-      parsedFieldAccessorFactory: ParsedFieldAccessor.new,
-      crossValidators: crossValidators,
-    ),
-  );
+  }) : this._new(
+         schema: schema,
+         mapper: fromJson,
+         crossFieldValidation: (
+           parsedFieldAccessorFactory: ParsedFieldAccessor.new,
+           crossValidators: crossValidators,
+         ),
+       );
 
   ZObject._new({
     required ZSchema schema,

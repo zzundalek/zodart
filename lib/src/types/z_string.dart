@@ -10,8 +10,8 @@ part of 'types.dart';
 /// final result = stringVal.parse('ZodArt');
 /// ```
 class ZString extends ZBase<String> implements ZTransformations<String, String> {
-  /// Factory constructor that creates a new instance using the default configuration.
-  factory ZString() => ZString._new();
+  /// Constructor that creates a new instance using the default configuration.
+  ZString() : this._new();
 
   /// Internal constructor that initializes with a default String parser.
   ZString._new() : super._new(Parsing.buildIn(parseString));
