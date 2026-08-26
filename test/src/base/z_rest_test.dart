@@ -177,6 +177,34 @@ void main() {
         expect(RegExp(r'^\[.+\] .+$').hasMatch(text ?? ''), isFalse);
       });
     });
+    group('getSummaryForRawPath', () {
+      test('Returns null for success', () {
+        expect(ZRes.success('val').getSummaryForRawPath(ZPath.empty()), isNull);
+      });
+      test('Returns null if the path does not match', () {
+        expect(
+          ZRes<String>.errorSingleIssue(
+            ZIssueMissingValue(rawPath: ZPath.property('zodArt')),
+          ).getSummaryForRawPath(const ZPath([ZPathItem.property('dummy')])),
+          isNull,
+        );
+      });
+      test('Returns a list of the issue texts if the path does match', () {
+        expect(
+          ZRes<String>.errorSingleIssue(
+            ZIssueMissingValue(rawPath: ZPath.property('zodArt')),
+          ).getSummaryForRawPath(ZPath.property('zodArt')),
+          isA<String>(),
+        );
+      });
+      test('Path is not included in the return text', () {
+        final text = ZRes<String>.errorSingleIssue(
+          ZIssueMissingValue(rawPath: ZPath.property('zodArt')),
+        ).getSummaryForRawPath(ZPath.property('zodArt'));
+
+        expect(RegExp(r'^\[.+\] .+$').hasMatch(text ?? ''), isFalse);
+      });
+    });
     group('getRawIssuesFor', () {
       test('Returns null for success', () {
         expect(ZRes.success('val').getRawIssuesFor('dummy'), isNull);
@@ -196,7 +224,30 @@ void main() {
         );
       });
     });
+
+    group('getRawIssuesForRawPath', () {
+      test('Returns null for success', () {
+        expect(ZRes.success('val').getRawIssuesForRawPath(ZPath.index(0)), isNull);
+      });
+      test('Returns null if the path does not match', () {
+        expect(
+          ZRes<String>.errorSingleIssue(
+            ZIssueMissingValue(rawPath: ZPath.property('zodArt')),
+          ).getRawIssuesForRawPath(ZPath.property('dummy')),
+          isNull,
+        );
+      });
+      test('Returns a list of the issues if the path does match', () {
+        expect(
+          ZRes<String>.errorSingleIssue(
+            ZIssueMissingValue(rawPath: ZPath.property('zodArt')),
+          ).getRawIssuesForRawPath(const ZPath([ZPathItem.property('zodArt')])),
+          isA<List<ZIssue>>(),
+        );
+      });
+    });
   });
+
   group('ZError', () {
     const testIssue = ZIssueParseFail(from: Null, to: String, val: null);
     group('messages', () {

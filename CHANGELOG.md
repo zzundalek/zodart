@@ -1,3 +1,7 @@
+## UNRELEASED
+
+- add methods to ZRes for issue fetching using ZPath
+
 ## 1.7.0 - 2026-08-20
 
 - Improve ZPath to be used in ZodArtForm

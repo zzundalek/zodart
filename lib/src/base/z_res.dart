@@ -153,6 +153,9 @@ extension ZResExt<T> on ZRes<T> {
   /// Returns the list of [ZIssue]s for the given [path], or `null` if no matching issues are found.
   ZIssues? getRawIssuesFor(String path) => _findIssuesForPath(path).toNullable();
 
+  /// Returns the list of [ZIssue]s for the given raw [path], or `null` if no matching issues are found.
+  ZIssues? getRawIssuesForRawPath(ZPath path) => _findIssuesForRawPath(path).toNullable();
+
   /// Returns localized issue messages joined by a newline for the given [path],
   /// or `null` if no matching issues are found.
   ///
@@ -160,8 +163,20 @@ extension ZResExt<T> on ZRes<T> {
   String? getSummaryFor(String path, {bool includePath = false}) =>
       _findIssuesForPath(path).map((issues) => issues.getLocalizedSummary(includePath: includePath)).toNullable();
 
+  /// Returns localized issue messages joined by a newline for the given raw [path],
+  /// or `null` if no matching issues are found.
+  ///
+  /// Includes the field path if [includePath] is set to true. Default: `false`.
+  String? getSummaryForRawPath(ZPath path, {bool includePath = false}) =>
+      _findIssuesForRawPath(path).map((issues) => issues.getLocalizedSummary(includePath: includePath)).toNullable();
+
   Option<ZIssues> _findIssuesForPath(String path) => match(
     (rawIssues) => findIssuesForPath(rawIssues, path),
+    (_) => const Option.none(),
+  );
+
+  Option<ZIssues> _findIssuesForRawPath(ZPath path) => match(
+    (rawIssues) => rawIssues.whereOrOptionList((rawIssue) => rawIssue.rawPath == path),
     (_) => const Option.none(),
   );
 }
