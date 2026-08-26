@@ -10,8 +10,8 @@ part of 'types.dart';
 /// final result = dateTimeVal.parse(DateTime.now());
 /// ```
 class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, DateTime> {
-  /// Factory constructor that creates a new instance using the default configuration.
-  factory ZDateTime() => ZDateTime._new();
+  /// Constructor that creates a new instance using the default configuration.
+  ZDateTime() : this._new();
 
   /// Internal constructor that initializes with a default DateTime parser.
   ZDateTime._new() : super._new(Parsing.buildIn(parseDateTime));

@@ -12,7 +12,7 @@ part of 'types.dart';
 /// final result = simpleEnumSchema.parse('red');
 /// ```
 class ZEnum<T extends Enum> extends ZBase<T> implements ZTransformations<T, T> {
-  /// Factory constructor that creates [ZEnum] for given [T].
+  /// Constructor that creates [ZEnum] for given [T].
   ///
   /// For the value parsing compares the value against `[Enum.values].name` of [enumValues],
   /// or accepts the T value itself.
@@ -27,20 +27,20 @@ class ZEnum<T extends Enum> extends ZBase<T> implements ZTransformations<T, T> {
   /// ```
   ///
   /// For enhanced enums use `withCustomParser` instead.
-  factory ZEnum.simple({
+  ZEnum.simple({
     required List<T> enumValues,
-  }) => ZEnum._new(
-    Parsing.buildIn(parseEnum(enumValues)),
-  );
+  }) : this._new(
+         Parsing.buildIn(parseEnum(enumValues)),
+       );
 
-  /// Factory constructor that creates [ZEnum] for given [T].
+  /// Constructor that creates [ZEnum] for given [T].
   ///
   /// For the value parsing uses [enumParser].
-  factory ZEnum.withCustomParser(
+  ZEnum.withCustomParser(
     EnumParser<T> enumParser,
-  ) => ZEnum._new(
-    Parsing.custom(parseEnumCustom(enumParser)),
-  );
+  ) : this._new(
+        Parsing.custom(parseEnumCustom(enumParser)),
+      );
 
   ZEnum._new(Parsing<T> super.parse) : super._new();
 

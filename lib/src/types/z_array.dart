@@ -10,8 +10,8 @@ part of 'types.dart';
 /// final result = intArray.parse([1, 2, 3]);
 /// ```
 class ZArray<T> extends ZBase<List<T>> implements ZTransformations<List<T>, List<T>> {
-  /// Factory constructor that creates a new instance using the given [schema] for parsing.
-  factory ZArray(ZBase<T> schema) => ZArray._new(schema);
+  /// Constructor that creates a new instance using the given [schema] for parsing.
+  ZArray(ZBase<T> schema) : this._new(schema);
 
   ZArray._new(ZBase<T> schema) : super._new(Parsing.buildIn(parseArray<T>(schema)));
 

@@ -10,8 +10,8 @@ part of 'types.dart';
 /// final result = boolVal.parse(true);
 /// ```
 class ZBool extends ZBase<bool> implements ZTransformations<bool, bool> {
-  /// Factory constructor that creates a new instance using the default configuration.
-  factory ZBool() => ZBool._new();
+  /// Constructor that creates a new instance using the default configuration.
+  ZBool() : this._new();
 
   /// Internal constructor that initializes with a default bool parser.
   ZBool._new() : super._new(Parsing.buildIn(parseBool));
