@@ -68,6 +68,74 @@ void main() {
         );
       });
     });
+    group('coerce', () {
+      final baseValidInputs = <ValidInput>[
+        (input: -1.99, expected: -1.99),
+        (input: -1.0, expected: -1.0),
+        (input: 1, expected: 1.0),
+        (input: -1, expected: -1.0),
+        (input: 0.0, expected: 0.0),
+        (input: 0.1, expected: 0.1),
+        (input: 2.1, expected: 2.1),
+        (input: '0', expected: 0.0),
+        (input: '-1', expected: -1.0),
+        (input: '  10.0 ', expected: 10.0),
+        (input: '  -10.0 ', expected: -10.0),
+      ];
+      const baseInvalidInputs = <InvalidInput>[
+        (input: ' wrong value ', expected: [ZIssueParseFail(from: String, to: double, val: ' wrong value ')]),
+        (input: emptyObject, expected: [ZIssueParseFail(from: Object, to: double, val: emptyObject)]),
+      ];
+
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: [
+              ...baseInvalidInputs,
+              (input: null, expected: const [ZIssueParseFail(from: Null, to: double, val: null)]),
+            ],
+          ),
+          ZDouble(coercion: true),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble(coercion: true).nullable(),
+        );
+      });
+      group('optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble(coercion: true).optional(),
+        );
+      });
+      group('nullable -> optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDouble(coercion: true).nullable().optional(),
+        );
+      });
+    });
   });
   group('min', () {
     const min = 10.0;

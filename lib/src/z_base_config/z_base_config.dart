@@ -29,6 +29,7 @@ abstract class ZBaseConfig with _$ZBaseConfig implements Config {
   ///
   /// - [fns]: A list of transformations or rules to apply.
   /// - [nullable]: Whether `null` is treated as valid input (defaults to `false`).
+  /// - [optional]: Whether a value can be omitted (defaults to `false`).
   const factory ZBaseConfig({
     required List<Operation<dynamic, dynamic>> fns,
     @Default(false) bool nullable,

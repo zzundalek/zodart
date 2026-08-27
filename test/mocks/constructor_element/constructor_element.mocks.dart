@@ -154,6 +154,51 @@ class MockConstructorElement extends _i1.Mock implements _i2.ConstructorElement 
           as bool);
 
   @override
+  bool get isOriginDeclaration =>
+      (super.noSuchMethod(
+            Invocation.getter(#isOriginDeclaration),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  bool get isOriginImplicitDefault =>
+      (super.noSuchMethod(
+            Invocation.getter(#isOriginImplicitDefault),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  bool get isOriginMixinApplication =>
+      (super.noSuchMethod(
+            Invocation.getter(#isOriginMixinApplication),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  bool get isPrimary =>
+      (super.noSuchMethod(
+            Invocation.getter(#isPrimary),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  bool get isSynthetic =>
+      (super.noSuchMethod(
+            Invocation.getter(#isSynthetic),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
   _i3.InterfaceType get returnType =>
       (super.noSuchMethod(
             Invocation.getter(#returnType),
@@ -313,15 +358,6 @@ class MockConstructorElement extends _i1.Mock implements _i2.ConstructorElement 
   bool get isPublic =>
       (super.noSuchMethod(
             Invocation.getter(#isPublic),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  bool get isSynthetic =>
-      (super.noSuchMethod(
-            Invocation.getter(#isSynthetic),
             returnValue: false,
             returnValueForMissingStub: false,
           )

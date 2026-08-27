@@ -4,6 +4,7 @@ import 'package:fpdart/fpdart.dart';
 import '../base/base.dart';
 import '../base/cross_field_validation.dart';
 import '../types/types.dart';
+import 'modifiers.dart';
 
 /// Strictly parses [val] as type [T].
 ///
@@ -19,6 +20,70 @@ import '../types/types.dart';
 /// ```
 ZRes<T> parseStrict<T>(Object? val) =>
     val is T ? ZRes.success(val) : ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val));
+
+/// Parses [val] as an [int], allowing lossless coercion from supported types.
+///
+/// If [val] is already an [int], it is returned unchanged.
+/// If [val] is a [String], it is parsed as an integer.
+/// Otherwise, the value is passed to [parseStrict], which requires it to
+/// already be an [int].
+///
+/// This function performs only supported, non-lossy coercions.
+///
+/// Examples:
+/// ```dart
+/// parseIntCoerce(42);      // Success with value 42
+/// parseIntCoerce('42');    // Success with value 42
+/// parseIntCoerce(42.5);    // Error with parse failure
+/// ```
+ZRes<int> parseIntCoerce(Object? val) {
+  return val is String ? stringToInt(val) : parseStrict(val);
+}
+
+/// Parses [val] as a [double], allowing lossless coercion from supported types.
+///
+/// If [val] is already a [double], it is returned unchanged.
+/// If [val] is an [int], it is converted to a [double].
+/// If [val] is a [String], it is parsed as a double.
+/// Otherwise, the value is passed to [parseStrict], which requires it to
+/// already be a [double].
+///
+/// This function does not perform potentially lossy narrowing conversions,
+/// such as converting a [double] to an [int].
+///
+/// Examples:
+/// ```dart
+/// parseDoubleCoerce(42.0); // Success with value 42.0
+/// parseDoubleCoerce(42);   // Success with value 42.0
+/// parseDoubleCoerce('42'); // Success with value 42.0
+/// parseDoubleCoerce({}); / /Error with parse failure
+/// ```
+ZRes<double> parseDoubleCoerce(Object? val) {
+  if (val is int) {
+    return intToDouble(val);
+  } else if (val is String) {
+    return stringToDouble(val);
+  } else {
+    return parseStrict(val);
+  }
+}
+
+/// Parses [val] as a [DateTime], allowing coercion from supported types.
+///
+/// If [val] is already a [DateTime], it is returned unchanged.
+/// If [val] is a [String], it is parsed as a [DateTime].
+/// Otherwise, the value is passed to [parseStrict], which requires it to
+/// already be a [DateTime].
+///
+/// Examples:
+/// ```dart
+/// parseDateTimeCoerce(DateTime(2026)); // Success with the same DateTime
+/// parseDateTimeCoerce('2026-01-01');  // Success with parsed DateTime
+/// parseDateTimeCoerce(42);             // Error with parse failure
+/// ```
+ZRes<DateTime> parseDateTimeCoerce(Object? val) {
+  return val is String ? stringToDateTime(val) : parseStrict(val);
+}
 
 /// Parses [val] strictly as a [String].
 ///
