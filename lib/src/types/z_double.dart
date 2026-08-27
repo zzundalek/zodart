@@ -18,12 +18,20 @@ class ZDouble extends ZBase<double> implements ZTransformations<double, double> 
   /// Flag to turn on automatic type conversion between compatible types. Turned off by default.
   /// Executes only losseless coversions.
   /// {@endtemplate}
-  ZDouble({bool coercion = false}) : this._new(coercion: coercion);
+  ///
+  /// {@macro ZodArtType_preParsers}
+  /// Example usage:
+  /// ```dart
+  /// ZDouble(preParsers: [normalizeFormStringPreParser]);
+  /// ```
+  ZDouble({bool coercion = false, List<ResProcessor<Object?>> preParsers = const []})
+    : this._new(coercion: coercion, preParsers: preParsers);
 
   /// Internal constructor that initializes the type with selected double parser.
-  ZDouble._new({required bool coercion})
+  ZDouble._new({required bool coercion, required List<ResProcessor<Object?>> preParsers})
     : super._new(
         coercion ? Parsing.buildIn(parseDoubleCoerce) : Parsing.buildIn(parseDouble),
+        preParsers: preParsers.map(PreProcessing.custom).toList(),
       );
 
   /// Internal constructor that accepts a custom configuration.

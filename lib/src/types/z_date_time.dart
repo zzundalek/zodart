@@ -13,11 +13,21 @@ class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, Da
   /// Constructor that creates a new instance.
   ///
   /// {@macro ZodArtType_coercion}
-  ZDateTime({bool coercion = false}) : this._new(coercion: coercion);
+  ///
+  /// {@macro ZodArtType_preParsers}
+  /// Example usage:
+  /// ```dart
+  /// ZDateTime(preParsers: [normalizeFormStringPreParser]);
+  /// ```
+  ZDateTime({bool coercion = false, List<ResProcessor<Object?>> preParsers = const []})
+    : this._new(coercion: coercion, preParsers: preParsers);
 
   /// Internal constructor that initializes the type with selected DateTime parser.
-  ZDateTime._new({required bool coercion})
-    : super._new(coercion ? Parsing.buildIn(parseDateTimeCoerce) : Parsing.buildIn(parseDateTime));
+  ZDateTime._new({required bool coercion, required List<ResProcessor<Object?>> preParsers})
+    : super._new(
+        coercion ? Parsing.buildIn(parseDateTimeCoerce) : Parsing.buildIn(parseDateTime),
+        preParsers: preParsers.map(PreProcessing.custom).toList(),
+      );
 
   /// Internal constructor that accepts a custom configuration.
   ///

@@ -10,11 +10,18 @@ part of 'types.dart';
 /// final result = boolVal.parse(true);
 /// ```
 class ZBool extends ZBase<bool> implements ZTransformations<bool, bool> {
-  /// Constructor that creates a new instance using the default configuration.
-  ZBool() : this._new();
+  /// Constructor that creates a new instance.
+  ///
+  /// {@macro ZodArtType_preParsers}
+  /// Example usage:
+  /// ```dart
+  /// ZBool(preParsers: [normalizeFormStringPreParser]);
+  /// ```
+  ZBool({List<ResProcessor<Object?>> preParsers = const []}) : this._new(preParsers: preParsers);
 
   /// Internal constructor that initializes with a default bool parser.
-  ZBool._new() : super._new(Parsing.buildIn(parseBool));
+  ZBool._new({required List<ResProcessor<Object?>> preParsers})
+    : super._new(Parsing.buildIn(parseBool), preParsers: preParsers.map(PreProcessing.custom).toList());
 
   /// Internal constructor that accepts a custom configuration.
   ///

@@ -13,11 +13,21 @@ class ZInt extends ZBase<int> implements ZTransformations<int, int> {
   /// Constructor that creates a new instance.
   ///
   /// {@macro ZodArtType_coercion}
-  ZInt({bool coercion = false}) : this._new(coercion: coercion);
+  ///
+  /// {@macro ZodArtType_preParsers}
+  /// Example usage:
+  /// ```dart
+  /// ZInt(preParsers: [normalizeFormStringPreParser]);
+  /// ```
+  ZInt({bool coercion = false, List<ResProcessor<Object?>> preParsers = const []})
+    : this._new(coercion: coercion, preParsers: preParsers);
 
   /// Internal constructor that initializes the type with selected int parser.
-  ZInt._new({required bool coercion})
-    : super._new(coercion ? Parsing.buildIn(parseIntCoerce) : Parsing.buildIn(parseInt));
+  ZInt._new({required bool coercion, required List<ResProcessor<Object?>> preParsers})
+    : super._new(
+        coercion ? Parsing.buildIn(parseIntCoerce) : Parsing.buildIn(parseInt),
+        preParsers: preParsers.map(PreProcessing.custom).toList(),
+      );
 
   /// Internal constructor that accepts a custom configuration.
   ///
