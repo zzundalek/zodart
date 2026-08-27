@@ -71,6 +71,12 @@ void main() {
       expect(result, "Datum musí být nejpozději '${issue.max.toLocal()}', ale je '${issue.val.toLocal()}'.");
     });
 
+    test('required returns correct message', () {
+      const issue = ZIssueRequired();
+      final result = localization.required(issue);
+      expect(result, 'Hodnota je povinná.');
+    });
+
     group('custom returns correct message', () {
       test('custom returns the message if set in the issue', () {
         expect(

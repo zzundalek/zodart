@@ -71,6 +71,12 @@ void main() {
       expect(result, '日付は「${issue.max.toLocal()}」以前である必要がありますが、「${issue.val.toLocal()}」が指定されました。');
     });
 
+    test('required returns correct message', () {
+      const issue = ZIssueRequired();
+      final result = localization.required(issue);
+      expect(result, '値は必須です。');
+    });
+
     group('custom returns correct message', () {
       test('custom returns the message if set in the issue', () {
         expect(

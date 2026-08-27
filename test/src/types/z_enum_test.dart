@@ -46,7 +46,7 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: Color, val: null)]),
+              (input: null, expected: const [ZIssueRequired()]),
             ],
           ),
           simpleEnumSchema,

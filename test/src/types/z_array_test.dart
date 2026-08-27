@@ -49,11 +49,7 @@ void main() {
         (
           input: ['String value', 'String value2', null, 'String value 4'],
           expected: [
-            const ZIssueParseFail(
-              from: Null,
-              to: String,
-              val: null,
-            ),
+            ZIssueRequired(rawPath: ZPath.index(2)),
           ],
         ),
       ];
@@ -66,7 +62,7 @@ void main() {
               ...baseInvalidInputs,
               (
                 input: null,
-                expected: const [ZIssueParseFail(from: Null, to: List<String>, val: null)],
+                expected: const [ZIssue.required()],
               ),
             ],
           ),

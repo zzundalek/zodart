@@ -163,6 +163,21 @@ class MockZIssueLocalization extends _i1.Mock implements _i2.ZIssueLocalization 
           as String);
 
   @override
+  String required(_i3.ZIssueRequired? issue) =>
+      (super.noSuchMethod(
+            Invocation.method(#required, [issue]),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#required, [issue]),
+            ),
+            returnValueForMissingStub: _i4.dummyValue<String>(
+              this,
+              Invocation.method(#required, [issue]),
+            ),
+          )
+          as String);
+
+  @override
   String custom(_i3.ZIssueCustom? issue) =>
       (super.noSuchMethod(
             Invocation.method(#custom, [issue]),

@@ -75,6 +75,11 @@ sealed class ZIssue with _$ZIssue {
     @Default(ZPath([])) ZPath rawPath,
   }) = ZIssueMaxDateTimeExceeded;
 
+  /// Issue indicating that the value is required.
+  const factory ZIssue.required({
+    @Default(ZPath([])) ZPath rawPath,
+  }) = ZIssueRequired;
+
   /// Custom issue used for user defined refinements etc.
   const factory ZIssue.custom({
     String? code,

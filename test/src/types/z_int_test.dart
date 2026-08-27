@@ -23,7 +23,7 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: int, val: null)]),
+              (input: null, expected: const [ZIssueRequired()]),
             ],
           ),
           ZInt(),
@@ -89,7 +89,7 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: int, val: null)]),
+              (input: null, expected: const [ZIssueRequired()]),
             ],
           ),
           ZInt(coercion: true),

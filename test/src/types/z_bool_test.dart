@@ -18,7 +18,7 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: bool, val: null)]),
+              (input: null, expected: const [ZIssueRequired()]),
             ],
           ),
           ZBool(),

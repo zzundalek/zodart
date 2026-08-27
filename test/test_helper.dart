@@ -73,8 +73,8 @@ void compareIssues(ZIssue e, ZIssue expectedIssue) {
 /// containing the input and the expected parsed result. Applies the `schema`
 /// to each input and verifies that parsing succeeds with the expected result.
 void testValidInputs(List<ValidInput> validInputs, ZBase<dynamic> schema) {
-  for (final (:input, :expected) in validInputs) {
-    test('Test a success. Input: "$input", expected: "$expected"', () {
+  for (final (index, (:input, :expected)) in validInputs.indexed) {
+    test('Test a valid input NO_$index. Input: "$input", expected: "$expected"', () {
       schema
           .parse(input)
           .match(
@@ -91,8 +91,8 @@ void testValidInputs(List<ValidInput> validInputs, ZBase<dynamic> schema) {
 /// containing the input and the expected parsed result. Applies the `schema`
 /// to each input and verifies that parsing error with the expected result.
 void testInvalidInputs(List<InvalidInput> invalidInputs, ZBase<dynamic> schema) {
-  for (final (:input, :expected) in invalidInputs) {
-    test('Test an error. Input: "$input", expected: "$expected"', () {
+  for (final (index, (:input, :expected)) in invalidInputs.indexed) {
+    test('Test a invalid input NO_$index. Input: "$input", expected: "$expected"', () {
       schema
           .parse(input)
           .match(

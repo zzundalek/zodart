@@ -32,6 +32,9 @@ abstract class ZIssueLocalization {
   /// Returns a localized message indicating that the date time value exceeds the maximum threshold.
   String maxDateTimeExceeded(ZIssueMaxDateTimeExceeded issue);
 
+  /// Returns a localized message for a required issue.
+  String required(ZIssueRequired issue);
+
   /// Returns a localized message for a custom issue.
   String custom(ZIssueCustom issue);
 }

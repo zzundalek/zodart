@@ -23,7 +23,7 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: DateTime, val: null)]),
+              (input: null, expected: const [ZIssueRequired()]),
             ],
           ),
           ZDateTime(),
@@ -86,7 +86,7 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: DateTime, val: null)]),
+              (input: null, expected: const [ZIssueRequired()]),
             ],
           ),
           ZDateTime(coercion: true),

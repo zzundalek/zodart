@@ -1,5 +1,6 @@
 ## UNRELEASED
 
+- 💥 Breaking change: parsers now return ZIssueRequired for null values instead of ZIssueParseFail
 - add coercion parameter for ZInt, ZDouble and ZDateTime
 - add methods to ZRes for issue fetching using ZPath
 

@@ -25,7 +25,7 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: double, val: null)]),
+              (input: null, expected: const [ZIssueRequired()]),
             ],
           ),
           ZDouble(),
@@ -93,7 +93,7 @@ void main() {
             validInputs: baseValidInputs,
             invalidInputs: [
               ...baseInvalidInputs,
-              (input: null, expected: const [ZIssueParseFail(from: Null, to: double, val: null)]),
+              (input: null, expected: const [ZIssueRequired()]),
             ],
           ),
           ZDouble(coercion: true),
