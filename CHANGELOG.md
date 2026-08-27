@@ -1,5 +1,6 @@
 ## UNRELEASED
 
+- add coercion parameter for ZInt, ZDouble and ZDateTime
 - add methods to ZRes for issue fetching using ZPath
 
 ## 1.7.0 - 2026-08-20
