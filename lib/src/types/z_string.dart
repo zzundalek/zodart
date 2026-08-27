@@ -10,11 +10,35 @@ part of 'types.dart';
 /// final result = stringVal.parse('ZodArt');
 /// ```
 class ZString extends ZBase<String> implements ZTransformations<String, String> {
-  /// Constructor that creates a new instance using the default configuration.
-  ZString() : this._new();
+  /// Constructor that creates a new instance.
+  ///
+  /// {@template ZodArtType_preParsers}
+  /// **PreParsers**
+  ///
+  /// A list of pre-parser functions, that will be executed in order before parsing.
+  /// The pre-parser function must return an instance of `ZRes<Object?>` and never throw.
+  ///
+  /// Example:
+  /// ```dart
+  /// ZRes<Object?> normalizeFormStringPreParser(Object? val) {
+  ///   if (val is String) {
+  ///     final trimmed = val.trim();
+  ///     return ZRes.success(trimmed.isNotEmpty ? trimmed : null);
+  ///   } else {
+  ///     return ZRes.success(val);
+  ///   }
+  /// }
+  /// ```
+  /// {@endtemplate}
+  /// Example usage:
+  /// ```dart
+  /// ZString(preParsers: [normalizeFormStringPreParser]);
+  /// ```
+  ZString({List<ResProcessor<Object?>> preParsers = const []}) : this._new(preParsers: preParsers);
 
   /// Internal constructor that initializes with a default String parser.
-  ZString._new() : super._new(Parsing.buildIn(parseString));
+  ZString._new({required List<ResProcessor<Object?>> preParsers})
+    : super._new(Parsing.buildIn(parseString), preParsers: preParsers.map(PreProcessing.custom).toList());
 
   /// Internal constructor that accepts a custom configuration.
   ///

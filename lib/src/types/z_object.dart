@@ -24,13 +24,35 @@ class ZObject<T extends Object> extends ZBase<T> implements ZTransformations<T, 
   ///
   /// Cross-field validators, if provided, operates on the default
   /// [ParsedFieldAccessor].
+  ///
+  /// **PreParsers**
+  ///
+  /// A list of pre-parser functions, that will be executed in order before parsing.
+  /// The pre-parser function must return an instance of `ZRes<Object?>` and never throw.
+  ///
+  /// Example:
+  /// ```dart
+  /// ZRes<Object?> convertNullToEmptyMap(Object? val) {
+  ///   if (val == null) {
+  ///     return ZRes.success(<String, dynamic>{});
+  ///   } else {
+  ///     return ZRes.success(val);
+  ///   }
+  /// }
+  /// ```
+  /// Example usage:
+  /// ```dart
+  /// ZObject.withMapper(schema, fromJson: fromJson, preParsers: [convertNullToEmptyMap]);
+  /// ```
   ZObject.withMapper(
     ZSchema schema, {
     required ObjectMapper<T> fromJson,
     List<CrossFieldValidator<ParsedFieldAccessor>> crossValidators = const [],
+    List<ResProcessor<Object?>> preParsers = const [],
   }) : this._new(
          schema: schema,
          mapper: fromJson,
+         preParsers: preParsers,
          crossFieldValidation: (
            parsedFieldAccessorFactory: ParsedFieldAccessor.new,
            crossValidators: crossValidators,
@@ -41,6 +63,7 @@ class ZObject<T extends Object> extends ZBase<T> implements ZTransformations<T, 
     required ZSchema schema,
     required ObjectMapper<T> mapper,
     required UnsafeCrossFieldValidation crossFieldValidation,
+    required List<ResProcessor<Object?>> preParsers,
   }) : super._new(
          Parsing.buildIn(
            parseObject<T>(
@@ -49,6 +72,7 @@ class ZObject<T extends Object> extends ZBase<T> implements ZTransformations<T, 
              crossFieldValidation: crossFieldValidation,
            ),
          ),
+         preParsers: preParsers.map(PreProcessing.custom).toList(),
        );
 
   /// Internal constructor that accepts a custom configuration.
@@ -71,9 +95,11 @@ class ZObject<T extends Object> extends ZBase<T> implements ZTransformations<T, 
     required ObjectMapper<T> fromJson,
     required List<CrossFieldValidator<G>> crossValidators,
     required ParsedFieldAccessorFactory<G> parsedFieldAccessorFactory,
+    List<ResProcessor<Object?>> preParsers = const [],
   }) => ZObject._new(
     schema: schema,
     mapper: fromJson,
+    preParsers: preParsers,
     crossFieldValidation: (
       parsedFieldAccessorFactory: parsedFieldAccessorFactory,
       crossValidators: crossValidators,

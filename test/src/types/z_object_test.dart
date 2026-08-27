@@ -582,4 +582,84 @@ void main() {
       });
     });
   });
+
+  group('preParser', () {
+    ({String? name, int? age}) simpleMapper(Map<String, dynamic> val) => (
+      name: val['name'],
+      age: val['age'],
+    );
+
+    group('required', () {
+      test('PreParsers are executed in right order and null is not shortcuted', () {
+        final preParsers = [
+          (Object? val) => val == null ? ZRes.success(<String, dynamic>{}) : ZRes.success(val),
+          (Object? val) => val is Map<String, dynamic> && !val.containsKey('name')
+              ? ZRes.success({...val, 'name': null})
+              : ZRes.success(val),
+          (Object? val) => val is Map<String, dynamic> && !val.containsKey('age')
+              ? ZRes.success({...val, 'age': null})
+              : ZRes.success(val),
+        ];
+
+        final zObject = ZObject.withMapper(
+          {
+            'name': ZString().nullable(),
+            'age': ZInt().nullable(),
+          },
+          fromJson: simpleMapper,
+          preParsers: preParsers,
+        );
+
+        final res = zObject.parse(null);
+        expect(res.isSuccess, isTrue);
+        expect(res.value, (name: null, age: null));
+      });
+      test('PreParser ZRes error is kept', () {
+        final preParsers = [
+          (Object? val) => val is! Map<String, dynamic>
+              ? ZRes<String>.errorSingleIssue(const ZIssueCustom(code: 'customError'))
+              : ZRes.success(val),
+        ];
+
+        final zObject = ZObject.withMapper(
+          {
+            'name': ZString().optional(),
+            'age': ZInt().optional(),
+          },
+          fromJson: simpleMapper,
+          preParsers: preParsers,
+        );
+
+        final res = zObject.parse('dummy');
+
+        expect(res.isError, true);
+        expect(res.rawIssues!.first, const ZIssueCustom(code: 'customError'));
+      });
+    });
+    group('nullable', () {
+      final preParsers = [
+        (Object? val) => val is Map<String, dynamic> && !val.containsKey('age')
+            ? ZRes.success({...val, 'age': 0})
+            : ZRes.success(val),
+      ];
+
+      final zObject = ZObject.withMapper(
+        {
+          'name': ZString().optional(),
+          'age': ZInt().nullable(),
+        },
+        fromJson: simpleMapper,
+        preParsers: preParsers,
+      );
+
+      test('PreParsers are executed', () {
+        final res = zObject.nullable().parse(<String, dynamic>{});
+        expect(res.value, (name: null, age: 0));
+      });
+      test('Null is propagated', () {
+        final res = zObject.nullable().parse(null);
+        expect(res.value, null);
+      });
+    });
+  });
 }

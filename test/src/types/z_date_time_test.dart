@@ -452,4 +452,43 @@ void main() {
       );
     });
   });
+
+  group('preParser', () {
+    group('required', () {
+      test('PreParsers are executed in right order and null is not shortcuted', () {
+        final preParsers = [
+          (Object? val) => val == null ? ZRes<DateTime>.success(DateTime(1990)) : ZRes.success(val),
+          (Object? val) => val is DateTime ? ZRes.success(val.add(const Duration(days: 1))) : ZRes.success(val),
+        ];
+
+        final res1 = ZDateTime(preParsers: preParsers).parse(null);
+        expect(res1.value, DateTime(1990, 1, 2));
+        final res2 = ZDateTime(preParsers: preParsers).parse(DateTime(1993, 2, 2));
+        expect(res2.value, DateTime(1993, 2, 3));
+      });
+
+      test('PreParser ZRes error is kept', () {
+        final preParsers = [
+          (Object? val) => ZRes<DateTime>.errorSingleIssue(const ZIssueCustom(code: 'customError')),
+        ];
+        final res = ZDateTime(preParsers: preParsers).parse('');
+        expect(res.isError, true);
+        expect(res.rawIssues!.first, const ZIssueCustom(code: 'customError'));
+      });
+    });
+    group('nullable', () {
+      final preParsers = [
+        (Object? val) => val is DateTime ? ZRes.success(val.add(const Duration(days: 1))) : ZRes.success(val),
+      ];
+
+      test('PreParsers are executed', () {
+        final res = ZDateTime(preParsers: preParsers).nullable().parse(DateTime(1990));
+        expect(res.value, DateTime(1990, 1, 2));
+      });
+      test('Null is propagated', () {
+        final res = ZDateTime(preParsers: preParsers).nullable().parse(null);
+        expect(res.value, null);
+      });
+    });
+  });
 }

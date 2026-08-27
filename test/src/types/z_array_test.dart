@@ -518,4 +518,57 @@ void main() {
       );
     });
   });
+
+  group('preParser', () {
+    group('required', () {
+      test('PreParsers are executed in right order and null is not shortcuted', () {
+        ZRes<Object?> convertNullToEmptyList(Object? val) {
+          if (val == null) {
+            return ZRes.success(<String>[]);
+          } else {
+            return ZRes.success(val);
+          }
+        }
+
+        final preParsers = [
+          convertNullToEmptyList,
+          (Object? val) => val is List<String> && val.isEmpty ? ZRes.success([...val, 'empty']) : ZRes.success(val),
+        ];
+
+        final zArray = ZArray(ZString(), preParsers: preParsers);
+
+        final res = zArray.parse(null);
+        expect(res.isSuccess, isTrue);
+        expect(res.value, equals(['empty']));
+      });
+      test('PreParser ZRes error is kept', () {
+        final preParsers = [
+          (Object? val) => val is! List<String>
+              ? ZRes<String>.errorSingleIssue(const ZIssueCustom(code: 'customError'))
+              : ZRes.success(val),
+        ];
+        final zArray = ZArray(ZString(), preParsers: preParsers);
+        final res1 = zArray.parse('error');
+        expect(res1.isError, isTrue);
+        expect(res1.rawIssues!.first, const ZIssueCustom(code: 'customError'));
+
+        final res2 = zArray.parse(['hello']);
+        expect(res2.isError, isFalse);
+      });
+    });
+    group('nullable', () {
+      final preParsers = [
+        (Object? val) => val is List<int> ? ZRes.success([1, ...val]) : ZRes.success(val),
+      ];
+
+      test('PreParsers are executed', () {
+        final res = ZArray(ZInt(), preParsers: preParsers).nullable().parse([2, 3]);
+        expect(res.value, [1, 2, 3]);
+      });
+      test('Null is propagated', () {
+        final res = ZArray(ZInt(), preParsers: preParsers).nullable().parse(null);
+        expect(res.value, null);
+      });
+    });
+  });
 }

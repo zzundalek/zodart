@@ -282,4 +282,50 @@ void main() {
       );
     });
   });
+
+  group('preParser', () {
+    group('required', () {
+      test('PreParsers are executed in right order and null is not shortcuted', () {
+        final preParsers = [
+          (Object? val) => val == null ? ZRes.success(false) : ZRes.success(val),
+          (Object? val) => val is bool ? ZRes.success(!val) : ZRes.success(val),
+        ];
+
+        final res1 = ZBool(preParsers: preParsers).parse(null);
+        expect(res1.value, true);
+        final res2 = ZBool(preParsers: preParsers).parse(true);
+        expect(res2.value, false);
+      });
+
+      test('PreParser ZRes error is kept', () {
+        final preParsers = [
+          (Object? val) => val is String && val == 'error'
+              ? ZRes<String>.errorSingleIssue(const ZIssueCustom(code: 'customError'))
+              : ZRes.success(val),
+        ];
+        final res = ZBool(preParsers: preParsers).parse('error');
+        expect(res.isError, true);
+        expect(res.rawIssues!.first, const ZIssueCustom(code: 'customError'));
+      });
+    });
+    group('nullable', () {
+      final preParsers = [
+        (Object? val) => val is String
+            ? val == 'true'
+                  ? ZRes.success(true)
+                  : ZRes.success(false)
+            : ZRes.success(val),
+        (Object? val) => val is bool ? ZRes.success(!val) : ZRes.success(val),
+      ];
+
+      test('PreParsers are executed', () {
+        final res = ZBool(preParsers: preParsers).nullable().parse('true');
+        expect(res.value, false);
+      });
+      test('Null is propagated', () {
+        final res = ZBool(preParsers: preParsers).nullable().parse(null);
+        expect(res.value, null);
+      });
+    });
+  });
 }

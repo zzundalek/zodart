@@ -73,6 +73,22 @@ class Processing<T> extends Operation<T, T> {
   Processing(ResProcessor<T> p, {required bool isUserDefined}) : super(p, isUserDefined: isUserDefined);
 }
 
+/// A Wrapper for pre-processing unknown value into a new value.
+///
+/// This operation is NOT short-circuited.
+///
+/// Extends [Processing].
+class PreProcessing extends Processing<Object?> {
+  /// Creates a [PreProcessing] using the provided [p] function.
+  ///
+  /// Using a custom function provided by the consumer.
+  PreProcessing.custom(ResProcessor<Object?> p) : super(p, isUserDefined: true);
+
+  @override
+  ConfiguredTransformer<Object?, Object?> get fn =>
+      (_) => _fn;
+}
+
 /// A type-safe transformation from [From] to [To].
 ///
 /// This operation is short-circuited if the input value is `null`.

@@ -9,7 +9,8 @@ part of 'types.dart';
 /// Not intended to be used directly. Use one of the schema constructors
 /// (e.g., `ZString()`, etc.) to create schemas.
 sealed class ZBase<T> {
-  ZBase._new(Operation<Object?, dynamic> parse) : _config = ZBaseConfig(fns: [parse]);
+  ZBase._new(Operation<Object?, dynamic> parse, {required List<PreProcessing> preParsers})
+    : _config = ZBaseConfig(fns: [...preParsers, parse]);
   ZBase._withConfig(ZBaseConfig config) : _config = config;
 
   final ZBaseConfig _config;

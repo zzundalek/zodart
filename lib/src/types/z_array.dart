@@ -11,9 +11,35 @@ part of 'types.dart';
 /// ```
 class ZArray<T> extends ZBase<List<T>> implements ZTransformations<List<T>, List<T>> {
   /// Constructor that creates a new instance using the given [schema] for parsing.
-  ZArray(ZBase<T> schema) : this._new(schema);
+  ///
+  ///
+  /// **PreParsers**
+  ///
+  /// A list of pre-parser functions, that will be executed in order before parsing.
+  /// The pre-parser function must return an instance of `ZRes<Object?>` and never throw.
+  ///
+  /// Example:
+  /// ```dart
+  /// ZRes<Object?> convertNullToEmptyList(Object? val) {
+  ///   if (val == null) {
+  ///     return ZRes.success(<String>[]);
+  ///   } else {
+  ///     return ZRes.success(val);
+  ///   }
+  /// }
+  /// ```
+  /// Example usage:
+  /// ```dart
+  /// ZArray(ZString(), preParsers: [convertNullToEmptyList]);
+  /// ```
+  ZArray(ZBase<T> schema, {List<ResProcessor<Object?>> preParsers = const []})
+    : this._new(schema, preParsers: preParsers);
 
-  ZArray._new(ZBase<T> schema) : super._new(Parsing.buildIn(parseArray<T>(schema)));
+  ZArray._new(ZBase<T> schema, {required List<ResProcessor<Object?>> preParsers})
+    : super._new(
+        Parsing.buildIn(parseArray<T>(schema)),
+        preParsers: preParsers.map(PreProcessing.custom).toList(),
+      );
 
   /// Internal constructor that accepts a custom configuration.
   ///
