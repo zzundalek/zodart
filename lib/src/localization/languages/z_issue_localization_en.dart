@@ -39,5 +39,8 @@ class ZIssueLocalizationEn implements ZIssueLocalization {
       "The date must be on or before '${issue.max.toLocal()}', but got '${issue.val.toLocal()}'.";
 
   @override
+  String required(ZIssueRequired issue) => 'Value is required.';
+
+  @override
   String custom(ZIssueCustom issue) => issue.message ?? 'The value is invalid.';
 }

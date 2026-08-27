@@ -95,7 +95,7 @@ extension ZIssuePatterns on ZIssue {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ZIssueLengthNotMet value)?  lengthNotMet,TResult Function( ZIssueMinLengthNotMet value)?  minLengthNotMet,TResult Function( ZIssueMaxLengthExceeded value)?  maxLengthExceeded,TResult Function( ZIssueMinNotMet value)?  minNotMet,TResult Function( ZIssueMaxExceeded value)?  maxExceeded,TResult Function( ZIssueParseFail value)?  parseFail,TResult Function( ZIssueMissingValue value)?  missingValue,TResult Function( ZIssueMinDateTimeNotMet value)?  minDateNotMet,TResult Function( ZIssueMaxDateTimeExceeded value)?  maxDateExceeded,TResult Function( ZIssueCustom value)?  custom,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ZIssueLengthNotMet value)?  lengthNotMet,TResult Function( ZIssueMinLengthNotMet value)?  minLengthNotMet,TResult Function( ZIssueMaxLengthExceeded value)?  maxLengthExceeded,TResult Function( ZIssueMinNotMet value)?  minNotMet,TResult Function( ZIssueMaxExceeded value)?  maxExceeded,TResult Function( ZIssueParseFail value)?  parseFail,TResult Function( ZIssueMissingValue value)?  missingValue,TResult Function( ZIssueMinDateTimeNotMet value)?  minDateNotMet,TResult Function( ZIssueMaxDateTimeExceeded value)?  maxDateExceeded,TResult Function( ZIssueRequired value)?  required,TResult Function( ZIssueCustom value)?  custom,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case ZIssueLengthNotMet() when lengthNotMet != null:
@@ -107,7 +107,8 @@ return maxExceeded(_that);case ZIssueParseFail() when parseFail != null:
 return parseFail(_that);case ZIssueMissingValue() when missingValue != null:
 return missingValue(_that);case ZIssueMinDateTimeNotMet() when minDateNotMet != null:
 return minDateNotMet(_that);case ZIssueMaxDateTimeExceeded() when maxDateExceeded != null:
-return maxDateExceeded(_that);case ZIssueCustom() when custom != null:
+return maxDateExceeded(_that);case ZIssueRequired() when required != null:
+return required(_that);case ZIssueCustom() when custom != null:
 return custom(_that);case _:
   return orElse();
 
@@ -126,7 +127,7 @@ return custom(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ZIssueLengthNotMet value)  lengthNotMet,required TResult Function( ZIssueMinLengthNotMet value)  minLengthNotMet,required TResult Function( ZIssueMaxLengthExceeded value)  maxLengthExceeded,required TResult Function( ZIssueMinNotMet value)  minNotMet,required TResult Function( ZIssueMaxExceeded value)  maxExceeded,required TResult Function( ZIssueParseFail value)  parseFail,required TResult Function( ZIssueMissingValue value)  missingValue,required TResult Function( ZIssueMinDateTimeNotMet value)  minDateNotMet,required TResult Function( ZIssueMaxDateTimeExceeded value)  maxDateExceeded,required TResult Function( ZIssueCustom value)  custom,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ZIssueLengthNotMet value)  lengthNotMet,required TResult Function( ZIssueMinLengthNotMet value)  minLengthNotMet,required TResult Function( ZIssueMaxLengthExceeded value)  maxLengthExceeded,required TResult Function( ZIssueMinNotMet value)  minNotMet,required TResult Function( ZIssueMaxExceeded value)  maxExceeded,required TResult Function( ZIssueParseFail value)  parseFail,required TResult Function( ZIssueMissingValue value)  missingValue,required TResult Function( ZIssueMinDateTimeNotMet value)  minDateNotMet,required TResult Function( ZIssueMaxDateTimeExceeded value)  maxDateExceeded,required TResult Function( ZIssueRequired value)  required,required TResult Function( ZIssueCustom value)  custom,}){
 final _that = this;
 switch (_that) {
 case ZIssueLengthNotMet():
@@ -138,7 +139,8 @@ return maxExceeded(_that);case ZIssueParseFail():
 return parseFail(_that);case ZIssueMissingValue():
 return missingValue(_that);case ZIssueMinDateTimeNotMet():
 return minDateNotMet(_that);case ZIssueMaxDateTimeExceeded():
-return maxDateExceeded(_that);case ZIssueCustom():
+return maxDateExceeded(_that);case ZIssueRequired():
+return required(_that);case ZIssueCustom():
 return custom(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -153,7 +155,7 @@ return custom(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ZIssueLengthNotMet value)?  lengthNotMet,TResult? Function( ZIssueMinLengthNotMet value)?  minLengthNotMet,TResult? Function( ZIssueMaxLengthExceeded value)?  maxLengthExceeded,TResult? Function( ZIssueMinNotMet value)?  minNotMet,TResult? Function( ZIssueMaxExceeded value)?  maxExceeded,TResult? Function( ZIssueParseFail value)?  parseFail,TResult? Function( ZIssueMissingValue value)?  missingValue,TResult? Function( ZIssueMinDateTimeNotMet value)?  minDateNotMet,TResult? Function( ZIssueMaxDateTimeExceeded value)?  maxDateExceeded,TResult? Function( ZIssueCustom value)?  custom,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ZIssueLengthNotMet value)?  lengthNotMet,TResult? Function( ZIssueMinLengthNotMet value)?  minLengthNotMet,TResult? Function( ZIssueMaxLengthExceeded value)?  maxLengthExceeded,TResult? Function( ZIssueMinNotMet value)?  minNotMet,TResult? Function( ZIssueMaxExceeded value)?  maxExceeded,TResult? Function( ZIssueParseFail value)?  parseFail,TResult? Function( ZIssueMissingValue value)?  missingValue,TResult? Function( ZIssueMinDateTimeNotMet value)?  minDateNotMet,TResult? Function( ZIssueMaxDateTimeExceeded value)?  maxDateExceeded,TResult? Function( ZIssueRequired value)?  required,TResult? Function( ZIssueCustom value)?  custom,}){
 final _that = this;
 switch (_that) {
 case ZIssueLengthNotMet() when lengthNotMet != null:
@@ -165,7 +167,8 @@ return maxExceeded(_that);case ZIssueParseFail() when parseFail != null:
 return parseFail(_that);case ZIssueMissingValue() when missingValue != null:
 return missingValue(_that);case ZIssueMinDateTimeNotMet() when minDateNotMet != null:
 return minDateNotMet(_that);case ZIssueMaxDateTimeExceeded() when maxDateExceeded != null:
-return maxDateExceeded(_that);case ZIssueCustom() when custom != null:
+return maxDateExceeded(_that);case ZIssueRequired() when required != null:
+return required(_that);case ZIssueCustom() when custom != null:
 return custom(_that);case _:
   return null;
 
@@ -183,7 +186,7 @@ return custom(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int expectedLength,  int actualLength,  ZPath rawPath)?  lengthNotMet,TResult Function( int minLength,  int actualLength,  ZPath rawPath)?  minLengthNotMet,TResult Function( int maxLength,  int actualLength,  ZPath rawPath)?  maxLengthExceeded,TResult Function( num min,  num val,  ZPath rawPath)?  minNotMet,TResult Function( num max,  num val,  ZPath rawPath)?  maxExceeded,TResult Function( Type from,  Type to,  dynamic val,  Object? throwable,  ZPath rawPath)?  parseFail,TResult Function( ZPath rawPath,  Object? throwable)?  missingValue,TResult Function( DateTime min,  DateTime val,  ZPath rawPath)?  minDateNotMet,TResult Function( DateTime max,  DateTime val,  ZPath rawPath)?  maxDateExceeded,TResult Function( String? code,  String? message,  Object? throwable,  ZPath rawPath)?  custom,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int expectedLength,  int actualLength,  ZPath rawPath)?  lengthNotMet,TResult Function( int minLength,  int actualLength,  ZPath rawPath)?  minLengthNotMet,TResult Function( int maxLength,  int actualLength,  ZPath rawPath)?  maxLengthExceeded,TResult Function( num min,  num val,  ZPath rawPath)?  minNotMet,TResult Function( num max,  num val,  ZPath rawPath)?  maxExceeded,TResult Function( Type from,  Type to,  dynamic val,  Object? throwable,  ZPath rawPath)?  parseFail,TResult Function( ZPath rawPath,  Object? throwable)?  missingValue,TResult Function( DateTime min,  DateTime val,  ZPath rawPath)?  minDateNotMet,TResult Function( DateTime max,  DateTime val,  ZPath rawPath)?  maxDateExceeded,TResult Function( ZPath rawPath)?  required,TResult Function( String? code,  String? message,  Object? throwable,  ZPath rawPath)?  custom,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ZIssueLengthNotMet() when lengthNotMet != null:
 return lengthNotMet(_that.expectedLength,_that.actualLength,_that.rawPath);case ZIssueMinLengthNotMet() when minLengthNotMet != null:
@@ -194,7 +197,8 @@ return maxExceeded(_that.max,_that.val,_that.rawPath);case ZIssueParseFail() whe
 return parseFail(_that.from,_that.to,_that.val,_that.throwable,_that.rawPath);case ZIssueMissingValue() when missingValue != null:
 return missingValue(_that.rawPath,_that.throwable);case ZIssueMinDateTimeNotMet() when minDateNotMet != null:
 return minDateNotMet(_that.min,_that.val,_that.rawPath);case ZIssueMaxDateTimeExceeded() when maxDateExceeded != null:
-return maxDateExceeded(_that.max,_that.val,_that.rawPath);case ZIssueCustom() when custom != null:
+return maxDateExceeded(_that.max,_that.val,_that.rawPath);case ZIssueRequired() when required != null:
+return required(_that.rawPath);case ZIssueCustom() when custom != null:
 return custom(_that.code,_that.message,_that.throwable,_that.rawPath);case _:
   return orElse();
 
@@ -213,7 +217,7 @@ return custom(_that.code,_that.message,_that.throwable,_that.rawPath);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int expectedLength,  int actualLength,  ZPath rawPath)  lengthNotMet,required TResult Function( int minLength,  int actualLength,  ZPath rawPath)  minLengthNotMet,required TResult Function( int maxLength,  int actualLength,  ZPath rawPath)  maxLengthExceeded,required TResult Function( num min,  num val,  ZPath rawPath)  minNotMet,required TResult Function( num max,  num val,  ZPath rawPath)  maxExceeded,required TResult Function( Type from,  Type to,  dynamic val,  Object? throwable,  ZPath rawPath)  parseFail,required TResult Function( ZPath rawPath,  Object? throwable)  missingValue,required TResult Function( DateTime min,  DateTime val,  ZPath rawPath)  minDateNotMet,required TResult Function( DateTime max,  DateTime val,  ZPath rawPath)  maxDateExceeded,required TResult Function( String? code,  String? message,  Object? throwable,  ZPath rawPath)  custom,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int expectedLength,  int actualLength,  ZPath rawPath)  lengthNotMet,required TResult Function( int minLength,  int actualLength,  ZPath rawPath)  minLengthNotMet,required TResult Function( int maxLength,  int actualLength,  ZPath rawPath)  maxLengthExceeded,required TResult Function( num min,  num val,  ZPath rawPath)  minNotMet,required TResult Function( num max,  num val,  ZPath rawPath)  maxExceeded,required TResult Function( Type from,  Type to,  dynamic val,  Object? throwable,  ZPath rawPath)  parseFail,required TResult Function( ZPath rawPath,  Object? throwable)  missingValue,required TResult Function( DateTime min,  DateTime val,  ZPath rawPath)  minDateNotMet,required TResult Function( DateTime max,  DateTime val,  ZPath rawPath)  maxDateExceeded,required TResult Function( ZPath rawPath)  required,required TResult Function( String? code,  String? message,  Object? throwable,  ZPath rawPath)  custom,}) {final _that = this;
 switch (_that) {
 case ZIssueLengthNotMet():
 return lengthNotMet(_that.expectedLength,_that.actualLength,_that.rawPath);case ZIssueMinLengthNotMet():
@@ -224,7 +228,8 @@ return maxExceeded(_that.max,_that.val,_that.rawPath);case ZIssueParseFail():
 return parseFail(_that.from,_that.to,_that.val,_that.throwable,_that.rawPath);case ZIssueMissingValue():
 return missingValue(_that.rawPath,_that.throwable);case ZIssueMinDateTimeNotMet():
 return minDateNotMet(_that.min,_that.val,_that.rawPath);case ZIssueMaxDateTimeExceeded():
-return maxDateExceeded(_that.max,_that.val,_that.rawPath);case ZIssueCustom():
+return maxDateExceeded(_that.max,_that.val,_that.rawPath);case ZIssueRequired():
+return required(_that.rawPath);case ZIssueCustom():
 return custom(_that.code,_that.message,_that.throwable,_that.rawPath);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -239,7 +244,7 @@ return custom(_that.code,_that.message,_that.throwable,_that.rawPath);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int expectedLength,  int actualLength,  ZPath rawPath)?  lengthNotMet,TResult? Function( int minLength,  int actualLength,  ZPath rawPath)?  minLengthNotMet,TResult? Function( int maxLength,  int actualLength,  ZPath rawPath)?  maxLengthExceeded,TResult? Function( num min,  num val,  ZPath rawPath)?  minNotMet,TResult? Function( num max,  num val,  ZPath rawPath)?  maxExceeded,TResult? Function( Type from,  Type to,  dynamic val,  Object? throwable,  ZPath rawPath)?  parseFail,TResult? Function( ZPath rawPath,  Object? throwable)?  missingValue,TResult? Function( DateTime min,  DateTime val,  ZPath rawPath)?  minDateNotMet,TResult? Function( DateTime max,  DateTime val,  ZPath rawPath)?  maxDateExceeded,TResult? Function( String? code,  String? message,  Object? throwable,  ZPath rawPath)?  custom,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int expectedLength,  int actualLength,  ZPath rawPath)?  lengthNotMet,TResult? Function( int minLength,  int actualLength,  ZPath rawPath)?  minLengthNotMet,TResult? Function( int maxLength,  int actualLength,  ZPath rawPath)?  maxLengthExceeded,TResult? Function( num min,  num val,  ZPath rawPath)?  minNotMet,TResult? Function( num max,  num val,  ZPath rawPath)?  maxExceeded,TResult? Function( Type from,  Type to,  dynamic val,  Object? throwable,  ZPath rawPath)?  parseFail,TResult? Function( ZPath rawPath,  Object? throwable)?  missingValue,TResult? Function( DateTime min,  DateTime val,  ZPath rawPath)?  minDateNotMet,TResult? Function( DateTime max,  DateTime val,  ZPath rawPath)?  maxDateExceeded,TResult? Function( ZPath rawPath)?  required,TResult? Function( String? code,  String? message,  Object? throwable,  ZPath rawPath)?  custom,}) {final _that = this;
 switch (_that) {
 case ZIssueLengthNotMet() when lengthNotMet != null:
 return lengthNotMet(_that.expectedLength,_that.actualLength,_that.rawPath);case ZIssueMinLengthNotMet() when minLengthNotMet != null:
@@ -250,7 +255,8 @@ return maxExceeded(_that.max,_that.val,_that.rawPath);case ZIssueParseFail() whe
 return parseFail(_that.from,_that.to,_that.val,_that.throwable,_that.rawPath);case ZIssueMissingValue() when missingValue != null:
 return missingValue(_that.rawPath,_that.throwable);case ZIssueMinDateTimeNotMet() when minDateNotMet != null:
 return minDateNotMet(_that.min,_that.val,_that.rawPath);case ZIssueMaxDateTimeExceeded() when maxDateExceeded != null:
-return maxDateExceeded(_that.max,_that.val,_that.rawPath);case ZIssueCustom() when custom != null:
+return maxDateExceeded(_that.max,_that.val,_that.rawPath);case ZIssueRequired() when required != null:
+return required(_that.rawPath);case ZIssueCustom() when custom != null:
 return custom(_that.code,_that.message,_that.throwable,_that.rawPath);case _:
   return null;
 
@@ -954,6 +960,81 @@ class _$ZIssueMaxDateTimeExceededCopyWithImpl<$Res>
 max: null == max ? _self.max : max // ignore: cast_nullable_to_non_nullable
 as DateTime,val: null == val ? _self.val : val // ignore: cast_nullable_to_non_nullable
 as DateTime,rawPath: null == rawPath ? _self.rawPath : rawPath // ignore: cast_nullable_to_non_nullable
+as ZPath,
+  ));
+}
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ZPathCopyWith<$Res> get rawPath {
+  
+  return $ZPathCopyWith<$Res>(_self.rawPath, (value) {
+    return _then(_self.copyWith(rawPath: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class ZIssueRequired extends ZIssue {
+  const ZIssueRequired({this.rawPath = const ZPath([])}): super._();
+  
+
+@override@JsonKey() final  ZPath rawPath;
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ZIssueRequiredCopyWith<ZIssueRequired> get copyWith => _$ZIssueRequiredCopyWithImpl<ZIssueRequired>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ZIssueRequired&&(identical(other.rawPath, rawPath) || other.rawPath == rawPath));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,rawPath);
+
+@override
+String toString() {
+  return 'ZIssue.required(rawPath: $rawPath)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ZIssueRequiredCopyWith<$Res> implements $ZIssueCopyWith<$Res> {
+  factory $ZIssueRequiredCopyWith(ZIssueRequired value, $Res Function(ZIssueRequired) _then) = _$ZIssueRequiredCopyWithImpl;
+@override @useResult
+$Res call({
+ ZPath rawPath
+});
+
+
+@override $ZPathCopyWith<$Res> get rawPath;
+
+}
+/// @nodoc
+class _$ZIssueRequiredCopyWithImpl<$Res>
+    implements $ZIssueRequiredCopyWith<$Res> {
+  _$ZIssueRequiredCopyWithImpl(this._self, this._then);
+
+  final ZIssueRequired _self;
+  final $Res Function(ZIssueRequired) _then;
+
+/// Create a copy of ZIssue
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? rawPath = null,}) {
+  return _then(ZIssueRequired(
+rawPath: null == rawPath ? _self.rawPath : rawPath // ignore: cast_nullable_to_non_nullable
 as ZPath,
   ));
 }

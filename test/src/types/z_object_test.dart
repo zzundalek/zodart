@@ -92,10 +92,7 @@ void main() {
             'nullableInt': null,
           },
           expected: [
-            ZIssueParseFail(
-              from: Null,
-              to: int,
-              val: null,
+            ZIssueRequired(
               rawPath: ZPath.property('reqInt'),
             ),
           ],
@@ -130,7 +127,7 @@ void main() {
               ...baseInvalidInputs,
               (
                 input: null,
-                expected: const [ZIssueParseFail(from: Null, to: TestObject, val: null)],
+                expected: const [ZIssueRequired()],
               ),
             ],
           ),

@@ -42,5 +42,8 @@ class ZIssueLocalizationCs implements ZIssueLocalization {
       "Datum musí být nejpozději '${issue.max.toLocal()}', ale je '${issue.val.toLocal()}'.";
 
   @override
+  String required(ZIssueRequired issue) => 'Hodnota je povinná.';
+
+  @override
   String custom(ZIssueCustom issue) => issue.message ?? 'Hodnota je neplatná.';
 }

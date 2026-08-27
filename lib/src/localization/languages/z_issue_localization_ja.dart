@@ -39,5 +39,8 @@ class ZIssueLocalizationJa implements ZIssueLocalization {
       '日付は「${issue.max.toLocal()}」以前である必要がありますが、「${issue.val.toLocal()}」が指定されました。';
 
   @override
+  String required(ZIssueRequired issue) => '値は必須です。';
+
+  @override
   String custom(ZIssueCustom issue) => issue.message ?? '値が無効です。';
 }

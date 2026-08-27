@@ -9,6 +9,7 @@ import 'modifiers.dart';
 /// Strictly parses [val] as type [T].
 ///
 /// Returns a successful [ZRes] containing [val] if it is of type [T].
+/// If the value is null, returns a [ZRes] with a single parse failure [ZIssueRequired].
 /// Otherwise, returns a [ZRes] with a single parse failure [ZIssueParseFail].
 ///
 /// This function performs a runtime type check and does not perform any type coercion.
@@ -18,8 +19,14 @@ import 'modifiers.dart';
 /// parseStrict<int>(42); // Success with value 42
 /// parseStrict<int>('42'); // Error with parse failure
 /// ```
-ZRes<T> parseStrict<T>(Object? val) =>
-    val is T ? ZRes.success(val) : ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val));
+ZRes<T> parseStrict<T>(Object? val) {
+  if (val == null) {
+    return ZRes.errorSingleIssue(const ZIssue.required());
+  }
+  return val is T
+      ? ZRes.success(val as T)
+      : ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val));
+}
 
 /// Parses [val] as an [int], allowing lossless coercion from supported types.
 ///
@@ -140,6 +147,7 @@ ZRes<T> Function(Object?) parseObject<T>({
       val: val,
       crossFieldValidationExecutor: crossFieldValidationExecutor(crossFieldValidation),
     ),
+    null => ZRes.errorSingleIssue(const ZIssueRequired()),
     _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
   };
 };
@@ -199,6 +207,7 @@ ZRes<T> parseObjectFromMap<T>({
 ZRes<List<T>> Function(Object?) parseArray<T>(ZBase<T> schema) => (val) {
   return switch (val) {
     final List<dynamic> val => parseArrayFromList(values: val, schema: schema),
+    null => ZRes.errorSingleIssue(const ZIssueRequired()),
     _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: List<T>, val: val)),
   };
 };
@@ -240,6 +249,7 @@ ZRes<T> Function(Object? val) parseEnum<T extends Enum>(List<T> enumValues) =>
     (val) => switch (val) {
       final T enumValue => ZRes.success(enumValue),
       final String stringValue => _parseEnumFromString(stringValue, enumValues),
+      null => ZRes.errorSingleIssue(const ZIssueRequired()),
       _ => ZRes.errorSingleIssue(ZIssueParseFail(from: val.runtimeType, to: T, val: val)),
     };
 
