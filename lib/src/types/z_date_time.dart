@@ -10,11 +10,14 @@ part of 'types.dart';
 /// final result = dateTimeVal.parse(DateTime.now());
 /// ```
 class ZDateTime extends ZBase<DateTime> implements ZTransformations<DateTime, DateTime> {
-  /// Constructor that creates a new instance using the default configuration.
-  ZDateTime() : this._new();
+  /// Constructor that creates a new instance.
+  ///
+  /// {@macro ZodArtType_coercion}
+  ZDateTime({bool coercion = false}) : this._new(coercion: coercion);
 
-  /// Internal constructor that initializes with a default DateTime parser.
-  ZDateTime._new() : super._new(Parsing.buildIn(parseDateTime));
+  /// Internal constructor that initializes the type with selected DateTime parser.
+  ZDateTime._new({required bool coercion})
+    : super._new(coercion ? Parsing.buildIn(parseDateTimeCoerce) : Parsing.buildIn(parseDateTime));
 
   /// Internal constructor that accepts a custom configuration.
   ///

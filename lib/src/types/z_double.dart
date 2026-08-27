@@ -10,11 +10,21 @@ part of 'types.dart';
 /// final result = doubleVal.parse(1.0);
 /// ```
 class ZDouble extends ZBase<double> implements ZTransformations<double, double> {
-  /// Constructor that creates a new instance using the default configuration.
-  ZDouble() : this._new();
+  /// Constructor that creates a new instance.
+  ///
+  /// {@template ZodArtType_coercion}
+  /// **Coercion**
+  ///
+  /// Flag to turn on automatic type conversion between compatible types. Turned off by default.
+  /// Executes only losseless coversions.
+  /// {@endtemplate}
+  ZDouble({bool coercion = false}) : this._new(coercion: coercion);
 
-  /// Internal constructor that initializes with a default double parser.
-  ZDouble._new() : super._new(Parsing.buildIn(parseDouble));
+  /// Internal constructor that initializes the type with selected double parser.
+  ZDouble._new({required bool coercion})
+    : super._new(
+        coercion ? Parsing.buildIn(parseDoubleCoerce) : Parsing.buildIn(parseDouble),
+      );
 
   /// Internal constructor that accepts a custom configuration.
   ///

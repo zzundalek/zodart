@@ -10,11 +10,14 @@ part of 'types.dart';
 /// final result = intVal.parse(1);
 /// ```
 class ZInt extends ZBase<int> implements ZTransformations<int, int> {
-  /// Constructor that creates a new instance using the default configuration.
-  ZInt() : this._new();
+  /// Constructor that creates a new instance.
+  ///
+  /// {@macro ZodArtType_coercion}
+  ZInt({bool coercion = false}) : this._new(coercion: coercion);
 
-  /// Internal constructor that initializes with a default integer parser.
-  ZInt._new() : super._new(Parsing.buildIn(parseInt));
+  /// Internal constructor that initializes the type with selected int parser.
+  ZInt._new({required bool coercion})
+    : super._new(coercion ? Parsing.buildIn(parseIntCoerce) : Parsing.buildIn(parseInt));
 
   /// Internal constructor that accepts a custom configuration.
   ///

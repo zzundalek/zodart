@@ -66,6 +66,69 @@ void main() {
         );
       });
     });
+    group('coerce', () {
+      final baseValidInputs = <ValidInput>[
+        (input: DateTime(2012, 2, 27), expected: DateTime(2012, 2, 27)),
+        (input: DateTime(2016, 2, 27, 10, 30), expected: DateTime(2016, 2, 27, 10, 30)),
+        (input: '2012-02-27', expected: DateTime(2012, 2, 27)),
+        (input: '2012-02-27 13:27:00', expected: DateTime(2012, 2, 27, 13, 27)),
+      ];
+      const baseInvalidInputs = <InvalidInput>[
+        (input: 'ZodArt', expected: [ZIssueParseFail(from: String, to: DateTime, val: 'ZodArt')]),
+        (input: 1, expected: [ZIssueParseFail(from: int, to: DateTime, val: 1)]),
+        (input: 1.1, expected: [ZIssueParseFail(from: double, to: DateTime, val: 1.1)]),
+        (input: emptyObject, expected: [ZIssueParseFail(from: Object, to: DateTime, val: emptyObject)]),
+      ];
+
+      group('required', () {
+        testInputs(
+          (
+            validInputs: baseValidInputs,
+            invalidInputs: [
+              ...baseInvalidInputs,
+              (input: null, expected: const [ZIssueParseFail(from: Null, to: DateTime, val: null)]),
+            ],
+          ),
+          ZDateTime(coercion: true),
+        );
+      });
+      group('nullable', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime(coercion: true).nullable(),
+        );
+      });
+      group('optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime(coercion: true).optional(),
+        );
+      });
+      group('nullable -> optional', () {
+        testInputs(
+          (
+            validInputs: [
+              ...baseValidInputs,
+              (input: null, expected: null),
+            ],
+            invalidInputs: baseInvalidInputs,
+          ),
+          ZDateTime(coercion: true).nullable().optional(),
+        );
+      });
+    });
   });
   group('min', () {
     final min = DateTime(2024, 3, 25);
